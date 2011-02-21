@@ -1,0 +1,19 @@
+code {
+    color: #452745;
+}
+
+.token-keyword {
+    color: #926fa7;
+}
+
+.token-id {
+    color: #3b6898;
+}
+
+.token-string {
+    color: #71986a;
+}
+
+.token-variable {
+    color: #b97e3d;
+}
