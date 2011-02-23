@@ -365,8 +365,8 @@ event('hoa://Event/Log/Test/Praspel')->attach(
         &lt;p&gt;&lt;value bind="?pseudo" /&gt; dit :&lt;/p&gt;
         &lt;blockquote bind="?message" /&gt;
       &lt;/box&gt;
-      &lt;hseparator /&gt;
     &lt;/yield&gt;
+    &lt;hseparator /&gt;
   &lt;/yield&gt;
 &lt;/definition&gt;</blockcode>
         <p>Mais <em>XYL</em> propose également un système d'<em>overlay</em>,
