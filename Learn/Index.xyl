@@ -464,5 +464,182 @@ event('hoa://Event/Log/Test/Praspel')->attach(
 
   <section1 id="Demarrage_rapide" for="main-toc">
     <title>Démarrage rapide</title>
+
+    <p>La majorité des lectrices et lecteurs de ce manuel veulent utiliser le
+    maximum de ce que Hoa propose, à savoir la combinaison ensemble de
+    bibliothèque et framework. C'est pourquoi on va donner un exemple simple
+    d'une petite application.</p>
+
+    <section2 id="Installer_Hoa" for="main-toc">
+      <title>Installer Hoa</title>
+
+      <p>Il existe différente manière d'installer Hoa : soit à travers les
+      archives, soit à travers
+      <link href="http://mercurial.selenic.com/">Mercurial</link>. Ce dernier
+      permet des mises à jour plus aisées, il est par conséquent conseillé.
+      Ainsi :</p>
+      <blockcode language="shell">$ mkdir -p ~/Development/Hoa/
+$ cd !!$
+$ hg clone http://hg.hoa-project.net/Central</blockcode>
+      <p>Nous y sommes : Hoa est installé. Toutefois, pensons à vérifier que PHP
+      est bien installé également et que sa version est supérieure ou égale à
+      5.3.0, alors :</p>
+      <blockcode language="shell">$ which php
+/usr/bin/php
+$ php --version | grep -e "^PHP"
+PHP 5.3.x (cli) (built: …)</blockcode>
+      <p>Excellent ! Nous avons PHP et Hoa d'installés. Hoa est bien constitué
+      de deux parties : <code>Framework</code> et <code>Data</code>,
+      respectivement pour les bibliothèques et pour le complément de votre
+      application. Dans un premier, nous allons les laisser au même niveau et
+      nous verrons par la suite comment les séparer. Nous allons alors vérifier
+      que la commande <code>hoa</code> fonctionne, elle peut être utile pour
+      automatiser certaines tâches et pour visualiser certains concepts ;
+      alors :</p>
+      <blockcode language="shell">$ cd Central
+$ ./Data/Bin/hoa
+interface de bienvenue</blockcode>
+      <p>Comme la partie <code>Data</code> est destinée à votre application, il
+      n'y a aucun problème à renommer cette commande ; ainsi :</p>
+      <blockcode language="shell">$ sudo ln -s ~/Development/Hoa/Central/Data/Bin/hoa /usr/bin/myapp
+Password:
+
+$ myapp
+interface de bienvenue</blockcode>
+      <p>Notons que cette partie n'est pas obligatoire, mais elle permet un
+      confort lorsqu'on manipule plusieurs applications.</p>
+    </section2>
+    <section2 id="Naissance" for="main-toc">
+      <title>Naissance</title>
+
+      <p>Passons à des choses plus sérieuses. Nous allons créer notre
+      application. Pour nous simplifier les choses, nous allons la créer dans
+      <code>Central</code> :</p>
+      <blockcode language="shell">$ myapp application:start
+Creating the skeleton of our application.
+  * Create hoa://Application/Public.              [ok]
+  * Create hoa://Application/Public/index.php.    [ok]
+$ myapp tree Application
+Application/
+|-- Public/
+|   |-- index.php
+$ cd Application/Public/
+$ php index.php
+Hello world!</blockcode>
+      <p>Allons plus loin en écrivant un routeur et un contrôleur basique,
+      <ie /> le routeur va capturer des requêtes, les analyser et le dispatcheur
+      va les utiliser pour distribuer les actions. Pour commencer, nous n'allons
+      faire qu'une seule règle dans le routeur, nommée <code>g</code>, qui se
+      verra associer comme action une fonction qui se contente d'afficher
+      <code>Hello …!</code> où <code>…</code> sera la requête. Alors :</p>
+      <blockcode language="php">&lt;?php
+
+from('Hoa')
+-> import('Controller.Dispatcher.Basic')
+-> import('Controller.Router');
+
+$router = new Hoa\Controller\Router();
+$router->addRule('g', '(?&lt;all&gt;.*)', function ( $all ) {
+
+    echo 'Hello ' . $all . '!' . "\n";
+});
+
+$dispatcher = new Hoa\Controller\Dispatcher\Basic();
+$dispatcher->dispatch($router);</blockcode>
+      <p>Testons notre application :</p>
+      <blockcode language="shell">$ php index.php gordon
+Hello gordon!</blockcode>
+      <p>C'est déjà un excellent début. On comprend que l'on instancie un
+      routeur auquel on ajoute une règle. Puis on instancie un contrôleur dit
+      basique auquel on demande d'effectuer un dispatche en fonction du routeur
+      précédent.</p>
+      <p>On remarque que dans le motif de la règle, à savoir
+      <code>(?&amp;amp;lt;all&amp;amp;gt;.*)</code>, la partie
+      <code>?&amp;amp;lt;all&amp;amp;gt;</code> permet de nommer une capture,
+      que l'on effectue avec des parenthèses. On remarque également que le
+      paramètre de notre fonction anonyme porte le même nom que notre capture.
+      Ce mécanisme intuitif nous permet donc de récupérer les valeurs des
+      captures de la règle sélectionnée par le routeur.</p>
+      <p>Ajoutons une règle pour bien comprendre le mécanisme :</p>
+      <blockcode language="php">$router
+    ->addRule('h', 'p(?&lt;id&gt;\d+)-(?&lt;title&gt;.*)', function ( $id, $title ) {
+
+        echo 'Picture #' . $id . ': ' . $title . ".\n";
+    })
+    ->addRule('g', '(?&lt;all&gt;.*)', function ( $all ) {
+
+        echo 'Hello ' . $all . '!' . "\n";
+    });</blockcode>
+      <p>Tout d'abord, nous remarquons que la règle a été ajoutée avant la
+      première car, de toute évidence, notre règle <code>g</code> est plus générique
+      et comprend tous les cas. L'ordre de déclarations des règles à un sens, il
+      faut y prêter une attention toute particulière.</p>
+      <p>Testons alors notre nouvelle application :</p>
+      <blockcode language="shell">$ php index.php gordon
+Hello gordon!
+$ php index.php p42-foobar
+Picture #42: foobar.</blockcode>
+    </section2>
+
+    <section2 id="Premier_pas" for="main-toc">
+      <title>Premier pas</title>
+
+      <p>Notre application est très minimale, et si elle est appelée à grandir
+      il nous faudra mieux la structurer. C'est pourquoi il existe le modèle de
+      conception MVC qui permet de différencier la partie donnée, contrôle des
+      données et vue. On va l'appliquer de manière minimale et incrémentale.</p>
+
+      <section3 id="Un_peu_d-objet" for="main-toc">
+        <title>Un peu d'objet</title>
+
+        <p>Commençons par créer un contrôleur, <ie /> la partie qui va
+        contrôler les données, partie que l'on peut assimiler aux fonctions
+        anonymes que l'on utilisait dans nos exemples précédents. Pour cela, on
+        peut s'aider de notre commande <code>myapp</code> :</p>
+        <blockcode language="shell">$ myapp controller:create index
+Creating index controller.
+  * Create hoa://Application/Controller.              [ok]
+  * Create hoa://Application/Controller/Index.php.    [ok]
+  * Create IndexController.                           [ok]
+$ myapp tree hoa://Application
+hoa://Application/
+|-- Controller/
+|   |-- Index.php
+|-- Public/
+|   |-- index.php</blockcode>
+        <p>Éditons alors <code>Index.php</code> de cette façon :</p>
+        <blockcode language="php">&lt;?php
+
+class IndexController {
+
+    public function IndexAction ( $all ) {
+
+        echo 'Hello ' . $all . '!' . "\n";
+    }
+
+    public function PictureAction ( $id, $title ) {
+
+        echo 'Picture #' . $id . ': ' . $title . ".\n";
+    }
+}</blockcode>
+        <p>Puis, modifions notre routeur en conséquence, soit
+        <code>index.php</code> :</p>
+        <blockcode language="php">$router = new Hoa\Controller\Router();
+$router
+    ->addRule('h', 'p(?&lt;id&gt;\d+)-(?&lt;title&gt;.*)', 'index', 'picture')
+    ->addRule('g', '(?&lt;all&gt;.*)', 'index, 'index');
+        </blockcode>
+        <p>Testons notre application à nouveau :</p>
+      <blockcode language="shell">$ php index.php gordon
+Hello gordon!
+$ php index.php p42-foobar
+Picture #42: foobar.</blockcode>
+        <p>Aucune différence au final, sauf que cette fois-ci nous n'avons plus
+        de fonctions anonymes pour les contrôleurs et actions, mais des
+        contrôleurs qui sont des classes et des actions qui sont des
+        méthodes.</p>
+        <p>La suite : introduction à XYL.</p>
+      </section3>
+    </section2>
   </section1>
 </document>
