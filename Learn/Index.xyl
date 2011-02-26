@@ -264,7 +264,7 @@ $xml = new Hoa\Xml\Read(
     new Hoa\File\Read('hoa://Data/Temporary/Foo.xml')
 );
 
-foreach($xml->querySelector('foo > bar[attr^="ibute"]') as $element)
+foreach($xml->querySelectorAll('foo > bar[attr^="ibute"]') as $element)
     echo $element->readAll() . "\n";</blockcode>
       </section3>
 
