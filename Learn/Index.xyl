@@ -627,7 +627,7 @@ class IndexController {
         <blockcode language="php">$router = new Hoa\Controller\Router();
 $router
     ->addRule('h', 'p(?&lt;id&gt;\d+)-(?&lt;title&gt;.*)', 'index', 'picture')
-    ->addRule('g', '(?&lt;all&gt;.*)', 'index, 'index');
+    ->addRule('g', '(?&lt;all&gt;.*)', 'index', 'index');
         </blockcode>
         <p>Testons notre application à nouveau :</p>
       <blockcode language="shell">$ php index.php gordon
