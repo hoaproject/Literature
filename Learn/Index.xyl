@@ -280,7 +280,7 @@ foreach($xml->querySelectorAll('foo > bar[attr^="ibute"]') as $element)
         exclusives. L'une d'entre elle est le test. Des travaux de recherche
         ont été menés au sein même de Hoa afin de créer un générateur
         automatique de tests unitaires. Cela a donné lieu à la création d'un
-        langage d'annotation et de spécification : <em>Praspel</em>. Cela
+        langage d'annotation et de spécification : <em>Praspel</em>. Ce
         langage est conçu pour exprimer des contraintes sur un algorithme et
         y effectuer plusieurs tests, de différents types, de différentes
         natures, à travers différents procédés. Ce langage constitue la base
