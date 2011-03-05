@@ -480,7 +480,8 @@ event('hoa://Event/Log/Test/Praspel')->attach(
       Ainsi :</p>
       <blockcode language="shell">$ mkdir -p ~/Development/Hoa/
 $ cd !!$
-$ hg clone http://hg.hoa-project.net/Central</blockcode>
+$ hg clone http://hg.hoa-project.net/Central
+$ cd Central</blockcode>
       <p>Nous y sommes : Hoa est installé. Toutefois, pensons à vérifier que PHP
       est bien installé également et que sa version est supérieure ou égale à
       5.3.0, alors :</p>
@@ -491,17 +492,16 @@ PHP 5.3.x (cli) (built: …)</blockcode>
       <p>Excellent ! Nous avons PHP et Hoa d'installés. Hoa est bien constitué
       de deux parties : <code>Framework</code> et <code>Data</code>,
       respectivement pour les bibliothèques et pour le complément de votre
-      application. Dans un premier, nous allons les laisser au même niveau et
-      nous verrons par la suite comment les séparer. Nous allons alors vérifier
-      que la commande <code>hoa</code> fonctionne, elle peut être utile pour
-      automatiser certaines tâches et pour visualiser certains concepts ;
+      application. Dans un premier temps, nous allons les laisser au même niveau
+      et nous verrons par la suite comment les séparer. Nous allons alors
+      vérifier que la commande <code>hoa</code> fonctionne, elle peut être utile
+      pour automatiser certaines tâches et pour visualiser certains concepts ;
       alors :</p>
-      <blockcode language="shell">$ cd Central
-$ ./Data/Bin/hoa
+      <blockcode language="shell">$ ./Data/Bin/hoa
 interface de bienvenue</blockcode>
       <p>Comme la partie <code>Data</code> est destinée à votre application, il
       n'y a aucun problème à renommer cette commande ; ainsi :</p>
-      <blockcode language="shell">$ sudo ln -s ~/Development/Hoa/Central/Data/Bin/hoa /usr/bin/myapp
+      <blockcode language="shell">$ sudo ln -s `pwd`/Data/Bin/hoa /usr/bin/myapp
 Password:
 
 $ myapp
@@ -509,10 +509,10 @@ interface de bienvenue</blockcode>
       <p>Notons que cette partie n'est pas obligatoire, mais elle permet un
       confort lorsqu'on manipule plusieurs applications.</p>
     </section2>
-    <section2 id="Naissance" for="main-toc">
-      <title>Naissance</title>
+    <section2 id="Premiere_lignes_de_code" for="main-toc">
+      <title>Première lignes de code</title>
 
-      <p>Passons à des choses plus sérieuses. Nous allons créer notre
+      <p>Passons à des choses plus sérieuses : nous allons créer notre
       application. Pour nous simplifier les choses, nous allons la créer dans
       <code>Central</code> :</p>
       <blockcode language="shell">$ myapp application:start
@@ -523,16 +523,19 @@ $ myapp tree Application
 Application/
 |-- Public/
 |   |-- index.php
-$ cd Application/Public/
+$ cd Application/Public
 $ php index.php
-Hello world!</blockcode>
+Hello you! I'm Hoa and I'm installed :-).</blockcode>
       <p>Allons plus loin en écrivant un routeur et un contrôleur basique,
       <ie /> le routeur va capturer des requêtes, les analyser et le dispatcheur
       va les utiliser pour distribuer les actions. Pour commencer, nous n'allons
       faire qu'une seule règle dans le routeur, nommée <code>g</code>, qui se
       verra associer comme action une fonction qui se contente d'afficher
-      <code>Hello …!</code> où <code>…</code> sera la requête. Alors :</p>
+      <code>Hello …!</code> où <code>…</code> sera la requête. On modifie alors
+      <code>index.php</code> :</p>
       <blockcode language="php">&lt;?php
+
+require __DIR__ . '/../../Framework/Core/Core.php';
 
 from('Hoa')
 -> import('Controller.Dispatcher.Basic')
@@ -556,15 +559,15 @@ Hello gordon!</blockcode>
       <p>On remarque que dans le motif de la règle, à savoir
       <code>(?&amp;amp;lt;all&amp;amp;gt;.*)</code>, la partie
       <code>?&amp;amp;lt;all&amp;amp;gt;</code> permet de nommer une capture,
-      que l'on effectue avec des parenthèses. On remarque également que le
-      paramètre de notre fonction anonyme porte le même nom que notre capture.
+      que l'on effectue avec des parenthèses. On remarque également que
+      l'argument de notre fonction anonyme porte le même nom que notre capture.
       Ce mécanisme intuitif nous permet donc de récupérer les valeurs des
       captures de la règle sélectionnée par le routeur.</p>
       <p>Ajoutons une règle pour bien comprendre le mécanisme :</p>
       <blockcode language="php">$router
     ->addRule('h', 'p(?&lt;id&gt;\d+)-(?&lt;title&gt;.*)', function ( $id, $title ) {
 
-        echo 'Picture #' . $id . ': ' . $title . ".\n";
+        echo 'Picture #' . $id . ': ' . $title . '.' . "\n";
     })
     ->addRule('g', '(?&lt;all&gt;.*)', function ( $all ) {
 
@@ -581,16 +584,16 @@ $ php index.php p42-foobar
 Picture #42: foobar.</blockcode>
     </section2>
 
-    <section2 id="Premier_pas" for="main-toc">
-      <title>Premier pas</title>
+    <section2 id="Allons_un_peu_plus_loin" for="main-toc">
+      <title>Allons un peu plus loin</title>
 
       <p>Notre application est très minimale, et si elle est appelée à grandir
       il nous faudra mieux la structurer. C'est pourquoi il existe le modèle de
       conception MVC qui permet de différencier la partie donnée, contrôle des
       données et vue. On va l'appliquer de manière minimale et incrémentale.</p>
 
-      <section3 id="Un_peu_d-objet" for="main-toc">
-        <title>Un peu d'objet</title>
+      <section3 id="Vous_avez_dit_MVC" for="main-toc">
+        <title>Vous avez dit MVC ?</title>
 
         <p>Commençons par créer un contrôleur, <ie /> la partie qui va
         contrôler les données, partie que l'on peut assimiler aux fonctions
@@ -619,7 +622,7 @@ class IndexController {
 
     public function PictureAction ( $id, $title ) {
 
-        echo 'Picture #' . $id . ': ' . $title . ".\n";
+        echo 'Picture #' . $id . ': ' . $title . '.' . "\n";
     }
 }</blockcode>
         <p>Puis, modifions notre routeur en conséquence, soit
@@ -638,8 +641,285 @@ Picture #42: foobar.</blockcode>
         de fonctions anonymes pour les contrôleurs et actions, mais des
         contrôleurs qui sont des classes et des actions qui sont des
         méthodes.</p>
-        <p>La suite : introduction à XYL.</p>
       </section3>
+
+      <section3 id="Du_terminal_au_navigateur" for="main-toc">
+        <title>Du terminal au navigateur</title>
+
+        <p>On va quitter le terminal pour le navigateur, ce sera plus
+        confortable pour la suite de l'exercice, à savoir visualiser de
+        l'HTML. Pour cela, on doit préciser au serveur que l'on utilise un
+        moteur de réécriture afin que notre routeur fonctionne correctement, et
+        on va par conséquent préciser au routeur que les adresses sont réécrites
+        par le serveur.</p>
+        <p>Si on utilise un serveur Apache, on devra écrire un fichier
+        <code>.htaccess</code> dans notre dossier <code>Public</code> de cette
+        façon :</p>
+        <blockcode>RewriteEngine on
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?$1</blockcode>
+        <p>Et lorsque l'on instancie notre routeur, on doit passer le paramètre
+        <code>rewrited</code> à <code>true</code>. On peut le faire de cette
+        façon :</p>
+        <blockcode language="php">$router = new Hoa\Controller\Router(array(
+    'rewrited' => true
+));</blockcode>
+        <p>Ou de cette façon :</p>
+        <blockcode language="php">$router = new Hoa\Controller\Router();
+$router->setParameter('rewrited', true);</blockcode>
+        <p>Ainsi, on peut vérifier que tout fonctionne toujours correctement :</p>
+        <blockcode language="shell">$ curl http://localhost:8888/gordon
+Hello gordon!
+$ curl http://localhost:8888/p42-foobar
+Picture #42: foobar.</blockcode>
+        <p>Vous devriez en toute logique obtenir les mêmes résultats dans votre
+        navigateur.</p>
+      </section3>
+
+      <section3 id="Decouverte_de_XYL" for="main-toc">
+        <title>Découverte de XYL</title>
+
+        <p>XYL signifie <em>XML Yielding Language</em> et est le langage
+        d'interface graphique que propose Hoa. Ce langage est multi-sorties,
+        multi-plateformes, orienté composants, productions et superpositions.
+        Dans un premier temps, on va demander d'interpréter XYL comme étant de
+        l'HTML et d'écrire le résultat fraîchement produit dans une requête HTTP
+        en tant que réponse, <ie /> faire du Web traditionnel.</p>
+        <p>Pour arriver à nos fins, on va modifier notre fichier
+        <code>index.php</code> pour y ajouter de nouvelles importations :</p>
+        <blockcode language="php">-> import('Xyl.~')
+-> import('Xyl.Interpreter.Html.~')
+-> import('File.Read')
+-> import('Http.Response');</blockcode>
+        <p>Et modifier notre dispatcheur en lui ajoutant en second paramètre une
+        vue :</p>
+        <blockcode language="php">$dispatcher->dispatch(
+    $router,
+    new Hoa\Xyl(
+        new Hoa\File\Read('hoa://Application/View/Main.xyl'),
+        new Hoa\Http\Response(),
+        new Hoa\Xyl\Interpreter\Html()
+    )
+);</blockcode>
+        <p>On fournit à XYL un fichier en entrée, une réponse HTTP en sortie et
+        on lui demande d'interpréter l'entrée comme de l'HTML.
+        Les choses deviennent intéressantes. On va commencer par écrire notre
+        fichier <code>hoa://Application/View/Main.xyl</code> qui sera notre vue
+        principale à laquelle va venir s'ajouter ou se greffer de nouvelles
+        vues.</p>
+        <p>Un fichier XYL peut-être de trois sortes : un document
+        (<code>&amp;amp;lt;document&amp;amp;gt;</code>), des définitions
+        (<code>&amp;amp;lt;definition&amp;amp;gt;</code>) ou des superpositions
+        (<code>&amp;amp;lt;overlay&amp;amp;gt;</code>). Tout d'abord, on utilisera
+        simplement un document et on verra par la suite les définitions ;
+        ainsi :</p>
+        <blockcode language="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+
+&lt;document xmlns="http://hoa-project.net/xyl/xylophone"&gt;
+  &lt;title&gt;My application&lt;/title&gt;
+
+  &lt;section1&gt;
+    &lt;title bind="?hello" /&gt;
+
+    &lt;page /&gt;
+  &lt;/section1&gt;
+&lt;/document&gt;</blockcode>
+        <p>On remarque l'espace de nom
+        <code>http://hoa-project.net/xyl/xylophone</code> qui est obligatoire
+        pour interpréter du XYL. Ensuite, notre attention se portera sur
+        l'attribut <code>bind</code> du composant
+        <code>&amp;amp;lt;title&amp;amp;gt;</code>. Cet attribut constitue une
+        des bases fondamentales de XYL car il permet de lier des données à un
+        composant. On verra par la suite comment assigner des données et quel
+        impact cela peut-il avoir lors du rendu (comprendre de l'interprétation)
+        d'un document XYL.</p>
+        <p><em>A l'instar</em> de la production de données, la création de
+        composant, grâce à <code>&amp;amp;lt;yield&amp;amp;gt;</code>, est une
+        des bases fondamentales de XYL. Ici, on utilise un composant que l'on
+        crée qui s'appelle : <code>&amp;amp;lt;page&amp;amp;gt;</code> et sa
+        définition changera selon la requête effectuée (comprendre selon le
+        contexte).</p>
+        <p>Il existe plusieurs manières d'écrire une définition. La plus
+        triviale s'effectue dans le document lui-même, de cette façon :</p>
+        <blockcode language="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+
+&lt;document xmlns="http://hoa-project.net/xyl/xylophone"&gt;
+  &lt;title&gt;My application&lt;/title&gt;
+
+  &lt;section1&gt;
+    &lt;title bind="?hello" /&gt;
+
+    &lt;yield name="page"&gt;
+      &lt;p&gt;Hello world!&lt;/p&gt;
+    &lt;/yield&gt;
+
+    &lt;page /&gt;
+  &lt;/section1&gt;
+&lt;/document&gt;</blockcode>
+        <p>Ainsi, le composant <code>&amp;amp;lt;page&amp;amp;gt;</code> sera
+        remplacer par sa définition décrite par <code>&amp;amp;lt;yield
+        name=page"&amp;amp;gt;</code>. Mais il est parfois préférable d'écrire
+        les définitions de composants à l'extérieur de notre document (ce qui
+        est très pratique pour obtenir des bibliothèques de composants). Une des
+        manières de le faire est statiquement :</p>
+        <blockcode language="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;?xyl-use href="hoa://Application/View/Definitions.xyl"?&gt;
+
+&lt;document xmlns="http://hoa-project.net/xyl/xylophone"&gt;
+  &lt;title&gt;My application&lt;/title&gt;
+
+  &lt;section1&gt;
+    &lt;title bind="?hello" /&gt;
+
+    &lt;page /&gt;
+  &lt;/section1&gt;
+&lt;/document&gt;</blockcode>
+        <p>Et dans <code>Definitions.xyl</code> :</p>
+        <blockcode language="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+
+&lt;definition xmlns="http://hoa-project.net/xyl/xylophone"&gt;
+  &lt;yield name="page"&gt;
+    &lt;p&gt;Hello world!&lt;/p&gt;
+  &lt;/yield&gt;
+&lt;/definition&gt;</blockcode>
+        <p>Toutefois, cela reste très statique, <em>a contrario</em> de
+        dynamique. Cela implique que si on veut donner une autre définition à
+        notre composant, on ne peut pas sauf en modifiant le document.
+        C'est pourquoi, on est capable de spécifier à l'exécution quelle
+        définition utilisée. On le verra dans notre contrôleur. Pour l'instant,
+        on va se contenter d'écrire deux définitions différentes de notre
+        composant <code>&amp;amp;lt;page&amp;amp;gt;</code> : une pour notre
+        règle de routeur <code>g</code> (« toutes les requêtes ») et une pour la
+        règle <code>h</code> (« <code>p42-foobar</code> »). Ainsi, on écrira
+        deux fichiers. Le premier, <code>Index.xyl</code> :</p>
+        <blockcode language="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+
+&lt;definition xmlns="http://hoa-project.net/xyl/xylophone"&gt;
+  &lt;yield name="page"&gt;
+    &lt;p bind="?intro" /&gt;
+  &lt;/yield&gt;
+&lt;/definition&gt;</blockcode>
+        <p>Le second, <code>Picture.xyl</code> :</p>
+        <blockcode language="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+
+&lt;definition xmlns="http://hoa-project.net/xyl/xylophone"&gt;
+  &lt;yield name="page"&gt;
+    &lt;ulist&gt;
+      &lt;item bind="?picture"&gt;
+        #&lt;value bind="?id" /&gt; — &lt;value bind="?title" /&gt;.
+      &lt;/item&gt;
+    &lt;/ulist&gt;
+  &lt;/yield&gt;
+&lt;/definition&gt;</blockcode>
+        <p>On avance, c'est très bien. Il ne nous reste qu'à modifier notre
+        contrôleur pour définir des données et afficher la vue. Pour cela, les
+        actions des contrôleurs ont besoin de récupérer les données, la vue etc.
+        La manière la plus répandue avec le dispatcheur basique est d'utiliser
+        <code>$_this</code> en tant qu'argument de nos actions. S'il est
+        présent, alors on lui donnera un objet de type
+        <code>Hoa\Controller\Application</code> qui contient des informations
+        utiles à notre application, comme la vue et ses données, le routeur ou
+        encore le dispatcheur lui-même. Ainsi :</p>
+        <blockcode language="php">&lt;?php
+        
+class IndexController {
+  
+    public function IndexAction ( $all, Hoa\Controller\Application $_this ) {
+
+        $_this->data->hello = 'Hello ' . $all . '!';
+        $_this->data->intro = 'This is a short introduction!';
+
+        $_this->view->addUse('hoa://Application/View/Index.xyl');
+        $_this->view->render();
+    }
+    
+    …</blockcode>
+        <p>On dit : on assigne deux données, <code>hello</code> et
+        <code>intro</code>, on va utiliser dynamiquement les définitions
+        contenus dans <code>hoa://Application/View/Index.xyl</code>, puis on va
+        demander un rendu. Un rendu va peindre notre document dans la sortie de
+        XYL. Rappelez-vous, c'est une réponse HTTP.</p>
+        <p>Enfin, on édite également notre seconde action :</p>
+        <blockcode language="php">…
+
+    public function PictureAction ( $id, $title,
+                                    Hoa\Controller\Application $_this ) {
+
+        $_this->data->hello             = 'Hello picture!';
+        $_this->data->picture[0]->id    = $id;
+        $_this->data->picture[0]->title = $title;
+
+        $_this->view->addUse('hoa://Application/View/Picture.xyl');
+        $_this->view->render();
+    }
+}</blockcode>
+        <p>On détaillera plus tard la manipulation des données.</p>
+        <p>On va se contenter pour l'instant de tester notre page dans notre
+        navigateur et on remarque tout fonctionne bien ! Le liage de données
+        fonctionne, tout comme la définition dynamique de composant ! En effet,
+        aller sur la page <code>http://localhost:8888/gordon</code> ou
+        <code>http://localhost:8888/p42-foobar</code> ne donnera pas le même
+        résultat, c'est bien la preuve que la définition du composant
+        <code>&amp;amp;lt;page&amp;amp;gt;</code> est différente selon la
+        requête. De plus, on remarquera que <code>Main.xyl</code> se comporte
+        comme une vue frontale, <ie /> une vue autour de nos pages, presque
+        toujours visibles. C'est une des nombreuses conséquences des définitions
+        dynamiques.</p>
+        <p>Enfin, pour mieux saisir la puissance du mécanisme de liage de
+        données, on va émuler plusieurs données pour notre action
+        <code>picture</code>. Ainsi, on va imaginer que les données proviennent
+        d'une base de données, sous forme d'un tableau associatif. On aura :</p>
+        <blockcode language="php">…
+
+    public function PictureAction ( $id, $title,
+                                    Hoa\Controller\Application $_this ) {
+
+        $_this->data->hello   = 'Hello picture!';
+        $_this->data->picture = $this->dataFromModel($id, $title);
+
+        $_this->view->addUse('hoa://Application/View/Picture.xyl');
+        $_this->view->render();
+    }
+
+    protected function dataFromModel ( $id, $title ) {
+
+        $out = array();
+
+        for($i = 0; $i &lt; $id; ++$i)
+            $out[$i] = array(
+                'id'    => $i,
+                'title' => md5($i . $title)
+            );
+
+        return $out;
+    }
+}</blockcode>
+        <p>Si vous affichez <code>http://localhost:8888/p7-foobar</code>, vous
+        verrez que la liste va contenir plusieurs éléments.</p>
+        <p>Cela est dû à ces trois lignes de XYL :</p>
+        <blockcode language="xml">&lt;item bind="?picture"&gt;
+  #&lt;value bind="?id" /&gt; — &lt;value bind="?title" /&gt;.
+&lt;/item&gt;</blockcode>
+        <p>On dit : on se lie à la branche de données <code>picture</code>, puis
+        on affiche les feuilles <code>id</code> et <code>title</code>. S'il
+        existe plusieurs branches, alors, lors du rendu, on affichera toutes les
+        branches <code>picture</code>. On comprend alors que le mécanisme de
+        liage fonctionne sur un arbre à 1 ou <em>n</em> branches, <ie />
+        indifférement si c'est une donnée scalaire (comprendre plate, à 1
+        dimension) ou non-scalaire (comprendre structurelle, à <em>n</em>
+        dimensions). Autrement dit, les boucles sont implicites dans le
+        mécanisme de liage. Le travail doit être préparé en amont dans les
+        actions lors de l'assignation des données, mais pas dans la vue.</p>
+        <p>Ce mécanisme est très puissant et plutôt intuitif. On peut faire bien
+        plus de choses avec, mais ce n'est qu'un démarrage rapide.</p>
+      </section3>
+    </section2>
+
+    <section2 id="Conclusion" for="main-toc">
+      <title>Conclusion</title>
+
+      <p>Hop :-).</p>
     </section2>
   </section1>
 </document>
