@@ -255,7 +255,7 @@ echo $file->readAll();</blockcode>
         utilisée pour lire notre flux primitif, mais les opérations de
         traitement qui suivent ne seront pas modifiées. Tout cela grâce aux
         nombreuses interfaces que proposent les flux. Ainsi, l'exemple suivant
-        va sélectionner des éléments et lire leur contenu comme des entiers :</p>
+        va sélectionner des éléments et lire leur contenu :</p>
         <blockcode language="php">from('Hoa')
 -> import('File.Read')
 -> import('Xml.Read');
@@ -423,8 +423,8 @@ event('hoa://Event/Log/Test/Praspel')->attach(
       <title>Architecture</title>
 
       <p>L'architecture de Hoa est très simple. On peut différencier deux
-      parties : la partie framework (<code>Framework</code>) et la partie
-      données (<code>Data</code>). La partie framework contient :</p>
+      parties : la partie bibliothèques (<code>Framework</code>) et la partie
+      données (<code>Data</code>). La partie bibliothèque contient :</p>
       <ulist>
         <item><code>Core</code>, le noyau ;</item>
         <item><code>Library</code>, les bibliothèques standards (la famille
