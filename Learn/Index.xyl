@@ -509,8 +509,8 @@ interface de bienvenue</blockcode>
       <p>Notons que cette partie n'est pas obligatoire, mais elle permet un
       confort lorsqu'on manipule plusieurs applications.</p>
     </section2>
-    <section2 id="Premiere_lignes_de_code" for="main-toc">
-      <title>Première lignes de code</title>
+    <section2 id="Premieres_lignes_de_code" for="main-toc">
+      <title>Premières lignes de code</title>
 
       <p>Passons à des choses plus sérieuses : nous allons créer notre
       application. Pour nous simplifier les choses, nous allons la créer dans
