@@ -652,26 +652,17 @@ Picture #42: foobar.</blockcode>
 
         <p>On va quitter le terminal pour le navigateur, ce sera plus
         confortable pour la suite de l'exercice, à savoir visualiser de
-        l'HTML. Pour cela, on doit préciser au serveur que l'on utilise un
-        moteur de réécriture afin que notre routeur fonctionne correctement, et
-        on va par conséquent préciser au routeur que les adresses sont réécrites
-        par le serveur.</p>
-        <p>Si on utilise un serveur Apache, on devra écrire un fichier
-        <code>.htaccess</code> dans notre dossier <code>Public</code> de cette
-        façon :</p>
-        <blockcode>RewriteEngine on
-RewriteCond %{SCRIPT_FILENAME} !-f
-RewriteCond %{SCRIPT_FILENAME} !-d
-RewriteRule ^(.*)$ index.php?$1</blockcode>
-        <p>Et lorsque l'on instancie notre routeur, on doit passer le paramètre
-        <code>rewrited</code> à <code>true</code>. On peut le faire de cette
-        façon :</p>
-        <blockcode language="php">$router = new Hoa\Controller\Router(array(
-    'rewrited' => true
-));</blockcode>
-        <p>Ou de cette façon :</p>
-        <blockcode language="php">$router = new Hoa\Controller\Router();
-$router->setParameter('rewrited', true);</blockcode>
+        l'HTML. Pour cela, il va nous falloir un serveur HTTP. Plusieurs
+        existent : Apache, IIS, nginx, lighttpd etc. Néanmoins, Hoa fournit
+        Bhoa, un petit serveur HTTP très basique qui est utile pour ce genre
+        d'exercice, à savoir visualiser simplement un site Web. Il va de soit
+        que Bhoa est à but pédagogique uniquement, et pas à du déploiement réel.
+        Pour l'utiliser, il suffit de le lancer de cette manière :</p>
+        <blockcode language="shell">$ myapp bhoa:start
+Server is up, on tcp://localhost:8888!
+Root: hoa://Application/Public/
+
+Waiting for connection…</blockcode>
         <p>Ainsi, on peut vérifier que tout fonctionne toujours correctement :</p>
         <blockcode language="shell">$ curl http://localhost:8888/gordon
 Hello gordon!
@@ -679,6 +670,32 @@ $ curl http://localhost:8888/p42-foobar
 Picture #42: foobar.</blockcode>
         <p>Vous devriez en toute logique obtenir les mêmes résultats dans votre
         navigateur.</p>
+        <p>Toutefois, si on utilise un serveur Apache, on pourra écrire un
+        fichier <code>.htaccess</code> dans notre dossier <code>Public</code> de
+        cette façon :</p>
+        <blockcode>RewriteEngine on
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?$1</blockcode>
+        <p>Ou alors, si on utilise un serveur nginx, on pourra écrire dans les
+        configurations :</p>
+        <blockcode>if( !-e $request_filename ) {
+    
+    rewrite ^(.*)$ index.php?$1 last;
+    return  404;
+}</blockcode>
+        <p>Ou encore, si on utilise un serveur lighttpd, on pourra écrire dans
+        les configurations :</p>
+        <blockcode>url.rewrite-once = ( "^(.*)$" => "index.php?$1" )</blockcode>
+        <p>Avec des serveurs autres que Bhoa, lorsque l'on instancie notre
+        routeur, on doit passer le paramètre <code>rewrited</code> à
+        <code>true</code>. On peut le faire de cette façon :</p>
+        <blockcode language="php">$router = new Hoa\Controller\Router(array(
+    'rewrited' => true
+));</blockcode>
+        <p>Ou de cette façon :</p>
+        <blockcode language="php">$router = new Hoa\Controller\Router();
+$router->setParameter('rewrited', true);</blockcode>
       </section3>
 
       <section3 id="Decouverte_de_XYL" for="main-toc">
