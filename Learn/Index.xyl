@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xyl-use href="Definitions.xyl"?>
 <?xyl-stylesheet href="UI.css"?>
 
 <document xmlns="http://hoa-project.net/xyl/xylophone">
   <title>Manuel d'apprentissage de Hoa</title>
+
+  <yield name="ie">
+    <em>i.e.</em>
+  </yield>
+
 
   <p>Hoa se définit comme étant un ensemble de bibliothèques PHP
   <strong>puissantes</strong>, <strong>rapides</strong>, hautement
