@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xyl-stylesheet href="UI.css"?>
 
-<document xmlns="http://hoa-project.net/xyl/xylophone">
-  <title>Manuel d'apprentissage de Hoa</title>
-
+<definition xmlns="http://hoa-project.net/xyl/xylophone">
   <yield name="ie">
     <em>i.e.</em>
   </yield>
 
+  <yield name="chapter">
+  <box class="text-block">
 
   <p>Hoa se définit comme étant un ensemble de bibliothèques PHP
   <strong>puissantes</strong>, <strong>rapides</strong>, hautement
@@ -24,30 +23,30 @@
   exemples concrets, par exemple sous forme de tutoriels, afin de mieux guider
   la lectrice ou le lecteur dans sa découverte de Hoa.</p>
 
-  <section1 id="Table_des_matieres">
+  <section2 id="Table_des_matieres" for="menu-toc">
     <title>Table des matières</title>
 
     <tableofcontents id="main-toc" />
-  </section1>
+  </section2>
 
-  <section1 id="Introduction" for="main-toc">
+  <section2 id="Introduction" for="main-toc menu-toc">
     <title>Introduction</title>
 
-    <section2 id="Modus_operandi" for="main-toc">
+    <section3 id="Modus_operandi" for="main-toc">
       <title><em>Modus operandi</em></title>
-    </section2>
+    </section3>
 
-    <section2 id="Contributions" for="main-toc">
+    <section3 id="Contributions" for="main-toc">
       <title>Contributions</title>
-    </section2>
-  </section1>
+    </section3>
+  </section2>
 
-  <section1 id="A_la_decouverte_de_Hoa" for="main-toc">
+  <section2 id="A_la_decouverte_de_Hoa" for="main-toc menu-toc">
     <title>À la découverte de Hoa</title>
 
     <p>Cette section dévoile quelques atouts de Hoa sous la forme de ...</p>
 
-    <section2 id="Trois_principes_fondamentaux" for="main-toc">
+    <section3 id="Trois_principes_fondamentaux" for="main-toc">
       <title>Trois principes fondamentaux</title>
 
       <p>En tout premier lieu, Hoa se définit comme un <strong>ensemble de
@@ -104,15 +103,15 @@
       <strong>vos propres bibliothèques</strong> et vous assurer d'une
       certaine pérennité et d'une forte intégration dans tous les projets
       utilisant Hoa.</p>
-    </section2>
+    </section3>
 
-    <section2 id="Les_points_forts_de_Hoa" for="main-toc">
+    <section3 id="Les_points_forts_de_Hoa" for="main-toc">
       <title>Les points forts de Hoa</title>
 
       <p>Cette section décrit ce que l'on estime être les points forts de
       Hoa.</p>
 
-      <section3 id="Le_noyau" for="main-toc">
+      <section4 id="Le_noyau" for="main-toc">
         <title>Le noyau</title>
 
         <p>Le noyau de Hoa est au centre de toutes les bibliothèques, <ie />
@@ -216,9 +215,9 @@ echo $file->readAll();</blockcode>
     });</blockcode>
       <p>Le noyau fournit encore d'autres fonctionnalités mais on ne
       s'arrêtera qu'aux principales.</p>
-      </section3>
+      </section4>
 
-      <section3 id="Les_flux" for="main-toc">
+      <section4 id="Les_flux" for="main-toc">
         <title>Les flux</title>
 
         <p>La majorité des langages destinés aux entreprises manipulent des
@@ -270,9 +269,9 @@ $xml = new Hoa\Xml\Read(
 
 foreach($xml->querySelectorAll('foo > bar[attr^="ibute"]') as $element)
     echo $element->readAll() . "\n";</blockcode>
-      </section3>
+      </section4>
 
-      <section3 id="La_securite_et_la_surete" for="main-toc">
+      <section4 id="La_securite_et_la_surete" for="main-toc">
         <title>La sécurité et la sûreté</title>
 
         <p>La sécurité et la sûreté du logiciel est une discipline
@@ -299,9 +298,9 @@ foreach($xml->querySelectorAll('foo > bar[attr^="ibute"]') as $element)
         chemins, si jamais des erreurs apparaissent à l'utilisatrice ou
         l'utilisateur, aucune information ne pourra en être extraite. C'est un
         exemple certes, mais un parmi beaucoup.</p>
-      </section3>
+      </section4>
 
-      <section3 id="La_modularite" for="main-toc">
+      <section4 id="La_modularite" for="main-toc">
         <title>La modularité</title>
 
         <p>Hoa est conçu pour proposer un environnement propre de
@@ -323,9 +322,9 @@ event('hoa://Event/Log/Test/Praspel')->attach(
 );</blockcode>
         <p>On comprend que si flux de rapports de tests utilise les interfaces
         de flux, alors il s'intégrera sans problème au reste de Hoa.</p>
-      </section3>
+      </section4>
 
-      <section3 id="L-interface_graphique" for="main-toc">
+      <section4 id="L-interface_graphique" for="main-toc">
         <title>L'interface graphique</title>
 
         <p>Un des problèmes majeurs lors de la création d'un programme est
@@ -379,9 +378,9 @@ event('hoa://Event/Log/Test/Praspel')->attach(
         des modules sur un site de commerce par exemple.</p>
         <p><em>XYL</em> est un langage prometteur, assez différent ce qu'il se
         fait actuellement, mais qui a un avenir certain.</p>
-      </section3>
+      </section4>
 
-      <section3 id="Le_respect_des_standards" for="main-toc">
+      <section4 id="Le_respect_des_standards" for="main-toc">
         <title>Le respect des standards</title>
 
         <p>Hoa insiste énormément sur le respect des standards. En effet, les
@@ -399,10 +398,10 @@ event('hoa://Event/Log/Test/Praspel')->attach(
         à vous soucier de la syntaxe ou de la sémantique des données
         manipulées ou produites, vous êtes assurés quelles seront
         compréhensibles et exploitables par d'autres programmes.</p>
-      </section3>
-    </section2>
+      </section4>
+    </section3>
 
-    <section2 id="Ensemble_de_bibliotheques_ou_framework" for="main-toc">
+    <section3 id="Ensemble_de_bibliotheques_ou_framework" for="main-toc">
       <title>Ensemble de bibliothèques ou framework ?</title>
 
       <p>Avoir un ensemble de bibliothèques est pratique et utile pour
@@ -421,9 +420,9 @@ event('hoa://Event/Log/Test/Praspel')->attach(
       <p>Ce qu'on comprend, c'est que les bibliothèques seules fonctionnent de
       manière autonomes, mais que si on veut utiliser Hoa en tant que
       framework, de nouveaux mécanismes apparaissent de manière transparente.</p>
-    </section2>
+    </section3>
 
-    <section2 id="Architecture" for="main-toc">
+    <section3 id="Architecture" for="main-toc">
       <title>Architecture</title>
 
       <p>L'architecture de Hoa est très simple. On peut différencier deux
@@ -463,10 +462,10 @@ event('hoa://Event/Log/Test/Praspel')->attach(
       <em>application</em> dans la terminologie Hoa. Notez que le dossier
       <code>Data</code> n'est pas obligatoire mais il permet, comme les
       frameworks le proposent, un cadre de développement propre et organisé.</p>
-    </section2>
-  </section1>
+    </section3>
+  </section2>
 
-  <section1 id="Demarrage_rapide" for="main-toc">
+  <section2 id="Demarrage_rapide" for="main-toc menu-toc">
     <title>Démarrage rapide</title>
 
     <p>La majorité des lectrices et lecteurs de ce manuel veulent utiliser le
@@ -474,7 +473,7 @@ event('hoa://Event/Log/Test/Praspel')->attach(
     bibliothèque et framework. C'est pourquoi on va donner un exemple simple
     d'une petite application.</p>
 
-    <section2 id="Installer_Hoa" for="main-toc">
+    <section3 id="Installer_Hoa" for="main-toc">
       <title>Installer Hoa</title>
 
       <p>Il existe différente manière d'installer Hoa : soit à travers les
@@ -512,8 +511,8 @@ $ myapp
 interface de bienvenue</blockcode>
       <p>Notons que cette partie n'est pas obligatoire, mais elle permet un
       confort lorsqu'on manipule plusieurs applications.</p>
-    </section2>
-    <section2 id="Premieres_lignes_de_code" for="main-toc">
+    </section3>
+    <section3 id="Premieres_lignes_de_code" for="main-toc">
       <title>Premières lignes de code</title>
 
       <p>Passons à des choses plus sérieuses : nous allons créer notre
@@ -586,9 +585,9 @@ Hello gordon!</blockcode>
 Hello gordon!
 $ php index.php p42-foobar
 Picture #42: foobar.</blockcode>
-    </section2>
+    </section3>
 
-    <section2 id="Allons_un_peu_plus_loin" for="main-toc">
+    <section3 id="Allons_un_peu_plus_loin" for="main-toc">
       <title>Allons un peu plus loin</title>
 
       <p>Notre application est très minimale, et si elle est appelée à grandir
@@ -596,7 +595,7 @@ Picture #42: foobar.</blockcode>
       conception MVC qui permet de différencier la partie donnée, contrôle des
       données et vue. On va l'appliquer de manière minimale et incrémentale.</p>
 
-      <section3 id="Vous_avez_dit_MVC" for="main-toc">
+      <section4 id="Vous_avez_dit_MVC" for="main-toc">
         <title>Vous avez dit MVC ?</title>
 
         <p>Commençons par créer un contrôleur, <ie /> la partie qui va
@@ -645,9 +644,9 @@ Picture #42: foobar.</blockcode>
         de fonctions anonymes pour les contrôleurs et actions, mais des
         contrôleurs qui sont des classes et des actions qui sont des
         méthodes.</p>
-      </section3>
+      </section4>
 
-      <section3 id="Du_terminal_au_navigateur" for="main-toc">
+      <section4 id="Du_terminal_au_navigateur" for="main-toc">
         <title>Du terminal au navigateur</title>
 
         <p>On va quitter le terminal pour le navigateur, ce sera plus
@@ -696,9 +695,9 @@ RewriteRule ^(.*)$ index.php?$1</blockcode>
         <p>Ou de cette façon :</p>
         <blockcode language="php">$router = new Hoa\Controller\Router();
 $router->setParameter('rewrited', true);</blockcode>
-      </section3>
+      </section4>
 
-      <section3 id="Decouverte_de_XYL" for="main-toc">
+      <section4 id="Decouverte_de_XYL" for="main-toc">
         <title>Découverte de XYL</title>
 
         <p>XYL signifie <em>XML Yielding Language</em> et est le langage
@@ -934,13 +933,16 @@ class IndexController {
         actions lors de l'assignation des données, mais pas dans la vue.</p>
         <p>Ce mécanisme est très puissant et plutôt intuitif. On peut faire bien
         plus de choses avec, mais ce n'est qu'un démarrage rapide.</p>
-      </section3>
-    </section2>
+      </section4>
+    </section3>
 
-    <section2 id="Conclusion" for="main-toc">
+    <section3 id="Conclusion" for="main-toc">
       <title>Conclusion</title>
 
       <p>Hop :-).</p>
-    </section2>
-  </section1>
-</document>
+    </section3>
+  </section2>
+
+  </box>
+  </yield>
+</definition>
