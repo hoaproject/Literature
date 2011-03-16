@@ -6,7 +6,6 @@
   </yield>
 
   <yield name="chapter">
-  <box class="text-block">
 
   <p>Hoa se définit comme étant un ensemble de bibliothèques PHP
   <strong>puissantes</strong>, <strong>rapides</strong>, hautement
@@ -943,6 +942,5 @@ class IndexController {
     </section3>
   </section2>
 
-  </box>
   </yield>
 </definition>
