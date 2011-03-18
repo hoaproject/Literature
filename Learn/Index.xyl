@@ -86,7 +86,7 @@
       Informatique et en Automatique</link>.</p>
       <p>Enfin, en dernier lieu, Hoa est <strong>développé en PHP</strong>. Ce
       langage est très intéressant. Il apporte une <strong>dynamique</strong>
-      rarement rencontré dans d'autres langages. Toutefois, dû à son histoire,
+      rarement rencontrée dans d'autres langages. Toutefois, dû à son histoire,
       il se trouve qu'on peut lui reconnaître certaines faiblesses et certains
       manques. Notamment le fait qu'il n'offre pas de réelle bibliothèque
       standard comme le feraient d'autres langages. Hoa pallie à ce problème en
@@ -251,7 +251,7 @@ echo $file->readAll();</blockcode>
         JSON définissent des arbres). Si un traitement est fait sur un fichier
         qui n'est plus du XML mais du JSON, on modifie simplement la classe
         utilisée pour lire notre flux primitif, mais les opérations de
-        traitement qui suivent ne seront pas modifiées. Tout cela grâce aux
+        traitements qui suivent ne seront pas modifiées. Tout cela grâce aux
         nombreuses interfaces que proposent les flux. Ainsi, l'exemple suivant
         va sélectionner des éléments et lire leur contenu :</p>
         <blockcode language="php">from('Hoa')
@@ -357,13 +357,11 @@ event('hoa://Event/Log/Test/Praspel')->attach(
 
 &lt;definition xmlns="http://hoa-project.net/xyl/xylophone"&gt;
   &lt;yield name="comments"&gt;
-    &lt;yield bind="?comment"&gt;
-      &lt;box&gt;
-        &lt;image href="?avatar" /&gt;
-        &lt;p&gt;&lt;value bind="?pseudo" /&gt; dit :&lt;/p&gt;
-        &lt;blockquote bind="?message" /&gt;
-      &lt;/box&gt;
-    &lt;/yield&gt;
+    &lt;box bind="comment"&gt;
+      &lt;image href="?avatar" /&gt;
+      &lt;p&gt;&lt;value bind="?pseudo" /&gt; dit :&lt;/p&gt;
+      &lt;blockquote bind="?message" /&gt;
+    &lt;/box&gt;
     &lt;hseparator /&gt;
   &lt;/yield&gt;
 &lt;/definition&gt;</blockcode>
