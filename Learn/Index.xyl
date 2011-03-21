@@ -910,7 +910,12 @@ class IndexController {
     <section3 id="Conclusion" for="main-toc">
       <title>Conclusion</title>
 
-      <p>Hop :-).</p>
+      <p>Cette exercice n'était qu'une courte introduction à la prise en main de
+      Hoa. Dans les prochains chapitres, nous verrrons comment construire nos
+      propres bibliothèques ce qui nous permettra de passer en revue toutes les
+      fonctionnalités du noyau : le fonctionnement des exceptions, des
+      événements, des importations etc. Puis, nous retournons sur une nouvelle
+      application plus complète.</p>
     </section3>
   </section2>
 </yield>
