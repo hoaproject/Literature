@@ -133,29 +133,7 @@
         une bibliothèque. Ils s'expriment sous la forme de tableaux et
         se définissent avec des mots-clés et des paramètres. Le langage
         <em>zFormat</em> permet d'exprimer des manipulations sur les
-        paramètres. Considérons l'exemple suivant :</p>
-        <blockcode>// Mot-clé
-  id => 'fOo'
-
-// Paramètre
-  cache.file => (:id:lU:).ca</blockcode>
-        <p>La valeur du mot-clé est définie par la bibliothèque, le paramètre
-        par l'utilisatrice ou l'utilisateur. On remarque l'utilisation du
-        <em>zFormat</em> avec <code>(:id:lU:)</code>, ce qui signifie que l'on
-        va utiliser le mot-clé <code>id</code> (<code>:id:</code>) et lui
-        appliquer deux fonctions : toutes les lettres en minuscules
-        (<code>l</code>) et la première lettre en majuscule (<code>U</code>).
-        Ainsi, le résultat de cet exemple sera <code>Foo.ca</code>.</p>
-        <p>Le <em>zFormat</em> supporte beaucoup de fonctions, cela va de
-        simples constantes de temps (<code>(:_Ymd:)</code> exprime une date)
-        jusqu'aux fonctions de remplacement (<code>(:keyword:s/r/z/:)</code>
-        recherche toutes les occurences de <code>r</code> et les remplace par
-        <code>z</code>). Ce format est vraiment puissant, notamment pour
-        exprimer des chemins complexes, comme un chemin constitué d'une date :
-        <code>/tmp/hoa/(:_Y:)/(:_md:)/(:%anotherParameter:)-(:myId:l).ca</code>
-        sera par exemple résolu en
-        <code>/tmp/hoa/1970/0101/hello-foo.ca</code> si le paramètre
-        <code>anotherParameter</code> vaut <code>hello</code>.</p>
+        paramètres.</p>
         <p>Le noyau abstrait également tous les chemins de votre programme,
         grâce au protocole <code>hoa://</code>. Ce protocole porte plusieurs
         types de données, mais il faut le voir dans la plupart des cas comme
