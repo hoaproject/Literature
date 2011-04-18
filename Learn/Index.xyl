@@ -175,7 +175,7 @@ echo $file->readAll();</blockcode>
         <blockcode language="php">require 'hoa://Data/Etc/Configuration/.Cache/HoaTest.php';</blockcode>
         <p>Il est bien évidemment possible, grâce au noyau, de créer vos
         propres liens sur le protocole.</p>
-        <p>Le noyau propose également un système d'événement natif à PHP. Il
+        <p>Le noyau propose également un système d'événements natif à PHP. Il
         est parfois très pratique d'utiliser ce paradigme. Cela permet une
         grande souplesse dans la façon dont les composants de notre programme
         peuvent communiquer entre eux. Ainsi, l'exemple suivant permet
@@ -413,7 +413,7 @@ event('hoa://Event/Log/Test/Praspel')->attach(
         votre programme ;</item>
         <item><code>Etc</code>, les fichiers de configurations, les locales
         etc. ;</item>
-        <item><code>Lost+found</code>, les fichiers perdues (normalement,
+        <item><code>Lost+found</code>, les fichiers perdus (normalement,
         toujours vide) ;</item>
         <item><code>Module</code>, les bibliothèques utilisateurs réservées
         uniquement pour votre programme ;</item>
@@ -447,7 +447,7 @@ event('hoa://Event/Log/Test/Praspel')->attach(
     <section3 id="Installer_Hoa" for="main-toc">
       <title>Installer Hoa</title>
 
-      <p>Il existe différente manière d'installer Hoa : soit à travers les
+      <p>Il existe différentes manières d'installer Hoa : soit à travers les
       archives, soit à travers
       <link href="http://mercurial.selenic.com/">Mercurial</link>. Ce dernier
       permet des mises à jour plus aisées, il est par conséquent conseillé.
@@ -549,7 +549,7 @@ Hello gordon!</blockcode>
     });</blockcode>
       <p>Tout d'abord, nous remarquons que la règle a été ajoutée avant la
       première car, de toute évidence, notre règle <code>g</code> est plus générique
-      et comprend tous les cas. L'ordre de déclarations des règles à un sens, il
+      et comprend tous les cas. L'ordre de déclarations des règles a un sens, il
       faut y prêter une attention toute particulière.</p>
       <p>Testons alors notre nouvelle application :</p>
       <blockcode language="shell">$ php index.php gordon
@@ -628,7 +628,7 @@ Picture #42: foobar.</blockcode>
         d'exercice, à savoir visualiser simplement un site Web. Il va de soit
         que Bhoa est à but pédagogique uniquement, et pas à du déploiement réel.
         Pour l'utiliser, il suffit de le lancer de cette manière :</p>
-        <blockcode language="shell">$ myapp bhoa:start
+        <blockcode language="shell">$ myapp bhoa
 Server is up, on tcp://localhost:8888!
 Root: hoa://Application/Public/
 
@@ -650,7 +650,7 @@ RewriteRule ^(.*)$ index.php?$1</blockcode>
         <p>Ou alors, si on utilise un serveur nginx, on pourra écrire dans les
         configurations :</p>
         <blockcode>if( !-e $request_filename ) {
-    
+
     rewrite ^(.*)$ index.php?$1 last;
     return  404;
 }</blockcode>
@@ -697,7 +697,7 @@ $router->setParameter('rewrited', true);</blockcode>
         on lui demande d'interpréter l'entrée comme de l'HTML.
         Les choses deviennent intéressantes. On va commencer par écrire notre
         fichier <code>hoa://Application/View/Main.xyl</code> qui sera notre vue
-        principale à laquelle va venir s'ajouter ou se greffer de nouvelles
+        principale à laquelle vont venir s'ajouter ou se greffer de nouvelles
         vues.</p>
         <p>Un fichier XYL peut-être de trois sortes : un document
         (<code>&amp;amp;lt;document&amp;amp;gt;</code>), des définitions
@@ -749,7 +749,7 @@ $router->setParameter('rewrited', true);</blockcode>
   &lt;/section1&gt;
 &lt;/document&gt;</blockcode>
         <p>Ainsi, le composant <code>&amp;amp;lt;page&amp;amp;gt;</code> sera
-        remplacer par sa définition décrite par <code>&amp;amp;lt;yield
+        remplacé par sa définition décrite par <code>&amp;amp;lt;yield
         name=page"&amp;amp;gt;</code>. Mais il est parfois préférable d'écrire
         les définitions de composants à l'extérieur de notre document (ce qui
         est très pratique pour obtenir des bibliothèques de composants). Une des
@@ -778,7 +778,7 @@ $router->setParameter('rewrited', true);</blockcode>
         dynamique. Cela implique que si on veut donner une autre définition à
         notre composant, on ne peut pas sauf en modifiant le document.
         C'est pourquoi, on est capable de spécifier à l'exécution quelle
-        définition utilisée. On le verra dans notre contrôleur. Pour l'instant,
+        définition utiliser. On le verra dans notre contrôleur. Pour l'instant,
         on va se contenter d'écrire deux définitions différentes de notre
         composant <code>&amp;amp;lt;page&amp;amp;gt;</code> : une pour notre
         règle de routeur <code>g</code> (« toutes les requêtes ») et une pour la
@@ -813,9 +813,9 @@ $router->setParameter('rewrited', true);</blockcode>
         utiles à notre application, comme la vue et ses données, le routeur ou
         encore le dispatcheur lui-même. Ainsi :</p>
         <blockcode language="php">&lt;?php
-        
+
 class IndexController {
-  
+
     public function IndexAction ( $all, Hoa\Controller\Application $_this ) {
 
         $_this->data->hello = 'Hello ' . $all . '!';
@@ -824,7 +824,7 @@ class IndexController {
         $_this->view->addUse('hoa://Application/View/Index.xyl');
         $_this->view->render();
     }
-    
+
     …</blockcode>
         <p>On dit : on assigne deux données, <code>hello</code> et
         <code>intro</code>, on va utiliser dynamiquement les définitions
@@ -911,10 +911,10 @@ class IndexController {
       <title>Conclusion</title>
 
       <p>Cette exercice n'était qu'une courte introduction à la prise en main de
-      Hoa. Dans les prochains chapitres, nous verrrons comment construire nos
+      Hoa. Dans les prochains chapitres, nous verrons comment construire nos
       propres bibliothèques ce qui nous permettra de passer en revue toutes les
       fonctionnalités du noyau : le fonctionnement des exceptions, des
-      événements, des importations etc. Puis, nous retournons sur une nouvelle
+      événements, des importations etc. Puis, nous retournerons sur une nouvelle
       application plus complète.</p>
     </section3>
   </section2>
