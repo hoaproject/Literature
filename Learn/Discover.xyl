@@ -54,25 +54,24 @@
     que les contributions viennent autant du monde de la recherche que du
     monde de l'entreprise. C'est ce qui fait <strong>la richesse de
     Hoa</strong>. Notons que Hoa est utilisé entre autre par la
-    <link href="http://mozilla.org/">fondation Mozilla</link> ainsi que par le
+    <link href="http://mozilla.org/">fondation Mozilla</link>, par le
     <link href="http://lifc.univ-fcomte.fr">Laboratoire Informatique de
     Franche-Comté</link>, ainsi que par
     l'<link href="http://www.inria.fr">Institut National de Recherche en
     Informatique et en Automatique</link>.</p>
     <p>Enfin, en dernier lieu, Hoa est <strong>développé en PHP</strong>. Ce
     langage est très intéressant. Il apporte une <strong>dynamique</strong>
-    rarement rencontrée dans d'autres langages. Toutefois, dû à son histoire,
-    il se trouve qu'on peut lui reconnaître certaines faiblesses et certains
-    manques. Notamment le fait qu'il n'offre pas de réelle bibliothèque
+    rarement rencontrée dans d'autres langages. Toutefois, en raison de son
+    histoire, il est possible qu'on lui reconnaisse certaines faiblesses et
+    certains manques. Notamment le fait qu'il n'offre pas de réelle bibliothèque
     standard comme le feraient d'autres langages. Hoa pallie à ce problème en
     proposant ses bibliothèques. L'objectif étant de <strong>redécouvrir
-    PHP</strong> et de profiter de toute sa puissance. Cette redécouverte de
-    PHP sera d'autant plus forte que les solutions apportées par Hoa sont au
-    maximum innovantes. Mais n'oublions pas que Hoa propose un <strong>cadre
-    de développement</strong> ; ainsi donc vous pourrez développer
-    <strong>vos propres bibliothèques</strong> et vous assurer d'une
-    certaine pérennité et d'une forte intégration dans tous les projets
-    utilisant Hoa.</p>
+    PHP</strong> et de profiter de toute sa puissance. Cette redécouverte de PHP
+    sera d'autant plus forte que les solutions apportées par Hoa sont au maximum
+    innovantes. Mais n'oublions pas que Hoa propose un <strong>cadre de
+    développement</strong> ; ainsi vous pourrez développer <strong>vos propres
+    bibliothèques</strong> et vous assurer d'une certaine pérennité et d'une
+    forte intégration dans tous les projets utilisant Hoa.</p>
   </section2>
 
   <section2 id="Les_points_forts_de_Hoa" for="main-toc menu-toc">
@@ -265,7 +264,7 @@ foreach($xml->querySelectorAll('foo > bar[attr^="ibute"]') as $element)
 event('hoa://Event/Log/Test/Praspel')->attach(
     new Hoathis\Test\Report\Xformat()
 );</blockcode>
-      <p>On comprend que si flux de rapports de tests utilise les interfaces
+      <p>On comprend que si le flux de rapports de tests utilise les interfaces
       de flux, alors il s'intégrera sans problème au reste de Hoa.</p>
     </section3>
 
@@ -319,7 +318,7 @@ event('hoa://Event/Log/Test/Praspel')->attach(
       <ie /> la capacité d'ajouter une partie d'une interface graphique dans
       une interface déjà existante. Ce qui est très pratique pour ajouter
       des modules sur un site de commerce par exemple.</p>
-      <p><em>XYL</em> est un langage prometteur, assez différent ce qu'il se
+      <p><em>XYL</em> est un langage prometteur, assez différent ce qui se
       fait actuellement, mais qui a un avenir certain.</p>
     </section3>
 
@@ -335,7 +334,7 @@ event('hoa://Event/Log/Test/Praspel')->attach(
       <link href="http://iso.org/">ISO</link> ou encore les normes
       <link href="http://ieee.org/">IEEE</link> telle que la norme
       POSIX.</p>
-      <p>Les normes ne manquent pas mais sont vitables. Leur respect est
+      <p>Les normes ne manquent pas mais sont vitales. Leur respect est
       parfois difficile et compliqué. C'est pourquoi Hoa propose des
       bibliothèques respectueuses de ces standards. Ainsi, vous n'aurez pas
       à vous soucier de la syntaxe ou de la sémantique des données
