@@ -5,7 +5,7 @@
 <yield name="chapter">
 
 <section1 id="Install">
-  <title>Manuel d'apprentissage<fbreak />☀<fbreak />Installation</title>
+  <title>Manuel d'apprentissage<title_break />Installation</title>
 
   <p>Nous allons nous intéresser à l'installation de Hoa.</p>
 

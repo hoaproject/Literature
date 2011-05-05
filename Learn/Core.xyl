@@ -5,7 +5,7 @@
 <yield name="chapter">
 
 <section1 id="Core">
-  <title>Manuel d'apprentissage<fbreak />☀<fbreak />Exploration du noyau</title>
+  <title>Manuel d'apprentissage<title_break />Exploration du noyau</title>
 
   <p>Le noyau est la partie <strong>indispensable</strong> de Hoa. C'est le
   noyau qui assure la cohésion et la modularité de Hoa. Il s'assure également de

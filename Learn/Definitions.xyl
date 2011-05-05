@@ -4,4 +4,16 @@
   <yield name="ie">
     <em>i.e.</em>
   </yield>
+
+  <yield name="title_break">
+    <value><fbreak />☀<fbreak /></value>
+  </yield>
+
+  <yield name="previous_chapter">
+    <value>☚</value>
+  </yield>
+
+  <yield name="next_chapter">
+    <value>☛</value>
+  </yield>
 </definition>

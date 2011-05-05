@@ -5,7 +5,7 @@
 <yield name="chapter">
 
 <section1 id="Introduction">
-  <title>Manuel d'apprentissage<fbreak />☀<fbreak />Introduction</title>
+  <title>Manuel d'apprentissage<title_break />Introduction</title>
 
   <p>Hoa se définit comme étant un ensemble de bibliothèques PHP
   <strong>puissantes</strong>, <strong>rapides</strong>, hautement
