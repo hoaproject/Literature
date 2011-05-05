@@ -28,7 +28,7 @@
     différentes bibliothèques de Hoa, ainsi que de la
     <strong>compatibilité</strong> entre les différentes versions de PHP et de
     Hoa. Ainsi, si vous utilisez les mécanismes proposés par le noyau, vous vous
-    assurez de migration plus aisée.</p>
+    assurez une migration plus aisée.</p>
     <p>Le noyau s'instancie à l'aide d'un seul fichier
     <code>Core/Core.php</code>. Ce dernier instanciera le reste du noyau au
     besoin et dans de bonnes conditions.</p>
@@ -132,7 +132,7 @@ from('Hoathis')
       <code>Stream.I~.*</code> correspond à tous les chemins possibles depuis le
       point <code>Stream.IStream</code>. L'opérateur étoile n'est pas récursif,
       <ie /> il ne comprend qu'un seul niveau.</p>
-      <p>Néanmoins, on déconseille l'utilisation abandonte de l'opérateur étoile.
+      <p>Néanmoins, on déconseille l'utilisation abondante de l'opérateur étoile.
       En effet, il est utile voire innévitable dans certaines situations, mais
       il est toujours préférable de gérer les importations au cas par cas, quand
       c'est possible, afin de toujours savoir ce qu'on manipule.</p>
@@ -334,13 +334,13 @@ $first->say();
     <section3 id="Capturer_les_evenements" for="main-toc">
       <title>Capturer les événements</title>
 
-      <p>La capture des événements se veut facilité dans Hoa grâce à la fonction
-      <code>event</code>, alias de <code>Hoa\Core\Event::getEvent</code>. Cette
-      fonction requiert un seul argument : un identifiant, et va retourner
-      l'événement associé. Sur ce dernier, on pourra alors attacher des actions :
-      une fonction déclarée, une fonction anonyme, une classe et une méthode, un
-      objet et une méthode, un flux etc. Ainsi, si on veut capturer des
-      exceptions :</p>
+      <p>La capture des événements se veut facilitée dans Hoa grâce à la
+      fonction <code>event</code>, alias de
+      <code>Hoa\Core\Event::getEvent</code>. Cette fonction requiert un seul
+      argument : un identifiant, et va retourner l'événement associé. Sur ce
+      dernier, on pourra alors attacher des actions : une fonction déclarée, une
+      fonction anonyme, une classe et une méthode, un objet et une méthode, un
+      flux etc. Ainsi, si on veut capturer des exceptions :</p>
       <blockcode language="php">event('hoa://Event/Exception')->attach(
     function ( Hoa\Core\Event\Bucket $bucket ) {
 
