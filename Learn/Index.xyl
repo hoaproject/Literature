@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xyl-use href="Definitions.xyl"?>
 
-<document xmlns="http://hoa-project.net/xyl/xylophone">
+<definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
 <section1 id="Index">
@@ -83,7 +83,8 @@
       Hoa et pourront profiter de tous ces échanges enrichissants. On souligne
       que les contributions viennent autant du monde de la recherche que du
       monde de l'entreprise. C'est ce qui fait <strong>la richesse de
-      Hoa</strong>. Notons que Hoa est utilisé entre autre par le
+      Hoa</strong>. Notons que Hoa est utilisé entre autre par la
+      <link href="http://mozilla.org/">fondation Mozilla</link> ainsi que par le
       <link href="http://lifc.univ-fcomte.fr">Laboratoire Informatique de
       Franche-Comté</link>, ainsi que par
       l'<link href="http://www.inria.fr">Institut National de Recherche en
@@ -125,11 +126,11 @@
         famille <code>Hoa</code>. Ainsi, l'exemple suivant permet d'utiliser
         un routeur et un dispatcheur :</p>
         <blockcode language="php">from('Hoa')
--> import('Controller.Router')
--> import('Controller.Dispatcher.Basic');</blockcode>
+-> import('Router.Http')
+-> import('Dispatcher.Basic');</blockcode>
         <p>Notons que les fichiers sont pré-chargés, c'est à dire qu'ils sont
         en attente d'utilisation. Ainsi, tant que la classe
-        <code>Hoa\Controller\Router</code> n'est pas utilisée, le fichier ne
+        <code>Hoa\Router\Http</code> n'est pas utilisée, le fichier ne
         sera pas chargé. En revanche, si le pré-chargement n'est pas effectué,
         une erreur sera naturellement levée.</p>
         <p>Ensuite, le noyau permet le paramétrage des bibliothèques et des
@@ -164,12 +165,9 @@
         <code>hoa://Data/Variable/Cache/</code> contient les caches, ou
         <code>hoa://Data/Variable/Database/</code> contient les bases de
         données ou encore <code>hoa://Data/Bin/</code> qui contient des
-        binaires pour manipuler votre application. Mais on trouve également
-        <code>hoa://Application/Public/</code> précédemment vu ou
-        <code>hoa://Application/View/</code> qui contient les vues de votre
-        programme. Tous ces chemins n'existent pas nécessairement, ce sont une
-        suite de liens symboliques. Naturellement, cela fonctionne en bas-niveau
-        dans l'application :</p>
+        binaires pour manipuler votre application. Tous ces chemins n'existent
+        pas nécessairement, ce sont une suite de liens symboliques.
+        Naturellement, cela fonctionne en bas-niveau dans l'application :</p>
         <blockcode language="php">from('Hoa')
 -> import('File.Read');
 
@@ -385,24 +383,18 @@ event('hoa://Event/Log/Test/Praspel')->attach(
       travailler vite, ce qui implique d'avoir des processus automatisés.
       C'est en cela que les frameworks sont un atout de poids : ils
       automatisent des tâches.</p>
-      <p>Du fait de la conception, de l'abstraction et de la modularité de
-      Hoa, tout est surchargeable. Par exemple, lors de l'instanciation d'une
-      bibliothèque, on utilisera ses paramètres déclarés dans le code.
-      Seulement, si le fichier
-      <code>hoa://Data/Etc/Configuration/.Cache/<em>Foobar</em>.php</code>
-      existe, alors la bibliothèque sera configurée de manière transparente
-      avec les paramètres contenus dans le dit fichier.</p>
-      <p>Ce qu'on comprend, c'est que les bibliothèques seules fonctionnent de
-      manière autonomes, mais que si on veut utiliser Hoa en tant que
-      framework, de nouveaux mécanismes apparaissent de manière transparente.</p>
+      <p>Hoa est avant tout un ensemble de bibliothèques. Néanmoins, il est
+      également proposé un aspect framework, comme une preuve du concept de la
+      modularité des bibliothèques. C'est pourquoi, en ajoutant quelques outils,
+      vous pouvez ajouter à Hoa un aspect framework et donc automatisé.</p>
+      <p>La découverte de ses outils se fera au fur et à mesure de la
+      documentation.</p>
     </section3>
 
     <section3 id="Architecture" for="main-toc">
       <title>Architecture</title>
 
-      <p>L'architecture de Hoa est très simple. On peut différencier deux
-      parties : la partie bibliothèques (<code>Framework</code>) et la partie
-      données (<code>Data</code>). La partie bibliothèque contient :</p>
+      <p>L'architecture de Hoa est très simple :</p>
       <ulist>
         <item><code>Core</code>, le noyau ;</item>
         <item><code>Library</code>, les bibliothèques standards (la famille
@@ -411,32 +403,9 @@ event('hoa://Event/Log/Test/Praspel')->attach(
         <em>Hoathis</em>) ;</item>
         <item><code>Optional</code>, des bibliothèques additionnelles.</item>
       </ulist>
-      <p>La partie données contient :</p>
-      <ulist>
-        <item><code>Bin</code>, des outils en ligne de commandes pour gérer
-        votre programme ;</item>
-        <item><code>Etc</code>, les fichiers de configurations, les locales
-        etc. ;</item>
-        <item><code>Lost+found</code>, les fichiers perdus (normalement,
-        toujours vide) ;</item>
-        <item><code>Module</code>, les bibliothèques utilisateurs réservées
-        uniquement pour votre programme ;</item>
-        <item><code>Optional</code>, des bibliothèques additionnelles
-        réservées uniquement pour votre programme ;</item>
-        <item><code>Temporary</code>, les fichiers temporaires ;</item>
-        <item><code>Variable</code>, les fichiers caches, les bases de
-        données, les logs, les tests etc.</item>
-      </ulist>
       <p>Hoa est conçu selon le principe <em>un ensemble de bibliothèques pour
-      plusieurs applications</em>, <ie /> on place le dossier
-      <code>Framework</code> a un seul endroit et toutes les applications vont
-      travailler dessus. Un programme est constitué de deux dossiers : le
-      premier est maintenant connu, il s'agit de <code>Data</code>, le second
-      est conventionnellement <code>Application</code>, mais ça peut être
-      n'importe quoi d'autre. Ce couple de dossier s'appelle une
-      <em>application</em> dans la terminologie Hoa. Notez que le dossier
-      <code>Data</code> n'est pas obligatoire mais il permet, comme les
-      frameworks le proposent, un cadre de développement propre et organisé.</p>
+      plusieurs applications</em>, <ie /> on place le dossier Hoa a un seul
+      endroit et toutes les applications vont travailler dessus.</p>
     </section3>
   </section2>
 
@@ -925,4 +894,4 @@ class IndexController {
 </section1>
 
 </yield>
-</document>
+</definition>
