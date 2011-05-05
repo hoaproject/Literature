@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xyl-use href="Definitions.xyl"?>
+
+<definition xmlns="http://hoa-project.net/xyl/xylophone">
+<yield name="chapter">
+
+<section1 id="Introduction">
+  <title>Manuel d'apprentissage<fbreak />☀<fbreak />Introduction</title>
+
+  <p>Hoa se définit comme étant un ensemble de bibliothèques PHP
+  <strong>puissantes</strong>, <strong>rapides</strong>, hautement
+  <strong>modulaires</strong>, <strong>sécuritaires</strong>,
+  <strong>innovantes</strong> et respectueuses des <strong>standards</strong>.</p>
+  <p>Un projet comme Hoa peut s'aborder de plusieurs façons. Un excellent
+  point de départ est le manuel d'apprentissage, qui permet de faire
+  connaissance rapidement avec le projet : ce qu'il est, ce qu'il fait,
+  comment l'utiliser et où il va, sont des questions pertinentes qui trouvent
+  des réponses rapides dans ce manuel d'apprentissage, <em>a contrario</em>
+  du manuel de références ou documentation API qui sont respectivement un
+  manuel détaillé de toutes les fonctionnalités et une documentation
+  bas-niveau. Le manuel d'apprentissage ira plus loin en apportant des
+  exemples concrets, par exemple sous forme de tutoriels, afin de mieux guider
+  la lectrice ou le lecteur dans sa découverte de Hoa.</p>
+
+  <section2 id="Table_des_matieres" for="menu-toc">
+    <title>Table des matières</title>
+
+    <tableofcontents id="main-toc" />
+  </section2>
+
+  <section2 id="Modus_operandi" for="main-toc">
+    <title><em>Modus operandi</em></title>
+  </section2>
+
+  <section2 id="Contributions" for="main-toc">
+    <title>Contributions</title>
+  </section2>
+</section1>
+
+</yield>
+</definition>
