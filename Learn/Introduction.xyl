@@ -28,7 +28,7 @@
     <tableofcontents id="main-toc" />
   </section2>
 
-  <section2 id="Contributions" for="main-toc">
+  <section2 id="Contributions" for="main-toc menu-toc">
     <title>Contributions</title>
 
     <p>Un projet comme Hoa peut s'aborder de plusieurs façons. Un excellent
@@ -43,7 +43,7 @@
     lectrice ou le lecteur dans sa découverte de Hoa.</p>
   </section2>
 
-  <section2 id="Modus_operandi" for="main-toc">
+  <section2 id="Modus_operandi" for="main-toc menu-toc">
     <title><em>Modus operandi</em></title>
 
     <p>Le manuel d'apprentissage est organisé en chapitre. Chaque chapitre
