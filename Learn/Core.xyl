@@ -234,7 +234,8 @@ var_dump(get_class($server));
       <p>Nous allons commencer par un exercice très facile : créer une classe
       dans la famille <code>Hoathis</code>, l'importer et l'utiliser.</p>
       <p>Par défaut, les bibliothèques utilisateurs se placent entre autre dans
-      le dossier <code>Module/</code>. On va y créer le fichier
+      le dossier <code>Module/</code> de Hoa (situé normalement dans
+      <code>/usr/local/lib/hoa</code>). On va y créer le fichier
       <code>Exercise/Core/First.php</code> :</p>
       <blockcode language="php">&lt;?php
 
