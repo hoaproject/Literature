@@ -7,7 +7,9 @@
 <section1 id="Install">
   <title>Manuel d'apprentissage<title_break />Installation</title>
 
-  <p>Nous allons nous intéresser à l'installation de Hoa.</p>
+  <p>Dans ce chapitre, on s'intéresse à l'installation de Hoa, ainsi qu'à
+  l'installation de PHP (normalement pas nécessaire sur tout système digne de
+  ce nom).</p>
 
   <section2 id="Table_des_matieres" for="menu-toc">
     <title>Table des matières</title>
@@ -15,49 +17,72 @@
     <tableofcontents id="main-toc" />
   </section2>
 
-  <section2 id="Depuis_un_depot_Mercurial" for="main-toc menu-toc">
-    <title>Depuis un dépôt Mercurial</title>
+  <section2 id="Installer_Hoa" for="main-toc menu-toc">
+    <title>Installer Hoa</title>
 
-    <p><link href="http://mercurial.selenic.com/">Mercurial</link> est un
-    logiciel puissant pour gérer les sources. C'est le choix qu'a fait Hoa pour
-    gérer ses sources et ses outils. Tous les dépôts, ainsi que leur
-    description, sont visibles sur l'<link href="http://hg.hoa-project.net/">index
-    des dépôts</link>.</p>
-    <p>Pour installer Hoa à partir de Mercurial, il suffit de faire :</p>
-    <blockcode language="shell">$ hg clone http://hg.hoa-project.net/Central /usr/local/lib/hoa</blockcode>
-  </section2>
+    <p>On s'intéresse à l'installation de Hoa à travers de multiples
+    mécanismes.</p>
 
-  <section2 id="Depuis_une_archive" for="main-toc menu-toc">
-    <title>Depuis une archive</title>
+    <section3 id="Confort_maximal" for="main-toc">
+      <title>Confort maximal</title>
 
-    <p>Hoa propose des archives sous plusieurs formats : 7z, tar.bz2, tar.gz et
-    zip. Ces archives sont accessibles de deux manières :
-    <ulist>
-      <item><em>via</em> HTTP :
-            <link href="http://download.hoa-project.net/">http://download.hoa-project.net/</link> ;</item>
-      <item><em>via</em> WebDAV :
-            <link href="http://dav.hoa-project.net/">http://dav.hoa-project.net/</link>
-            (en invité et en lecture seule).</item>
-    </ulist>
-    </p>
-    <p>Les archives concernant le tronc se trouvent dans le dossier
-    <code>Central</code>. Plusieurs sont produites par jours. Si vous souhaitez
-    une version particulière, vous la trouverez dans le dossier
-    <code>Tags</code>.</p>
-  </section2>
+      <p>Pour les systèmes respectants le
+      <link href="http://pathname.com/fhs/"><em>Filesystem Hierarchy
+      Standard</em></link> (dans sa version 2.2 minimum), Hoa préfèrera
+      s'installer dans le dossier <code>/usr/local/lib/hoa</code>. Pour les
+      autres systèmes, comme par exemple Windows, Hoa préfèrera s'installer dans
+      le dossier <code>C:\Program Files\Hoa\</code>.</p>
+    </section3>
 
-  <section2 id="Depuis_une_archive_PHAR" for="main-toc menu-toc">
-    <title>Depuis une archive Phar</title>
+    <section3 id="Depuis_un_depot_Mercurial" for="main-toc">
+      <title>Depuis un dépôt Mercurial</title>
 
-    <p>PHP fournit son propre système d'archive :
-    <link href="http://php.net/phar">PHP Archive (Phar)</link>, afin de
-    distribuer plus uniformément ses programmes écrits en PHP (ou avec d'autres
-    langages). Ce format est devenu standard depuis PHP5.3, qui est la version
-    minimum pour utiliser Hoa. Il est donc naturel de le proposer.</p>
-    <p>Ce format d'archive est disponible aux mêmes endroits que
-    <link href="#Depuis_une_archive">les archives traditionnelles</link>,
-    toutefois, l'archive est exécutable :</p>
-    <blockcode language="shell">$ mkdir -p /usr/local/lib/hoa
+      <p><link href="http://mercurial.selenic.com/">Mercurial</link> est un
+      logiciel puissant pour gérer les sources. C'est le choix qu'a fait Hoa
+      pour gérer ses sources et ses outils. Tous les dépôts, ainsi que leur
+      description, sont visibles sur
+      l'<link href="http://hg.hoa-project.net/">index des dépôts</link>.</p>
+      <p>Pour installer Hoa à partir de Mercurial, il suffit de faire :</p>
+      <blockcode language="shell">$ hg clone http://hg.hoa-project.net/Central /usr/local/lib/hoa</blockcode>
+      <p>Et c'est terminé !</p>
+      <p>Pour mettre à jour Hoa, deux commandes suffisent :</p>
+      <blockcode language="shell">$ cd /usr/local/lib/hoa
+$ hg pull
+$ hg update</blockcode>
+    </section3>
+
+    <section3 id="Depuis_une_archive_compressee" for="main-toc">
+      <title>Depuis une archive compressée</title>
+
+      <p>Hoa propose des archives compressées sous plusieurs formats : 7z,
+      tar.bz2, tar.gz et zip. Ces archives sont accessibles de deux manières :
+      <ulist>
+        <item><em>via</em> HTTP :
+              <link href="http://download.hoa-project.net/">http://download.hoa-project.net/</link> ;</item>
+        <item><em>via</em> WebDAV :
+              <link href="http://dav.hoa-project.net/">http://dav.hoa-project.net/</link>
+              (en invité et en lecture seule).</item>
+      </ulist>
+      </p>
+      <p>Les archives concernant le tronc se trouvent dans le dossier
+      <code>Central</code>. Plusieurs sont produites par jours. Si vous
+      souhaitez une version particulière, vous la trouverez dans le dossier
+      <code>Tags</code>.</p>
+    </section3>
+
+    <section3 id="Depuis_une_archive_PHAR" for="main-toc">
+      <title>Depuis une archive Phar</title>
+
+      <p>PHP fournit son propre système d'archive :
+      <link href="http://php.net/phar">PHP Archive (Phar)</link>, afin de
+      distribuer plus uniformément ses programmes écrits en PHP (ou avec
+      d'autres langages). Ce format est devenu standard depuis PHP5.3, qui est
+      la version minimum pour utiliser Hoa. Il est donc naturel de le
+      proposer.</p>
+      <p>Ce format d'archive est disponible aux mêmes endroits que
+      <link href="#Depuis_une_archive_compressee">les archives
+      compressées</link>, toutefois, l'archive est exécutable :</p>
+      <blockcode language="shell">$ mkdir -p /usr/local/lib/hoa
 $ cd !!$
 $ wget http://download.hoa-project.net/Central/Hoa.next.phar
 $ php Hoa.next.phar
@@ -70,12 +95,13 @@ Options :
     -e, --extract   : Extract Hoa in the current directory.
     -h, --help      : This help.
     -?, --help      : This help.
-</blockcode>
-    <p>Il est conseillé d'extraire Hoa avec l'option <code>-e</code> ou
-    <code>--extract</code>. Cela va extraire Hoa au même niveau que
-    l'archive :</p>
-    <blockcode language="shell">$ php Hoa.next.phar --extract
+  </blockcode>
+      <p>Il est conseillé d'extraire Hoa avec l'option <code>-e</code> ou
+      <code>--extract</code>. Cela va extraire Hoa au même niveau que
+      l'archive :</p>
+      <blockcode language="shell">$ php Hoa.next.phar --extract
 Extracted in /usr/local/lib/hoa</blockcode>
+    </section3>
   </section2>
 
   <section2 id="Tester_l-installation" for="main-toc menu-toc">
@@ -86,8 +112,18 @@ Extracted in /usr/local/lib/hoa</blockcode>
 
 require '/usr/local/lib/hoa/Core/Core.php';
 var_dump(HOA);</blockcode>
+    <p>ou directement en ligne de commande :</p>
+    <blockcode language="shell">$ php -r "require '/usr/local/lib/hoa/Core/Core.php'; var_dump(HOA);"</blockcode>
     <p>À l'exécution, on doit voir <code>bool(true)</code>. Si c'est le cas,
     c'est que Hoa est correctement installé.</p>
+  </section2>
+
+  <section2 id="Installer_PHP" for="main-toc menu-toc">
+    <title>Installer PHP</title>
+
+    <p>Toutes les informations sont présentes sur le manuel de PHP :
+    <link href="http://php.net/install"><em>Installation and
+    Configuration</em></link>.</p>
   </section2>
 </section1>
 
