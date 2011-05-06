@@ -35,7 +35,7 @@
     notre programme car les interfaces sont scrupuleusement les mêmes.
     Enfin, comme les bibliothèques sont pensées de la même manière, on
     acquierera des automatismes à l'utilisation et on se surprendra à
-    utiliser des bibliothèques sans presque avoir lu la documentation.</p>
+    utiliser des bibliothèques sans presque en avoir lu la documentation.</p>
     <p>En deuxième lieu, Hoa se veut être un pont entre le monde de la
     <strong>recherche</strong> et le monde de l'<strong>entreprise</strong>.
     En effet, la recherche est à la pointe de la découverte, des solutions,
@@ -67,11 +67,11 @@
     standard comme le feraient d'autres langages. Hoa pallie à ce problème en
     proposant ses bibliothèques. L'objectif étant de <strong>redécouvrir
     PHP</strong> et de profiter de toute sa puissance. Cette redécouverte de PHP
-    sera d'autant plus forte que les solutions apportées par Hoa sont au maximum
-    innovantes. Mais n'oublions pas que Hoa propose un <strong>cadre de
-    développement</strong> ; ainsi vous pourrez développer <strong>vos propres
-    bibliothèques</strong> et vous assurer d'une certaine pérennité et d'une
-    forte intégration dans tous les projets utilisant Hoa.</p>
+    sera d'autant plus forte que les solutions apportées par Hoa sont le plus
+    innovantes possibles. Mais n'oublions pas que Hoa propose un <strong>cadre
+    de développement</strong> ; ainsi vous pourrez développer <strong>vos
+    propres bibliothèques</strong> et vous assurer d'une certaine pérennité et
+    d'une forte intégration dans tous les projets utilisant Hoa.</p>
   </section2>
 
   <section2 id="Les_points_forts_de_Hoa" for="main-toc menu-toc">
@@ -88,7 +88,7 @@
       propose des fonctionnalités vitales pour le bon fonctionnement des
       bibliothèques et pour assurer une bonne cohésion de leurs
       fonctionnements.</p>
-      <p>Tout d'abord, le noyau se charge du pré-chargement et chargement
+      <p>Tout d'abord, le noyau est responsable du pré-chargement et chargement
       des bibliothèques, selon une taxonomie en famille, <ie /> chaque
       bibliothèque définit un paquetage qui appartient à une famille. Par
       exemple, toutes les bibliothèques que Hoa propose appartiennent à la
@@ -157,8 +157,8 @@ echo $file->readAll();</blockcode>
 
         print_r($event->getData());
     });</blockcode>
-    <p>Le noyau fournit encore d'autres fonctionnalités mais on ne
-    s'arrêtera qu'aux principales.</p>
+    <p>Nous venons de parcourir les fonctionnalités principales fournies par le
+    noyau.</p>
     </section3>
 
     <section3 id="Les_flux" for="main-toc">
@@ -171,7 +171,7 @@ echo $file->readAll();</blockcode>
       Ainsi, les fichiers, les sockets, certaines chaînes de caractères, le
       terminal etc., sont des flux. Plusieurs catégories de flux existent :
       comme les flux primitifs, les flux composites, les flux structurels,
-      les flux d'entrées, de sorties, tampon, verrouillable etc.</p>
+      les flux d'entrées, de sorties, tampons, verrouillables etc.</p>
       <p>Prenons l'interface <code>Hoa\Stream\IStream\In</code> qui permet
       de manipuler des flux en entrée (soit en lecture), on trouvera alors
       des méthodes comme <code>read</code>, <code>readInteger</code>,
@@ -183,7 +183,7 @@ echo $file->readAll();</blockcode>
       etc. Mais on trouve également l'interface
       <code>Hoa\Stream\IStream\Structural</code> pour caractériser des flux
       dits structurels, comme des arbres, tels que XML, YAML, JSON etc. On
-      trouvera alors les méthodes <code>selectElements</code>,
+      y trouvera alors les méthodes <code>selectElements</code>,
       <code>selectDescendantElements</code>,
       <code>selectChildElements</code>,
       <code>selectAdjacentSiblingElement</code>, <code>querySelector</code>
@@ -256,7 +256,7 @@ foreach($xml->querySelectorAll('foo > bar[attr^="ibute"]') as $element)
       au même niveau que votre programme), soit dans tous vos programmes (en
       les déclarant au même niveau que les bibliothèques standards).</p>
       <p>De part la conception de Hoa, l'utilisation de vos bibliothèques se
-      feront de la même manière que pour les bibliothèques standards.
+      fera de la même manière que pour les bibliothèques standards.
       Ainsi :</p>
       <blockcode language="php">from('Hoathis')
 -> import('Test.Report.Xformat');
