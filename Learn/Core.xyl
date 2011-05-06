@@ -46,9 +46,7 @@ require '/usr/local/lib/hoa/Core/Core.php';</blockcode>
   <section2 id="Carte_du_noyau" for="main-toc menu-toc">
     <title>Carte du noyau</title>
 
-    <p>Le noyau est constitué de plusieurs couches que l'on présente
-    succintement dans un premier temps, puis nous allons leur dédier une section
-    chacun :
+    <p>Le noyau est constitué de plusieurs couches :
     <ulist>
       <item><em>Consistency</em> est la couche qui gère la
       <strong>cohésion</strong> entre les bibliothèques à travers les
@@ -59,16 +57,17 @@ require '/usr/local/lib/hoa/Core/Core.php';</blockcode>
       <item><em>Exception</em> est la couche qui gère les
       <strong>exceptions</strong>, unifie les erreurs etc. ; on distinguera
       trois catégories d'exceptions ;</item>
+      <item><em>Protocol</em> est la couche qui introduit le <strong>protocole
+      <code>hoa://</code></strong>, très utile pour abstraire
+      l'accès aux ressources ;</item>
       <item><em>Parameter</em> est la couche qui permet de
       <strong>paramétrer</strong> des classes et des paquetages ;</item>
-      <item><em>Protocol</em> est la couche qui introduit le <strong>protocole
-      <code>hoa://</code></strong>, très utile pour abstraire l'architecture
-      ;</item>
       <item><em>Data</em> est la couche qui permet de manipuler des
       <strong>données</strong> de formes très exotiques avec de bonnes
       performances.</item>
-    </ulist>
-    </p>
+    </ulist></p>
+    <p>On présentera les quatre premières couches. Les couches restantes seront
+    présentées dans les chapitres suivants, cela dans un but pédagogique.</p>
   </section2>
 
   <section2 id="Consistency" for="main-toc menu-toc">
@@ -170,9 +169,9 @@ from('Hoathis')
       <p>Il arrive parfois que Hoa cherche d'abord les classes dans une autre
       famille que la sienne. Ce mécanisme peut également être utilisé par vous.
       Imaginons que vous souhaitez utiliser soit votre propre classe
-      <code>Hoathis\Socket\Connection\Server</code>, soit la classe standard
-      <code>Hoa\Socket\Connection\Server</code> si la première n'est pas
-      présente, alors vous feriez :</p>
+      <code>Hoathis\Socket\Connection\Server</code>, soit si elle n'est pas
+      présente, la classe standard
+      <code>Hoa\Socket\Connection\Server</code>, alors vous feriez :</p>
       <blockcode language="php">from('Hoathis or Hoa')
 -> import('Socket.Connection.Server');</blockcode>
       <p>Ce mécanisme va d'abord chercher à importer
@@ -210,10 +209,7 @@ var_dump($family);
       se fera en une seule fois.</p>
       <p>Ce mécanisme a un intérêt plus important lorsque l'on considère
       plusieurs familles potentielles contenant notre classe. Ainsi :</p>
-      <blockcode language="php">$server = dnew(
-    '(Hoathis or Hoa)\Socket\Connection\Server',
-    array($arguments)
-);
+      <blockcode language="php">$server = dnew('(Hoathis or Hoa)\Socket\Connection\Server', array($arguments));
 var_dump(get_class($server));
 
 // Will output:
@@ -299,8 +295,8 @@ $first->say();
       canal d'événement sont contenues dans la classe
       <code>Hoa\Core\Event\Bucket</code> et l'enregistrement d'un événement ne
       s'effectue qu'une seule fois et est associé à une classe. Autrement dit :
-      on associe un objet à un événement et seul cet objet est capable d'émettre
-      des événements. L'enregistrement s'effectue à l'aide de la méthode
+      on associe un objet à un canal d'événement et seul cet objet est capable
+      d'émettre sur ce canal. L'enregistrement s'effectue à l'aide de la méthode
       <code>Hoa\Core\Event::register</code>, où le premier argument est
       l'identifiant de l'événement et le second argument est le propriétaire (ou
       l'émetteur) :</p>
@@ -435,6 +431,8 @@ var_dump($first->doSomething('Gordon'));
 
     <section3 id="Plus_d-intimite_avec_les_ecouteurs" for="main-toc">
       <title>Plus d'intimité avec les écouteurs</title>
+
+      <p><em>À écrire</em></p>
     </section3>
   </section2>
 
@@ -553,7 +551,7 @@ catch ( Hoa\Core\Exception\Idle $e ) {
 //
 //     ⬇
 //
-//     Nested Uncaught exception (Hoa\Core\Exception\Idle):
+//     Nested exception (Hoa\Core\Exception\Idle):
 //     {main}: (42) I'm a nested exception!
 //     in /Flatland/Foobar.php at line 18.</blockcode>
       <p>On remarque que l'affichage des exceptions non-capturées sait repérer
@@ -581,7 +579,7 @@ class Exception extends \Hoa\Core\Exception { }
 
 }</blockcode>
       <p>Et pour l'utiliser, par exemple dans
-      <code>Hoathis\Exercise\Core\First</code>, rien de plus simple :</p>
+      <code>Hoathis\Exercise\Core\Second</code>, rien de plus simple :</p>
       <blockcode language="php">&lt;?php
       
 namespace {
@@ -593,16 +591,12 @@ from('Hoathis')
 
 namespace Hoathis\Exercise\Core {
   
-class First /* … */ {
+class Second {
 
     public function __construct ( ) {
 
-        // …
-
         throw new Exception('Bazinga!');
     }
-
-    // …
 }
 
 }</blockcode>
@@ -612,11 +606,11 @@ class First /* … */ {
 require '/usr/local/lib/hoa/Core/Core.php';
 
 from('Hoathis')
--> import('Exercise.Core.First');
+-> import('Exercise.Core.Second');
 
 try {
   
-    $first = new Hoathis\Exercise\Core\First();
+    $second = new Hoathis\Exercise\Core\Second();
 }
 catch ( Hoathis\Exercise\Core\Exception $e ) {
   
@@ -630,16 +624,118 @@ catch ( Hoathis\Exercise\Core\Exception $e ) {
     </section3>
   </section2>
 
-  <section2 id="Parameter" for="main-toc menu-toc">
-    <title><em>Parameter</em></title>
-  </section2>
-
   <section2 id="Protocol" for="main-toc menu-toc">
     <title><em>Protocol</em></title>
-  </section2>
 
-  <section2 id="Data" for="main-toc menu-toc">
-    <title><em>Data</em></title>
+    <p>Le protocole <code>hoa://</code> permet d'<strong>abstraire l'accès à des
+    ressources</strong>. Il existe trois racines principales que l'on peut
+    regrouper en deux catégories.</p>
+
+    <section3 id="Format_du_protocole" for="main-toc">
+      <title>Format du protocole</title>
+
+      <p>Le protocole adopte le <strong>formalisme</strong> suivant :
+      <code>hoa://<em>root</em>[/<em>component</em>][#<em>anchor</em>]</code>.
+      Toutefois, ce formalisme n'est pas fermé. Il peut exister des différences et
+      des subtilités. Cela sera toujours précisé si c'est le cas.</p>
+      <p>Les composants qui seront présentés dans les sections suivantes sont
+      ceux par défaut. Ils peuvent bien sûr être modifiés. De plus, on a la
+      possibilité d'ajouter facilement des composants. Ainsi, on pourra créer
+      ses propres abstractions.</p>
+    </section3>
+
+    <section3 id="Abstraction_destinee_aux_applications" for="main-toc">
+      <title>Abstraction destinée aux applications</title>
+
+      <p>Deux racines sont destinées à l'application courante, <ie /> exploitant
+      Hoa :
+      <ulist>
+        <item><code>hoa://Application</code> pour accéder à
+        l'<strong>application</strong> ;</item>
+        <item><code>hoa://Data</code> pour accéder aux <strong>données de
+        l'application</strong>.</item>
+      </ulist></p>
+      <p>À partir de ces racines, chaque composant du protocole peut être vu
+      comme un <strong>lien symbolique</strong> vers un dossier réel.</p>
+      <p>Pour la première racine, seul un composant existe par défaut :
+      <code>hoa://Application/Public</code> qui donne accès à toutes les données
+      publiques, <ie /> toutes les données accessibles par l'utilisateur. Par
+      exemple : <code>hoa://Application/Public/index.php</code>. Autre exemple,
+      la classe <code>Hoa\Xyl</code> propose les composants suivants :
+      <ulist>
+        <item><code>hoa://Application/Public/<em>theme</em>/Css/</code> pour
+        accéder aux feuilles CSS ;</item>
+        <item><code>hoa://Application/Public/<em>theme</em>/Javascript/</code>
+        pour accéder aux scripts Javascript ;</item>
+        <item>etc.</item>
+      </ulist></p>
+      <p>Pour la seconde racine, plusieurs composants existent par défaut :
+      <ulist>
+        <item><code>hoa://Data/Etc/Configuration/</code> pour les
+        configurations ;</item>
+        <item><code>hoa://Data/Etc/Locale/</code> pour les données liées à la
+        localisation ;</item>
+        <item><code>hoa://Data/Lost+found/</code> pour les ressources perdues ou
+        trouvées (normalement toujours vide) ;</item>
+        <item><code>hoa://Data/Module/</code> pour les bibliothèques
+        utilisateurs restreintes à l'application courante (on y
+        reviendra) ;</item>
+        <item><code>hoa://Data/Temporary/</code> pour les données
+        temporaires ;</item>
+        <item><code>hoa://Data/Variable/</code> pour les fichiers modifiés
+        régulièrement (dit variables), comme les caches, les bases de données,
+        les logs, les tests etc.</item>
+      </ulist></p>
+      <p>On les utilise simplement de cette façon :</p>
+      <blockcode language="php">from('Hoa')
+-> import('File.Write');
+
+$file = new Hoa\File\Write('hoa://Data/Temporary/Foobar.txt');
+$file->writeAll('Bazqux');</blockcode>
+      <p>Cela fonctionne également sur des instructions bien plus
+      élémentaires :</p>
+      <blockcode language="php">$foo = require 'hoa://Data/Etc/Configuration/.Cache/HoaCoreCore.php';</blockcode>
+      <p>On verra plus en détail comment cela fonctionne quand on écrira une
+      application. Il faut retenir que c'est une suite de composants, chacun
+      pouvant être vu comme un lien symbolique. L'utilisation de ce protocole
+      dans votre programme abstrait totalement la dépendance aux ressources.
+      Modifier le nom d'un dossier, voire carrément le déplacer, n'engendrera
+      pas de modification du code. De la même manière, distribuer une
+      bibliothèque (ou quelque chose de plus conséquent) dépendante de
+      ressources pourra s'effectuer sans soucis : le protocole sera interprété
+      par l'application courante, avec ses propres configurations. La
+      <strong>maintenance</strong> est alors considérablement
+      <strong>réduite</strong>.</p>
+    </section3>
+
+    <section3 id="Abstraction_destinee_aux_bibliotheques" for="main-toc">
+      <title>Abstraction destinée aux bibliothèques</title>
+
+      <p>Une racine est destinée à l'accès aux bibliothèques standards :
+      <code>hoa://Library</code>. Actuellement, on rencontre peu de cas
+      d'utilisations. La bibliothèque <code>Hoa\Xyl</code> propose des
+      ressources accessibles de cette manière (mais pas par l'utilisateur,
+      uniquement par le système interne, le protocole se transforme à la volée).
+      Un exemple intéressant est celui du registre statique
+      <code>Hoa\Registry</code> qui place sur le protocole une ressource qui
+      n'est pas un fichier mais une donnée de PHP (une données scalaire, un
+      tableau, une fonction, une classe etc.), ainsi :</p>
+      <blockcode language="php">from('Hoa')
+-> import('Registry.~');
+
+Hoa\Registry::set('foo', 'bar');
+var_dump(
+    resolve('hoa://Library/Registry#foo')
+);
+
+// Will output:
+//     string(3) "bar"</blockcode>
+      <p>On peut imaginer stocker des instances de cache, de base de données,
+      des fonctions anonymes etc.</p>
+      <p>On remarquera l'utilisation de la fonction <code>resolve</code>, un
+      alias plus évolué, qui permet de résoudre des composants du protocole
+      <code>hoa://</code>.</p>
+    </section3>
   </section2>
 </section1>
 
