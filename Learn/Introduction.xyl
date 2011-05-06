@@ -13,13 +13,13 @@
   avec beaucoup d'autres modules et programmes (tels que des serveurs HTTP, des
   bases de données, des bibliothèques systèmes, des logiciels additionnels
   etc.). Mais PHP est également multi-plateforme, interprété et très facile à
-  apprendre. Toutes ces raisons sont d'autant de justifications pour expliquer
+  apprendre. Toutes ces raisons sont autant de justifications pour expliquer
   sa popularité.</p>
   <p>Dans le but d'améliorer la puissance, l'uniformité et la rigueur du
   langage, on propose Hoa : un ensemble de bibliothèques PHP
   <strong>puissantes</strong>, <strong>rapides</strong>, hautement
-  <strong>modulaires</strong>, <strong>sécuritaires</strong>,
-  <strong>innovantes</strong> et respectueuses des
+  <strong>modulaires</strong>, <strong>sûres</strong>,
+  <strong>sécurisées</strong>, <strong>innovantes</strong> et respectueuses des
   <strong>standards</strong>.</p>
 
   <section2 id="Table_des_matieres" for="menu-toc">

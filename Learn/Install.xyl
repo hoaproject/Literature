@@ -121,7 +121,7 @@ var_dump(HOA);</blockcode>
   <section2 id="Installer_PHP" for="main-toc menu-toc">
     <title>Installer PHP</title>
 
-    <p>Toutes les informations sont présentes sur le manuel de PHP :
+    <p>Toutes les informations sont présentes dans le manuel de PHP :
     <link href="http://php.net/install"><em>Installation and
     Configuration</em></link>.</p>
   </section2>
