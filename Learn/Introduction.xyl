@@ -7,20 +7,20 @@
 <section1 id="Introduction">
   <title>Manuel d'apprentissage<title_break />Introduction</title>
 
-  <p>Hoa se définit comme étant un ensemble de bibliothèques PHP
+  <p>PHP est un langage très répandu qui apporte une dynamique rarement
+  rencontrée. PHP est principalement utilisé dans le milieu de la programmation
+  Web car il joue un rôle de langage « glu » de part sa facilité à s'interfacer
+  avec beaucoup d'autres modules et programmes (tels que des serveurs HTTP, des
+  bases de données, des bibliothèques systèmes, des logiciels additionnels
+  etc.). Mais PHP est également multi-plateforme, interprété et très facile à
+  apprendre. Toutes ces raisons sont d'autant de justifications pour expliquer
+  sa popularité.</p>
+  <p>Dans le but d'améliorer la puissance, l'uniformité et la rigueur du
+  langage, on propose Hoa : un ensemble de bibliothèques PHP
   <strong>puissantes</strong>, <strong>rapides</strong>, hautement
   <strong>modulaires</strong>, <strong>sécuritaires</strong>,
-  <strong>innovantes</strong> et respectueuses des <strong>standards</strong>.</p>
-  <p>Un projet comme Hoa peut s'aborder de plusieurs façons. Un excellent
-  point de départ est le manuel d'apprentissage, qui permet de faire
-  connaissance rapidement avec le projet : ce qu'il est, ce qu'il fait,
-  comment l'utiliser et où il va, sont des questions pertinentes qui trouvent
-  des réponses rapides dans ce manuel d'apprentissage, <em>a contrario</em>
-  du manuel de références ou documentation API qui sont respectivement un
-  manuel détaillé de toutes les fonctionnalités et une documentation
-  bas-niveau. Le manuel d'apprentissage ira plus loin en apportant des
-  exemples concrets, par exemple sous forme de tutoriels, afin de mieux guider
-  la lectrice ou le lecteur dans sa découverte de Hoa.</p>
+  <strong>innovantes</strong> et respectueuses des
+  <strong>standards</strong>.</p>
 
   <section2 id="Table_des_matieres" for="menu-toc">
     <title>Table des matières</title>
@@ -28,12 +28,30 @@
     <tableofcontents id="main-toc" />
   </section2>
 
-  <section2 id="Modus_operandi" for="main-toc">
-    <title><em>Modus operandi</em></title>
-  </section2>
-
   <section2 id="Contributions" for="main-toc">
     <title>Contributions</title>
+
+    <p>Un projet comme Hoa peut s'aborder de plusieurs façons. Un excellent
+    point de départ est le manuel d'apprentissage, qui permet de faire
+    connaissance rapidement avec le projet : ce qu'il est, ce qu'il fait,
+    comment l'utiliser et où il va, sont des questions pertinentes qui trouvent
+    des réponses rapides dans ce manuel d'apprentissage, <em>a contrario</em> du
+    manuel de références ou documentation API qui sont respectivement un manuel
+    détaillé de toutes les fonctionnalités et une documentation bas-niveau. Le
+    manuel d'apprentissage ira plus loin en apportant des exemples concrets, par
+    exemple sous forme de tutoriels ou d'exercices, afin de mieux guider la
+    lectrice ou le lecteur dans sa découverte de Hoa.</p>
+  </section2>
+
+  <section2 id="Modus_operandi" for="main-toc">
+    <title><em>Modus operandi</em></title>
+
+    <p>Le manuel d'apprentissage est organisé en chapitre. Chaque chapitre
+    représente un concept que Hoa introduit dans PHP ou que Hoa propose. Il est
+    alors préférable de lire les chapitres dans l'ordre. En effet, des exercices
+    et exemples sont régulièrement proposés au fil des chapitres et sections, et
+    on essaye au maximum d'utiliser le même exercice afin de le faire
+    évoluer.</p>
   </section2>
 </section1>
 
