@@ -10,10 +10,10 @@
   </yield>
 
   <yield name="previous_chapter">
-    <value>☚</value>
+    <value>↩</value>
   </yield>
 
   <yield name="next_chapter">
-    <value>☛</value>
+    <value>↪</value>
   </yield>
 </definition>
