@@ -368,22 +368,6 @@ event('hoa://Event/Log/Test/Praspel')->attach(
     <p>La découverte de ses outils se fera au fur et à mesure de la
     documentation.</p>
   </section2>
-
-  <section2 id="Architecture" for="main-toc menu-toc">
-    <title>Architecture</title>
-
-    <p>L'architecture de Hoa est très simple :</p>
-    <ulist>
-      <item><code>Core</code>, le noyau ;</item>
-      <item><code>Library</code>, les bibliothèques standards (la famille
-      <em>Hoa</em>) ;</item>
-      <item><code>Module</code>, les bibliothèques utilisateurs (la famille
-      <em>Hoathis</em>).</item>
-    </ulist>
-    <p>Hoa est conçu selon le principe <em>un ensemble de bibliothèques pour
-    plusieurs applications</em>, <ie /> on place le dossier Hoa a un seul
-    endroit et toutes les applications vont travailler dessus.</p>
-  </section2>
 </section1>
 
 <ulist class="prev_next">

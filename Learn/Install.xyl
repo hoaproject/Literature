@@ -134,6 +134,23 @@ var_dump(HOA);</blockcode>
     <link href="http://php.net/install"><em>Installation and
     Configuration</em></link>.</p>
   </section2>
+
+  <section2 id="Architecture_de_Hoa" for="main-toc menu-toc">
+    <title>Architecture de Hoa</title>
+
+    <p>L'architecture de Hoa est très simple :</p>
+    <ulist>
+      <item><code>Core</code>, le noyau ;</item>
+      <item><code>Library</code>, les bibliothèques standards (la famille
+      <em>Hoa</em>) ;</item>
+      <item><code>Module</code>, les bibliothèques utilisateurs (la famille
+      <em>Hoathis</em>) ;</item>
+      <item><code>Stub</code>, permet d'exporter d'Hoa sous différents formats.</item>
+    </ulist>
+    <p>Hoa est conçu selon le principe <em>un ensemble de bibliothèques pour
+    plusieurs applications</em>, <ie /> on place le dossier Hoa a un seul
+    endroit et toutes les applications vont travailler dessus.</p>
+  </section2>
 </section1>
 
 <ulist class="prev_next">
