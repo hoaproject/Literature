@@ -7,6 +7,12 @@
 <section1 id="Core">
   <title>Manuel d'apprentissage<title_break />Exploration du noyau</title>
 
+  <ulist class="prev_next">
+    <item><link href="@ll:chapter=(!title)"
+                sref="hoa://Application/External/Literature/Learn/Install.xyl"
+                sref-title="//__current_ns:section1/@id"><previous_chapter /> Installation</link></item>
+  </ulist>
+
   <p>Le noyau est la partie <strong>indispensable</strong> de Hoa. C'est le
   noyau qui assure la cohésion et la modularité de Hoa. Il s'assure également de
   la compatibilité entre les versions de PHP et de Hoa à travers des mécanismes
@@ -808,6 +814,12 @@ var_dump(
     </section3>
   </section2>
 </section1>
+
+<ulist class="prev_next">
+  <item><link href="@ll:chapter=(!title)"
+              sref="hoa://Application/External/Literature/Learn/Install.xyl"
+              sref-title="//__current_ns:section1/@id"><previous_chapter /> Installation</link></item>
+</ulist>
 
 </yield>
 </definition>
