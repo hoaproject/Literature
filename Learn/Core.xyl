@@ -499,7 +499,7 @@ var_dump($third->doSomething('Gordon'));
       des actions. On parle d'<strong>identification à l'utilisation</strong>
       car on connait le composant que l'on écoute. Et c'est pourquoi on parle
       d'<strong>interactions proches</strong> car il est obligatoire d'avoir une
-      proximité pour pouvoir interagir ce composant, d'où le fait que ça ne
+      proximité pour pouvoir interagir avec ce composant, d'où le fait que ça ne
       concerne que quelques composants.</p>
     </section3>
   </section2>
