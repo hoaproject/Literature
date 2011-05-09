@@ -42,10 +42,10 @@
       pour gérer ses sources et ses outils. Tous les dépôts, ainsi que leur
       description, sont visibles sur
       l'<link href="http://hg.hoa-project.net/">index des dépôts</link>.</p>
-      <p>Pour installer Hoa à partir de Mercurial, il suffit de faire :</p>
+      <p>Pour installer Hoa à partir de Mercurial, il suffit de faire :</p>
       <blockcode language="shell">$ hg clone http://hg.hoa-project.net/Central /usr/local/lib/hoa</blockcode>
       <p>Et c'est terminé !</p>
-      <p>Pour mettre à jour Hoa, deux commandes suffisent :</p>
+      <p>Pour mettre à jour Hoa, deux commandes suffisent :</p>
       <blockcode language="shell">$ cd /usr/local/lib/hoa
 $ hg pull
 $ hg update</blockcode>
@@ -54,12 +54,12 @@ $ hg update</blockcode>
     <section3 id="Depuis_une_archive_compressee" for="main-toc">
       <title>Depuis une archive compressée</title>
 
-      <p>Hoa propose des archives compressées sous plusieurs formats : 7z,
-      tar.bz2, tar.gz et zip. Ces archives sont accessibles de deux manières :
+      <p>Hoa propose des archives compressées sous plusieurs formats : 7z,
+      tar.bz2, tar.gz et zip. Ces archives sont accessibles de deux manières :
       <ulist>
-        <item><em>via</em> HTTP :
-              <link href="http://download.hoa-project.net/">http://download.hoa-project.net/</link> ;</item>
-        <item><em>via</em> WebDAV :
+        <item><em>via</em> HTTP :
+              <link href="http://download.hoa-project.net/">http://download.hoa-project.net/</link> ;</item>
+        <item><em>via</em> WebDAV :
               <link href="http://dav.hoa-project.net/">http://dav.hoa-project.net/</link>
               (en invité et en lecture seule).</item>
       </ulist>
@@ -73,7 +73,7 @@ $ hg update</blockcode>
     <section3 id="Depuis_une_archive_PHAR" for="main-toc">
       <title>Depuis une archive Phar</title>
 
-      <p>PHP fournit son propre système d'archive :
+      <p>PHP fournit son propre système d'archive :
       <link href="http://php.net/phar">PHP Archive (Phar)</link>, afin de
       distribuer plus uniformément ses programmes écrits en PHP (ou avec
       d'autres langages). Ce format est devenu standard depuis PHP5.3, qui est
@@ -81,7 +81,7 @@ $ hg update</blockcode>
       proposer.</p>
       <p>Ce format d'archive est disponible aux mêmes endroits que
       <link href="#Depuis_une_archive_compressee">les archives
-      compressées</link>, toutefois, l'archive est exécutable :</p>
+      compressées</link>, toutefois, l'archive est exécutable :</p>
       <blockcode language="shell">$ mkdir -p /usr/local/lib/hoa
 $ cd !!$
 $ wget http://download.hoa-project.net/Central/Hoa.next.phar
@@ -98,7 +98,7 @@ Options :
   </blockcode>
       <p>Il est conseillé d'extraire Hoa avec l'option <code>-e</code> ou
       <code>--extract</code>. Cela va extraire Hoa au même niveau que
-      l'archive :</p>
+      l'archive :</p>
       <blockcode language="shell">$ php Hoa.next.phar --extract
 Extracted in /usr/local/lib/hoa</blockcode>
     </section3>
@@ -107,12 +107,12 @@ Extracted in /usr/local/lib/hoa</blockcode>
   <section2 id="Tester_l-installation" for="main-toc menu-toc">
     <title>Tester l'installation</title>
 
-    <p>Pour tester l'installation de Hoa, rien de plus simple :</p>
+    <p>Pour tester l'installation de Hoa, rien de plus simple :</p>
     <blockcode language="php">&lt;?php
 
 require '/usr/local/lib/hoa/Core/Core.php';
 var_dump(HOA);</blockcode>
-    <p>ou directement en ligne de commande :</p>
+    <p>ou directement en ligne de commande :</p>
     <blockcode language="shell">$ php -r "require '/usr/local/lib/hoa/Core/Core.php'; var_dump(HOA);"</blockcode>
     <p>À l'exécution, on doit voir <code>bool(true)</code>. Si c'est le cas,
     c'est que Hoa est correctement installé.</p>
@@ -121,7 +121,7 @@ var_dump(HOA);</blockcode>
   <section2 id="Installer_PHP" for="main-toc menu-toc">
     <title>Installer PHP</title>
 
-    <p>Toutes les informations sont présentes dans le manuel de PHP :
+    <p>Toutes les informations sont présentes dans le manuel de PHP :
     <link href="http://php.net/install"><em>Installation and
     Configuration</em></link>.</p>
   </section2>

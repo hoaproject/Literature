@@ -30,7 +30,7 @@
     solutions pour résoudre des problèmes de manières efficaces. Si les
     solutions sont pertinentes, alors le développement sera efficace.
     Ensuite, si les bibliothèques sont en harmonies entre elles, <ie /> si
-    elles sont génériques, alors on peut travailler sereinement : on sait
+    elles sont génériques, alors on peut travailler sereinement : on sait
     que modifier un flux par un autre flux ne créera pas de régression dans
     notre programme car les interfaces sont scrupuleusement les mêmes.
     Enfin, comme les bibliothèques sont pensées de la même manière, on
@@ -69,7 +69,7 @@
     PHP</strong> et de profiter de toute sa puissance. Cette redécouverte de PHP
     sera d'autant plus forte que les solutions apportées par Hoa sont le plus
     innovantes possibles. Mais n'oublions pas que Hoa propose un <strong>cadre
-    de développement</strong> ; ainsi vous pourrez développer <strong>vos
+    de développement</strong> ; ainsi vous pourrez développer <strong>vos
     propres bibliothèques</strong> et vous assurer d'une certaine pérennité et
     d'une forte intégration dans tous les projets utilisant Hoa.</p>
   </section2>
@@ -93,7 +93,7 @@
       bibliothèque définit un paquetage qui appartient à une famille. Par
       exemple, toutes les bibliothèques que Hoa propose appartiennent à la
       famille <code>Hoa</code>. Ainsi, l'exemple suivant permet d'utiliser
-      un routeur et un dispatcheur :</p>
+      un routeur et un dispatcheur :</p>
       <blockcode language="php">from('Hoa')
 -> import('Router.Http')
 -> import('Dispatcher.Basic');</blockcode>
@@ -120,12 +120,12 @@
       dossier. Si jamais l'architecture de votre application se voit
       modifiée, alors vous n'aurez qu'à changer la cible du protocole, mais
       en aucun cas vous n'aurez à reprendre votre programme et modifier tous
-      les liens. Par défaut, le protocole définit trois racines :</p>
+      les liens. Par défaut, le protocole définit trois racines :</p>
       <ulist>
         <item><code>hoa://Application/</code> concerne votre
-        programme ;</item>
+        programme ;</item>
         <item><code>hoa://Data/</code> concerne toutes les données de
-        votre programme ;</item>
+        votre programme ;</item>
         <item><code>hoa://Library/</code> concerne les bibliothèques de
         Hoa.</item>
       </ulist>
@@ -136,13 +136,13 @@
       données ou encore <code>hoa://Data/Bin/</code> qui contient des
       binaires pour manipuler votre application. Tous ces chemins n'existent
       pas nécessairement, ce sont une suite de liens symboliques.
-      Naturellement, cela fonctionne en bas-niveau dans l'application :</p>
+      Naturellement, cela fonctionne en bas-niveau dans l'application :</p>
       <blockcode language="php">from('Hoa')
 -> import('File.Read');
 
 $file = new Hoa\File\Read('hoa://Data/Temporary/Foo.txt');
 echo $file->readAll();</blockcode>
-      <p>Ou encore plus bas-niveau :</p>
+      <p>Ou encore plus bas-niveau :</p>
       <blockcode language="php">require 'hoa://Data/Etc/Configuration/.Cache/HoaTest.php';</blockcode>
       <p>Il est bien évidemment possible, grâce au noyau, de créer vos
       propres liens sur le protocole.</p>
@@ -151,7 +151,7 @@ echo $file->readAll();</blockcode>
       grande souplesse dans la façon dont les composants de notre programme
       peuvent communiquer entre eux. Ainsi, l'exemple suivant permet
       d'afficher tous les événements provenant des tests lorsqu'ils sont
-      exécutés :</p>
+      exécutés :</p>
       <blockcode language="php">event('hoa://Event/Log/Test/Praspel')
     ->attach(function ( Hoa\Core\Event\Bucket $event ) {
 
@@ -169,7 +169,7 @@ echo $file->readAll();</blockcode>
       plusieurs technologies et doit donc gérer au mieux les flux.</p>
       <p>Dans Hoa, il existe un mécanisme de gestion de flux très poussé.
       Ainsi, les fichiers, les sockets, certaines chaînes de caractères, le
-      terminal etc., sont des flux. Plusieurs catégories de flux existent :
+      terminal etc., sont des flux. Plusieurs catégories de flux existent :
       comme les flux primitifs, les flux composites, les flux structurels,
       les flux d'entrées, de sorties, tampons, verrouillables etc.</p>
       <p>Prenons l'interface <code>Hoa\Stream\IStream\In</code> qui permet
@@ -179,7 +179,7 @@ echo $file->readAll();</blockcode>
       <code>readString</code>, <code>readArray</code> etc. On trouvera
       toutes les méthodes inverses sur l'interface
       <code>Hoa\Stream\IStream\Out</code> pour les flux de sorties (soit
-      d'écriture), tel que : <code>write</code>, <code>writeInteger</code>
+      d'écriture), tel que : <code>write</code>, <code>writeInteger</code>
       etc. Mais on trouve également l'interface
       <code>Hoa\Stream\IStream\Structural</code> pour caractériser des flux
       dits structurels, comme des arbres, tels que XML, YAML, JSON etc. On
@@ -195,14 +195,14 @@ echo $file->readAll();</blockcode>
       est le flux XML, qui permet d'interpréter le contenu des flux
       primitifs comme étant du XML. Cela implique que si on modifie le flux
       primitif, tout le traitement effectué sur notre fichier XML restera
-      inchangé. Encore mieux : le flux JSON, <em>a l'instar</em> du flux
+      inchangé. Encore mieux : le flux JSON, <em>a l'instar</em> du flux
       XML, est composite mais également structurel (en effet, autant XML que
       JSON définissent des arbres). Si un traitement est fait sur un fichier
       qui n'est plus du XML mais du JSON, on modifie simplement la classe
       utilisée pour lire notre flux primitif, mais les opérations de
       traitements qui suivent ne seront pas modifiées. Tout cela grâce aux
       nombreuses interfaces que proposent les flux. Ainsi, l'exemple suivant
-      va sélectionner des éléments et lire leur contenu :</p>
+      va sélectionner des éléments et lire leur contenu :</p>
       <blockcode language="php">from('Hoa')
 -> import('File.Read')
 -> import('Xml.Read');
@@ -221,13 +221,13 @@ foreach($xml->querySelectorAll('foo > bar[attr^="ibute"]') as $element)
       <p>La sécurité et la sûreté du logiciel est une discipline
       Informatique à part entière. Cela consiste à s'assurer que rien de
       malveillant n'arrivera et que ce qui doit arriver arrivera, ou plus
-      trivialement : notre programme fera tout ce qu'on a prévu, ni plus, ni
+      trivialement : notre programme fera tout ce qu'on a prévu, ni plus, ni
       moins, et dans de bonnes conditions.</p>
       <p>Pour cela, il existe plusieurs approches, non mutuellement
       exclusives. L'une d'entre elle est le test. Des travaux de recherche
       ont été menés au sein même de Hoa afin de créer un générateur
       automatique de tests unitaires. Cela a donné lieu à la création d'un
-      langage d'annotation et de spécification : <em>Praspel</em>. Ce
+      langage d'annotation et de spécification : <em>Praspel</em>. Ce
       langage est conçu pour exprimer des contraintes sur un algorithme et
       y effectuer plusieurs tests, de différents types, de différentes
       natures, à travers différents procédés. Ce langage constitue la base
@@ -257,7 +257,7 @@ foreach($xml->querySelectorAll('foo > bar[attr^="ibute"]') as $element)
       les déclarant au même niveau que les bibliothèques standards).</p>
       <p>De part la conception de Hoa, l'utilisation de vos bibliothèques se
       fera de la même manière que pour les bibliothèques standards.
-      Ainsi :</p>
+      Ainsi :</p>
       <blockcode language="php">from('Hoathis')
 -> import('Test.Report.Xformat');
 
@@ -274,12 +274,12 @@ event('hoa://Event/Log/Test/Praspel')->attach(
       <p>Un des problèmes majeurs lors de la création d'un programme est
       l'interface graphique. Il existe une multitude de bibliothèques,
       principalement pour <em>micro-templating</em>, mais aucune ne répond
-      vraiment aux besoins. Ces besoins sont : dynamicité, modularité et
+      vraiment aux besoins. Ces besoins sont : dynamicité, modularité et
       extensibilité. Hoa propose un langage d'interface graphique sous forme
-      XML qui répond à de très nombreux besoins : <em>XYL</em>.</p>
+      XML qui répond à de très nombreux besoins : <em>XYL</em>.</p>
       <p><em>XYL</em> est un langage d'interface graphique multi-plateforme
       et multi-sortie, <ie /> vous écrivez votre interface graphique une
-      seule fois et vous demandez une interprétation particulière : vers un
+      seule fois et vous demandez une interprétation particulière : vers un
       navigateur Web de bureau ou de mobile, vers une application native
       bureau ou mobile, vers une tablette, vers un terminal, vers un fichier
       PDF, vers un fichier XML, JSON etc. Quand on parle de
@@ -301,14 +301,14 @@ event('hoa://Event/Log/Test/Praspel')->attach(
     &lt;comments bind="?data/to/comments" /&gt;
   &lt;/section1&gt;
 &lt;/document&gt;</blockcode>
-      <p>et notre fichier <code>Comments.xyl</code> :</p>
+      <p>et notre fichier <code>Comments.xyl</code> :</p>
       <blockcode language="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 
 &lt;definition xmlns="http://hoa-project.net/xyl/xylophone"&gt;
   &lt;yield name="comments"&gt;
     &lt;box bind="comment"&gt;
       &lt;image href="?avatar" /&gt;
-      &lt;p&gt;&lt;value bind="?pseudo" /&gt; dit :&lt;/p&gt;
+      &lt;p&gt;&lt;value bind="?pseudo" /&gt; dit :&lt;/p&gt;
       &lt;blockquote bind="?message" /&gt;
     &lt;/box&gt;
     &lt;hseparator /&gt;
@@ -363,14 +363,13 @@ event('hoa://Event/Log/Test/Praspel')->attach(
   <section2 id="Architecture" for="main-toc menu-toc">
     <title>Architecture</title>
 
-    <p>L'architecture de Hoa est très simple :</p>
+    <p>L'architecture de Hoa est très simple :</p>
     <ulist>
       <item><code>Core</code>, le noyau ;</item>
       <item><code>Library</code>, les bibliothèques standards (la famille
       <em>Hoa</em>) ;</item>
       <item><code>Module</code>, les bibliothèques utilisateurs (la famille
-      <em>Hoathis</em>) ;</item>
-      <item><code>Optional</code>, des bibliothèques additionnelles.</item>
+      <em>Hoathis</em>).</item>
     </ulist>
     <p>Hoa est conçu selon le principe <em>un ensemble de bibliothèques pour
     plusieurs applications</em>, <ie /> on place le dossier Hoa a un seul
