@@ -16,7 +16,11 @@
                 sref-title="//__current_ns:section1/@id"><next_chapter /> Une histoire de flux</link></item>
   </ulist>
 
-  <p>Abstract</p>
+  <p>Une composante aussi nécessaire qu'importe est l'<strong>assignation des
+  tâches</strong> en fonction des requêtes effectuées sur l'application. Dans ce
+  chapitre, nous allons présenter deux paquetages de Hoa :
+  <code>Hoa\Router</code> et <code>Hoa\Dispatcher</code> afin de construire
+  notre première application.</p>
 
   <section2 id="Table_des_matieres" for="menu-toc">
     <title>Table des matières</title>
@@ -24,6 +28,118 @@
     <tableofcontents id="main-toc" />
   </section2>
 
+  <section2 id="Introduction" for="main-toc menu-toc">
+    <title>Introduction</title>
+
+    <p>Maintenant que l'on connait un peu le fonctionnement de Hoa et que l'on a
+    fait connaissance avec quelques aspects framework, on va entammer notre
+    <strong>première application</strong>.</p>
+    <p>On va commencer par un peu d'histoire pour bien comprendre comment
+    fonctionne une application Web. Par la suite, on introduira le paquetage
+    <code>Hoa\Router</code> et, directement dans la foulée, le paquetage
+    <code>Hoa\Dispatcher</code>.</p>
+  </section2>
+
+  <section2 id="Un_peu_d-histoire" for="main-toc menu-toc">
+    <title>Un peu d'histoire</title>
+
+    <p>Contrairement à des applications de bureaux, les applications Web ne
+    restent pas en exécution durant toute leur utilisation. Il
+    existe quelques exceptions, mais on reste dans les généralités. Mais PHP ne
+    déroge pas à la règle. En effet, quand on effectue une demande auprès de
+    l'application (par exemple : « je veux telle page »), PHP reçoit la demande,
+    exécute la tâche associée à la demande, fournit une réponse et s'arrête.
+    Ceci est le fonctionnement schématique type de PHP.</p>
+    <p>On ne parle pas réellement de demande mais plutôt de
+    <strong>requête</strong>. La majorité des requêtes sont exprimées sous le
+    format <strong>HTTP</strong> (pour <em>HyperText Transfer Protocol</em>).
+    Seulement trois versions d'HTTP ont été écrites :
+    <link href="http://tools.ietf.org/html/rfc1945">RFC1945</link> pour
+    HTTP1.0, <link href="http://tools.ietf.org/html/rfc2068">RFC2068</link>
+    pour HTTP1.1 et
+    <link href="http://tools.ietf.org/html/rfc2616">RFC2616</link> pour la
+    version finale, que l'on connaît et utilise actuellement, d'HTTP1.1. La
+    personne qui émet une requête est un <strong>client</strong> (souvent
+    l'utilisateur). Cette requête est envoyée à un <strong>serveur</strong>, qui
+    connait votre application. Si on entre un peu plus dans le détail, côté
+    serveur, un programme filtre la réception des requêtes. Dans le cas d'HTTP,
+    on appelle ce programme un <strong>serveur HTTP</strong>. Quand ce serveur
+    HTTP reçoit une requête, il regarde quel programme est susceptible d'être
+    concernée par cette requête et lui redirige la requête en attendant sa
+    réponse, qu'il renverra alors au client.</p>
+    <p>Un protocole standard a été alors défini pour faciliter la
+    communication entre le serveur HTTP et le programme qui va réceptionner la
+    requête. On appelle ce protocole <link href="http://w3.org/CGI/">CGI</link>
+    (pour <em>Common Interface Gateway</em>). Toutefois, ce protocole n'était
+    plus suffisant pour répondre aux nombres grandissants de requêtes sur les
+    serveurs. C'est pourquoi, il a été formulé
+    <link href="http://fastcgi.com/">FastCGI</link> (pour <em>Fast Common
+    Gateway Interface</em>).</p>
+    <p>PHP fonctionne derrière FastCGI pour recevoir les communications du
+    serveurs HTTP. La requête HTTP reçue fournit toutes les informations
+    nécessaires pour que PHP exécute une tâche sans problème.</p>
+    <p>Une requête HTTP
+    est principalement caractérisée par une <strong>méthode</strong>. Il en
+    existe huit au total : <code>CONNECT</code>, <code>DELETE</code>,
+    <code>GET</code>, <code>HEAD</code>, <code>OPTIONS</code>,
+    <code>POST</code>, <code>PUT</code>, <code>TRACE</code>. On est capable bien
+    sûr d'ajouter nos propres méthodes mais l'objectif ici n'est pas de faire un
+    cours sur HTTP. À chaque méthode est associée une URI (pour <em>Uniform
+    Resource Identifier</em>), standardisée par la
+    <link href="http://tools.ietf.org/html/rfc3986">RFC3986</link>. Ainsi,
+    l'exemple suivant est une requête qui exprime « je veux la ressource
+    <code>/path/to/resource</code> » :</p>
+    <blockcode>GET /path/to/resource</blockcode>
+  </section2>
+
+  <section2 id="Routeur" for="main-toc menu-toc">
+    <title>Routeur</title>
+
+    <p>On s'intéresse maintenant au paquetage <code>Hoa\Router</code> et plus
+    particulièrement à la classe <code>Hoa\Router\Http</code> qui nous permet
+    d'écrire des règles qui associent des actions et des variables à une méthode
+    et une URI.</p>
+
+    <section3 id="Ecrire_des_regles" for="main-toc">
+      <title>Écrire des règles</title>
+
+      <p>Un exemple vaut mieux qu'un long discours :</p>
+      <blockcode language="php">from('Hoa')
+-> import('Router.Http');
+
+$router = new Hoa\Router\Http();
+$router
+    ->get('u', '/hello', function ( ) {
+
+        echo 'world!' . "\n";
+    })
+    ->get('v', '/bye', function ( ) {
+      
+        echo 'ohh :-(' . "\n";
+    })
+    ->post('w', '/hello', function ( Array $_request ) {
+      
+        echo $_request['a'] + $_request['b'];
+    });</blockcode>
+      <p>Pour voir quelle règle a été sélectionnée, on ajoute juste :</p>
+      <blockcode language="php">$rule = $router->route()->getTheRule();
+var_dump($rule[Hoa\Router::RULE_ID]);</blockcode>
+    </section3>
+  </section2>
+
+  <section2 id="Dispatcheur" for="main-toc menu-toc">
+    <title>Dispatcheur</title>
+
+    <p>On va écrire un dispatcheur pour exécuter les actions :</p>
+    <blockcode language="php">from('Hoa')
+-> import('Router.Http');
+-> import('Dispatcher.Basic');
+
+// …
+
+$dispatcher = new Hoa\Dispatcher\Basic();
+$dispatcher->dispatch($router);</blockcode>
+  </section2>
 </section1>
 
 <ulist class="prev_next">

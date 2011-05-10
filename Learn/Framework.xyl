@@ -16,7 +16,8 @@
                 sref-title="//__current_ns:section1/@id"><next_chapter /> Router + Dispatcher = ♥</link></item>
   </ulist>
 
-  <p>Abstract</p>
+  <p>Maintenant que certaines bases sont acquises, on va pouvoir aborder
+  l'<strong>aspect framework</strong> de Hoa.</p>
 
   <section2 id="Table_des_matieres" for="menu-toc">
     <title>Table des matières</title>
@@ -24,6 +25,23 @@
     <tableofcontents id="main-toc" />
   </section2>
 
+  <section2 id="Introduction" for="main-toc menu-toc">
+    <title>Introduction</title>
+
+    <p>La compréhension du noyau est un passage obligatoire pour connaître
+    certains concepts comme la couche <em>Consistency</em> et la couche
+    <em>Protocol</em>. Ces couches vont nous être utiles pour comprendre comme
+    Hoa, un ensemble de bibliothèques, peut avoir des <strong>aspects
+    framework</strong> en ajoutant quelques outils qui exploitent
+    l'<strong>abstraction</strong> proposée par les bibliothèques pour pouvoir
+    <strong>automatiser</strong> certains processus.</p>
+    <p>Dans ce chapitre, nous allons voir quels sont les outils que Hoa propose
+    et commence on arrive à externaliser et automatiser certains processus.</p>
+  </section2>
+
+  <section2 id="Data" for="main-toc menu-toc">
+    <title><em>Data</em></title>
+  </section2>
 </section1>
 
 <ulist class="prev_next">
