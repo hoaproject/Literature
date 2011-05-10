@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xyl-use href="Definitions.xyl"?>
+
+<definition xmlns="http://hoa-project.net/xyl/xylophone">
+<yield name="chapter">
+
+<section1 id="Framework">
+  <title>Manuel d'apprentissage<title_break />Aspect framework</title>
+
+  <ulist class="prev_next">
+    <item><link href="@ll:chapter=(!title)"
+                sref="hoa://Application/External/Literature/Learn/Core.xyl"
+                sref-title="//__current_ns:section1/@id"><previous_chapter /> Exploration du noyau</link></item>
+    <item><link href="@ll:chapter=(!title)"
+                sref="hoa://Application/External/Literature/Learn/RouterDispatcher.xyl"
+                sref-title="//__current_ns:section1/@id"><next_chapter /> Router + Dispatcher = ♥</link></item>
+  </ulist>
+
+  <p>Abstract</p>
+
+  <section2 id="Table_des_matieres" for="menu-toc">
+    <title>Table des matières</title>
+
+    <tableofcontents id="main-toc" />
+  </section2>
+
+</section1>
+
+<ulist class="prev_next">
+  <item><link href="@ll:chapter=(!title)"
+              sref="hoa://Application/External/Literature/Learn/Core.xyl"
+              sref-title="//__current_ns:section1/@id"><previous_chapter /> Exploration du noyau</link></item>
+  <item><link href="@ll:chapter=(!title)"
+              sref="hoa://Application/External/Literature/Learn/RouterDispatcher.xyl"
+              sref-title="//__current_ns:section1/@id"><next_chapter /> Router + Dispatcher = ♥</link></item>
+</ulist>
+
+</yield>
+</definition>
