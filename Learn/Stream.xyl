@@ -9,7 +9,7 @@
 
   <ulist class="prev_next">
     <item><link href="@ll:chapter=(!title)"
-                sref="hoa://Application/External/Literature/Learn/RouterDispatcher.xyl"
+                sref="hoa://Application/External/Literature/Learn/Routerdispatcher.xyl"
                 sref-title="//__current_ns:section1/@id"><previous_chapter /> Router + Dispatcher = ♥</link></item>
   </ulist>
 
@@ -26,7 +26,7 @@
 
 <ulist class="prev_next">
   <item><link href="@ll:chapter=(!title)"
-              sref="hoa://Application/External/Literature/Learn/RouterDispatcher.xyl"
+              sref="hoa://Application/External/Literature/Learn/Routerdispatcher.xyl"
               sref-title="//__current_ns:section1/@id"><previous_chapter /> Router + Dispatcher = ♥</link></item>
 </ulist>
 

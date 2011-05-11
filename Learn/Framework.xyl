@@ -12,7 +12,7 @@
                 sref="hoa://Application/External/Literature/Learn/Core.xyl"
                 sref-title="//__current_ns:section1/@id"><previous_chapter /> Exploration du noyau</link></item>
     <item><link href="@ll:chapter=(!title)"
-                sref="hoa://Application/External/Literature/Learn/RouterDispatcher.xyl"
+                sref="hoa://Application/External/Literature/Learn/Routerdispatcher.xyl"
                 sref-title="//__current_ns:section1/@id"><next_chapter /> Router + Dispatcher = ♥</link></item>
   </ulist>
 
@@ -49,7 +49,7 @@
               sref="hoa://Application/External/Literature/Learn/Core.xyl"
               sref-title="//__current_ns:section1/@id"><previous_chapter /> Exploration du noyau</link></item>
   <item><link href="@ll:chapter=(!title)"
-              sref="hoa://Application/External/Literature/Learn/RouterDispatcher.xyl"
+              sref="hoa://Application/External/Literature/Learn/Routerdispatcher.xyl"
               sref-title="//__current_ns:section1/@id"><next_chapter /> Router + Dispatcher = ♥</link></item>
 </ulist>
 
