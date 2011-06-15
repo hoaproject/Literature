@@ -12,8 +12,8 @@
                 sref="hoa://Application/External/Literature/Learn/Install.xyl"
                 sref-title="//__current_ns:section1/@id"><previous_chapter /> Installation</link></item>
     <item><link href="@ll:chapter=(!title)"
-                sref="hoa://Application/External/Literature/Learn/Framework.xyl"
-                sref-title="//__current_ns:section1/@id"><next_chapter /> Aspect framework</link></item>
+                sref="hoa://Application/External/Literature/Learn/Tools.xyl"
+                sref-title="//__current_ns:section1/@id"><next_chapter /> Outils autour de Hoa</link></item>
   </ulist>
 
   <p>Le noyau est la partie <strong>indispensable</strong> de Hoa. C'est le
@@ -44,7 +44,7 @@
     <blockcode language="php">&lt;?php
 
 require '/usr/local/lib/hoa/Core/Core.php';</blockcode>
-    <p>Le noyau ne peut-être inclut qu'une seule fois. Si on essaye de l'inclure
+    <p>Le noyau ne peut être inclut qu'une seule fois. Si on essaye de l'inclure
     une deuxième fois, le programme quittera avec une erreur. C'est le seul et
     unique cas où Hoa va quitter le programme.</p>
     <p>Toutes les classes appartenant à l'espace de nommage
@@ -178,19 +178,18 @@ from('Hoathis')
       <p>Il arrive parfois que Hoa cherche d'abord les classes dans une autre
       famille que la sienne. Ce mécanisme peut également être utilisé par vous.
       Imaginons que vous souhaitez utiliser soit votre propre classe
-      <code>Hoathis\Socket\Connection\Server</code>, soit si elle n'est pas
-      présente, la classe standard
-      <code>Hoa\Socket\Connection\Server</code>, alors vous feriez :</p>
+      <code>Hoathis\Socket\Server</code>, soit si elle n'est pas présente, la
+      classe standard <code>Hoa\Socket\Server</code>, alors vous feriez :</p>
       <blockcode language="php">from('Hoathis or Hoa')
--> import('Socket.Connection.Server');</blockcode>
-      <p>Ce mécanisme va d'abord chercher à importer
-      <code>Socket.Connection.Server</code> dans la famille
-      <code>Hoathis</code>. S'il n'y parvient pas (par exemple si la classe
-      n'existe pas), alors il cherchera dans la famille <code>Hoa</code>.</p>
+-> import('Socket.Server');</blockcode>
+      <p>Ce mécanisme va d'abord chercher à importer <code>Socket.Server</code>
+      dans la famille <code>Hoathis</code>. S'il n'y parvient pas (par exemple
+      si la classe n'existe pas), alors il cherchera dans la famille
+      <code>Hoa</code>.</p>
       <p>Pour savoir quelle famille a été sélectionnée, vous pouvez utiliser un
       troisième paramètre de la méthode <code>import</code>, en référence :</p>
       <blockcode language="php">from('Hoathis or Hoa')
--> import('Socket.Connection.Server', false, $family);
+-> import('Socket.Server', false, $family);
 
 var_dump($family);
 
@@ -213,18 +212,18 @@ var_dump($family);
       des raisons de facilité d'écriture et de lecture. Cette fonction utilise
       deux paramètres : le nom de la classe et les arguments du constructeur
       rassemblés dans un tableau. Ainsi :</p>
-      <blockcode language="php">$server = dnew('Hoa\Socket\Connection\Server', array($arguments));</blockcode>
+      <blockcode language="php">$server = dnew('Hoa\Socket\Server', array($arguments));</blockcode>
       <p>La classe dynamiquement créée n'a pas besoin d'être pré-chargée, tout
       se fera en une seule fois.</p>
       <p>Ce mécanisme a un intérêt plus important lorsque l'on considère
       plusieurs familles potentielles contenant notre classe. Ainsi :</p>
-      <blockcode language="php">$server = dnew('(Hoathis or Hoa)\Socket\Connection\Server', array($arguments));
+      <blockcode language="php">$server = dnew('(Hoathis or Hoa)\Socket\Server', array($arguments));
 var_dump(get_class($server));
 
 // Will output:
-//     string(32) "Hoathis\Socket\Connection\Server"
+//     string(32) "Hoathis\Socket\Server"
 // or:
-//     string(28) "Hoa\Socket\Connection\Server"</blockcode>
+//     string(28) "Hoa\Socket\Server"</blockcode>
       <p>Ce mécanisme est très intéressant lorsque l'on propose une
       implémentation par défaut que l'utilisateur peut remplacer par sa propre
       implémentation dans une autre famille. C'est un avantage pour ajouter de la
@@ -273,6 +272,43 @@ $first->say();
 //     Hello world!</blockcode>
       <p>Bravo ! Vous venez de créer votre première bibliothèque
       <code>Hoathis</code> !</p>
+    </section3>
+
+    <section3 id="Callable" for="main-toc">
+      <title><em>Callable</em></title>
+
+      <p>La couche <em>Consistency</em> propose un autre objet qui est
+      <code>Hoa\Core\Consistency\Callable</code> et qui permet d'étendre le
+      principe des <link href="http://php.net/callback"><em>callback</em></link>
+      aux fonctionnalités proposées par Hoa.</p>
+      <p>Il existe la fonction alias <code>callable</code> qui permet de
+      construire un objet <code>Hoa\Core\Consistency\Callable</code>. Cette
+      fonction utilise deux arguments qui sont <strong>symptomatiques</strong>
+      dans Hoa : <code>$call</code> et <code>$able</code>, le dernier étant
+      optionnel. On peut les utiliser de la manière suivante :
+      <ulist>
+        <item><code>callable('<em>function</em>')</code> ;</item>
+        <item><code>callable('<em>class::method</em>')</code> ;</item>
+        <item><code>callable('<em>class</em>', '<em>method</em>')</code> ;</item>
+        <item><code>callable(<em>$object</em>, '<em>method</em>')</code> ;</item>
+        <item><code>callable(<em>$object</em>)</code> ;</item>
+        <item><code>callable(<em>function ( … ) { … }</em>)</code>.</item>
+      </ulist></p>
+      <p>On remarque que beaucoup de forme sont supportées. Dans tous les cas,
+      pour effectuer un appel, on le fera comme ceci :</p>
+      <blockcode language="php">$call = callable(…);
+$call($argument1, $argument2, …);</blockcode>
+      <p>Si on donne un objet mais que la méthode n'est pas précisée, c'est
+      <code>Hoa\Core\Consistency\Callable</code> qui va déterminer la méthode :
+      si c'est un événement, si c'est un flux, si c'est une exception etc.</p>
+      <p>On notera deux méthodes qui peuvent avoir leur utilité :
+      <code>getValidCallback</code> qui retournera un <em>callback</em> avec un
+      format PHP valide et <code>getHash</code> qui retournera un identifiant
+      unique pour cet appel.</p>
+      <p>L'intérêt n'est pas immédiat mais il est préférable de savoir réagir
+      lorsque l'on rencontre le couple d'arguments <code>$call</code> et
+      <code>$able</code> dans une méthode. On aura alors le réflexe de fournir
+      des données comme présentées ci-dessus.</p>
     </section3>
   </section2>
 
@@ -494,7 +530,7 @@ from('Hoathis')
 -> import('Exercise.Core.Third');
 
 $third = new Hoathis\Exercise\Core\Third();
-$third->on('foo', function ( \Hoa\Core\Event\Bucket $bucket ) {
+$third->on('foo', function ( Hoa\Core\Event\Bucket $bucket ) {
 
     echo 'I have received “' . $bucket->getData() . '“.' . "\n";
 });
@@ -738,7 +774,7 @@ catch ( Hoathis\Exercise\Core\Exception $e ) {
       <p>Pour la première racine, seul un composant existe par défaut :
       <code>hoa://Application/Public</code> qui donne accès à toutes les données
       publiques, <ie /> toutes les données accessibles directement par
-      l'utilisateur. Par exemple :
+      l'utilisateur ; par exemple :
       <code>hoa://Application/Public/index.php</code>. Autre exemple, la classe
       <code>Hoa\Xyl</code> propose les composants suivants :
       <ulist>
@@ -762,7 +798,7 @@ catch ( Hoathis\Exercise\Core\Exception $e ) {
         <item><code>hoa://Data/Temporary/</code> pour les données
         temporaires ;</item>
         <item><code>hoa://Data/Variable/</code> pour les fichiers modifiés
-        régulièrement (dit variables), comme les caches, les bases de données,
+        régulièrement (dits variables), comme les caches, les bases de données,
         les logs, les tests etc.</item>
       </ulist></p>
       <p>On les utilise simplement de cette façon :</p>
@@ -823,8 +859,8 @@ var_dump(
               sref="hoa://Application/External/Literature/Learn/Install.xyl"
               sref-title="//__current_ns:section1/@id"><previous_chapter /> Installation</link></item>
   <item><link href="@ll:chapter=(!title)"
-              sref="hoa://Application/External/Literature/Learn/Framework.xyl"
-              sref-title="//__current_ns:section1/@id"><next_chapter /> Aspect framework</link></item>
+              sref="hoa://Application/External/Literature/Learn/Tools.xyl"
+              sref-title="//__current_ns:section1/@id"><next_chapter /> Outils autour de Hoa</link></item>
 </ulist>
 
 </yield>

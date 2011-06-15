@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xyl-use href="Definitions.xyl"?>
+
+<definition xmlns="http://hoa-project.net/xyl/xylophone">
+<yield name="chapter">
+
+<section1 id="Tools">
+  <title>Manuel d'apprentissage<title_break />Outils autour de Hoa</title>
+
+  <ulist class="prev_next">
+    <item><link href="@ll:chapter=(!title)"
+                sref="hoa://Application/External/Literature/Learn/Core.xyl"
+                sref-title="//__current_ns:section1/@id"><previous_chapter /> Exploration du noyau</link></item>
+    <item><link href="@ll:chapter=(!title)"
+                sref="hoa://Application/External/Literature/Learn/Framework.xyl"
+                sref-title="//__current_ns:section1/@id"><next_chapter /> Aspect framework</link></item>
+  </ulist>
+
+  <p>Après une introduction au noyau et avoir un petit peu programmé dans Hoa,
+  on va aborder les <strong>outils</strong> que propose Hoa. Ces outils sont
+  utiles aussi bien pour <strong>développer une bibliothèque</strong> que pour
+  <strong>développer une application</strong>.</p>
+
+  <section2 id="Table_des_matieres" for="menu-toc">
+    <title>Table des matières</title>
+
+    <tableofcontents id="main-toc" />
+  </section2>
+
+  <section2 id="Introduction" for="main-toc menu-toc">
+    <title>Introduction</title>
+
+    <p>Hoa propose des outils qui sont utilisables directement.  Ces outils sont
+    utiles aussi bien pour développer des bibliothèques que pour développer une
+    application entière. Pour les trouver, il faut se placer dans le dossier
+    <code>Bin/</code>. Selon notre plateforme, on utilisera le script
+    <code>hoa</code> ou <code>hoa.bat</code>. Attention, si vous n'utilisez pas
+    une installation « standard » de PHP, vous devrez retoucher la première
+    ligne de <code>hoa</code> ou la variable <code>PHP</code> de
+    <code>hoa.bat</code>.</p>
+  </section2>
+
+  <section2 id="Premiers_pas_avec_les_outils" for="main-toc menu-toc">
+    <title>Premiers pas avec les outils</title>
+
+    <p>Lorsqu'on exécute le script <code>hoa</code> (ou
+    <code>hoa.bat</code>), un écran d'accueil apparaît :</p>
+    <blockcode language="shell">$ cd Bin/
+$ ./hoa
+// Homescreen.</blockcode>
+    <p>Sur toutes les commandes, on trouvera les options <code>-h</code>,
+    <code>--help</code> ou encore <code>-?</code>, pour obtenir de l'aide.
+    Ainsi, on apprend que les commandes sont constituées d'un groupe et d'un
+    nom en exécutant :</p>
+    <blockcode language="shell">$ ./hoa --help</blockcode>
+    <p>Par exemple, pour afficher l'arbre du protocole <code>hoa://</code>, on
+    fera :</p>
+    <blockcode language="shell">$ ./hoa protocol:tree
+hoa://
+  Application
+    Public
+  Bin
+  Data
+    Etc
+      Configuration
+      Locale
+    …</blockcode>
+    <p>Il sera plus confortable de placer le script <code>hoa</code> (ou
+    <code>hoa.bat</code>) dans le <code>$PATH</code> afin qu'il soit
+    accessible depuis n'importe où sur le disque. En effet, comme Hoa
+    s'installe une fois pour être utilisé plusieurs fois, il est logique que
+    son script soit accessible partout. Pour cela, sous Unix, il faudra
+    modifier la variable <code>$PATH</code> dans
+    <code>~/.<em>shell</em>rc</code> (par exemple : <code>~/.bashrc</code>,
+    <code>~/.zshrc</code> etc.) :</p>
+    <blockcode language="shell">export PATH=/usr/local/lib/hoa/Bin:$PATH</blockcode>
+    <p>On recharge notre profil et le script sera disponible partout :</p>
+    <blockcode language="shell">$ source ~/.bashrc
+$ hoa
+// Homescreen.</blockcode>
+    <p>Pour Windows, il faudra consulter
+    <link href="http://social.technet.microsoft.com/Search/en-US?query=path&amp;ac=8"><em>Microsoft
+    TechNet</em></link> car la manipulation est
+    moins triviale.</p>
+  </section2>
+
+  <section2 id="Quelques_outils_pratiques" for="main-toc menu-toc">
+    <title>Quelques outils pratiques</title>
+
+    <p>On ne présentera que deux outils qui peuvent se montrer très utiles à
+    l'usage :
+    <ulist>
+      <item><code>debugger</code> : un debugger distant très simple
+      d'usage ;</item>
+      <item><code>bhoa</code> : un serveur HTTP léger écrit avec Hoa et qui
+      permet de tester une application rapidement sans rien
+      configurer.</item>
+    </ulist></p>
+
+    <section3 id="Debugger" for="main-toc">
+      <title><em>Debugger</em></title>
+
+      <p>Commençons par avoir un aperçu du <strong>debugger</strong>. On le
+      démarre de cette façon :</p>
+      <blockcode language="shell">$ hoa debugger</blockcode>
+      <p>Ensuite, on va ouvrir un fichier n'importe où et y écrire ceci :</p>
+      <blockcode language="php">&lt;?php
+
+require '/usr/local/lib/hoa/Core/Core.php';
+
+dump('foobar');</blockcode>
+      <p>Et lors de l'exécution de ce fichier, on verra apparaître dans le
+      debugger :</p>
+      <blockcode language="shell">[18:08:49] A new execution is running…
+ 1. [dump]: string(6) "foobar" refcount(3)
+
+What exception would you like to select? (in [1-1], q[uit] to quit, h[elp] to get help)
+> ▋</blockcode>
+      <p>On sélectionne alors la première « exception » (<code>1</code>), on
+      descendra tout en bas de la pile (<code>DOWN</code>) et on affichera le
+      code (<code>code</code>) ; on aura alors :</p>
+      <blockcode language="shell">> 1
+(#1) > DOWN
+   3. Hoa\Core\Core::dump   …ent/Hoa/Project/Central/Core/Core.php @ 481
+   2. dump                  …ent/Hoa/Project/Central/Core/Core.php @ 481
+➜  1. {main}                                                 ….php @ 5
+(#1) > code
+ 1.    &amp;lt;?php
+ 2.    
+ 3.    require '/usr/local/lib/hoa/Core/Core.php';
+ 4.    
+ 5. ➜  dump('foobar');
+(#1) > quit
+▋</blockcode>
+      <p>Modifions notre fichier pour y ajouter des exceptions :</p>
+      <blockcode language="php">&lt;?php
+
+require '/usr/local/lib/hoa/Core/Core.php';
+
+Hoa\Core::startDebugger();
+
+function f ( ) {
+
+    throw new Hoa\Core\Exception('Oh!');
+}
+
+function g ( ) {
+
+    f();
+}
+
+g();</blockcode>
+      <p>L'instruction <code>Hoa\Core::startDebugger()</code> est obligatoire
+      pour démarrer le debugger. La fonction <code>dump</code> le fait
+      d'elle-même, mais pas les exceptions.</p>
+      <p>Quand on exécute notre fichier, l'exception est affichée en tant
+      qu'exception non-capturée mais voici ce qu'affiche le debugger :</p>
+      <blockcode language="shell">[18:33:28] A new execution is running…
+ 1. f(): Oh!
+
+What exception would you like to select? (in [1-1], q[uit] to quit, h[elp] to get help)
+> ▋</blockcode>
+      <p>On sélectionne alors notre première exception et on affiche la
+      trace :</p>
+      <blockcode language="shell">> 1
+(#1) > trace
+➜  3. f                                                      ….php @ 9
+   2. g                                                      ….php @ 14
+   1. {main}                                                 ….php @ 17
+      </blockcode>
+      <p>N'hésitez pas à afficher le code autour de l'erreur, à vous déplacer
+      dans la pile etc.</p>
+      <p>Le debugger fonctionne sur une seule idée : les
+      <strong>événements</strong>. En effet, si le debugger est activé, Hoa va
+      capturer tous les événements <code>hoa://Event/Exception</code> et les
+      envoyer sur une socket. Notre debugger agit alors comme un <strong>simple
+      client</strong> qui reçoit des exceptions et permet de les manipuler.</p>
+    </section3>
+
+    <section3 id="Bhoa" for="main-toc">
+      <title>Bhoa</title>
+
+      <p>Un autre outil très pratique est <strong>Bhoa</strong>,
+      <strong>un serveur HTTP léger</strong>. Pour le démarrer, rien de plus
+      simple :</p>
+      <blockcode language="shell">$ hoa bhoa
+Server is up, on tcp://localhost:8888!
+Root: ….
+
+Waiting for connection… ▋</blockcode>
+      <p>Ensuite, rendez-vous sur la page
+      <link href="http://localhost:8888/"><code>localhost:8888</code></link>. Si
+      aucun fichier index n'existe ou n'est pas précisé, alors Bhoa affichera le
+      contenu du répertoire. Par exemple, créons un fichier
+      <code>index.php</code> :</p>
+      <blockcode language="php">&lt;?php
+      
+echo 'Hello world!';</blockcode>
+      <p>Puis démarrons Bhoa dans le même dossier ou en précisant la racine avec
+      l'option <code>--root</code> (toujours préciser un chemin absolu). On
+      remarque que le fichier est bien exécuté :</p>
+      <blockcode language="shell">$ curl localhost:8888
+Hello world!</blockcode>
+      <p>Attention à bien démarrer PHP FastCGI afin que Bhoa puisse exécuter
+      PHP. Normalement, si Bhoa n'arrive pas à joindre PHP FastCGI, il le
+      signalera de cette façon :</p>
+      <blockcode language="shell">✖ GET /index.php
+  ↳ PHP FastCGI seems to be disconnected (tried to reach tcp://localhost:8888).
+  ↳ Try $ php-cgi -b localhost:8888
+    or $ php-fpm -d listen=localhost:8888</blockcode>
+      <p>Si Bhoa est en attente d'une réponse, il affichera :</p>
+      <blockcode language="shell">↺ GET /index.php</blockcode>
+      <p>Et quand le fichier est servi, Bhoa affichera :</p>
+      <blockcode language="shell">✔ GET /index.php</blockcode>
+      <p>Bhoa <strong>démarre très vite</strong> et est <strong>rapidement prêt
+      à l'emploi</strong>. On peut définir n'importe quelle racine avec l'option
+      <code>--root</code>, définir quoi écouter avec l'option
+      <code>--listen</code> et même s'exécuter avec plusieurs versions de PHP en
+      changeant l'adresse de FastCGI simplement avec l'option
+      <code>--fastcgi</code>. Bhoa ne doit être utilisé que pour du
+      développement et non pas pour de la production. De plus, Bhoa est
+      pré-configuré pour fonctionner avec les besoins de <code>Hoa\Router</code>
+      par exemple, ce qui simplifira encore plus la prise en main de Hoa.</p>
+    </section3>
+  </section2>
+
+  <section2 id="Outils_annexes" for="main-toc menu-toc">
+    <title>Outils annexes</title>
+
+    <p>Cette section n'est pas une étape obligatoire mais elle montre comment
+    intégrer Hoa à vos outils quotidien. On trouvera l'ensemble des fichiers
+    dans <link href="http://hg.hoa-project.net/Util">le dépôt
+    <code>/Util</code></link>.</p>
+
+    <section3 id="Auto-completion_des_outils_avec_Zsh" for="main-toc">
+      <title>Auto-complétion des outils avec Zsh</title>
+
+      <p>Si vous utilisez Zsh, vous trouverez votre bonheur dans le dossier
+      <code>Zsh/</code> du dépôt <code>/Util</code>. On trouvera notamment
+      l'auto-complétion <code>_hoa</code> qui permet des choses
+      intéressantes.</p>
+      <p>Pour l'installer, on peut placer le fichier <code>_hoa</code> aux
+      emplacements suivants :
+      <ulist>
+        <item><code>~/.zfunc</code> (en n'oubliant pas de préciser
+        <code>fpath=(~/.zfunc $fpath)</code> dans
+        <code>~/.zshrc</code>) ;</item>
+        <item><code>/usr/share/zsh/<em>x</em>.<em>x</em>.<em>x</em>/functions/</code>
+        directement.</item>
+      </ulist></p>
+      <p>Ensuite, il suffit de profiter de l'auto-complétion ; ainsi :</p>
+      <blockcode language="shell">$ hoa ▋
+bhoa               protocol:tree      test:run           welcome
+debugger           test:initialize    tree               worker:start
+documentation:php  test:praspel       uuid               worker:status
+protocol:resolve   test:remove        version            worker:stop
+$ hoa documentation:php -▋
+Options:
+--class          -c      -- Show information about class &amp;lt;name>.
+--configuration  -i      -- Show information about configuration &amp;lt;name>.
+--constant       -o      -- Show value of constant &amp;lt;name>.
+--documentation  -d      -- Open the online documentation on the &amp;lt;name> page.
+--extension      -e      -- Show information about extension &amp;lt;name>.
+--function       -f      -- Show information about function &amp;lt;name>.
+--help           -?  -h  -- Print help and usage.
+$ hoa documentation:php --function array_▋
+Options:
+array_change_key_case    array_intersect_ukey     array_shift
+array_chunk              array_key_exists         array_slice
+array_combine            array_keys               array_splice
+array_count_values       array_map                array_sum
+array_diff               array_merge              array_udiff
+array_diff_assoc         array_merge_recursive    array_udiff_assoc
+array_diff_key           array_multisort          array_udiff_uassoc
+array_diff_uassoc        array_pad                array_uintersect
+array_diff_ukey          array_pop                array_uintersect_assoc
+array_fill               array_product            array_uintersect_uassoc
+array_fill_keys          array_push               array_unique
+array_filter             array_rand               array_unshift
+array_flip               array_reduce             array_values
+array_intersect          array_replace            array_walk
+array_intersect_assoc    array_replace_recursive  array_walk_recursive
+array_intersect_key      array_reverse
+array_intersect_uassoc   array_search
+$ hoa documentation:php --function array_search
+Function [ &amp;&lt;internal:standard> function array_search ] {
+
+  - Parameters [3] {
+    Parameter #0 [ &amp;&lt;required> $needle ]
+    Parameter #1 [ &amp;&lt;required> $haystack ]
+    Parameter #2 [ &amp;&lt;optional> $strict ]
+  }
+}</blockcode>
+    </section3>
+  </section2>
+</section1>
+
+<ulist class="prev_next">
+  <item><link href="@ll:chapter=(!title)"
+              sref="hoa://Application/External/Literature/Learn/Core.xyl"
+              sref-title="//__current_ns:section1/@id"><previous_chapter /> Exploration du noyau</link></item>
+  <item><link href="@ll:chapter=(!title)"
+              sref="hoa://Application/External/Literature/Learn/Framework.xyl"
+              sref-title="//__current_ns:section1/@id"><next_chapter /> Aspect framework</link></item>
+</ulist>
+
+</yield>
+</definition>

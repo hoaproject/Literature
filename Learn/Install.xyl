@@ -71,12 +71,12 @@ $ hg update</blockcode>
         <item><em>via</em> WebDAV :
               <link href="http://dav.hoa-project.net/">http://dav.hoa-project.net/</link>
               (en invité et en lecture seule).</item>
-      </ulist>
-      </p>
-      <p>Les archives concernant le tronc se trouvent dans le dossier
-      <code>Central</code>. Plusieurs sont produites par jours. Si vous
-      souhaitez une version particulière, vous la trouverez dans le dossier
-      <code>Tags</code>.</p>
+      </ulist></p>
+      <p>Les archives sont rangées suivant l'ordre établit par les dépôts,
+      <ie /> un dossier par défaut. Les archives en
+      <code>*.next.<em>format</em></code> contiennent le tronc, sinon elles
+      correspondent à une version étiquettées. Plusieurs archives sont produites
+      par jours concernant le tronc.</p>
     </section3>
 
     <section3 id="Depuis_une_archive_PHAR" for="main-toc">
@@ -97,14 +97,13 @@ $ wget http://download.hoa-project.net/Central/Hoa.next.phar
 $ php Hoa.next.phar
 Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
 Options :
-    -m, --metadata  : Print all metadata.
-    -t, --test      : Test if Hoa is in this Phar.
-    -s, --signature : Print signature.
-    -p, --phar      : Phar informations.
-    -e, --extract   : Extract Hoa in the current directory.
-    -h, --help      : This help.
-    -?, --help      : This help.
-  </blockcode>
+    -m, --metadata  : Print all metadata.
+    -t, --test      : Test if Hoa is in this Phar.
+    -s, --signature : Print signature.
+    -p, --phar      : Phar informations.
+    -e, --extract   : Extract Hoa in the current directory.
+    -h, --help      : This help.
+    -?, --help      : This help.</blockcode>
       <p>Il est conseillé d'extraire Hoa avec l'option <code>-e</code> ou
       <code>--extract</code>. Cela va extraire Hoa au même niveau que
       l'archive :</p>
@@ -140,16 +139,19 @@ var_dump(HOA);</blockcode>
 
     <p>L'architecture de Hoa est très simple :</p>
     <ulist>
+      <item><code>Bin</code>, les outils ;</item>
       <item><code>Core</code>, le noyau ;</item>
       <item><code>Library</code>, les bibliothèques standards (la famille
       <em>Hoa</em>) ;</item>
       <item><code>Module</code>, les bibliothèques utilisateurs (la famille
       <em>Hoathis</em>) ;</item>
-      <item><code>Stub</code>, permet d'exporter d'Hoa sous différents formats.</item>
+      <item><code>Stub</code>, permet d'exporter Hoa sous différents formats.</item>
     </ulist>
     <p>Hoa est conçu selon le principe <em>un ensemble de bibliothèques pour
     plusieurs applications</em>, <ie /> on place le dossier Hoa a un seul
     endroit et toutes les applications vont travailler dessus.</p>
+    <p>On va ainsi commencer par explorer un peu les fonctionnalités du noyau
+    avant d'installer notre première application.</p>
   </section2>
 </section1>
 

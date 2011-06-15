@@ -9,15 +9,16 @@
 
   <ulist class="prev_next">
     <item><link href="@ll:chapter=(!title)"
-                sref="hoa://Application/External/Literature/Learn/Core.xyl"
-                sref-title="//__current_ns:section1/@id"><previous_chapter /> Exploration du noyau</link></item>
+                sref="hoa://Application/External/Literature/Learn/Tools.xyl"
+                sref-title="//__current_ns:section1/@id"><previous_chapter /> Outils autour de Hoa</link></item>
     <item><link href="@ll:chapter=(!title)"
                 sref="hoa://Application/External/Literature/Learn/Routerdispatcher.xyl"
                 sref-title="//__current_ns:section1/@id"><next_chapter /> Router + Dispatcher = ♥</link></item>
   </ulist>
 
-  <p>Maintenant que certaines bases sont acquises, on va pouvoir aborder
-  l'<strong>aspect framework</strong> de Hoa.</p>
+  <p>Dans cette section on explique comment <strong>créer une
+  application</strong> basée sur Hoa, en ré-utilisant tous les outils et
+  automatismes à notre disposition.</p>
 
   <section2 id="Table_des_matieres" for="menu-toc">
     <title>Table des matières</title>
@@ -25,29 +26,224 @@
     <tableofcontents id="main-toc" />
   </section2>
 
-  <section2 id="Introduction" for="main-toc menu-toc">
-    <title>Introduction</title>
+  <section2 id="Aspect_framework_un_proof-of-concept" for="main-toc menu-toc">
+    <title>Aspect framework, un <em>proof-of-concept</em></title>
 
-    <p>La compréhension du noyau est un passage obligatoire pour connaître
-    certains concepts comme la couche <em>Consistency</em> et la couche
-    <em>Protocol</em>. Ces couches vont nous être utiles pour comprendre comme
-    Hoa, un ensemble de bibliothèques, peut avoir des <strong>aspects
-    framework</strong> en ajoutant quelques outils qui exploitent
-    l'<strong>abstraction</strong> proposée par les bibliothèques pour pouvoir
-    <strong>automatiser</strong> certains processus.</p>
-    <p>Dans ce chapitre, nous allons voir quels sont les outils que Hoa propose
-    et commence on arrive à externaliser et automatiser certains processus.</p>
+    <p>Hoa se définit avant tout comme un ensemble de bibliothèques. Toutefois,
+    pour <strong>engager</strong> le développement avec Hoa, il est nécessaire
+    de proposer des mécanismes dignes d'un framework afin de faciliter son
+    <strong>apprentissage</strong>, son <strong>utilisation</strong> et ses
+    <strong>contributions</strong>. C'est pourquoi Hoa propose un aspect
+    framework qui doit être vu comme une <strong>démonstration de
+    faisabilité</strong>, ou un <em>proof-of-concept</em>.</p>
+    <p>On notera que l'aspect framework est évidemment tourné vers un usage
+    <strong>intensif</strong> des bibliothèques, <ie /> qu'on ne proposera pas
+    d'« outils <strong>boîte-noires</strong> » sur lesquelles l'utilisateur n'a
+    <strong>aucun contrôle</strong>. La philosophie de Hoa est tourné vers les
+    bibliothèques, <ie /> vers le fait que l'utilisateur sait et comprend
+    parfaitement ce qu'il fait. Ces bibliothèques fonctionnent bien ensemble, ce
+    qui résulte sur une modularité qui peut s'apparenter à des comportements
+    rencontrés dans des frameworks, mais on saura toujours ce qu'on fait. Le
+    fait que l'on puisse créer ses propres bibliothèques et composants facilite
+    la <strong>réutilisation</strong> et le <strong>partage</strong> de son
+    travail, qui est un aspect important des frameworks.</p>
+    <p>Enfin, Hoa met particulièrement l'accent sur
+    l'<strong><em>hackability</em></strong> (la bidouillabilité), <ie /> que
+    tout est modifiable (sans pour autant observer une régression des
+    fonctionnalités). On sera alors capable de construire une application avec
+    ses propres <strong>spécificités</strong>, <strong>mécanismes</strong>,
+    <strong>outils</strong> et <strong>fonctionnements</strong>.</p>
   </section2>
 
-  <section2 id="Data" for="main-toc menu-toc">
-    <title><em>Data</em></title>
+  <section2 id="Creer_une_application" for="main-toc menu-toc">
+    <title>Créer une application</title>
+
+    <p>Créer une application est très simple. Hoa propose deux mécanismes : le
+    premier à travers <link
+    href="http://mercurial.selenic.com/">Mercurial</link>, le second à travers
+    une <link href="http://php.net/phar">archive exécutable Phar</link>. Ainsi,
+    première solution :</p>
+    <blockcode language="shell">$ mkdir -p ~/Development/MyApp/
+$ cd !!$
+$ hg clone http://hg.hoa-project.net/Framework .
+$ hoa tree --list-directory
+~/Development/MyApp/
+|-- Application/
+|   |-- Public/
+|-- Data/
+|   |-- Bin/
+|   |   |-- Command/
+|   |-- Etc/
+|   |   |-- Configuration/
+|   |   |-- Locale/
+|   |-- Lost+found/
+|   |-- Module/
+|   |-- Temporary/
+|   |-- Variable/
+|   |   |-- Cache/
+|   |   |-- Database/
+|   |   |-- Log/
+|   |   |-- Private/
+|   |   |-- Run/
+|   |   |-- Test/
+|   |   |   |-- Dictionary/
+|   |   |   |-- Repository/
+|-- Stub/</blockcode>
+    <p>Ou alors avec une archive exécutable :</p>
+    <blockcode language="shell">$ mkdir -p ~/Development/MyApp/
+$ cd !!$
+$ wget http://download.hoa-project.net/Framework/Hoa_Framework.next.phar
+$ php Hoa_Framework.next.phar
+Usage   : Hoa_Framework.next.phar &amp;lt;options>
+Options :
+    -m, --metadata  : Print all metadata.
+    -s, --signature : Print signature.
+    -p, --phar      : Phar informations.
+    -e, --extract   : Extract application in the current directory.
+    -h, --help      : This help.
+    -?, --help      : This help.
+$ php Hoa_Framework.next.phar --extract
+Extracted in ~/Development/MyApp</blockcode>
+    <p>On retrouve l'architecture du dossier <code>Data/</code> que propose
+    l'abstraction <code>hoa://</code>, tout comme pour le dossier
+    <code>Application/</code>. On notera que Hoa est <strong>absent</strong> du
+    framework !</p>
+    <p>On va maintenant préciser à l'application où se trouve Hoa et créer son
+    propre script dédié à son application.</p>
+
+    <section3 id="Ou_est_Hoa" for="main-toc">
+      <title>Où est Hoa ?</title>
+
+      <p>Dans le dossier <code>Data/Bin/</code>, on trouve les scripts
+      <code>whereishoa</code> et <code>whereishoa.bat</code>. Attention, si vous
+      n'utilisez pas une installation « standard » de PHP, vous devrez retoucher
+      la première ligne de <code>whereishoa</code> ou la variable
+      <code>PHP</code> de <code>whereishoa.hoa</code>.</p>
+      <p>Ce script va modifier trois fichiers :
+      <ulist>
+        <item><code>Data/Etc/Configuration/HoaCoreCore.json</code>, fichier de
+        configuration externe du noyau ;</item>
+        <item><code>Data/Etc/Configuration/.Cache/HoaCoreCore.php</code>, son
+        équivalent en cache ;</item>
+        <item><code>Data/Core.link.php</code>, un lien vers le noyau de
+        Hoa.</item>
+      </ulist></p>
+      <p>Le fichier le plus important est bien entendu
+      <code>Data/Core.link.php</code>, qui, lorsqu'il est inclu,
+      <strong>liera</strong> notre application avec Hoa. Plusieurs avantages
+      apparaissent : peu importe où est installé Hoa, votre application va
+      toujours inclure <code>Data/Core.link.php</code> et on n'aura qu'à
+      relancer <code>Data/Bin/whereishoa</code> pour la lier à Hoa ; ce qui
+      implique que notre application pourra <strong>choisir</strong> entre
+      plusieurs versions de Hoa si plusieurs existent, et enfin l'application
+      peut même choisir d'<strong>embarquer</strong> Hoa ou pas, le choix
+      pouvant être laissé à l'utilisateur lors de l'installation s'il souhaite
+      utiliser la version embarquée de Hoa ou sa propre installation. Bref, on
+      aura compris que le fichier <code>Data/Core.link.php</code> agit comme un
+      <strong>routeur</strong> vers Hoa et que l'on n'aura jamais à modifier
+      notre application si on déplace ou modifie Hoa.</p>
+      <p>Lors de la création d'une application, tout est configuré pour chercher
+      Hoa dans le dossier <code>/usr/local/lib/hoa/</code>, <ie /> si Hoa est
+      présent dans ce dossier, pas besoin de lancer le script ; sinon :</p>
+      <blockcode language="shell">$ Data/Bin/whereishoa
+** Where is Hoa **
+
+Ready to redefine the path to Hoa?
+We need to redefine it in:
+  • the Core.link.php file;
+  • the configuration file;
+  • the configuration cache file.
+
+There we go [y/n]? y
+
+A very simple question: where is Hoa so?
+> ▋</blockcode>
+      <p>Si le système et les droits le permettent, le fichier
+      <code>Data/Core.link.php</code> sera un <strong>lien symbolique</strong>
+      au lieu d'être un fichier PHP comportant une instruction
+      <code>require</code> (comportement par défaut).</p>
+    </section3>
+
+    <section3 id="Commandes_dediees_a_l-application" for="main-toc">
+      <title>Commandes dédiées à l'application</title>
+
+      <p>On a vu que les scripts <code>hoa</code> et <code>hoa.bat</code>
+      de Hoa étaient très pratique. On aimerait pouvoir en faire autant pour
+      notre application, et qui plus est, avec des commandes personnalisées ! On
+      remarque que les scripts <code>hoa</code> et <code>hoa.bat</code> existent
+      à nouveau dans le dossier <code>Data/Bin/</code>. Ces scripts
+      <strong>étendent</strong> les scripts <code>hoa</code> et
+      <code>hoa.bat</code> de Hoa (<ie /> qu'on retrouve les mêmes commandes) et
+      sont <strong>dédiés</strong> à votre application car ils la connaissent.
+      Pour éviter de les confondre et pour <strong>personnaliser</strong> votre
+      application, plusieurs solutions :
+      <ulist>
+        <item>soit on les renomme ;</item>
+        <item>soit on crée des alias.</item>
+      </ulist></p>
+      <p>La première solution est triviale mais nécessite de placer le dossier
+      <code>Data/Bin/</code> dans le <code>$PATH</code> afin que les scripts
+      soient accessibles depuis n'importe où sur le disque (ce qui est plus
+      confortable).</p>
+      <p>La seconde solution n'est disponible que sous Unix, en modifiant le
+      fichier <code>~/.<em>shell</em>rc</code> (par exemple :
+      <code>~/.bashrc</code>, <code>~/.zshrc</code> etc.) :</p>
+      <blockcode language="shell">alias myapp=~/Development/MyApp/Data/Bin/hoa</blockcode>
+      <p>On recharge notre profil et le script sera disponible partout :</p>
+      <blockcode language="shell">$ source ~/.bashrc
+$ myapp
+// Homescreen.</blockcode>
+      <p>Pour se persuader de la différence entre <code>hoa</code> (dans Hoa) et
+      <code>myapp</code> (dans votre application), il suffit de résoudre le
+      chemin <code>hoa://Data/</code>. Le résultat attendu est n'importe où pour
+      <code>hoa</code> (comme il ne connaît pas votre application), et le bon
+      chemin pour <code>myapp</code> car il connaît votre application ;
+      ainsi :</p>
+      <blockcode language="shell">$ hoa protocol:resolve hoa://Data
+// Somewhere, in a galaxy far, far away…
+$ myapp protocol:resolve hoa://Data
+hoa://Data is equivalent to: 
+/Users/hywan/Desktop/Hoa/App/Data/</blockcode>
+      <p>On verra plus tard comment écrire uniquement accessibles depuis votre
+      application et pas depuis Hoa, tout comme écrire des bibliothèques
+      réservées à votre application et non pas à Hoa (donc à toutes vos
+      applications).</p>
+    </section3>
+  </section2>
+
+  <section2 id="Tester_l-application" for="main-toc menu-toc">
+    <title>Tester l'application</title>
+
+    <p>L'application contient déjà un dossier <code>Application/Public/</code>
+    avec un fichier <code>index.php</code>. On va le tester immédiatement. Si
+    aucune erreur n'apparaît, c'est que tout est bien fonctionnel.</p>
+    <p>On pourrait exécuter notre index de cette manière :</p>
+    <blockcode language="shell">$ php Application/Public/index.php
+Hello you! I'm your first Hoa-based application \o/.</blockcode>
+    <p>Mais il faut admettre que ce n'est pas très drôle. On pourrait alors
+    s'aider de Bhoa (attention à ne pas oublier de démarrer PHP FastCGI) !
+    N'oublions pas que l'on peut également utiliser l'abstraction
+    <code>hoa://Application/Public</code> pour définir la racine de Bhoa.
+    Essayons plutôt (depuis n'importe où) :</p>
+    <blockcode language="shell">$ myapp bhoa --root hoa://Application/Public/
+Server is up, on tcp://localhost:8888!
+Root: hoa://Application/Public/.
+
+Waiting for connection… ▋</blockcode>
+    <p>En essayant de joindre la page <link
+    href="http://localhost:8888"><code>localhost:8888</code></link>, on pourra
+    lire le message de bienvenue :</p>
+    <blockcode language="shell">$ curl localhost:8888
+Hello you! I'm your first Hoa-based application \o/.</blockcode>
+    <p>Toutes mes félicitations ! Vous avez installé Hoa et vous avez créé votre
+    première application avec vos propres scripts !</p>
   </section2>
 </section1>
 
 <ulist class="prev_next">
   <item><link href="@ll:chapter=(!title)"
-              sref="hoa://Application/External/Literature/Learn/Core.xyl"
-              sref-title="//__current_ns:section1/@id"><previous_chapter /> Exploration du noyau</link></item>
+              sref="hoa://Application/External/Literature/Learn/Tools.xyl"
+              sref-title="//__current_ns:section1/@id"><previous_chapter /> Outils autour de Hoa</link></item>
   <item><link href="@ll:chapter=(!title)"
               sref="hoa://Application/External/Literature/Learn/Routerdispatcher.xyl"
               sref-title="//__current_ns:section1/@id"><next_chapter /> Router + Dispatcher = ♥</link></item>
