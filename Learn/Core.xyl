@@ -279,7 +279,7 @@ $first->say();
 
       <p>La couche <em>Consistency</em> propose un autre objet qui est
       <code>Hoa\Core\Consistency\Callable</code> et qui permet d'étendre le
-      principe des <link href="http://php.net/callback"><em>callback</em></link>
+      principe des <link href="http://php.net/callback"><em>callbacks</em></link>
       aux fonctionnalités proposées par Hoa.</p>
       <p>Il existe la fonction alias <code>callable</code> qui permet de
       construire un objet <code>Hoa\Core\Consistency\Callable</code>. Cette
