@@ -210,7 +210,7 @@ Hello world!</blockcode>
     or $ php-fpm -d listen=localhost:8888</blockcode>
       <p>Si Bhoa est en attente d'une réponse, il affichera :</p>
       <blockcode language="shell">↺ GET /index.php</blockcode>
-      <p>Et quand le fichier est servi, Bhoa affichera :</p>
+      <p>Et si le fichier est servi, Bhoa affichera :</p>
       <blockcode language="shell">✔ GET /index.php</blockcode>
       <p>Bhoa <strong>démarre très vite</strong> et est <strong>rapidement prêt
       à l'emploi</strong>. On peut définir n'importe quelle racine avec l'option
@@ -235,8 +235,8 @@ Hello world!</blockcode>
     <section3 id="Auto-completion_des_outils_avec_Zsh" for="main-toc">
       <title>Auto-complétion des outils avec Zsh</title>
 
-      <p>Si vous utilisez Zsh, vous trouverez votre bonheur dans le dossier
-      <code>Zsh/</code> du dépôt <code>/Util</code>. On trouvera notamment
+      <p>Si vous utilisez <link href="http://zsh.org">Zsh</link>, vous trouverez
+      votre bonheur dans le dossier <code>Zsh/</code>. On trouvera notamment
       l'auto-complétion <code>_hoa</code> qui permet des choses
       intéressantes.</p>
       <p>Pour l'installer, on peut placer le fichier <code>_hoa</code> aux
@@ -245,7 +245,7 @@ Hello world!</blockcode>
         <item><code>~/.zfunc</code> (en n'oubliant pas de préciser
         <code>fpath=(~/.zfunc $fpath)</code> dans
         <code>~/.zshrc</code>) ;</item>
-        <item><code>/usr/share/zsh/<em>x</em>.<em>x</em>.<em>x</em>/functions/</code>
+        <item><code>/usr/share/zsh/<em>x</em>.<em>x</em>.<em>x</em>/functions</code>
         directement.</item>
       </ulist></p>
       <p>Ensuite, il suffit de profiter de l'auto-complétion ; ainsi :</p>
