@@ -203,7 +203,7 @@ $ myapp
 // Somewhere, in a galaxy far, far away…
 $ myapp protocol:resolve hoa://Data
 hoa://Data is equivalent to: 
-/Users/hywan/Desktop/Hoa/App/Data/</blockcode>
+~/Development/MyApp/Data/</blockcode>
       <p>On verra plus tard comment écrire uniquement accessibles depuis votre
       application et pas depuis Hoa, tout comme écrire des bibliothèques
       réservées à votre application et non pas à Hoa (donc à toutes vos
