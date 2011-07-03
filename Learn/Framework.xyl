@@ -42,11 +42,11 @@
     <strong>aucun contrôle</strong>. La philosophie de Hoa est tourné vers les
     bibliothèques, <ie /> vers le fait que l'utilisateur sait et comprend
     parfaitement ce qu'il fait. Ces bibliothèques fonctionnent bien ensemble, ce
-    qui résulte sur une modularité qui peut s'apparenter à des comportements
+    qui entraîne une modularité qui peut s'apparenter à des comportements
     rencontrés dans des frameworks, mais on saura toujours ce qu'on fait. Le
     fait que l'on puisse créer ses propres bibliothèques et composants facilite
     la <strong>réutilisation</strong> et le <strong>partage</strong> de son
-    travail, qui est un aspect important des frameworks.</p>
+    travail, qui sont des aspects importants des frameworks.</p>
     <p>Enfin, Hoa met particulièrement l'accent sur
     l'<strong><em>hackability</em></strong> (la bidouillabilité), <ie /> que
     tout est modifiable (sans pour autant observer une régression des
@@ -135,7 +135,7 @@ Extracted in ~/Development/MyApp</blockcode>
       toujours inclure <code>Data/Core.link.php</code> et on n'aura qu'à
       relancer <code>Data/Bin/whereishoa</code> pour la lier à Hoa ; ce qui
       implique que notre application pourra <strong>choisir</strong> entre
-      plusieurs versions de Hoa si plusieurs existent, et enfin l'application
+      plusieurs versions de Hoa si plusieurs existent. Enfin l'application
       peut même choisir d'<strong>embarquer</strong> Hoa ou pas, le choix
       pouvant être laissé à l'utilisateur lors de l'installation s'il souhaite
       utiliser la version embarquée de Hoa ou sa propre installation. Bref, on
@@ -168,7 +168,7 @@ A very simple question: where is Hoa so?
       <title>Commandes dédiées à l'application</title>
 
       <p>On a vu que les scripts <code>hoa</code> et <code>hoa.bat</code>
-      de Hoa étaient très pratique. On aimerait pouvoir en faire autant pour
+      de Hoa sont très pratiques. On aimerait pouvoir en faire autant pour
       notre application, et qui plus est, avec des commandes personnalisées ! On
       remarque que les scripts <code>hoa</code> et <code>hoa.bat</code> existent
       à nouveau dans le dossier <code>Data/Bin/</code>. Ces scripts
@@ -202,7 +202,7 @@ $ myapp
       <blockcode language="shell">$ hoa protocol:resolve hoa://Data
 // Somewhere, in a galaxy far, far away…
 $ myapp protocol:resolve hoa://Data
-hoa://Data is equivalent to: 
+hoa://Data is equivalent to:
 ~/Development/MyApp/Data/</blockcode>
       <p>On verra plus tard comment écrire des commandes uniquement accessibles
       depuis votre application et pas depuis Hoa, tout comme écrire des

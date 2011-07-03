@@ -176,8 +176,8 @@ from('Hoathis')
       <title>Importer depuis plusieurs familles</title>
 
       <p>Il arrive parfois que Hoa cherche d'abord les classes dans une autre
-      famille que la sienne. Ce mécanisme peut également être utilisé par vous.
-      Imaginons que vous souhaitez utiliser soit votre propre classe
+      famille que la sienne. Vous pouvez également utiliser ce mécanisme :
+      imaginons que vous souhaitez utiliser soit votre propre classe
       <code>Hoathis\Socket\Server</code>, soit si elle n'est pas présente, la
       classe standard <code>Hoa\Socket\Server</code>, alors vous feriez :</p>
       <blockcode language="php">from('Hoathis or Hoa')
