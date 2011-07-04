@@ -75,7 +75,7 @@ hoa://
     <code>~/.zshrc</code> etc.) :</p>
     <blockcode language="shell">export PATH=/usr/local/lib/hoa/Bin:$PATH</blockcode>
     <p>On recharge notre profil et le script sera disponible partout :</p>
-    <blockcode language="shell">$ source ~/.bashrc
+    <blockcode language="shell">$ source ~/.zshrc
 $ hoa
 // Homescreen.</blockcode>
     <p>Pour Windows, il faudra consulter
