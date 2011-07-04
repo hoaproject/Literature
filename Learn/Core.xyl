@@ -283,7 +283,7 @@ $first->say();
       aux fonctionnalités proposées par Hoa.</p>
       <p>Il existe la fonction alias <code>callable</code> qui permet de
       construire un objet <code>Hoa\Core\Consistency\Callable</code>. Cette
-      fonction utilise deux arguments qui sont <strong>symptomatiques</strong>
+      fonction utilise deux arguments qui sont <strong>systématiques</strong>
       dans Hoa : <code>$call</code> et <code>$able</code>, le dernier étant
       optionnel. On peut les utiliser de la manière suivante :
       <ulist>
@@ -305,10 +305,10 @@ $call($argument1, $argument2, …);</blockcode>
       <code>getValidCallback</code> qui retournera un <em>callback</em> avec un
       format PHP valide et <code>getHash</code> qui retournera un identifiant
       unique pour cet appel.</p>
-      <p>L'intérêt n'est pas immédiat mais il est préférable de savoir réagir
-      lorsque l'on rencontre le couple d'arguments <code>$call</code> et
-      <code>$able</code> dans une méthode. On aura alors le réflexe de fournir
-      des données comme présentées ci-dessus.</p>
+      <p>Il est préférable de savoir réagir lorsque l'on rencontre le couple
+      d'arguments <code>$call</code> et <code>$able</code> dans une méthode. On
+      aura alors le réflexe de fournir des données comme présentées
+      ci-dessus.</p>
     </section3>
   </section2>
 
