@@ -181,13 +181,18 @@ What exception would you like to select? (in [1-1], q[uit] to quit, h[elp] to ge
       <title>Bhoa</title>
 
       <p>Un autre outil très pratique est <strong>Bhoa</strong>,
-      <strong>un serveur HTTP léger</strong>. Pour le démarrer, rien de plus
-      simple :</p>
-      <blockcode language="shell">$ hoa bhoa
+      <strong>un serveur HTTP léger</strong>. Ce serveur repose sur PHP FastCGI
+      pour exécuter des fichiers PHP, il doit donc être démarré au préalable.
+      Ainsi, simplement :</p>
+      <blockcode language="shell">$ php-cgi&amp;
+$ hoa bhoa
 Server is up, on tcp://localhost:8888!
 Root: ….
 
 Waiting for connection… ▋</blockcode>
+      <p>Si on souhaite démarrer Bhoa en considérant une autre racine, on
+      utilisera l'option <code>--root</code> (toujours préciser un chemin
+      absolu).</p>
       <p>Ensuite, rendez-vous sur la page
       <link href="http://localhost:8888/"><code>localhost:8888</code></link>. Si
       aucun fichier index n'existe ou n'est pas précisé, alors Bhoa affichera le
@@ -196,9 +201,7 @@ Waiting for connection… ▋</blockcode>
       <blockcode language="php">&lt;?php
       
 echo 'Hello world!';</blockcode>
-      <p>Puis démarrons Bhoa dans le même dossier ou en précisant la racine avec
-      l'option <code>--root</code> (toujours préciser un chemin absolu). On
-      remarque que le fichier est bien exécuté :</p>
+      <p>On vérifie que notre fichier s'exécute comme il faut :</p>
       <blockcode language="shell">$ curl localhost:8888
 Hello world!</blockcode>
       <p>Attention à bien démarrer PHP FastCGI afin que Bhoa puisse exécuter
