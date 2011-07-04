@@ -131,20 +131,22 @@ Extracted in ~/Development/MyApp</blockcode>
       <p>Le fichier le plus important est bien entendu
       <code>Data/Core.link.php</code>, qui, lorsqu'il est inclu,
       <strong>liera</strong> notre application avec Hoa. Plusieurs avantages
-      apparaissent : peu importe où est installé Hoa, votre application va
+      apparaissent : peu importe où est installé Hoa, notre application va
       toujours inclure <code>Data/Core.link.php</code> et on n'aura qu'à
       relancer <code>Data/Bin/whereishoa</code> pour la lier à Hoa ; ce qui
       implique que notre application pourra <strong>choisir</strong> entre
-      plusieurs versions de Hoa si plusieurs existent. Enfin l'application
-      peut même choisir d'<strong>embarquer</strong> Hoa ou pas, le choix
-      pouvant être laissé à l'utilisateur lors de l'installation s'il souhaite
-      utiliser la version embarquée de Hoa ou sa propre installation. Bref, on
-      aura compris que le fichier <code>Data/Core.link.php</code> agit comme un
+      plusieurs versions de Hoa si plusieurs existent. Enfin l'application peut
+      même choisir d'<strong>embarquer</strong> Hoa ou pas, le choix pouvant
+      être laissé à l'utilisateur lors de l'installation s'il souhaite utiliser
+      la version embarquée de Hoa ou sa propre installation. Bref, on aura
+      compris que le fichier <code>Data/Core.link.php</code> agit comme un
       <strong>routeur</strong> vers Hoa et que l'on n'aura jamais à modifier
       notre application si on déplace ou modifie Hoa.</p>
       <p>Lors de la création d'une application, tout est configuré pour chercher
-      Hoa dans le dossier <code>/usr/local/lib/hoa/</code>, <ie /> si Hoa est
-      présent dans ce dossier, pas besoin de lancer le script ; sinon :</p>
+      Hoa dans le dossier <code>/usr/local/lib/hoa/</code> ; ce qui implique que
+      si Hoa est présent dans ce dossier, pas besoin de lancer le script,
+      sinon :</p>
+
       <blockcode language="shell">$ Data/Bin/whereishoa
 ** Where is Hoa **
 
@@ -167,37 +169,29 @@ A very simple question: where is Hoa so?
     <section3 id="Commandes_dediees_a_l-application" for="main-toc">
       <title>Commandes dédiées à l'application</title>
 
-      <p>On a vu que les scripts <code>hoa</code> et <code>hoa.bat</code>
-      de Hoa sont très pratiques. On aimerait pouvoir en faire autant pour
-      notre application, et qui plus est, avec des commandes personnalisées ! On
-      remarque que les scripts <code>hoa</code> et <code>hoa.bat</code> existent
-      à nouveau dans le dossier <code>Data/Bin/</code>. Ces scripts
+      <p>On a vu que les scripts <code>hoa</code> et <code>hoa.bat</code> de Hoa
+      sont très pratiques. On aimerait pouvoir en faire autant pour notre
+      application, et qui plus est, avec des commandes personnalisées ! On
+      remarque que les scripts <code>myapp</code> et <code>myapp.bat</code> sont
+      présents dans le dossier <code>Data/Bin/</code>. Ces scripts
       <strong>étendent</strong> les scripts <code>hoa</code> et
-      <code>hoa.bat</code> de Hoa (<ie /> qu'on retrouve les mêmes commandes) et
-      sont <strong>dédiés</strong> à votre application car ils la connaissent.
-      Pour éviter de les confondre et pour <strong>personnaliser</strong> votre
-      application, plusieurs solutions :
-      <ulist>
-        <item>soit on les renomme ;</item>
-        <item>soit on crée des alias.</item>
-      </ulist></p>
-      <p>La première solution est triviale mais nécessite de placer le dossier
-      <code>Data/Bin/</code> dans le <code>$PATH</code> afin que les scripts
-      soient accessibles depuis n'importe où sur le disque (ce qui est plus
-      confortable).</p>
-      <p>La seconde solution n'est disponible que sous Unix, en modifiant le
-      fichier <code>~/.<em>shell</em>rc</code> (par exemple :
-      <code>~/.bashrc</code>, <code>~/.zshrc</code> etc.) :</p>
-      <blockcode language="shell">alias myapp=~/Development/MyApp/Data/Bin/hoa</blockcode>
-      <p>On recharge notre profil et le script sera disponible partout :</p>
-      <blockcode language="shell">$ source ~/.bashrc
-$ myapp
+      <code>hoa.bat</code> de Hoa (on retrouve donc les mêmes commandes) et sont
+      <strong>dédiés</strong> à notre application car ils la connaissent.  Pour
+      <strong>personnaliser</strong> notre application, il vous suffit de les
+      renommer (on utilisera <code>myapp</code> dans tous les exemples).  Libre
+      à vous de placer ces scripts dans le <code>$PATH</code> par la suite.</p>
+      <blockcode language="shell">$ Data/Bin/myapp
+// Homescreen.
+$ mv !! !!:s/myapp/gordonsapp
+mv Data/Bin/myapp Data/Bin/gordonsapp
+$ !!$
+Data/Bin/gordonsapp
 // Homescreen.</blockcode>
       <p>Pour se persuader de la différence entre <code>hoa</code> (dans Hoa) et
-      <code>myapp</code> (dans votre application), il suffit de résoudre le
+      <code>myapp</code> (dans notre application), il suffit de résoudre le
       chemin <code>hoa://Data/</code>. Le résultat attendu est n'importe où pour
-      <code>hoa</code> (comme il ne connaît pas votre application), et le bon
-      chemin pour <code>myapp</code> car il connaît votre application ;
+      <code>hoa</code> (comme il ne connaît pas notre application), et le bon
+      chemin pour <code>myapp</code> car il connaît notre application ;
       ainsi :</p>
       <blockcode language="shell">$ hoa protocol:resolve hoa://Data
 // Somewhere, in a galaxy far, far away…
@@ -205,9 +199,9 @@ $ myapp protocol:resolve hoa://Data
 hoa://Data is equivalent to:
 ~/Development/MyApp/Data/</blockcode>
       <p>On verra plus tard comment écrire des commandes uniquement accessibles
-      depuis votre application et pas depuis Hoa, tout comme écrire des
-      bibliothèques réservées à votre application et non pas à Hoa (donc à
-      toutes vos applications).</p>
+      depuis notre application et pas depuis Hoa, tout comme écrire des
+      bibliothèques réservées à notre application et non pas à Hoa (donc à
+      toutes nos applications).</p>
     </section3>
   </section2>
 
