@@ -21,10 +21,11 @@
     <title>Préparer son environnement</title>
 
     <p>On considère que l'on va installer Hoa au même niveau que notre
-    application de façon à avoir un seul paquet. Toutefois, il faut savoir que
-    Hoa peut s'installer où l'on veut et que ça n'aura aucune influence sur le
-    fonctionnement de l'application. D'une manière plus générale, Hoa est conçu
-    pour être installé une fois et être utilisé par plusieurs applications.</p>
+    application de façon à avoir un <strong>seul paquet</strong>. Toutefois, il
+    faut savoir que Hoa peut s'installer où l'on veut et que ça n'aura aucune
+    influence sur le fonctionnement de l'application. D'une manière plus
+    générale, Hoa est conçu pour être installé une fois et être utilisé par
+    plusieurs applications.</p>
 
     <section3 id="Installer_Hoa" for="main-toc">
       <title>Installer Hoa</title>
@@ -52,7 +53,7 @@ Options :
     -h, --help      : This help.
     -?, --help      : This help.</blockcode>
       <p>On remarque l'option <code>-e</code> (ou <code>--extract</code>) qui
-      permet d'extraire l'archvie dans le dossier contenant l'archive :</p>
+      permet d'extraire l'archive dans le dossier contenant l'archive :</p>
       <blockcode language="shell">$ php Hoa.next.phar --extract
 Extracted in ~/Development/GordonsApp/Hoa</blockcode>
     </section3>
@@ -118,8 +119,8 @@ A very simple question: where is Hoa so?
       <code>myapp.bat</code>, que l'on trouvera dans <code>Data/Bin/</code>. Ces
       scripts sont <strong>dédiés</strong> à l'application en lui offrant des
       <strong>outils</strong> bien pratiques, comme un debugger, un petit
-      serveur HTTP, de quoi manipuler les configurations, la documentation, les
-      tests etc.</p>
+      serveur HTTP (Bhoa), de quoi manipuler les configurations, la
+      documentation, les tests etc.</p>
       <p>Pour se les approprier un peu plus, on peut toujours les renommer :</p>
       <blockcode language="shell">$ chmod u+x Data/Bin/myapp
 $ !!$
