@@ -61,7 +61,7 @@ Extracted in ~/Development/GordonsApp/Hoa</blockcode>
       <title>Installer une application</title>
 
       <p>Maintenant que Hoa est installé, on va pouvoir installer une
-      application. Pour cela, on va de nouveaux utiliser une archive Phar de
+      application. Pour cela, on va de nouveau utiliser une archive Phar de
       cette façon :</p>
       <blockcode language="shell">$ cd ~/Development/GordonsApp/
 $ wget http://download.hoa-project.net/Framework/Hoa_Framework.next.phar
@@ -113,12 +113,13 @@ A very simple question: where is Hoa so?
     <section3 id="Scripts_dedies" for="main-toc">
       <title>Scripts dédiés</title>
 
-      <p>L'aspect fournit deux scripts qui étendent les deux scripts fournis par
-      Hoa, à savoir <code>myapp</code> et <code>myapp.bat</code>, que l'on
-      trouvera dans <code>Data/Bin/</code>. Ces scripts sont dédiés à
-      l'application en lui offrant des outils bien pratiques, comme un debugger,
-      un petit serveur HTTP, de quoi manipuler les configurations, la
-      documentation, les tests etc.</p>
+      <p>L'aspect framework fournit deux <strong>scripts</strong> qui étendent
+      les deux scripts fournis par Hoa, à savoir <code>myapp</code> et
+      <code>myapp.bat</code>, que l'on trouvera dans <code>Data/Bin/</code>. Ces
+      scripts sont <strong>dédiés</strong> à l'application en lui offrant des
+      <strong>outils</strong> bien pratiques, comme un debugger, un petit
+      serveur HTTP, de quoi manipuler les configurations, la documentation, les
+      tests etc.</p>
       <p>Pour se les approprier un peu plus, on peut toujours les renommer :</p>
       <blockcode language="shell">$ chmod u+x Data/Bin/myapp
 $ !!$
