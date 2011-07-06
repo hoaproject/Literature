@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<overlay xmlns="http://hoa-project.net/xyl/xylophone">
+<content id="content">
+
+<section1 id="Mini-tutoriel">
+  <title>Mini-tutoriel</title>
+
+  <p>Ce mini-tutoriel a pour objectif de permettre à l'utilisateur de se faire
+  une idée <strong>rapide</strong> de Hoa et de son aspect framework. Alors que
+  Hoa en tant qu'ensemble de bibliothèques est plus compliqué à saisir
+  rapidement, il nécessite un apprentissage plus long.</p>
+
+  <section2 id="Table_des_matieres" for="menu-toc">
+    <title>Table des matières</title>
+
+    <tableofcontents id="main-toc" />
+  </section2>
+
+  <section2 id="Preparer_son_environnement" for="main-toc menu-toc">
+    <title>Préparer son environnement</title>
+
+    <p>On considère que l'on va installer Hoa au même niveau que notre
+    application de façon à avoir un seul paquet. Toutefois, il faut savoir que
+    Hoa peut s'installer où l'on veut et que ça n'aura aucune influence sur le
+    fonctionnement de l'application. D'une manière plus générale, Hoa est conçu
+    pour être installé une fois et être utilisé par plusieurs applications.</p>
+
+    <section3 id="Installer_Hoa" for="main-toc">
+      <title>Installer Hoa</title>
+
+      <p>On va procédé à l'installation de Hoa à travers une archive Phar (pour
+      <link href="http://php.net/phar">PHP Archive</link>). Pour une
+      installation plus détaillée, il faudra se rendre sur le
+      <link href="@ll:chapter=(!title)"
+            sref="hoa://Application/External/Literature/Learn/Install.xyl"
+            sref-title="//__current_ns:section1/@id">chapitre dédié à
+      l'installation</link>. Ce format est devenu standard depuis PHP5.3, qui
+      est la version minimum pour utiliser Hoa.</p>
+      <p>Les archives Phar fournies sont exécutables, ainsi :</p>
+      <blockcode language="shell">$ mkdir -p ~/Development/GordonsApp/Hoa/
+$ cd !!$
+$ wget http://download.hoa-project.net/Central/Hoa.next.phar
+$ php Hoa.next.phar
+Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
+Options :
+    -m, --metadata  : Print all metadata.
+    -t, --test      : Test if Hoa is in this Phar.
+    -s, --signature : Print signature.
+    -p, --phar      : Phar informations.
+    -e, --extract   : Extract Hoa in the current directory.
+    -h, --help      : This help.
+    -?, --help      : This help.</blockcode>
+      <p>On remarque l'option <code>-e</code> (ou <code>--extract</code>) qui
+      permet d'extraire l'archvie dans le dossier contenant l'archive :</p>
+      <blockcode language="shell">$ php Hoa.next.phar --extract
+Extracted in ~/Development/GordonsApp/Hoa</blockcode>
+    </section3>
+
+    <section3 id="Installer_une_application" for="main-toc">
+      <title>Installer une application</title>
+
+      <p>Maintenant que Hoa est installé, on va pouvoir installer une
+      application. Pour cela, on va de nouveaux utiliser une archive Phar de
+      cette façon :</p>
+      <blockcode language="shell">$ cd ~/Development/GordonsApp/
+$ wget http://download.hoa-project.net/Framework/Hoa_Framework.next.phar
+$ php Hoa_Framework.next.phar
+Usage   : Hoa_Framework.next.phar &amp;lt;options>
+Options :
+    -m, --metadata  : Print all metadata.
+    -s, --signature : Print signature.
+    -p, --phar      : Phar informations.
+    -e, --extract   : Extract application in the current directory.
+    -h, --help      : This help.
+    -?, --help      : This help.
+$ php Hoa_Framework.next.phar --extract
+Extracted in ~/Development/GordonsApp</blockcode>
+      <p>Premier réflexe, on va préciser à l'application où se trouve Hoa en
+      exécutant les scripts <code>whereishoa</code> (ou
+      <code>whereishoa.bat</code>) dans le dossier <code>Data/Bin/</code>.
+      Attention, si vous n'utilisez pas une installation « standard » de PHP,
+      vous devrez retoucher la première ligne de <code>whereishoa</code> ou la
+      variable <code>PHP</code> de <code>whereishoa.bat</code>.</p>
+      <p>Ces scripts vont modifier entre autre le fichier
+      <code>Data/Core.link.php</code> qui, lorsqu'il est inclu,
+      <strong>liera</strong> notre application avec Hoa. Plusieurs avantages
+      apparaissent : peu importe où est installé Hoa, notre application va
+      toujours inclure <code>Data/Core.link.php</code> et on n'aura qu'à
+      relancer <code>Data/Bin/whereishoa</code> pour la lier à Hoa ; ce qui
+      implique que notre application pourra <strong>choisir</strong> entre
+      plusieurs versions de Hoa si plusieurs existent. On aura compris que le
+      fichier <code>Data/Core.link.php</code> agit comme un
+      <strong>routeur</strong> vers Hoa et que l'on n'aura jamais à modifier
+      notre application si on déplace ou modifie Hoa.</p>
+      <blockcode language="shell">$ chmod u+x Data/Bin/whereishoa
+$ !!$
+Data/Bin/whereishoa
+** Where is Hoa **
+
+Ready to redefine the path to Hoa?
+We need to redefine it in:
+  • the Core.link.php file;
+  • the configuration file;
+  • the configuration cache file.
+
+There we go [y/n]? y
+
+A very simple question: where is Hoa so?
+> /Users/gordon/Development/GordonsApp/Hoa▋</blockcode>
+    </section3>
+
+    <section3 id="Scripts_dedies" for="main-toc">
+      <title>Scripts dédiés</title>
+
+      <p>L'aspect fournit deux scripts qui étendent les deux scripts fournis par
+      Hoa, à savoir <code>myapp</code> et <code>myapp.bat</code>, que l'on
+      trouvera dans <code>Data/Bin/</code>. Ces scripts sont dédiés à
+      l'application en lui offrant des outils bien pratiques, comme un debugger,
+      un petit serveur HTTP, de quoi manipuler les configurations, la
+      documentation, les tests etc.</p>
+      <p>Pour se les approprier un peu plus, on peut toujours les renommer :</p>
+      <blockcode language="shell">$ chmod u+x Data/Bin/myapp
+$ !!$
+Data/Bin/myapp
+// Homescreen.
+$ mv !! !!:s/myapp/gordonsapp
+mv Data/Bin/myapp Data/Bin/gordonsapp
+$ !!$
+Data/Bin/gordonsapp
+// Homescreen.</blockcode>
+      <p>Pour plus de faciliter, on pourra toujours placer notre dossier
+      <code>Data/Bin/</code> dans le <code>$PATH</code> afin de pouvoir accéder
+      à nos scripts depuis n'importe où sur le disque.</p>
+    </section3>
+
+    <section3 id="Tester_l-application" for="main-toc">
+      <title>Tester l'application</title>
+
+      <p>Pour tester l'application, un fichier de test existe déjà dans
+      <code>Application/Public/</code>. On pourra l'exécuter de plusieurs
+      façons. La première, simplement avec PHP en ligne de commande :</p>
+      <blockcode language="shell">$ php Application/Public/index.php
+Hello you! I'm your first Hoa-based application \o/.</blockcode>
+    <p>Mais il faut admettre que ce n'est pas très drôle. On pourrait alors
+    s'aider de Bhoa, qui est un petit serveur HTTP embarqué réservé à du
+    test. Bhoa utilise PHP FastCGI pour exécuter PHP, on va devoir le démarrer.
+    Enfin, Hoa fournit une abstraction des chemins à travers le protocole
+    <code>hoa://</code> qui propose le chemin
+    <code>hoa://Application/Public/</code> pour accéder à notre dossier
+    publique. On va utiliser ce chemin pour définir la racine du serveur ;
+    ainsi :</p>
+    <blockcode language="shell">$ php-cgi&amp;
+$ gordonsapp bhoa --root hoa://Application/Public/
+Server is up, on tcp://localhost:8888!
+Root: hoa://Application/Public/.
+
+Waiting for connection… ▋</blockcode>
+    <p>En essayant de joindre la page <link
+    href="http://localhost:8888"><code>localhost:8888</code></link>, on pourra
+    lire le message de bienvenue :</p>
+    <blockcode language="shell">$ curl localhost:8888
+Hello you! I'm your first Hoa-based application \o/.</blockcode>
+    </section3>
+  </section2>
+
+  <section2 id="Architecture_par_defaut" for="main-toc">
+    <title>Architecture par défaut</title>
+
+    <p>On prend quelques minutes pour étudier l'architecture que l'on a
+    déployer :
+    <ulist>
+      <item>foo</item>
+    </ulist></p>
+  </section2>
+
+  <section2 id="Routeur_et_dispatcheur" for="main-toc">
+    <title>Routeur et dispatcheur</title>
+  </section2>
+
+  <section2 id="Hello_world" for="main-toc">
+    <title><em>Hello world</em></title>
+  </section2>
+
+  <section2 id="Un_peu_plus_loin_avec_la_vue" for="main-toc">
+    <title>Un peu plus loin avec la vue</title>
+
+    <section3 id="Binding" for="main-toc">
+      <title><em>Binding</em></title>
+    </section3>
+
+    <section3 id="Creation_de_composant_graphique" for="main-toc">
+      <title>Création de composant graphique</title>
+    </section3>
+
+    <section3 id="Overlay" for="main-toc">
+      <title><em>Overlay</em></title>
+    </section3>
+  </section2>
+
+  <section2 id="Conclusion" for="main-toc">
+    <title>Conclusion</title>
+  </section2>
+</section1>
+
+</content>
+</overlay>
