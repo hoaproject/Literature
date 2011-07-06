@@ -129,7 +129,7 @@ mv Data/Bin/myapp Data/Bin/gordonsapp
 $ !!$
 Data/Bin/gordonsapp
 // Homescreen.</blockcode>
-      <p>Pour plus de faciliter, on pourra toujours placer notre dossier
+      <p>Pour plus de facilités, on pourra toujours placer notre dossier
       <code>Data/Bin/</code> dans le <code>$PATH</code> afin de pouvoir accéder
       à nos scripts depuis n'importe où sur le disque.</p>
     </section3>
@@ -148,7 +148,7 @@ Hello you! I'm your first Hoa-based application \o/.</blockcode>
     Enfin, Hoa fournit une abstraction des chemins à travers le protocole
     <code>hoa://</code> qui propose le chemin
     <code>hoa://Application/Public/</code> pour accéder à notre dossier
-    publique. On va utiliser ce chemin pour définir la racine du serveur ;
+    public. On va utiliser ce chemin pour définir la racine du serveur ;
     ainsi :</p>
     <blockcode language="shell">$ php-cgi&amp;
 $ gordonsapp bhoa --root hoa://Application/Public/
@@ -168,11 +168,36 @@ Hello you! I'm your first Hoa-based application \o/.</blockcode>
     <title>Architecture par défaut</title>
 
     <p>On prend quelques minutes pour étudier l'architecture que l'on a
-    déployer :
-    <ulist>
-      <item>foo</item>
-    </ulist></p>
-  </section2>
+    déployé :</p>
+    <blockcode language="shell">$ Data/Bin/gordonsapp tree --list-directory --depth 2
+~/Development/GordonsApp/
+|-- Application/     — notre application
+|   |-- Public/      —   son dossier public (visible depuis l'extérieur)
+|-- Data/            — données de l'application
+|   |-- Bin/         —   scripts (étend Hoa/Bin/)
+|   |-- Etc/         —   configurations, locales …
+|   |-- Lost+found/  —   perdus ou trouvés (toujours vide normalement !)
+|   |-- Module/      —   bibliothèques utilisateurs réservéees à l'application
+|   |-- Temporary/   —   fichiers et dossiers temporaires
+|   |-- Variable/    —   caches, bases de données, logs, tests …
+|-- Hoa/             — Hoa
+|   |-- Bin/         —   scripts
+|   |-- Core/        —   noyau
+|   |-- Library/     —   bibliothèques standards
+|   |-- Module/      —   bibliothèques utilisateurs pour toutes les applications
+|   |-- Stub/        —   scripts pour empaqueter Hoa</blockcode>
+      <p>Une application est réellement constituée de deux dossiers :
+      <code>Application/</code> et <code>Data/</code> ; Hoa pouvant être placé
+      autre part ou n'exister qu'en une seule version.</p>
+      <p>Cette architecture est celle <strong>proposée</strong> par
+      <strong>défaut</strong> mais elle peut être complètement modifiée. Rien
+      n'est <strong>fixé</strong> car on aura pour bonne pratique d'accéder aux
+      ressources et données à travers le protocole <code>hoa://</code> qui peut
+      être vu comme une suite de liens symboliques. De ce fait, si on déplace un
+      dossier par exemple, on n'aura qu'à mettre à jour le protocole
+      <code>hoa://</code> sans avoir à modifier le code de notre
+      application.</p>
+    </section2>
 
   <section2 id="Routeur_et_dispatcheur" for="main-toc">
     <title>Routeur et dispatcheur</title>
