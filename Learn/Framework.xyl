@@ -146,7 +146,6 @@ Extracted in ~/Development/MyApp</blockcode>
       Hoa dans le dossier <code>/usr/local/lib/hoa/</code> ; ce qui implique que
       si Hoa est présent dans ce dossier, pas besoin de lancer le script,
       sinon :</p>
-
       <blockcode language="shell">$ Data/Bin/whereishoa
 ** Where is Hoa **
 
@@ -215,7 +214,7 @@ hoa://Data is equivalent to:
     <blockcode language="shell">$ php Application/Public/index.php
 Hello you! I'm your first Hoa-based application \o/.</blockcode>
     <p>Mais il faut admettre que ce n'est pas très drôle. On pourrait alors
-    s'aider de Bhoa (attention à ne pas oublier de démarrer PHP FastCGI) !
+    s'aider de Bhoa (attention à ne pas oublier de démarrer PHP FastCGI) !
     N'oublions pas que l'on peut également utiliser l'abstraction
     <code>hoa://Application/Public</code> pour définir la racine de Bhoa.
     Essayons plutôt (depuis n'importe où) :</p>
