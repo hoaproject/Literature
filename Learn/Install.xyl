@@ -104,6 +104,14 @@ Options :
     -e, --extract   : Extract Hoa in the current directory.
     -h, --help      : This help.
     -?, --help      : This help.</blockcode>
+      <p>Si le résultat obtenu n'est pas celui escompté, il faudra modifier le
+      paramètre <code>detect_unicode</code> dans votre fichier
+      <code>php.ini</code> pour le passer à <code>0</code>. Ou sinon,
+      directement :</p>
+      <blockcode language="shell">$ php -d detect_unicode=0 Hoa.next.phar
+Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
+Options :
+    …</blockcode>
       <p>Il est conseillé d'extraire Hoa avec l'option <code>-e</code> ou
       <code>--extract</code>. Cela va extraire Hoa au même niveau que
       l'archive :</p>
