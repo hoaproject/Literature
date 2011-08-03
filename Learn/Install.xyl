@@ -85,7 +85,7 @@ $ hg update</blockcode>
       <p>PHP fournit son propre système d'archive :
       <link href="http://php.net/phar">PHP Archive (Phar)</link>, afin de
       distribuer plus uniformément ses programmes écrits en PHP (ou avec
-      d'autres langages). Ce format est devenu standard depuis PHP5.3, qui est
+      d'autres langages). Ce format est devenu standard avant PHP5.3, qui est
       la version minimum pour utiliser Hoa. Il est donc naturel de le
       proposer.</p>
       <p>Ce format d'archive est disponible aux mêmes endroits que
