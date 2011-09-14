@@ -16,7 +16,7 @@
                 sref-title="//__current_ns:section1/@id"><next_chapter /> Une histoire de flux</link></item>
   </ulist>
 
-  <p>Une composante aussi nécessaire qu'important est l'<strong>assignation des
+  <p>Une composante aussi nécessaire qu'importante est l'<strong>assignation des
   tâches</strong> en fonction des requêtes effectuées sur l'application. Dans ce
   chapitre, nous allons présenter deux paquetages de Hoa :
   <code>Hoa\Router</code> et <code>Hoa\Dispatcher</code> afin de construire
@@ -80,16 +80,16 @@
     <p>PHP fonctionne derrière FastCGI pour recevoir les communications du
     serveurs HTTP. La requête HTTP reçue fournit toutes les informations
     nécessaires pour que PHP exécute une tâche sans problème.</p>
-    <p>Une requête HTTP
-    est principalement caractérisée par une <strong>méthode</strong>. On en
-    dénombre huit au total : <code>CONNECT</code>, <code>DELETE</code>,
-    <code>GET</code>, <code>HEAD</code>, <code>OPTIONS</code>,
-    <code>POST</code>, <code>PUT</code>, <code>TRACE</code>. On est capable bien
-    sûr d'ajouter nos propres méthodes mais l'objectif ici n'est pas de faire un
-    cours sur HTTP. À chaque méthode est associée une <strong>URI</strong> (pour
-    <em>Uniform Resource Identifier</em>), standardisée par la
-    <link href="http://tools.ietf.org/html/rfc3986">RFC3986</link>. Ainsi,
-    l'exemple suivant est une requête qui exprime « je veux la ressource
+    <p>Une requête HTTP est principalement caractérisée par une
+    <strong>méthode</strong>. On en dénombre huit au total :
+    <code>CONNECT</code>, <code>DELETE</code>, <code>GET</code>,
+    <code>HEAD</code>, <code>OPTIONS</code>, <code>POST</code>, <code>PUT</code>
+    et <code>TRACE</code>. On est capable bien sûr d'ajouter nos propres
+    méthodes mais l'objectif ici n'est pas de faire un cours sur HTTP. À chaque
+    méthode est associée une <strong>URI</strong> (pour <em>Uniform Resource
+    Identifier</em>), standardisée par la <link
+    href="http://tools.ietf.org/html/rfc3986">RFC3986</link>. Ainsi, l'exemple
+    suivant est une requête qui exprime « je souhaite obtenir la ressource
     <code>/path/to/resource</code> » :</p>
     <blockcode>GET /path/to/resource</blockcode>
   </section2>
@@ -98,7 +98,8 @@
     <title>Aperçu</title>
 
     <p>Un aperçu est ici utile pour faire quelques essais avant de détailler le
-    fonctionnement. On écrit l'exemple suivant :</p>
+    fonctionnement. On écrit l'exemple suivant dans un fichier
+    <code>index.php</code> :</p>
     <blockcode language="php">from('Hoa')
 -> import('Router.Http')
 -> import('Dispatcher.Basic');
@@ -107,27 +108,29 @@ $router = new Hoa\Router\Http();
 $router
     ->get('u', '/hello', function ( ) {
 
-        echo 'world!' . "\n";
+        echo 'world!', "\n";
     })
     ->get('v', '/bye', function ( ) {
-      
-        echo 'ohh :-(' . "\n";
+
+        echo 'ohh :-(', "\n";
     })
     ->post('w', '/hello', function ( Array $_request ) {
-      
-        echo $_request['a'] + $_request['b'] . "\n";
+
+        echo $_request['a'] + $_request['b'], "\n";
     })
     ->get('x', '/hello_(?&lt;nick&gt;\w+)', function ( $nick ) {
 
-        echo 'Welcome ' . ucfirst($nick) . '!' . "\n";
+        echo 'Welcome ', ucfirst($nick), '!', "\n";
     });
 
 $dispatcher = new Hoa\Dispatcher\Basic();
 $dispatcher->dispatch($router);</blockcode>
     <p>Et pour tester notre routeur et notre dispatcheur, on va s'appuyer sur
-    <link href="http://curl.haxx.se/">cURL</link> (pour <em>Client URL Request
-    Library</em>), un outil en ligne de commande permettant de manipuler plusieurs
-    protocoles, dont HTTP.</p>
+    Bhoa et <link href="http://curl.haxx.se/">cURL</link> (pour <em>Client URL
+    Request Library</em>), un outil en ligne de commande permettant de manipuler
+    plusieurs protocoles, dont HTTP. Tout d'abord :</p>
+    <blockcode language="shell">$ hoa bhoa --root .</blockcode>
+    <p>Puis dans un autre terminal :</p>
     <blockcode language="shell">$ curl localhost:8888/hello
 world!
 $ curl localhost:8888/bye
