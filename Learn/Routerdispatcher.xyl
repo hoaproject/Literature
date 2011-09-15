@@ -201,8 +201,10 @@ $router = new Hoa\Router\Http();
 $router->addRule($methods, $id, $pattern, $call, $able, $variables);</blockcode>
       <p>Le dernier argument <code>$variables</code> est évidemment optionnel
       puisqu'il sert à déclarer de nouvelles variables ou des valeurs par défaut
-      pour les variables.</p>
-      <p>Si on devrait exprimer la règle <code>u</code> de notre aperçu, on
+      pour les variables. Parfois, les arguments <code>$call</code> et
+      <code>$able</code> peuvent être partiellement ou totalement optionels
+      selon le contexte.</p>
+      <p>Si on devait exprimer la règle <code>u</code> de notre aperçu, on
       aurait ceci :</p>
       <blockcode language="php">$router->addRule(array('get'), 'u', '/hello', function ( ) { … });</blockcode>
       <p>Par soucis de simpliciter, on peut ne pas utiliser la méthode
