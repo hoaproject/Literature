@@ -289,11 +289,12 @@ $router->addRule(array('put', 'delete', 'get'), …);
 
       <p>La classe <code>Hoa\Dispatcher\Basic</code> supporte <strong>trois
       types</strong> de contrôleurs et d'actions : fonctions anonymes en tant
-      qu'actions (pas de contrôleur), fonctions déclarées en tant qu'actions
-      (pas de contrôleur) et classes et méthodes en tant que contrôleurs et
-      actions. Dans le dernier cas, des <strong>règles de nommage</strong> sont
-      proposées : <code>Application\Controller\<em>ControllerName</em></code>
-      pour le contrôleur (qui est alors une classe) et
+      que contrôleurs (pas d'action), fonctions déclarées en tant que
+      contrôleurs (pas d'action) et classes et méthodes en tant que contrôleurs
+      et actions. Dans le dernier cas, des <strong>règles de nommage</strong>
+      sont proposées :
+      <code>Application\Controller\<em>ControllerName</em></code> pour le
+      contrôleur (qui est alors une classe) et
       <code><em>ActionName</em>Action</code> pour l'action (qui est alors une
       méthode). On peut modifier ces règles de nommage facilement. De même, il
       est proposé des règles de nommage différentes pour des <strong>appels
@@ -331,12 +332,12 @@ $dispatcher = new Hoa\Dispatcher\Basic();
 $dispatcher->dispatch($router);</blockcode>
       <p>On remarque que pour <code>/hello</code>, on appelle la fonction
       <code>hello</code>. Pareil pour <code>/bye</code> et <code>bye</code>. Le
-      nom de l'action est identique à la partie à droite du symbole
+      nom du contrôleur est identique à la partie à droite du symbole
       <code>/</code> dans la règle. On peut alors simplifier les règles en
-      capturant la valeur de la variable <code>action</code> de cette
+      capturant la valeur de la variable <code>controller</code> de cette
       manière :</p>
       <blockcode language="php">$router = new Hoa\Router\Http();
-$router->get('u', '/(?&lt;action&gt;hello|bye)');</blockcode>
+$router->get('u', '/(?&lt;controller&gt;hello|bye)');</blockcode>
       <p>On peut imaginer utiliser le motif <code>\w+</code> à la place de
       <code>hello|bye</code> pour avoir plus de dynamisme (mais il ne faudra pas
       oublier de gérer les erreurs si l'action n'existe pas, grâce à l'exception
@@ -359,11 +360,67 @@ $router->get('u', '/(?&lt;action&gt;hello|bye)');</blockcode>
       l'argument <code>$_request</code> qui est une variable définie par le
       routeur et qui contient des données d'une requête HTTP non-accessible
       <em>via</em> l'URI.</p>
-
     </section3>
 
     <section3 id="Notion_de_kit" for="main-toc">
       <title>Notion de kit</title>
+
+      <p>Quand le dispatcheur appelle un contrôleur et une action, il peut
+      transmettre des données provenant du routeur. Toutefois, on aimerait en
+      profiter pour <strong>transmettre plus d'informations</strong> en même
+      temps. C'est la notion même de <strong>kit</strong> qui résoud ce
+      problème.</p>
+      <p>Un kit contient de base le routeur, le dispatcheur, une vue (simplement
+      n'importe quel objet de type <code>Hoa\View\Viewable</code>) et des
+      données (de type <code>Hoa\Core\Data</code>). La création d'un kit se fait
+      automatiquement, tout ce qui est nécessaire est de fournir le nom du kit
+      au dispatcheur grâce à la méthode
+      <code>Hoa\Dispatcher::setKitName</code>. Par exemple, on crée un kit qui
+      va ajouter une méthode <code>listRequestKeys</code> se basant sur le
+      routeur HTTP :</p>
+      <blockcode language="php">from('Hoa')
+-> import('Dispatcher.Kit')
+-> import('Dispatcher.Basic')
+-> import('Router.Http');
+
+class MyKit extends Hoa\Dispatcher\Kit {
+
+    public function listRequestKeys ( ) {
+
+        $theRule = $this->router->getTheRule();
+
+        return array_keys($theRule[Hoa\Router::RULE_VARIABLES]['_request']);
+    }
+}
+
+$dispatcher = new Hoa\Dispatcher\Basic();
+$dispatcher->setKitName('MyKit');</blockcode>
+      <p>Et maintenant, toutes les actions ayant ce kit pourront appeler la
+      méthode <code>listRequestKeys</code>.</p>
+      <p>Le dispatcheur basic <code>Hoa\Dispatcher\Basic</code> ajoute le kit en
+      tant que variable du routeur sous le nom <code>_this</code>. Ainsi, si on
+      veut récupérer le kit depuis une action, nous n'aurons qu'à avoir un
+      argument <code>$_this</code> :</p>
+      <blockcode language="php">$router = new Hoa\Router\Http();
+$router->get_post('u', '/(?&lt;controller&gt;hello)');
+
+function hello ( MyKit $_this ) {
+
+    print_r($_this->listRequestKeys());
+}
+
+$dispatcher->dispatch($router);</blockcode>
+      <p>On teste notre nouveau kit :</p>
+      <blockcode language="shell">$ curl -X POST -d foo=bar\&amp;baz=qux localhost:8888/hello
+Array
+(
+    [0] => foo
+    [1] => baz
+)</blockcode>
+      <p>Le dispatcheur basic va plus loin quand le contrôleur est une classe et
+      l'action une méthode. En effet, si le contrôleur étend le kit, alors pas
+      besoin d'avoir d'argument <code>$_this</code> dans les actions, utiliser
+      <code>$this</code> traditionnellement aura le même effet.</p>
     </section3>
 
     <section3 id="Vers_un_MVC" for="main-toc">
