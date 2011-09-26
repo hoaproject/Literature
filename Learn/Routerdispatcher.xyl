@@ -16,7 +16,7 @@
                 sref-title="//__current_ns:section1/@id"><next_chapter /> Une histoire de flux</link></item>
   </ulist>
 
-  <p>Une composante aussi nécessaire qu'importante est l'<strong>assignation des
+  <p>Un aspect aussi nécessaire qu'important est l'<strong>assignation des
   tâches</strong> en fonction des requêtes effectuées sur l'application. Dans ce
   chapitre, nous allons présenter deux paquetages de Hoa :
   <code>Hoa\Router</code> et <code>Hoa\Dispatcher</code> afin de construire
@@ -71,7 +71,7 @@
     <p>Un protocole standard a été défini pour faciliter la communication entre
     le serveur HTTP et le programme qui va réceptionner la requête. On appelle
     ce protocole : <strong>CGI</strong> (pour <em>Common Interface
-    Gateway</em>), définit par la
+    Gateway</em>), définie par la
     <link href="http://tools.ietf.org/html/rfc3875">RFC3875</link>. Toutefois,
     ce protocole n'était plus suffisant pour répondre aux nombres grandissants
     de requêtes sur les serveurs. C'est pourquoi, il a été formulé
@@ -155,8 +155,8 @@ Welcome Alix!</blockcode>
     second temps, détailler le fonctionnement du dispatcheur.</p>
   </section2>
 
-  <section2 id="Routeur" for="main-toc menu-toc">
-    <title>Routeur</title>
+  <section2 id="Routeur_HTTP" for="main-toc menu-toc">
+    <title>Routeur HTTP</title>
 
     <p>On va se concentrer sur les explications relatives au routeur HTTP, à
     savoir la classe <code>Hoa\Router\Http</code>.</p>
@@ -233,33 +233,133 @@ $router->addRule(array('put', 'delete', 'get'), …);
     <section3 id="Bien_comprendre_les_variables_et_les_motifs" for="main-toc">
       <title>Bien comprendre les variables et les motifs</title>
 
-      <p>Le rôle principal d'un routeur est d'extraire des données d'une requête
-      afin de les placer dans des variables. C'est pourquoi on est capable de
-      définir des valeurs par défaut pour certaines variables si elles ne sont
-      pas définies ou alors de définir de nouvelles variables. Ils existent des
-      variables qui vont être définies par le routeur lui-même (toujours
-      préfixées par le symbole <code>_</code>) mais on est capable d'en définir
-      avec une règle du routeur.</p>
-      <p>Les expressions régulières dans PHP sont basées sur les
-      <link href="https://pcre.org/">PCRE</link> qui ont un pouvoir d'expression
-      plus avancée que de simples expressions régulières traditionnelles. Elles
+      <p>Le rôle principal d'un routeur est d'<strong>extraire des
+      données</strong> d'une requête à partir d'une <strong>règle</strong> afin
+      de les <strong>placer dans des variables</strong> (on notera que les
+      routeurs savent faire l'opération inverse). C'est pourquoi on est capable
+      de définir des valeurs par défaut pour certaines variables si elles ne
+      sont pas définies ou alors de définir de nouvelles variables. Ils existent
+      des variables qui peuvent être définies par le routeur lui-même (toujours
+      préfixées par le symbole <code>_</code>) et non pas par les règles du
+      routeur. On évitera l'utilisation des noms de variables utilisant ce
+      préfixe.</p>
+      <p>Les expressions régulières dans PHP sont basées sur les <link
+      href="https://pcre.org/">PCRE</link> qui ont un pouvoir d'expression plus
+      avancée que de simples expressions régulières traditionnelles. Elles
       permettent entre autre de nommer des motifs, en plus de les indexer
       automatiquement, grâce à la syntaxe
       <code>(?&amp;lt;<em>name</em>&amp;gt;<em>pattern</em>)</code> (on
       retrouvera <link href="https://pcre.org/pcre.txt">la syntaxe des
       PCRE</link> à la section <em>pcresyntax(3)</em>). Chaque motif capturé et
-      nommé se retrouvera dans une variable du même nom que le motif. C'est
-      pourquoi, lorsqu'on écrit <code>/hello_(?&amp;lt;nick&amp;gt;\w+)</code>,
-      une variable <code>nick</code> sera créée et aura pour valeur la donnée
+      nommé se retrouvera dans une variable, au niveau du routeur, du même nom
+      que le motif. C'est pourquoi, lorsqu'on écrit
+      <code>/hello_(?&amp;amp;lt;nick&amp;amp;gt;\w+)</code>, une variable
+      <code>nick</code> sera créée dans le routeur et aura pour valeur la donnée
       capturée par le motif <code>\w+</code>.</p>
+      <p>Toutes les variables définies par le routeur lors de l'interprétation
+      d'une règle seront prioritaires sur les variables attachées à la règle par
+      l'utilisateur. C'est pourquoi nous retrouvons un comportement de valeurs
+      par défaut.</p>
     </section3>
   </section2>
 
   <section2 id="Dispatcheur" for="main-toc menu-toc">
     <title>Dispatcheur</title>
 
-    <section3 id="Pas_si_basique_que_ca" for="main-toc">
-      <title>Pas si basique que ça</title>
+    <p>Un dispatcheur est souvent couplé à un routeur mais pas nécessairement.
+    Selon la terminologie des dispatcheurs, son rôle est d'être capable de
+    dispatcher une <strong>tâche</strong> définie par certaines
+    <strong>données</strong> sur un <strong>contrôleur</strong> et une
+    <strong>action</strong> en fonction de la <strong>nature</strong> des
+    données manipulées. Si on utilisait la terminologie de Hoa, un couple
+    contrôleur et action est strictement équivalent à un couple <em>call</em> et
+    <em>able</em>, seule la terminologie diffère, le comportement restant le
+    même et étant connu.</p>
+    <p>Les dispatcheurs sont définis par une classe abstraite
+    <code>Hoa\Dispatcher</code>. Cette classe propose d'utiliser la
+    <strong>règle sélectionnée</strong> par un routeur pour
+    <strong>résoudre</strong> notre dispatche, comprendre savoir vers quels
+    contrôleurs et actions rediriger les données <strong>extraites</strong> du
+    routeur. Notre point d'entrée sera la méthode <code>dispatch</code> sur tout
+    dispatcheur. On va particulièrement s'intéresser au dispatcheur proposé par
+    défaut, à savoir <code>Hoa\Dispatcher\Basic</code>.</p>
+
+    <section3 id="Pas_si_basic_que_ca" for="main-toc">
+      <title>Pas si basic que ça</title>
+
+      <p>La classe <code>Hoa\Dispatcher\Basic</code> supporte <strong>trois
+      types</strong> de contrôleurs et d'actions : fonctions anonymes en tant
+      qu'actions (pas de contrôleur), fonctions déclarées en tant qu'actions
+      (pas de contrôleur) et classes et méthodes en tant que contrôleurs et
+      actions. Dans le dernier cas, des <strong>règles de nommage</strong> sont
+      proposées : <code>Application\Controller\<em>ControllerName</em></code>
+      pour le contrôleur (qui est alors une classe) et
+      <code><em>ActionName</em>Action</code> pour l'action (qui est alors une
+      méthode). On peut modifier ces règles de nommage facilement. De même, il
+      est proposé des règles de nommage différentes pour des <strong>appels
+      synchrones</strong> ou <strong>asynchrones</strong> ; on propose
+      <code><em>ActionName</em>ActionAsync</code> pour les actions
+      asynchrones.</p>
+      <p>Le routeur HTTP définit les variables <code>_call</code> et
+      <code>_able</code> qui correspondent aux composantes <em>call</em> et
+      <em>able</em> lors d'une définition de règle de routeur. Ces variables
+      vont être utilisées pour le nom du contrôleur et de l'action par le
+      dispatcheur.  Dans un souci de cohérence dans la terminologie, on peut
+      utiliser les variables <code>controller</code> et <code>action</code> dans
+      le routeur, ce qui sera compris de la même manière par le dispatcheur
+      basic et qui aura le mérite de ne pas réécrire <code>_call</code> et
+      <code>_able</code> (cela peut-être utile pour des opérations
+      complexes).</p>
+      <p>Dans l'aperçu, on a utilisé des fonctions anonymes. On va à présent
+      utiliser une partie de cet aperçu mais en le transformant pour avoir des
+      fonctions déclarées :</p>
+      <blockcode language="php">$router = new Hoa\Router\Http();
+$router->get('u', '/hello', 'hello')
+       ->get('v', '/bye', 'bye');
+
+function hello ( ) {
+
+    echo 'world!', "\n";
+}
+
+function bye ( ) {
+
+    echo 'ohh :-(', "\n";
+}
+
+$dispatcher = new Hoa\Dispatcher\Basic();
+$dispatcher->dispatch($router);</blockcode>
+      <p>On remarque que pour <code>/hello</code>, on appelle la fonction
+      <code>hello</code>. Pareil pour <code>/bye</code> et <code>bye</code>. Le
+      nom de l'action est identique à la partie à droite du symbole
+      <code>/</code> dans la règle. On peut alors simplifier les règles en
+      capturant la valeur de la variable <code>action</code> de cette
+      manière :</p>
+      <blockcode language="php">$router = new Hoa\Router\Http();
+$router->get('u', '/(?&lt;action&gt;hello|bye)');</blockcode>
+      <p>On peut imaginer utiliser le motif <code>\w+</code> à la place de
+      <code>hello|bye</code> pour avoir plus de dynamisme (mais il ne faudra pas
+      oublier de gérer les erreurs si l'action n'existe pas, grâce à l'exception
+      <code>Hoa\Dispatcher\Exception</code>).</p>
+      <p>En plus de gérer trois types de contrôleurs et d'actions, le
+      dispatcheur basic sait <strong>distribuer les variables</strong> sur les
+      <strong>arguments des actions</strong>. C'est pourquoi quand on écrivait
+      la règle <code>/hello_(?&amp;amp;lt;nick&amp;amp;gt;\w+)</code>, on
+      pouvait retrouver la valeur de la variable <code>nick</code> directement
+      dans notre action dans son argument <code>$nick</code> ; de cette
+      manière :</p>
+      <blockcode language="php">->get('x', 'hello_(?&lt;nick&gt;\w+)', function ( $nick ) {
+
+    echo 'Welcome ', ucfirst($nick), '!', "\n";
+}</blockcode>
+      <p>L'ordre des arguments n'a aucune importance, seul le nom est important.
+      On peut retrouver aussi bien les variables extraites des règles que celles
+      définies par le routeur (<ie /> préfixées par le symbole <code>_</code>).
+      C'est ce qu'on faisait avec <code>/hello</code> en <code>POST</code> et
+      l'argument <code>$_request</code> qui est une variable définie par le
+      routeur et qui contient des données d'une requête HTTP non-accessible
+      <em>via</em> l'URI.</p>
+
     </section3>
 
     <section3 id="Notion_de_kit" for="main-toc">
