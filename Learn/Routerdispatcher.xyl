@@ -418,13 +418,42 @@ Array
     [1] => baz
 )</blockcode>
       <p>Le dispatcheur basic va plus loin quand le contrôleur est une classe et
-      l'action une méthode. En effet, si le contrôleur étend le kit, alors pas
-      besoin d'avoir d'argument <code>$_this</code> dans les actions, utiliser
-      <code>$this</code> traditionnellement aura le même effet.</p>
+      l'action une méthode. En effet, si le contrôleur étend le kit (avec le
+      mot-clé <code>extends</code>), alors pas besoin d'avoir d'argument
+      <code>$_this</code> dans les actions, utiliser <code>$this</code>
+      traditionnellement aura le même effet.</p>
     </section3>
 
     <section3 id="Vers_un_MVC" for="main-toc">
       <title>Vers un MVC</title>
+
+      <p>Quand on conçoit une application, on peut utiliser le <strong>modèle de
+      conception</strong> <em>Modèle-Vue-Contrôleur</em> (ou MVC, pour
+      <em>Model-View-Controller</em>). Vulgairement, ce modèle considère une
+      application composée de <strong>trois couches</strong> : le
+      <strong>modèle</strong> pour gérer les données (lire et écrire), la
+      <strong>vue</strong> pour afficher des données et le
+      <strong>contrôleur</strong> pour faire le lien entre les deux (le
+      contrôleur utilise le modèle pour construire la vue). Plus ou moins de
+      connexions peuvent exister entre les couches et le sens des connexions
+      peut également différer d'une implémentation à une autre.</p>
+
+      <p>Ce que l'on a vu avec <code>Hoa\Router</code> et
+      <code>Hoa\Dispatcher</code> est qu'il est facile de créer et d'adopter un
+      tel modèle de conception, et qu'il est tout aussi facile de l'enrichir
+      grâce au kit représenté par <code>Hoa\Dispatcher\Kit</code>. Par exemple,
+      la bibliothèque <code>Hoa\Console</code> propose un dispatcheur avec un
+      kit dédié à l'écriture de programme en ligne de commande avec des méthodes
+      assistantes utiles pour des opérations répétitives (créer une aide, lister
+      les entrées d'une commande, lire les options d'une commande etc. ;
+      regrouper plusieurs outils dans le kit de manière intelligente). La couche
+      contrôleur est immédiate avec le dispatcheur basic, la couche modèle n'a
+      pour l'instant pas été abordée et la vue peut être n'importe quelle classe
+      implémentant l'interface <code>Hoa\View\Viewable</code>.  Toutefois, ces
+      bibliothèques peuvent être utilisées dans l'optique d'un autre objectif,
+      on a expliqué comment les assembler pour obtenir l'esquisse d'un MVC mais
+      l'assemblage peut être totalement différent.</p>
+
     </section3>
   </section2>
 </section1>
