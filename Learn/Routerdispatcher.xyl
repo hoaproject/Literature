@@ -32,12 +32,12 @@
     <title>Introduction</title>
 
     <p>Maintenant que l'on connait un peu le fonctionnement de Hoa et que l'on a
-    fait connaissance avec quelques aspects framework, on va entammer notre
+    fait connaissance avec quelques aspects framework, on va entamer notre
     <strong>première application</strong>.</p>
-    <p>On va tout d'abord commencer par un peu d'histoire pour bien comprendre comment
-    fonctionne une application Web. Par la suite, on donnera un aperçu du
-    fonctionnement, qui se résumera à écrire et tester quelques règles. Et
-    enfin, on expliquera le fonctionnement du routeur et du dispatcheur utilisé
+    <p>On va tout d'abord commencer par un peu d'histoire pour bien comprendre
+    comment fonctionne une application Web. Par la suite, on donnera un aperçu
+    du fonctionnement, qui se résumera à écrire et tester quelques règles. Et
+    enfin, on expliquera le fonctionnement du routeur et du dispatcheur utilisés
     dans l'aperçu.</p>
   </section2>
 
@@ -60,9 +60,9 @@
     pour HTTP1.1 et
     <link href="http://tools.ietf.org/html/rfc2616">RFC2616</link> pour la
     version finale d'HTTP1.1, que l'on utilise actuellement partout. La personne
-    qui émet une requête est un <strong>client</strong> (souvent l'utilisateur).
-    Cette requête est envoyée à un <strong>serveur</strong>, qui connait votre
-    application. Si on entre un peu plus dans le détail, côté serveur, un
+    qui émet une requête est un <strong>client</strong> (souvent un navigateur
+    Web). Cette requête est envoyée à un <strong>serveur</strong>, qui connait
+    votre application. Si on entre un peu plus dans le détail, côté serveur, un
     programme filtre la réception des requêtes. Dans le cas d'HTTP, on appelle
     ce programme un <strong>serveur HTTP</strong>. Quand ce serveur HTTP reçoit
     une requête, il regarde quel programme est susceptible d'être concerné par
@@ -74,11 +74,11 @@
     Gateway</em>), définie par la
     <link href="http://tools.ietf.org/html/rfc3875">RFC3875</link>. Toutefois,
     ce protocole n'était plus suffisant pour répondre aux nombres grandissants
-    de requêtes sur les serveurs. C'est pourquoi, il a été formulé
+    de requêtes sur les serveurs. C'est pourquoi,
     <link href="http://fastcgi.com/">FastCGI</link> (pour <em>Fast Common
-    Gateway Interface</em>).</p>
+    Gateway Interface</em>) a été créé.</p>
     <p>PHP fonctionne derrière FastCGI pour recevoir les communications du
-    serveurs HTTP. La requête HTTP reçue fournit toutes les informations
+    serveur HTTP. La requête HTTP reçue fournit toutes les informations
     nécessaires pour que PHP exécute une tâche sans problème.</p>
     <p>Une requête HTTP est principalement caractérisée par une
     <strong>méthode</strong>. On en dénombre huit au total :
@@ -126,11 +126,12 @@ $router
 $dispatcher = new Hoa\Dispatcher\Basic();
 $dispatcher->dispatch($router);</blockcode>
     <p>Et pour tester notre routeur et notre dispatcheur, on va s'appuyer sur
-    Bhoa et <link href="http://curl.haxx.se/">cURL</link> (pour <em>Client URL
-    Request Library</em>), un outil en ligne de commande permettant de manipuler
-    plusieurs protocoles, dont HTTP. Tout d'abord :</p>
+    Bhoa (le serveur HTTP fourni avec Hoa) et
+    <link href="http://curl.haxx.se/">cURL</link> (pour <em>Client URL Request
+    Library</em>), un client en ligne de commande permettant de manipuler
+    plusieurs protocoles, dont HTTP. Tout d'abord, démarrons Bhoa :</p>
     <blockcode language="shell">$ hoa bhoa --root .</blockcode>
-    <p>Puis dans un autre terminal :</p>
+    <p>Puis dans un autre terminal, envoyons-lui une requête avec cURL :</p>
     <blockcode language="shell">$ curl localhost:8888/hello
 world!
 $ curl localhost:8888/bye
@@ -145,14 +146,14 @@ $ curl localhost:8888/hello_alix
 Welcome Alix!</blockcode>
     <p>Par défaut, cURL va envoyer une requête HTTP avec la méthode
     <code>GET</code>. On remarque que si on appelle <code>/hello</code> en
-    <code>GET</code> ou en <code>POST</code>, cela n'aura pas le même effet. De
+    <code>GET</code> ou en <code>POST</code>, cela n'a pas le même effet. De
     même, <code>/bye</code> n'est accessible qu'avec la méthode
     <code>GET</code>. Enfin, on remarque comment on peut avoir des règles
     dynamiques et comment on peut capturer certaines parties que l'on retrouve
     en argument de nos actions.</p>
     <p>Dans cet aperçu, on a utilisé un routeur et un dispatcheur. On va, dans
     un premier temps, détailler le fonctionnement du routeur, puis, dans un
-    second temps, détailler le fonctionnement du dispatcheur.</p>
+    second temps, celui du dispatcheur.</p>
   </section2>
 
   <section2 id="Routeur_HTTP" for="main-toc menu-toc">
@@ -167,8 +168,8 @@ Welcome Alix!</blockcode>
       <p>Une règle est définie par un <strong><em>t</em>-uplet</strong> :
       <ulist>
         <item>visibilité : ne pas en tenir compte pour ce chapitre ;</item>
-        <item>méthodes HTTP : un tableau des méthodes qui permettent d'atteindre la
-        règle, parmi <code>GET</code>, <code>POST</code>, <code>PUT</code>,
+        <item>méthodes HTTP : un tableau des méthodes qui permettent d'atteindre
+        la règle, parmi <code>GET</code>, <code>POST</code>, <code>PUT</code>,
         <code>DELETE</code>, <code>HEAD</code> et <code>OPTIONS</code> ;</item>
         <item>identifant : l'identifiant (unique) de la règle ;</item>
         <item>motif : une expression régulière définissant la forme de la
@@ -207,7 +208,7 @@ $router->addRule($methods, $id, $pattern, $call, $able, $variables);</blockcode>
       <p>Si on devait exprimer la règle <code>u</code> de notre aperçu, on
       aurait ceci :</p>
       <blockcode language="php">$router->addRule(array('get'), 'u', '/hello', function ( ) { … });</blockcode>
-      <p>Par soucis de simpliciter, on peut ne pas utiliser la méthode
+      <p>Par soucis de simplicité, on peut ne pas utiliser la méthode
       <code>Hoa\Router\Http::addRule</code> mais invoquer un peu de magie ! En
       effet, l'écriture qui va suivre est strictement identique à la
       précédente :</p>
@@ -243,9 +244,9 @@ $router->addRule(array('put', 'delete', 'get'), …);
       préfixées par le symbole <code>_</code>) et non pas par les règles du
       routeur. On évitera l'utilisation des noms de variables utilisant ce
       préfixe.</p>
-      <p>Les expressions régulières dans PHP sont basées sur les <link
-      href="https://pcre.org/">PCRE</link> qui ont un pouvoir d'expression plus
-      avancée que de simples expressions régulières traditionnelles. Elles
+      <p>Les expressions régulières dans PHP sont basées sur les
+      <link href="https://pcre.org/">PCRE</link> qui ont un pouvoir d'expression
+      plus avancé que de simples expressions régulières traditionnelles. Elles
       permettent entre autre de nommer des motifs, en plus de les indexer
       automatiquement, grâce à la syntaxe
       <code>(?&amp;lt;<em>name</em>&amp;gt;<em>pattern</em>)</code> (on
@@ -258,7 +259,7 @@ $router->addRule(array('put', 'delete', 'get'), …);
       capturée par le motif <code>\w+</code>.</p>
       <p>Toutes les variables définies par le routeur lors de l'interprétation
       d'une règle seront prioritaires sur les variables attachées à la règle par
-      l'utilisateur. C'est pourquoi nous retrouvons un comportement de valeurs
+      l'utilisateur. C'est pourquoi nous retrouvons un comportement de valeur
       par défaut.</p>
     </section3>
   </section2>
@@ -277,8 +278,7 @@ $router->addRule(array('put', 'delete', 'get'), …);
     même et étant connu.</p>
     <p>Les dispatcheurs sont définis par une classe abstraite
     <code>Hoa\Dispatcher</code>. Cette classe propose d'utiliser la
-    <strong>règle sélectionnée</strong> par un routeur pour
-    <strong>résoudre</strong> notre dispatche, comprendre savoir vers quels
+    <strong>règle sélectionnée</strong> par un routeur pour savoir vers quels
     contrôleurs et actions rediriger les données <strong>extraites</strong> du
     routeur. Notre point d'entrée sera la méthode <code>dispatch</code> sur tout
     dispatcheur. On va particulièrement s'intéresser au dispatcheur proposé par
@@ -344,11 +344,10 @@ $router->get('u', '/(?&lt;controller&gt;hello|bye)');</blockcode>
       <code>Hoa\Dispatcher\Exception</code>).</p>
       <p>En plus de gérer trois types de contrôleurs et d'actions, le
       dispatcheur basic sait <strong>distribuer les variables</strong> sur les
-      <strong>arguments des actions</strong>. C'est pourquoi quand on écrivait
-      la règle <code>/hello_(?&amp;amp;lt;nick&amp;amp;gt;\w+)</code>, on
-      pouvait retrouver la valeur de la variable <code>nick</code> directement
-      dans notre action dans son argument <code>$nick</code> ; de cette
-      manière :</p>
+      <strong>arguments des actions</strong>. C'est pourquoi quand on écrit la
+      règle <code>/hello_(?&amp;amp;lt;nick&amp;amp;gt;\w+)</code>, on peut
+      retrouver la valeur de la variable <code>nick</code> directement dans
+      notre action dans son argument <code>$nick</code> ; de cette manière :</p>
       <blockcode language="php">->get('x', 'hello_(?&lt;nick&gt;\w+)', function ( $nick ) {
 
     echo 'Welcome ', ucfirst($nick), '!', "\n";
@@ -356,7 +355,7 @@ $router->get('u', '/(?&lt;controller&gt;hello|bye)');</blockcode>
       <p>L'ordre des arguments n'a aucune importance, seul le nom est important.
       On peut retrouver aussi bien les variables extraites des règles que celles
       définies par le routeur (<ie /> préfixées par le symbole <code>_</code>).
-      C'est ce qu'on faisait avec <code>/hello</code> en <code>POST</code> et
+      C'est ce qu'on fait avec <code>/hello</code> en <code>POST</code> et
       l'argument <code>$_request</code> qui est une variable définie par le
       routeur et qui contient des données d'une requête HTTP non-accessible
       <em>via</em> l'URI.</p>
@@ -368,7 +367,7 @@ $router->get('u', '/(?&lt;controller&gt;hello|bye)');</blockcode>
       <p>Quand le dispatcheur appelle un contrôleur et une action, il peut
       transmettre des données provenant du routeur. Toutefois, on aimerait en
       profiter pour <strong>transmettre plus d'informations</strong> en même
-      temps. C'est la notion même de <strong>kit</strong> qui résoud ce
+      temps. C'est la notion même de <strong>kit</strong> qui résout ce
       problème.</p>
       <p>Un kit contient de base le routeur, le dispatcheur, une vue (simplement
       n'importe quel objet de type <code>Hoa\View\Viewable</code>) et des
@@ -420,8 +419,8 @@ Array
       <p>Le dispatcheur basic va plus loin quand le contrôleur est une classe et
       l'action une méthode. En effet, si le contrôleur étend le kit (avec le
       mot-clé <code>extends</code>), alors pas besoin d'avoir d'argument
-      <code>$_this</code> dans les actions, utiliser <code>$this</code>
-      traditionnellement aura le même effet.</p>
+      <code>$_this</code> dans les actions, utiliser simplement
+      <code>$this</code> aura le même effet.</p>
     </section3>
 
     <section3 id="Vers_un_MVC" for="main-toc">
@@ -450,10 +449,8 @@ Array
       contrôleur est immédiate avec le dispatcheur basic, la couche modèle n'a
       pour l'instant pas été abordée et la vue peut être n'importe quelle classe
       implémentant l'interface <code>Hoa\View\Viewable</code>.  Toutefois, ces
-      bibliothèques peuvent être utilisées dans l'optique d'un autre objectif,
-      on a expliqué comment les assembler pour obtenir l'esquisse d'un MVC mais
-      l'assemblage peut être totalement différent.</p>
-
+      bibliothèques peuvent être utilisées dans une autre optique que le MVC
+      grâce à un assemblage totalement différent.</p>
     </section3>
   </section2>
 </section1>
