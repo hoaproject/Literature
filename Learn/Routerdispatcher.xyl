@@ -227,7 +227,9 @@ $router->put_delete_get(…);
 $router->addRule(array('put', 'delete', 'get'), …);
 
 // etc.</blockcode>
-      <p>L'ordre des méthodes n'a pas d'importance, seul compte l'idenfiant.</p>
+      <p>L'ordre des règle a une importance, car les règles sont filtrées
+      puis évaluées dans l'ordre de déclaration. Il est alors conseillé décrire
+      les règles spécifiques avant les règles génériques.</p>
       <p>On conviendra de la simplicité qu'introduit cette magie.</p>
     </section3>
 
@@ -300,17 +302,17 @@ $router->addRule(array('put', 'delete', 'get'), …);
       est proposé des règles de nommage différentes pour des <strong>appels
       synchrones</strong> ou <strong>asynchrones</strong> ; on propose
       <code><em>ActionName</em>ActionAsync</code> pour les actions
-      asynchrones.</p>
+      asynchrones. Un appel asynchrone peut s'effectuer par exemple à travers
+      <strong>XHR</strong> (pour <em>XML HTTP Request</em>).</p>
       <p>Le routeur HTTP définit les variables <code>_call</code> et
       <code>_able</code> qui correspondent aux composantes <em>call</em> et
       <em>able</em> lors d'une définition de règle de routeur. Ces variables
       vont être utilisées pour le nom du contrôleur et de l'action par le
-      dispatcheur.  Dans un souci de cohérence dans la terminologie, on peut
+      dispatcheur. Dans un souci de cohérence dans la terminologie, on peut
       utiliser les variables <code>controller</code> et <code>action</code> dans
       le routeur, ce qui sera compris de la même manière par le dispatcheur
       basic et qui aura le mérite de ne pas réécrire <code>_call</code> et
-      <code>_able</code> (cela peut-être utile pour des opérations
-      complexes).</p>
+      <code>_able</code>.</p>
       <p>Dans l'aperçu, on a utilisé des fonctions anonymes. On va à présent
       utiliser une partie de cet aperçu mais en le transformant pour avoir des
       fonctions déclarées :</p>
