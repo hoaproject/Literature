@@ -453,6 +453,66 @@ Array
       grâce à un assemblage totalement différent.</p>
     </section3>
   </section2>
+
+  <section2 id="Application_Gordon-s_blog" for="main-toc menu-toc">
+    <title>Application : <em>Gordon's blog</em></title>
+
+    <p>On va maintenant mettre <strong>en pratique</strong> ce que l'on vient
+    d'apprendre en créant une petite application. Cette application est le
+    <strong>blog</strong> du très célèbre
+    <link href="https://secure.wikimedia.org/wikipedia/en/wiki/Gordon_Freeman">Dr.
+    Gordon Freeman</link>.</p>
+
+    <p>Nous allons nous baser sur l'aspect framework pour avoir un environnement
+    complet dans lequel nous allons écrire un fichier <code>index.php</code> qui
+    contiendra le routeur HTTP et le dispatcheur vers des contrôleurs. Nous
+    aurons deux actions possibles :
+    <ulist>
+      <item>afficher la liste des articles ;</item>
+      <item>afficher un article en particulier.</item>
+    </ulist></p>
+
+    <p>Nous commençons par éditer le fichier <code>index.php</code> pour y
+    écrire le routeur et le dispatcheur. Nous avons besoin de deux règles dans
+    notre routeur pour nos actions respectives : disons <code>i</code> pour
+    afficher la liste des articles et <code>a</code> pour afficher un article en
+    particulier. La règle <code>i</code> sera accessible depuis le chemin de
+    l'URI <code>/</code> et la règle <code>a</code> depuis
+    <code>/article-<em>id</em>.html</code>. Nous allons avoir un contrôleur qui
+    sera une classe avec deux méthodes, une pour chaque action :</p>
+    <blockcode language="php">from('Hoa')
+-> import('Router.Http')
+-> import('Dispatcher.Basic');
+
+$router     = new Hoa\Router\Http();
+$router->get('i', '/', 'blog', 'index')
+       ->get('a', '/article-(?&lt;id&gt;\d+)\.html', 'blog', 'article');
+
+$dispatcher = new Hoa\Dispatcher\Basic();
+$dispatcher->dispatch($router);</blockcode>
+    <p>On a dit que par défaut, le contrôleur était représenté par une classe
+    <code>Application\Controller\<em>ControllerName</em></code>. C'est pourquoi
+    on va écrire la classe <code>Application\Controller\Blog</code>, avec deux
+    méthodes : <code>IndexAction</code> et <code>ArticleAction</code>,
+    respectivement pour la règle <code>i</code> et <code>a</code>. Ainsi :</p>
+    <blockcode language="php">namespace Application\Controller {
+
+class Blog extends \Hoa\Dispatcher\Kit {
+
+    public function IndexAction ( ) {
+
+        echo 'Gordon\'s blog index.', "\n";
+    }
+
+    public function ArticleAction ( $id ) {
+
+        echo 'Article n°', $id, '.', "\n";
+    }
+}
+
+}</blockcode>
+
+  </section2>
 </section1>
 
 <ulist class="prev_next">
