@@ -48,7 +48,7 @@ require '/usr/local/lib/hoa/Core/Core.php';</blockcode>
     une deuxième fois, le programme quittera avec une erreur. C'est le seul et
     unique cas où Hoa va quitter le programme.</p>
     <p>Toutes les classes appartenant à l'espace de nommage
-    <code>Hoa\Core\</code> n'ont pas à être importées manuellement, elles sont
+    <code>Hoa\Core</code> n'ont pas à être importées manuellement, elles sont
     toujours présentes.</p>
   </section2>
 

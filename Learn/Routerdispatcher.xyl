@@ -513,7 +513,45 @@ class Blog extends \Hoa\Dispatcher\Kit {
 }
 
 }</blockcode>
+    <p>Nous allons maintenant tester notre application à l'aide de Bhoa en
+    précisant que la racine est le dossier <code>Public/</code> de notre
+    application. Nous allons profiter de l'abstraction qu'offre le protocole
+    <code>hoa://</code> au lieu d'utiliser un chemin en dur :</p>
+    <blockcode language="shell">$ myapp bhoa --root hoa://Application/Public</blockcode>
+    <p>Puis, à l'aide de cURL ou d'un navigateur, nous allons joindre
+    <link href="http://localhost:8888"><code>localhost:8888</code></link> :</p>
+    <blockcode language="shell">$ curl localhost:8888/
+Gordon's blog index
+$ curl localhost:8888/article-1.html
+Article n°1
+$ curl localhost:8888/article-42.html
+Article n°42</blockcode>
+    <p>Tout fonctionne bien ! Mais ce ne sera pas toujours le cas. Par exemple,
+    si nous appelons une URI qui n'est pas comprise par le routeur, une erreur
+    sera levée :</p>
+    <blockcode language="shell">$ curl localhost:8888/foobar
+Uncaught exception (Hoa\Router\Exception\NotFound):
+Hoa\Router\Http::route(): (6) Cannot found an appropriated rule to route foobar.
+in hoa://Library/Router/Http.php at line 490.</blockcode>
+    <p>Plus précisément, une exception de type
+    <code>Hoa\Router\Exception\NotFound</code> sera levée lors du dispatche.
+    D'autres exceptions peuvent apparaître (comme
+    <code>Hoa\Router\Exception</code>) mais ce ne sera pas à cause d'un problème
+    de routage dû à l'utilisateur. Il serait intéressant de capturer cette
+    exception et de réagir en conséquence, par exemple en indiquant qu'une
+    erreur s'est produite :</p>
+    <blockcode language="php">try {
 
+    $dispatcher->dispatch($router);
+}
+catch ( Hoa\Router\Exception\NotFound $e ) {
+
+    echo 'Your page seems to be not found /o\.', "\n";
+}</blockcode>
+    <p>Et ainsi, plus d'exception affichée à l'utilisateur mais notre
+    erreur :</p>
+    <blockcode language="shell">$ curl localhost:8888/foobar
+Your page seems to be not found /o\.</blockcode>
   </section2>
 </section1>
 
