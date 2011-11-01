@@ -13,7 +13,7 @@
                 sref-title="//__current_ns:section1/@id"><previous_chapter /> Installation</link></item>
     <item><link href="@ll:chapter=(!title)"
                 sref="hoa://Application/External/Literature/Learn/Tools.xyl"
-                sref-title="//__current_ns:section1/@id"><next_chapter /> Outils autour de Hoa</link></item>
+                sref-title="//__current_ns:section1/@id">Outils autour de Hoa <next_chapter /></link></item>
   </ulist>
 
   <p>Le noyau est la partie <strong>indispensable</strong> de Hoa. C'est le
@@ -70,9 +70,9 @@ require '/usr/local/lib/hoa/Core/Core.php';</blockcode>
       <code>hoa://</code></strong>, très utile pour abstraire
       l'accès aux ressources ;</item>
       <item><em>Parameter</em> est la couche qui permet de
-      <strong>paramétrer</strong> des classes et des paquetages ;</item>
+      <strong>paramétrer</strong> des classes et des bibliothèques ;</item>
       <item><em>Data</em> est la couche qui permet de manipuler des
-      <strong>données</strong> de formes très exotiques avec de bonnes
+      <strong>données</strong> polymorphiques avec de bonnes
       performances.</item>
     </ulist></p>
     <p>On présentera les quatre premières couches. Les couches restantes seront
@@ -131,8 +131,8 @@ from('Hoathis')
       exemple, le chemin <code>Xml.~</code> est équivalent à
       <code>Xml.Xml</code>, ou encore <code>Stream.I~.In</code> est équivalent à
       <code>Stream.IStream.In</code>. Cet opérateur est utile par exemple pour
-      atteindre la <strong>classe d'entrée</strong> d'un paquetage, <ie /> une
-      classe qui porte le même nom que le paquetage (c'est le cas de
+      atteindre la <strong>classe d'entrée</strong> d'une bibliothèque, <ie />
+      une classe qui porte le même nom que la bibliothèque (c'est le cas de
       <code>Hoa\Xml</code> qui se trouve dans le fichier
       <code>Library/Xml/Xml.php</code>).</p>
       <p>L'opérateur étoile (qui fait référence à l'<strong>étoile de
@@ -140,10 +140,10 @@ from('Hoathis')
       <code>Stream.I~.*</code> correspond à tous les chemins possibles depuis le
       point <code>Stream.IStream</code>. L'opérateur étoile n'est pas récursif,
       <ie /> il ne comprend qu'un seul niveau.</p>
-      <p>Néanmoins, on déconseille l'utilisation abondante de l'opérateur étoile.
-      En effet, il est utile voire inévitable dans certaines situations, mais
-      il est toujours préférable de gérer les importations au cas par cas, quand
-      c'est possible, afin de toujours savoir ce qu'on manipule.</p>
+      <p>Néanmoins, on déconseille l'utilisation abondante de l'opérateur
+      étoile. En effet, il est utile voire inévitable dans certaines situations,
+      mais il est toujours préférable de gérer les importations au cas par cas,
+      quand c'est possible, afin de toujours savoir ce qu'on manipule.</p>
     </section3>
 
     <section3 id="Pre-chargement_chargement_et_auto-chargement" for="main-toc">
@@ -250,7 +250,7 @@ class First {
 
     public function say ( ) {
 
-        echo 'Hello world!' . "\n";
+        echo 'Hello world!', "\n";
     }
 }
 
@@ -278,28 +278,31 @@ $first->say();
       <title><em>Callable</em></title>
 
       <p>La couche <em>Consistency</em> propose un autre objet qui est
-      <code>Hoa\Core\Consistency\Callable</code> et qui permet d'étendre le
-      principe des <link href="http://php.net/callback"><em>callbacks</em></link>
-      aux fonctionnalités proposées par Hoa.</p>
-      <p>Il existe la fonction alias <code>callable</code> qui permet de
-      construire un objet <code>Hoa\Core\Consistency\Callable</code>. Cette
+      <code>Hoa\Core\Consistency\Xcallable</code> et qui permet d'étendre le
+      principe des
+      <link href="http://php.net/callback"><em>callbacks</em></link> aux
+      fonctionnalités proposées par Hoa.</p>
+      <p>Il existe la fonction alias <code>xcallable</code> qui permet de
+      construire un objet <code>Hoa\Core\Consistency\Xcallable</code>. Cette
       fonction utilise deux arguments qui sont <strong>systématiques</strong>
       dans Hoa : <code>$call</code> et <code>$able</code>, le dernier étant
       optionnel. On peut les utiliser de la manière suivante :
       <ulist>
-        <item><code>callable('<em>function</em>')</code> ;</item>
-        <item><code>callable('<em>class::method</em>')</code> ;</item>
-        <item><code>callable('<em>class</em>', '<em>method</em>')</code> ;</item>
-        <item><code>callable(<em>$object</em>, '<em>method</em>')</code> ;</item>
-        <item><code>callable(<em>$object</em>)</code> ;</item>
-        <item><code>callable(<em>function ( … ) { … }</em>)</code>.</item>
+        <item><code>xcallable('<em>function</em>')</code> ;</item>
+        <item><code>xcallable('<em>class::method</em>')</code> ;</item>
+        <item><code>xcallable('<em>class</em>',
+              '<em>method</em>')</code> ;</item>
+        <item><code>xcallable(<em>$object</em>,
+              '<em>method</em>')</code> ;</item>
+        <item><code>xcallable(<em>$object</em>)</code> ;</item>
+        <item><code>xcallable(<em>function ( … ) { … }</em>)</code>.</item>
       </ulist></p>
       <p>On remarque que beaucoup de forme sont supportées. Dans tous les cas,
-      pour effectuer un appel, on le fera comme ceci :</p>
-      <blockcode language="php">$call = callable(…);
-$call($argument1, $argument2, …);</blockcode>
+      pour effectuer un appel, on fera comme ceci :</p>
+      <blockcode language="php">$callable = xcallable(…);
+$callable($argument1, $argument2, …);</blockcode>
       <p>Si on donne un objet mais que la méthode n'est pas précisée, c'est
-      <code>Hoa\Core\Consistency\Callable</code> qui va déterminer la méthode :
+      <code>Hoa\Core\Consistency\Xcallable</code> qui va déterminer la méthode :
       si c'est un événement, si c'est un flux, si c'est une exception etc.</p>
       <p>On notera deux méthodes qui peuvent avoir leur utilité :
       <code>getValidCallback</code> qui retournera un <em>callback</em> avec un
@@ -347,12 +350,12 @@ $call($argument1, $argument2, …);</blockcode>
       <code>Hoa\Core\Event::register</code>, où le premier argument est
       l'identifiant de l'événement et le second argument est le propriétaire (ou
       l'émetteur) :</p>
-      <blockcode language="php">Hoa\Core\Event::register('anID', $observable);</blockcode>
+      <blockcode language="php">Hoa\Core\Event::register('Id', $observable);</blockcode>
       <p>Une fois l'événement enregistré (ou créé), on est capable d'émettre
       grâce à la méthode <code>Hoa\Core\Event::notify</code>, dont le premier
       argument est l'identifiant de l'événement, le deuxième est l'émetteur et
       le dernier les données :</p>
-      <blockcode language="php">Hoa\Core\Event::notify('anId', $observable, new \Hoa\Core\Event\Bucket($data));</blockcode>
+      <blockcode language="php">Hoa\Core\Event::notify('Id', $observable, new \Hoa\Core\Event\Bucket($data));</blockcode>
     </section3>
 
     <section3 id="Format_des_identifiants_d-evenements" for="main-toc">
@@ -390,9 +393,9 @@ $call($argument1, $argument2, …);</blockcode>
 
         $exception = $bucket->getData();
 
-        echo '** Exception (' . get_class($exception) . ') **' . "\n" .
-             '** from ' . get_class($bucket->getSource()) . ' **' . "\n" .
-             $exception->getFormattedMessage() . "\n\n";
+        echo '** Exception (', get_class($exception), ') **', "\n",
+             '** from ', get_class($bucket->getSource()), ' **', "\n",
+             $exception->getFormattedMessage(), "\n\n";
     }
 );</blockcode>
       <p>Même si les exceptions sont capturées, elles sont envoyées sur le canal
@@ -460,7 +463,7 @@ from('Hoathis')
 
 event('hoa://Event/Exercise')->attach(function ( Hoa\Core\Event\Bucket $bucket ) {
 
-    echo 'I have received “' . $bucket->getData() . '“.' . "\n";
+    echo 'I have received “', $bucket->getData(), '“.', "\n";
 });
 
 $second = new Hoathis\Exercise\Core\Second();
@@ -532,7 +535,7 @@ from('Hoathis')
 $third = new Hoathis\Exercise\Core\Third();
 $third->on('foo', function ( Hoa\Core\Event\Bucket $bucket ) {
 
-    echo 'I have received “' . $bucket->getData() . '“.' . "\n";
+    echo 'I have received “', $bucket->getData(), '“.', "\n";
 });
 var_dump($third->doSomething('Gordon'));
 
@@ -586,7 +589,7 @@ var_dump($third->doSomething('Gordon'));
 }
 catch ( Hoa\Core\Exception $e ) {
 
-    echo $e->getMessage() . "\n" .
+    echo $e->getMessage(), "\n",
          $e->getFormattedMessage();
 
     // Will output:
@@ -600,7 +603,7 @@ catch ( Hoa\Core\Exception $e ) {
 }
 catch ( Hoa\Core\Exception $e ) {
 
-    echo $e->getMessage() . "\n" .
+    echo $e->getMessage(), "\n",.
          $e->getFormattedMessage();
 
     // Will output:
@@ -614,7 +617,7 @@ catch ( Hoa\Core\Exception $e ) {
 }
 catch ( Hoa\Core\Exception $e ) {
 
-    echo $e->getMessage() . "\n" .
+    echo $e->getMessage(), "\n",
          $e->getFormattedMessage();
 
     // Will output:
@@ -682,7 +685,7 @@ catch ( Hoa\Core\Exception\Idle $e ) {
       <title>Exercice : créer sa propre exception</title>
 
       <p>Cet exercice est très facile mais utile : nous allons créer notre
-      propre exception à notre paquetage. Pour cela, on crée le fichier
+      propre exception à notre bibliothèque. Pour cela, on crée le fichier
       <code>Exercise/Core/Exception.php</code> :</p>
       <blockcode language="php">&lt;?php
 
@@ -728,7 +731,7 @@ try {
 }
 catch ( Hoathis\Exercise\Core\Exception $e ) {
 
-    echo '** Exception **' . "\n" .
+    echo '** Exception **', "\n",
          $e->getFormattedMessage();
 }
 
@@ -834,7 +837,7 @@ $file->writeAll('Bazqux');</blockcode>
       Un exemple intéressant est celui du registre statique
       <code>Hoa\Registry</code> qui place sur le protocole une ressource qui
       n'est pas un fichier mais une donnée de PHP (une données scalaire, un
-      tableau, une fonction, une classe etc.), ainsi :</p>
+      tableau, une fonction, un objet etc.), ainsi :</p>
       <blockcode language="php">from('Hoa')
 -> import('Registry.~');
 
@@ -860,7 +863,7 @@ var_dump(
               sref-title="//__current_ns:section1/@id"><previous_chapter /> Installation</link></item>
   <item><link href="@ll:chapter=(!title)"
               sref="hoa://Application/External/Literature/Learn/Tools.xyl"
-              sref-title="//__current_ns:section1/@id"><next_chapter /> Outils autour de Hoa</link></item>
+              sref-title="//__current_ns:section1/@id">Outils autour de Hoa <next_chapter /></link></item>
 </ulist>
 
 </yield>

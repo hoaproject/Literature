@@ -13,7 +13,7 @@
                 sref-title="//__current_ns:section1/@id"><previous_chapter /> Exploration du noyau</link></item>
     <item><link href="@ll:chapter=(!title)"
                 sref="hoa://Application/External/Literature/Learn/Framework.xyl"
-                sref-title="//__current_ns:section1/@id"><next_chapter /> Aspect framework</link></item>
+                sref-title="//__current_ns:section1/@id">Aspect framework <next_chapter /></link></item>
   </ulist>
 
   <p>Après une introduction au noyau et avoir un petit peu programmé dans Hoa,
@@ -184,15 +184,14 @@ What exception would you like to select? (in [1-1], q[uit] to quit, h[elp] to ge
       <strong>un serveur HTTP léger</strong>. Ce serveur repose sur PHP FastCGI
       pour exécuter des fichiers PHP, il doit donc être démarré au préalable.
       Ainsi, simplement :</p>
-      <blockcode language="shell">$ php-cgi&amp;
+      <blockcode language="shell">$ php-cgi -b 127.0.0.1:9000&amp;
 $ hoa bhoa
 Server is up, on tcp://localhost:8888!
 Root: ….
 
 Waiting for connection… ▋</blockcode>
       <p>Si on souhaite démarrer Bhoa en considérant une autre racine, on
-      utilisera l'option <code>--root</code> (toujours préciser un chemin
-      absolu).</p>
+      utilisera l'option <code>--root</code>.</p>
       <p>Ensuite, rendez-vous sur la page
       <link href="http://localhost:8888/"><code>localhost:8888</code></link>. Si
       aucun fichier index n'existe ou n'est pas précisé, alors Bhoa affichera le
@@ -208,9 +207,9 @@ Hello world!</blockcode>
       PHP. Normalement, si Bhoa n'arrive pas à joindre PHP FastCGI, il le
       signalera de cette façon :</p>
       <blockcode language="shell">✖ GET /index.php
-  ↳ PHP FastCGI seems to be disconnected (tried to reach tcp://localhost:8888).
-  ↳ Try $ php-cgi -b localhost:8888
-    or $ php-fpm -d listen=localhost:8888</blockcode>
+  ↳ PHP FastCGI seems to be disconnected (tried to reach tcp://127.0.0.1:9000).
+  ↳ Try $ php-cgi -b 127.0.0.1:9000
+    or $ php-fpm -d listen=127.0.0.1:9000</blockcode>
       <p>Si Bhoa est en attente d'une réponse, il affichera :</p>
       <blockcode language="shell">↺ GET /index.php</blockcode>
       <p>Et si le fichier est servi, Bhoa affichera :</p>
@@ -304,7 +303,7 @@ Function [ &amp;&lt;internal:standard> function array_search ] {
               sref-title="//__current_ns:section1/@id"><previous_chapter /> Exploration du noyau</link></item>
   <item><link href="@ll:chapter=(!title)"
               sref="hoa://Application/External/Literature/Learn/Framework.xyl"
-              sref-title="//__current_ns:section1/@id"><next_chapter /> Aspect framework</link></item>
+              sref-title="//__current_ns:section1/@id">Aspect framework <next_chapter /></link></item>
 </ulist>
 
 </yield>

@@ -18,7 +18,7 @@
 
   <p>Un aspect aussi nécessaire qu'important est l'<strong>assignation des
   tâches</strong> en fonction des requêtes effectuées sur l'application. Dans ce
-  chapitre, nous allons présenter deux paquetages de Hoa :
+  chapitre, nous allons présenter deux bibliothèques de Hoa :
   <code>Hoa\Router</code> et <code>Hoa\Dispatcher</code> afin de construire
   notre première application.</p>
 
