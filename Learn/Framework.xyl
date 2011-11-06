@@ -13,7 +13,7 @@
                 sref-title="//__current_ns:section1/@id"><previous_chapter /> Outils autour de Hoa</link></item>
     <item><link href="@ll:chapter=(!title)"
                 sref="hoa://Application/External/Literature/Learn/Routerdispatcher.xyl"
-                sref-title="//__current_ns:section1/@id"><next_chapter /> Router + Dispatcher = ♥</link></item>
+                sref-title="//__current_ns:section1/@id">Router + Dispatcher = ♥ <next_chapter /></link></item>
   </ulist>
 
   <p>Dans cette section on explique comment <strong>créer une
@@ -39,7 +39,7 @@
     <p>On notera que l'aspect framework est évidemment tourné vers un usage
     <strong>intensif</strong> des bibliothèques, <ie /> qu'on ne proposera pas
     d'« outils <strong>boîte-noires</strong> » sur lesquelles l'utilisateur n'a
-    <strong>aucun contrôle</strong>. La philosophie de Hoa est tourné vers les
+    <strong>aucun contrôle</strong>. La philosophie de Hoa est tournée vers les
     bibliothèques, <ie /> vers le fait que l'utilisateur sait et comprend
     parfaitement ce qu'il fait. Ces bibliothèques fonctionnent bien ensemble, ce
     qui entraîne une modularité qui peut s'apparenter à des comportements
@@ -118,7 +118,7 @@ Extracted in ~/Development/MyApp</blockcode>
       <code>whereishoa</code> et <code>whereishoa.bat</code>. Attention, si vous
       n'utilisez pas une installation « standard » de PHP, vous devrez retoucher
       la première ligne de <code>whereishoa</code> ou la variable
-      <code>PHP</code> de <code>whereishoa.hoa</code>.</p>
+      <code>PHP</code> de <code>whereishoa.bat</code>.</p>
       <p>Ce script va modifier trois fichiers :
       <ulist>
         <item><code>Data/Etc/Configuration/HoaCoreCore.json</code>, fichier de
@@ -217,16 +217,17 @@ Hello you! I'm your first Hoa-based application \o/.</blockcode>
     s'aider de Bhoa (attention à ne pas oublier de démarrer PHP FastCGI) !
     N'oublions pas que l'on peut également utiliser l'abstraction
     <code>hoa://Application/Public</code> pour définir la racine de Bhoa.
-    Essayons plutôt (depuis n'importe où) :</p>
+    Essayons plutôt (depuis n'importe où si <code>myapp</code> a été placé dans
+    le <code>$PATH</code>) :</p>
     <blockcode language="shell">$ myapp bhoa --root hoa://Application/Public/
-Server is up, on tcp://localhost:8888!
+Server is up, on tcp://127.0.0.1:8888!
 Root: hoa://Application/Public/.
 
 Waiting for connection… ▋</blockcode>
-    <p>En essayant de joindre la page <link
-    href="http://localhost:8888"><code>localhost:8888</code></link>, on pourra
-    lire le message de bienvenue :</p>
-    <blockcode language="shell">$ curl localhost:8888
+    <p>En essayant de joindre la page
+    <link href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></link>, on
+    pourra lire le message de bienvenue :</p>
+    <blockcode language="shell">$ curl 127.0.0.1:8888
 Hello you! I'm your first Hoa-based application \o/.</blockcode>
     <p>Toutes mes félicitations ! Vous avez installé Hoa et vous avez créé votre
     première application avec vos propres scripts !</p>
@@ -239,7 +240,7 @@ Hello you! I'm your first Hoa-based application \o/.</blockcode>
               sref-title="//__current_ns:section1/@id"><previous_chapter /> Outils autour de Hoa</link></item>
   <item><link href="@ll:chapter=(!title)"
               sref="hoa://Application/External/Literature/Learn/Routerdispatcher.xyl"
-              sref-title="//__current_ns:section1/@id"><next_chapter /> Router + Dispatcher = ♥</link></item>
+              sref-title="//__current_ns:section1/@id">Router + Dispatcher = ♥ <next_chapter /></link></item>
 </ulist>
 
 </yield>
