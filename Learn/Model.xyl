@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xyl-use href="../Definitions.xyl"?>
+
+<definition xmlns="http://hoa-project.net/xyl/xylophone">
+<yield name="chapter">
+
+<section1 id="Model">
+  <title>Manuel d'apprentissage<title_break />Modèle de données</title>
+
+  <ulist class="prev_next">
+    <item><link href="@ll:chapter=(!title)"
+                sref="hoa://Application/External/Literature/Learn/Routerdispatcher.xyl"
+                sref-title="//__current_ns:section1/@id"><previous_chapter /> Router + Dispatcher = ♥</link></item>
+  </ulist>
+
+  <p>Une part importante d'une application est la <strong>manipulation des
+  données</strong>, sa facilité, son uniformité et sa pérennité. Dans ce
+  chapitre, nous allons présenter la bibliothèque <code>Hoa\Database</code>
+  ainsi que <code>Hoa\Model</code>.</p>
+
+  <section2 id="Table_des_matieres" for="menu-toc">
+    <title>Table des matières</title>
+
+    <tableofcontents id="main-toc" />
+  </section2>
+
+  <section2 id="Base_de_donnees" for="main-toc menu-toc">
+    <title>Base de données</title>
+
+    <p>Les bases de données sont des outils permettant de stocker et d'extraire
+    des données de différentes formes et de différentes tailles. Nous pouvons
+    distinguer deux familles de bases de données : relationnelles et objets.
+    Nous parlons plutôt de gestionnaires de base de données. Actuellement, les
+    usages les plus courants se tournent vers des bases de données
+    relationnelles qui utilisent la théorie des ensembles pour stocker et
+    extraire leurs données.</p>
+    <p>Le langage <strong>SQL</strong> (pour <em>Standard Query Language</em>)
+    permet de communiquer avec ces bases de données. Plusieurs standards ont été
+    dictés, comme la norme … … …. Le langage SQL est partagé en quatre
+    objectifs :
+    <ulist>
+      <item>DML : … ;</item>
+      <item>DDL : … ;</item>
+      <item>… : … ;</item>
+    </ulist> (parler des schémas)</p>
+    <p>Dans une application, pour communiquer avec un gestionnaire de base de
+    données, nous devrons nous y connecter, puis y exécuter des requêtes (à
+    l'aide du langage SQL). La base de données nous calculera un résultat
+    qu'elle nous renverra et que nous pourrons exploiter. Le maximum de calcul
+    doit être effectué par la base de données qui est optimisée dans ce type de
+    traitement !</p>
+    <p>Nous verrons par la suite comme faciliter l'exploitation de ces données
+    qui peut devenir un processus complexe si le schéma des données évolue ou
+    n'est pas trivial.</p>
+
+    <section3 id="Abstraction_des_diverses_bases_de_donnees" for="main-toc">
+      <title>Abstraction des diverses bases de données</title>
+
+      <p>Chaque gestionnaire de base de données fournit un pilote pour pouvoir
+      communiquer avec sa base de données. Comme aucun standard n'existe pour
+      ces pilotes, ils sont tous différents les uns des autres. Cela peut se
+      comprendre car ils n'apportent pas tous le même degré d'optimisation selon
+      les usages. Cependant, nous aimerions avoir une utilisation uniforme de
+      tous ces pilotes. C'est pourquoi il existe des <strong>couches
+      d'abstraction de bases de données</strong>, ou DBAL (pour <em>Database
+      Abstract Layer</em>). PHP en propose une :
+      <link href="http://php.net/book.pdo">PDO</link> (pour <em>PHP …</em>),
+      mais il en existe d'autres, comme par exemple :
+      <ulist>
+        <item>DBA : … ;</item>
+        <item>DBX : … ;</item>
+        <item>ODBC : … ;</item>
+      </ulist></p>
+      <p>Hoa définit une couche d'abstraction par dessus ces couches
+      d'abstraction, grâce aux classes <code>Hoa\Database\Dal</code> et
+      <code>Hoa\Database\DalStatement</code>. Cette couche d'abstraction permet
+      simplement de choisir quelle couche nous voulons utiliser (ou alors
+      plonger directement sur un pilote sans passer par une couche
+      d'abstraction).</p>
+      <p>Dans un premier temps, nous conseillons d'utiliser PDO car c'est une
+      couche native à PHP qui ne nécessite aucune installation particulière.
+      Dans la suite de ce chapitre, nous allons utiliser PDO avec le
+      gestionnaire de base de données
+      <link href="http://sqlite.org/">SQLite</link>, lui aussi intégré à PHP
+      (ainsi qu'à de <link href="…">nombreux outils</link>). Ce dernier
+      est très léger et travaille sur des fichiers contenant des petites base de
+      données, ce qui le rend portable.</p>
+    </section3>
+
+    <section3 id="Se_connecter_a_une_base_de_donnees" for="main-toc">
+      <title>Se connecter à une base de données</title>
+
+      <p>Une application peut vouloir communiquer avec plusieurs bases de
+      données. C'est pourquoi la classe <code>Hoa\Database\Dal</code> définit
+      une liste de profils de connexion potentielle représentés par des
+      identifiants uniques. Chaque profil de connexion est une structure qui
+      porte les données suivantes :
+      <ulist>
+        <item><code>id</code>, unique et représente le profil ;</item>
+        <item><code>dsn</code>, … ;</item>
+        <item><code>username</code>, un nom d'utilisateur pour se connecter à la
+        base de données (inutile avec SQLite) ;</item>
+        <item><code>password</code>, un mot de passe se couplant avec le nom
+        d'utilisateur (inutile avec SQLite) ;</item>
+        <item><code>options</code>, un tableau d'options spécifiques au
+        gestionnaire de base de données utilisé.</item>
+      </ulist></p>
+      <p>Cette liste de profils fait partie des paramètres de classe, proposés
+      par <code>Hoa\Core\Parameter</code> (une des couches du noyau). Toutefois,
+      <code>Hoa\Database\Dal</code> étant un multiton un peu particulier (comme
+      nous le verrons rapidement), une méthode intermédiaire est proposée pour
+      initialiser les paramètres de cette classe :
+      <code>initializeParameters</code> Par exemple, si nous utilisons une base
+      de données SQLite située dans le fichier
+      <code>/var/db/Foo.sqlite</code> sous le profil
+      <code>default</code>, alors nous aurons le code suivant :</p>
+      <blockcode language="php">from('Hoa')
+-> import('Database.Dal');
+
+Hoa\Database\Dal::initializeParameters(array(
+    'connection.list.default.dal' => Hoa\Database\Dal::PDO,
+    'connection.list.default.dns' => 'sqlite:/var/db/Foo.sqlite'
+));</blockcode>
+
+      <p>Toutefois, dans une application, la connexion vers une base de données
+      peut être difficile à retrouver. En effet, les applications sont de plus
+      en plus découpées et il est difficile de conserver un chemin vers notre
+      connexion. C'est pourquoi <code>Hoa\Database\Dal</code> propose la méthode
+      <code>getInstance</code> qui permet de retrouver la connexion associée à
+      un identifiant. Ainsi, pour ouvrir la connexion vers le profil
+      <code>default</code> ou retrouver cette connexion, nous ferons :</p>
+      <blockcode language="php">Hoa\Database\Dal::getInstance('default');</blockcode>
+      <p>Mais il existe aussi des cas où nous voulons simplement utiliser la
+      connexion courante sans savoir laquelle c'est, en particulier si nous
+      manipulons plusieurs connexions en même temps. C'est pourquoi
+      <code>Hoa\Database\Dal</code> définit la méthode
+      <code>getLastInstance</code> (d'arité nulle). Cette méthode va retrouver
+      la dernière connexion utilisée. Toutefois, si aucune n'a été précédemment
+      ouverte, il serait agréable qu'elle sache en ouvrir une. C'est pourquoi
+      <code>Hoa\Database\Dal</code> propopose le paramètre
+      <code>connexion.autoload</code> pour choisir un profil à charger par
+      défaut. L'exemple suivant va enrichir les paramètres que nous avons déjà
+      écrits puis ouvrir la connexion attachée au profil <code>default</code>
+      comme si la connexion avait déjà été ouverte :</p>
+      <blockcode language="php">Hoa\Database\Dal::initializeParameters(array(
+    'connection.list.default.dal' => Hoa\Database\Dal::PDO,
+    'connection.list.default.dns' => 'sqlite:/var/db/Foo.sqlite',
+    'connection.autoload'         => 'default'
+));
+
+// Open profile “default”.
+$connexion = Hoa\Database\Dal::getLastInstance();</blockcode>
+      <p>Les avantages sont nombreux : plus besoin de garder un lien vers une
+      connexion de base de données, plus besoin de savoir quel profil a été
+      utilisé dernièrement pour re-travailler dessus, plus besoin de se
+      reconnecter en cherchant à nouveau les options etc.</p>
+    </section3>
+
+    <section3 id="Executer_des_requetes_sur_une_base_de_donnees" for="main-toc">
+      <title>Exécuter des requêtes sur une base de données</title>
+    </section3>
+  </section2>
+
+  <section2 id="Modeliser_des_donnees" for="main-toc menu-toc">
+    <title>Modéliser des données</title>
+  </section2>
+
+  <section2 id="Application_Gordon-s_blog" for="main-toc menu-toc">
+    <title>Application : <em>Gordon's blog</em></title>
+
+    <section3 id="Schema_des_donnees" for="main-toc">
+      <title>Schéma des données</title>
+    </section3>
+
+    <section3 id="Modele_des_donnees" for="main-toc">
+      <title>Modèle des données</title>
+    </section3>
+
+    <section3 id="Depuis_un_controleur" for="main-toc">
+      <title>Depuis un contrôleur</title>
+    </section3>
+  </section2>
+</section1>
+
+<ulist class="prev_next">
+  <item><link href="@ll:chapter=(!title)"
+              sref="hoa://Application/External/Literature/Learn/Routerdispatcher.xyl"
+              sref-title="//__current_ns:section1/@id"><previous_chapter /> Router + Dispatcher = ♥</link></item>
+</ulist>
+
+</yield>
+</definition>
