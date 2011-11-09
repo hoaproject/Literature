@@ -36,9 +36,9 @@
     <strong>première application</strong>.</p>
     <p>On va tout d'abord commencer par un peu d'histoire pour bien comprendre
     comment fonctionne une application Web. Par la suite, on donnera un aperçu
-    du fonctionnement, qui se résumera à écrire et tester quelques règles. Et
-    enfin, on expliquera le fonctionnement du routeur et du dispatcheur utilisés
-    dans l'aperçu.</p>
+    du fonctionnement, qui se résumera à écrire et tester quelques règles. Puis
+    on expliquera le fonctionnement du routeur et du dispatcheur utilisés
+    dans l'aperçu. Et enfin, nous commencerons un blog.</p>
   </section2>
 
   <section2 id="Un_peu_d-histoire" for="main-toc menu-toc">
@@ -99,7 +99,7 @@
 
     <p>Un aperçu est ici utile pour faire quelques essais avant de détailler le
     fonctionnement. On écrit l'exemple suivant dans un fichier
-    <code>index.php</code> :</p>
+    <code>Application/Public/index.php</code> :</p>
     <blockcode language="php">from('Hoa')
 -> import('Router.Http')
 -> import('Dispatcher.Basic');
@@ -130,7 +130,7 @@ $dispatcher->dispatch($router);</blockcode>
     <link href="http://curl.haxx.se/">cURL</link> (pour <em>Client URL Request
     Library</em>), un client en ligne de commande permettant de manipuler
     plusieurs protocoles, dont HTTP. Tout d'abord, démarrons Bhoa :</p>
-    <blockcode language="shell">$ hoa bhoa --root .</blockcode>
+    <blockcode language="shell">$ myapp bhoa --root hoa://Application/Public</blockcode>
     <p>Puis dans un autre terminal, envoyons-lui une requête avec cURL :</p>
     <blockcode language="shell">$ curl 127.0.0.1:8888/hello
 world!
@@ -243,9 +243,8 @@ $router->addRule(array('put', 'delete', 'get'), …);
       de définir des valeurs par défaut pour certaines variables si elles ne
       sont pas définies ou alors de définir de nouvelles variables. Ils existent
       des variables qui peuvent être définies par le routeur lui-même (toujours
-      préfixées par le symbole <code>_</code>) et non pas par les règles du
-      routeur. On évitera l'utilisation des noms de variables utilisant ce
-      préfixe.</p>
+      préfixées par le symbole <code>_</code>). On évitera l'utilisation des
+      noms de variables utilisant ce préfixe.</p>
       <p>Les expressions régulières dans PHP sont basées sur les
       <link href="https://pcre.org/">PCRE</link> qui ont un pouvoir d'expression
       plus avancé que de simples expressions régulières traditionnelles. Elles
@@ -303,7 +302,8 @@ $router->addRule(array('put', 'delete', 'get'), …);
       synchrones</strong> ou <strong>asynchrones</strong> ; on propose
       <code><em>ActionName</em>ActionAsync</code> pour les actions
       asynchrones. Un appel asynchrone peut s'effectuer par exemple à travers
-      <strong>XHR</strong> (pour <em>XML HTTP Request</em>).</p>
+      <strong>XHR</strong> (pour <em>XML HTTP Request</em>),
+      <link href="need_a_link">protocole standardisée par le W3C</link>.</p>
       <p>Le routeur HTTP définit les variables <code>_call</code> et
       <code>_able</code> qui correspondent aux composantes <em>call</em> et
       <em>able</em> lors d'une définition de règle de routeur. Ces variables
@@ -343,7 +343,7 @@ $router->get('u', '/(?&lt;controller&gt;hello|bye)');</blockcode>
       <p>On peut imaginer utiliser le motif <code>\w+</code> à la place de
       <code>hello|bye</code> pour avoir plus de dynamisme (mais il ne faudra pas
       oublier de gérer les erreurs si l'action n'existe pas, grâce à l'exception
-      <code>Hoa\Dispatcher\Exception</code>).</p>
+      <code>Hoa\Router\Exception\NotFound</code>).</p>
       <p>En plus de gérer trois types de contrôleurs et d'actions, le
       dispatcheur basic sait <strong>distribuer les variables</strong> sur les
       <strong>arguments des actions</strong>. C'est pourquoi quand on écrit la
@@ -366,11 +366,14 @@ $router->get('u', '/(?&lt;controller&gt;hello|bye)');</blockcode>
     <section3 id="Notion_de_kit" for="main-toc">
       <title>Notion de kit</title>
 
-      <p>Quand le dispatcheur appelle un contrôleur et une action, il peut
-      transmettre des données provenant du routeur. Toutefois, on aimerait en
-      profiter pour <strong>transmettre plus d'informations</strong> en même
-      temps. C'est la notion même de <strong>kit</strong> qui résout ce
-      problème.</p>
+      <p>Basiquement, un <strong>kit</strong> joue le rôle de lien entre les
+      bibliothèques et l'application en rassemblant, proposant ou exposant
+      certaines fonctionnalités. Par exemple, quand le dispatcheur appelle un
+      contrôleur et une action, il peut transmettre des données provenant du
+      routeur. Toutefois, on aimerait en profiter pour <strong>transmettre plus
+      d'informations</strong> en même temps. C'est à ce moment qu'un kit peut
+      être intéressant.</p>
+
       <p>Un kit contient de base le routeur, le dispatcheur, une vue (simplement
       n'importe quel objet de type <code>Hoa\View\Viewable</code>) et des
       données (de type <code>Hoa\Core\Data</code>). La création d'un kit se fait
@@ -465,23 +468,20 @@ Array
     <link href="https://secure.wikimedia.org/wikipedia/en/wiki/Gordon_Freeman">Dr.
     Gordon Freeman</link>.</p>
 
-    <p>Nous allons nous baser sur l'aspect framework pour avoir un environnement
-    complet dans lequel nous allons écrire un fichier <code>index.php</code> qui
-    contiendra le routeur HTTP et le dispatcheur vers des contrôleurs. Nous
-    aurons deux actions possibles :
+    <p>Nous allons modifier le fichier <code>Application/Public/index.php</code>
+    pour qu'il contienne le routeur HTTP et le dispatcheur vers des contrôleurs.
+    Nous aurons deux actions possibles :
     <ulist>
       <item>afficher la liste des articles ;</item>
       <item>afficher un article en particulier.</item>
     </ulist></p>
-
-    <p>Nous commençons par éditer le fichier <code>index.php</code> pour y
-    écrire le routeur et le dispatcheur. Nous avons besoin de deux règles dans
-    notre routeur pour nos actions respectives : disons <code>i</code> pour
-    afficher la liste des articles et <code>a</code> pour afficher un article en
-    particulier. La règle <code>i</code> sera accessible depuis le chemin de
-    l'URI <code>/</code> et la règle <code>a</code> depuis
-    <code>/article-<em>id</em>.html</code>. Nous allons avoir un contrôleur qui
-    sera une classe avec deux méthodes, une pour chaque action :</p>
+    <p>Pour cela, nous avons besoin de deux règles dans notre routeur pour nos
+    actions respectives : disons <code>i</code> pour afficher la liste des
+    articles et <code>a</code> pour afficher un article en particulier. La règle
+    <code>i</code> sera accessible depuis le chemin de l'URI <code>/</code> et
+    la règle <code>a</code> depuis <code>/article-<em>id</em>.html</code>. Nous
+    allons avoir un contrôleur qui sera une classe avec deux méthodes, une pour
+    chaque action :</p>
     <blockcode language="php">from('Hoa')
 -> import('Router.Http')
 -> import('Dispatcher.Basic');
