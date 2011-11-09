@@ -9,8 +9,8 @@
 
   <ulist class="prev_next">
     <item><link href="@ll:chapter=(!title)"
-                sref="hoa://Application/External/Literature/Learn/Tools.xyl"
-                sref-title="//__current_ns:section1/@id"><previous_chapter /> Outils autour de Hoa</link></item>
+                sref="hoa://Application/External/Literature/Learn/Core.xyl"
+                sref-title="//__current_ns:section1/@id"><previous_chapter /> Exploration du noyau</link></item>
     <item><link href="@ll:chapter=(!title)"
                 sref="hoa://Application/External/Literature/Learn/Routerdispatcher.xyl"
                 sref-title="//__current_ns:section1/@id">Router + Dispatcher = ♥ <next_chapter /></link></item>
@@ -213,22 +213,6 @@ hoa://Data is equivalent to:
     <p>On pourrait exécuter notre index de cette manière :</p>
     <blockcode language="shell">$ php Application/Public/index.php
 Hello you! I'm your first Hoa-based application \o/.</blockcode>
-    <p>Mais il faut admettre que ce n'est pas très drôle. On pourrait alors
-    s'aider de Bhoa (attention à ne pas oublier de démarrer PHP FastCGI) !
-    N'oublions pas que l'on peut également utiliser l'abstraction
-    <code>hoa://Application/Public</code> pour définir la racine de Bhoa.
-    Essayons plutôt (depuis n'importe où si <code>myapp</code> a été placé dans
-    le <code>$PATH</code>) :</p>
-    <blockcode language="shell">$ myapp bhoa --root hoa://Application/Public/
-Server is up, on tcp://127.0.0.1:8888!
-Root: hoa://Application/Public/.
-
-Waiting for connection… ▋</blockcode>
-    <p>En essayant de joindre la page
-    <link href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></link>, on
-    pourra lire le message de bienvenue :</p>
-    <blockcode language="shell">$ curl 127.0.0.1:8888
-Hello you! I'm your first Hoa-based application \o/.</blockcode>
     <p>Toutes mes félicitations ! Vous avez installé Hoa et vous avez créé votre
     première application avec vos propres scripts !</p>
   </section2>
@@ -236,8 +220,8 @@ Hello you! I'm your first Hoa-based application \o/.</blockcode>
 
 <ulist class="prev_next">
   <item><link href="@ll:chapter=(!title)"
-              sref="hoa://Application/External/Literature/Learn/Tools.xyl"
-              sref-title="//__current_ns:section1/@id"><previous_chapter /> Outils autour de Hoa</link></item>
+              sref="hoa://Application/External/Literature/Learn/Core.xyl"
+              sref-title="//__current_ns:section1/@id"><previous_chapter /> Exploration du noyau</link></item>
   <item><link href="@ll:chapter=(!title)"
               sref="hoa://Application/External/Literature/Learn/Routerdispatcher.xyl"
               sref-title="//__current_ns:section1/@id">Router + Dispatcher = ♥ <next_chapter /></link></item>
