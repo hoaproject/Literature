@@ -160,6 +160,50 @@ var_dump(HOA);</blockcode>
     <p>On va ainsi commencer par explorer un peu les fonctionnalités du noyau
     avant d'installer notre première application.</p>
   </section2>
+
+  <section2 id="Hoa_en_ligne_de_commande" for="main-toc menu-toc">
+    <title>Hoa en ligne de commande</title>
+
+    <p>Lorsqu'on exécute le script <code>hoa</code> (ou
+    <code>hoa.bat</code>), un écran d'accueil apparaît :</p>
+    <blockcode language="shell">$ cd Bin/
+$ ./hoa
+// Homescreen.</blockcode>
+    <p>Sur toutes les commandes, on trouvera les options <code>-h</code>,
+    <code>--help</code> ou encore <code>-?</code>, pour obtenir de l'aide.
+    Ainsi, on apprend que les commandes sont constituées d'un groupe et d'un
+    nom en exécutant :</p>
+    <blockcode language="shell">$ ./hoa --help</blockcode>
+    <p>Par exemple, pour afficher l'arbre du protocole <code>hoa://</code>, on
+    fera :</p>
+    <blockcode language="shell">$ ./hoa protocol:tree
+hoa://
+  Application
+    Public
+  Bin
+  Data
+    Etc
+      Configuration
+      Locale
+    …</blockcode>
+    <p>Il sera plus confortable de placer le script <code>hoa</code> (ou
+    <code>hoa.bat</code>) dans le <code>$PATH</code> afin qu'il soit
+    accessible depuis n'importe où sur le disque. En effet, comme Hoa
+    s'installe une fois pour être utilisé plusieurs fois, il est logique que
+    son script soit accessible partout. Pour cela, sous Unix, il faudra
+    modifier la variable <code>$PATH</code> dans
+    <code>~/.<em>shell</em>rc</code> (par exemple : <code>~/.bashrc</code>,
+    <code>~/.zshrc</code> etc.) :</p>
+    <blockcode language="shell">export PATH=/usr/local/lib/hoa/Bin:$PATH</blockcode>
+    <p>On recharge notre profil et le script sera disponible partout :</p>
+    <blockcode language="shell">$ source ~/.zshrc
+$ hoa
+// Homescreen.</blockcode>
+    <p>Pour Windows, il faudra consulter
+    <link href="http://social.technet.microsoft.com/Search/en-US?query=path&amp;ac=8"><em>Microsoft
+    TechNet</em></link> car la manipulation est
+    moins triviale.</p>
+  </section2>
 </section1>
 
 <ulist class="prev_next">
