@@ -186,14 +186,14 @@ What exception would you like to select? (in [1-1], q[uit] to quit, h[elp] to ge
       Ainsi, simplement :</p>
       <blockcode language="shell">$ php-cgi -b 127.0.0.1:9000&amp;
 $ hoa bhoa
-Server is up, on tcp://localhost:8888!
+Server is up, on tcp://127.0.0.1:8888!
 Root: ….
 
 Waiting for connection… ▋</blockcode>
       <p>Si on souhaite démarrer Bhoa en considérant une autre racine, on
       utilisera l'option <code>--root</code>.</p>
       <p>Ensuite, rendez-vous sur la page
-      <link href="http://localhost:8888/"><code>localhost:8888</code></link>. Si
+      <link href="http://127.0.0.1:8888/"><code>127.0.0.1:8888</code></link>. Si
       aucun fichier index n'existe ou n'est pas précisé, alors Bhoa affichera le
       contenu du répertoire. Par exemple, créons un fichier
       <code>index.php</code> :</p>
@@ -201,7 +201,7 @@ Waiting for connection… ▋</blockcode>
       
 echo 'Hello world!';</blockcode>
       <p>On vérifie que notre fichier s'exécute comme il faut :</p>
-      <blockcode language="shell">$ curl localhost:8888
+      <blockcode language="shell">$ curl 127.0.0.1:8888
 Hello world!</blockcode>
       <p>Attention à bien démarrer PHP FastCGI afin que Bhoa puisse exécuter
       PHP. Normalement, si Bhoa n'arrive pas à joindre PHP FastCGI, il le
@@ -214,6 +214,9 @@ Hello world!</blockcode>
       <blockcode language="shell">↺ GET /index.php</blockcode>
       <p>Et si le fichier est servi, Bhoa affichera :</p>
       <blockcode language="shell">✔ GET /index.php</blockcode>
+      <p>Enfin, notons l'options <code>--debug</code> qui démarre le debugger de
+      Hoa sans avoir besoin d'appeler la méthode
+      <code>Hoa\Core::startDebugger</code>.</p>
       <p>Bhoa <strong>démarre très vite</strong> et est <strong>rapidement prêt
       à l'emploi</strong>. On peut définir n'importe quelle racine avec l'option
       <code>--root</code>, définir quoi écouter avec l'option
