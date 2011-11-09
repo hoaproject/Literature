@@ -85,6 +85,21 @@
       (ainsi qu'à de <link href="…">nombreux outils</link>). Ce dernier
       est très léger et travaille sur des fichiers contenant des petites base de
       données, ce qui le rend portable.</p>
+      <p>Pour illuster les premiers exemples, nous allons créer une petite base
+      de données et la pré-remplir de quelques données. Dans un fichier,
+      n'importe où (par exemple <code>/tmp/foo)</code>, nous écrivons nos
+      requêtes SQL :</p>
+      <blockcode language="sql">CREATE TABLE foo (
+    bar VARCHAR(32),
+    baz VARCHAR(32)
+);
+
+INSERT INTO foo VALUES ( 'abc', 'def' );
+INSERT INTO foo VALUES ( 'ghi', 'jkl' );
+INSERT INTO foo VALUES ( 'mno', 'pqr' );</blockcode>
+      <p>Puis nous allons créer notre base de données :</p>
+      <blockcode language="shell">$ cat /tmp/foo | sqlite3 -init 0 -echo /var/db/Foo.sqlite
+// … our queries.</blockcode>
     </section3>
 
     <section3 id="Se_connecter_a_une_base_de_donnees" for="main-toc">
@@ -92,7 +107,7 @@
 
       <p>Une application peut vouloir communiquer avec plusieurs bases de
       données. C'est pourquoi la classe <code>Hoa\Database\Dal</code> définit
-      une liste de profils de connexion potentielle représentés par des
+      une liste de profils de connexions potentielles représentés par des
       identifiants uniques. Chaque profil de connexion est une structure qui
       porte les données suivantes :
       <ulist>
@@ -127,8 +142,8 @@ Hoa\Database\Dal::initializeParameters(array(
       en plus découpées et il est difficile de conserver un chemin vers notre
       connexion. C'est pourquoi <code>Hoa\Database\Dal</code> propose la méthode
       <code>getInstance</code> qui permet de retrouver la connexion associée à
-      un identifiant. Ainsi, pour ouvrir la connexion vers le profil
-      <code>default</code> ou retrouver cette connexion, nous ferons :</p>
+      un identifiant ou de l'ouvrir si c'est la première fois. Ainsi, nous
+      ferons :</p>
       <blockcode language="php">Hoa\Database\Dal::getInstance('default');</blockcode>
       <p>Mais il existe aussi des cas où nous voulons simplement utiliser la
       connexion courante sans savoir laquelle c'est, en particulier si nous
@@ -158,6 +173,96 @@ $connexion = Hoa\Database\Dal::getLastInstance();</blockcode>
 
     <section3 id="Executer_des_requetes_sur_une_base_de_donnees" for="main-toc">
       <title>Exécuter des requêtes sur une base de données</title>
+
+      <p>Exécuter une requête sur une base de données suit en général les étapes
+      suivantes : écrire une requête complète ou pas, la compléter si
+      nécessaire, l'exécuter puis récupérer les résultats. Pour exécuter écrire
+      et exécuter une requête directement, nous pouvons utiliser la méthode
+      <code>Hoa\Database\Dal::query</code> qui prend en seul argument une
+      requête SQL. Exécuter une requête va nous retourner un objet de type
+      <code>Hoa\Database\DalStatement</code> qui représente une requête d'une
+      manière générale. Pour récupérer les résultats de notre requête, nous
+      utiliserons la méthode
+      <code>Hoa\Database\DalStatement::fetchAll</code>. Ainsi :</p>
+      <blockcode language="php">$dal       = Hoa\Database\Dal::getLastInstance();
+$statement = $dal->query('SELECT * FROM foo LIMIT 2');
+print_r($statement->fetchAll());
+
+// Will output:
+// Array
+// (
+//     [0] => Array
+//         (
+//             [bar] => abc
+//             [baz] => def
+//         )
+//
+//     [1] => Array
+//         (
+//            [bar] => ghi
+//            [baz] => jkl
+//         )
+//
+// )</blockcode>
+      <p>Le résultat ici est un tableau des tuples indexés par notre
+      sélection.</p>
+      <p>Maintenant, imaginons que nous souhaitons que la limite (ici le nombre
+      maximum de tuples à sélectionner) soit variable : nous pouvons soit
+      construire la requête par concaténation à une variable
+      <code>$limit</code>, soit en utilisant des requêtes préparées. Les
+      avantages des requêtes préparées sont tout d'abord une optimisation de la
+      part du gestionnaire de base de données mais aussi une meilleure sécurité.
+      En effet, les paramètres (ou les variables) d'une requête SQL sont
+      protégés automatiquement, il est donc toujours préférable d'utiliser ce
+      mécanisme.  Pour exécuter une requête paramétrée, nous devons commencer
+      par la préparer à l'aide de la méthode
+      <code>Hoa\Database\Dal::prepare</code> qui retourne un objet
+      <code>Hoa\Database\DalStatement</code> comme attendu.  Puis nous
+      l'exécutons à l'aide de la méthode
+      <code>Hoa\Database\DalStatement::execute</code>, qui, en argument, reçoit
+      un tableau de valeurs pour chaque paramètre. Les paramètres sont préfixés
+      par deux-points (le symbole « <code>:</code> ») et ne doivent pas contenir
+      d'espaces. Voyons plutôt :</p>
+      <blockcode language="php">$dal       = Hoa\Database\Dal::getLastInstance();
+$statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
+$limit     = 2;
+$statement->execute(array('my_limit' => $limit));
+print_r($statement->fetchAll());</blockcode>
+      <p>Mieux encore, au lieu de préciser la valeur des paramètres dans la
+      méthode <code>execute</code>, nous pouvons utiliser la méthode
+      <code>Hoa\Database\Dal::bindParameter</code> qui permet de faire des
+      choses intéressantes. Nous ne verrons que deux des quatres arguments
+      disponibles, qui permettent d'associer une valeur à un paramètre :</p>
+      <blockcode language="php">$statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
+$limit     = 2;
+$statement->bindParameter('my_limit', $limit);
+$statement->execute();</blockcode>
+      <p>Ce qui est intéressant est que la variable qui porte la valeur du
+      paramètre est passée en référence ! Ce qui signifie que tant que l'on n'a
+      pas exécuter la requête, nos paramètres sont modifiables en modifiant
+      simplement la valeur de cette variable (<ie /> pas besoin d'appeler à
+      nouveau la méthode <code>bindParameter</code>) :</p>
+      <blockcode language="php">$statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
+$limit     = 1;
+$statement->bindParameter('my_limit', $limit);
+++$limit; // $limit and :my_limit are now set to 2.
+$statement->execute();</blockcode>
+      <p>Et même après exécution de notre requête, nous pouvons modifier un
+      paramètre et ré-exécuter notre requête, sur le même objet
+      <code>Hoa\Database\Dal</code>. Le gestionnaire de base de données quant à
+      lui doit être en mesure de fournir des optimisations pour calculer plus
+      rapidement le résultat attendu (parfois même faire du cache
+      paramétré). Ce mécanisme n'est pas à négliger lorsque nous avons des
+      requêtes paramétrées (<ie /> contenant des valeurs variables).</p>
+    </section3>
+
+    <section3 id="Bien_plus_d-operations" for="main-toc">
+      <title>Bien plus d'opérations</title>
+
+      <p>La bibliothèque <code>Hoa\Database</code> propose bien d'autres
+      opérations comme la gestion des transactions, quelques opérations sur les
+      identifiants, d'autres sur la sécurité, les erreurs etc. Nous n'allons pas
+      tout détailler ici.</p>
     </section3>
   </section2>
 
