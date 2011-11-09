@@ -105,8 +105,8 @@ require '/usr/local/lib/hoa/Core/Core.php';</blockcode>
 
       <p>Un chemin d'importation exprime un chemin vers un fichier contenant la
       classe à importer. Le séparateur entre chaque partie du chemin est le point
-      (symbole « <code>.</code> ») et l'extension du fichier doit être
-      « <code>.php</code> » sans être précisée dans le chemin. Ainsi, si on veut
+      (symbole « <code>.</code> ») et l'extension du fichier doit être
+      « <code>.php</code> » sans être précisée dans le chemin. Ainsi, si on veut
       inclure la classe <code>Hoa\Router\Http</code> située dans le fichier
       <code>Library/Router/Http.php</code>, on écrira :</p>
       <blockcode language="php">from('Hoa')
@@ -125,8 +125,8 @@ require '/usr/local/lib/hoa/Core/Core.php';</blockcode>
 from('Hoathis')
 -> import('My.Own.Library');</blockcode>
       <p>Les chemins peuvent être un peu plus sophistiqués à l'aide de deux
-      opérateurs : de répétition (symbole « <code>~</code> ») et étoile (symbole
-      « <code>*</code> »).</p>
+      opérateurs : de répétition (symbole « <code>~</code> ») et étoile (symbole
+      « <code>*</code> »).</p>
       <p>L'opérateur de répétition vaut la partie précédente du chemin. Par
       exemple, le chemin <code>Xml.~</code> est équivalent à
       <code>Xml.Xml</code>, ou encore <code>Stream.I~.In</code> est équivalent à
@@ -136,7 +136,7 @@ from('Hoathis')
       <code>Hoa\Xml</code> qui se trouve dans le fichier
       <code>Library/Xml/Xml.php</code>).</p>
       <p>L'opérateur étoile (qui fait référence à l'<strong>étoile de
-      Kleene</strong>) signifie « tout ». Par exemple, le chemin
+      Kleene</strong>) signifie « tout ». Par exemple, le chemin
       <code>Stream.I~.*</code> correspond à tous les chemins possibles depuis le
       point <code>Stream.IStream</code>. L'opérateur étoile n'est pas récursif,
       <ie /> il ne comprend qu'un seul niveau.</p>
@@ -400,7 +400,7 @@ $callable($argument1, $argument2, …);</blockcode>
 );</blockcode>
       <p>Même si les exceptions sont capturées, elles sont envoyées sur le canal
       d'événement. De cette façon, on est capable de journaliser toutes les
-      exceptions en « redigirant » l'événement vers un flux, par exemple un
+      exceptions en « redigirant » l'événement vers un flux, par exemple un
       fichier <code>Exception.log</code> :</p>
       <blockcode language="php">from('Hoa')
 -> import('File.Write');
