@@ -44,9 +44,9 @@
     <blockcode language="php">&lt;?php
 
 require '/usr/local/lib/hoa/Core/Core.php';</blockcode>
-    <p>Le noyau ne peut être inclut qu'une seule fois. Si on essaye de l'inclure
-    une deuxième fois, le programme quittera avec une erreur. C'est le seul et
-    unique cas où Hoa va quitter le programme.</p>
+    <p>Le noyau ne peut être inclut qu'une seule fois. Si nous essayons de
+    l'inclure une deuxième fois, le programme quittera avec une erreur. C'est le
+    seul et unique cas où Hoa va quitter le programme.</p>
     <p>Toutes les classes appartenant à l'espace de nommage
     <code>Hoa\Core</code> n'ont pas à être importées manuellement, elles sont
     toujours présentes.</p>
@@ -61,10 +61,10 @@ require '/usr/local/lib/hoa/Core/Core.php';</blockcode>
       <strong>cohésion</strong> entre les bibliothèques à travers les
       importations, les chargements, les appels etc. ;</item>
       <item><em>Event</em> est la couche qui introduit les
-      <strong>événements</strong> dans PHP ; on distinguera deux catégories
+      <strong>événements</strong> dans PHP ; nous distinguerons deux catégories
       d'événements ;</item>
       <item><em>Exception</em> est la couche qui gère les
-      <strong>exceptions</strong>, unifie les erreurs etc. ; on distinguera
+      <strong>exceptions</strong>, unifie les erreurs etc. ; nous distinguerons
       trois catégories d'exceptions ;</item>
       <item><em>Protocol</em> est la couche qui introduit le <strong>protocole
       <code>hoa://</code></strong>, très utile pour abstraire
@@ -75,8 +75,9 @@ require '/usr/local/lib/hoa/Core/Core.php';</blockcode>
       <strong>données</strong> polymorphiques avec de bonnes
       performances.</item>
     </ulist></p>
-    <p>On présentera les quatre premières couches. Les couches restantes seront
-    présentées dans les chapitres suivants, cela dans un but pédagogique.</p>
+    <p>Nous présentons les quatre premières couches. Les couches restantes
+    seront présentées dans les chapitres suivants, cela dans un but
+    pédagogique.</p>
   </section2>
 
   <section2 id="Consistency" for="main-toc menu-toc">
@@ -84,14 +85,14 @@ require '/usr/local/lib/hoa/Core/Core.php';</blockcode>
 
     <p>La classe <code>Hoa\Core\Consistency</code> porte le mécanisme
     d'<strong>importation</strong> et de <strong>chargement</strong> des
-    classes.  Ce mécanisme est basé sur la notion de <strong>familles</strong>
-    de classe et d'espace de nommage. Quand on souhaite utiliser une classe, on
-    va commencer par préciser à quelle famille elle appartient, puis on va
-    l'importer. La sélection de la famille se fait à l'aide de la fonction
-    <code>from</code>. Cette fonction est un alias vers la méthode
+    classes. Ce mécanisme est basé sur la notion de <strong>familles</strong> de
+    classe et d'espace de nommage. Quand nous souhaitons utiliser une classe,
+    nous allons commencer par préciser à quelle famille elle appartient, puis
+    nous allons l'importer. La sélection de la famille se fait à l'aide de la
+    fonction <code>from</code>. Cette fonction est un alias vers la méthode
     <code>Hoa\Core\Consistency::from</code>, pour plus de facilité d'écriture et
-    de lecture. Ainsi, on choisit la famille <code>Hoa</code> pour effectuer une
-    importation :</p>
+    de lecture. Ainsi, nous choisissons la famille <code>Hoa</code> pour
+    effectuer une importation :</p>
     <blockcode language="php">from('Hoa')
 -> import(…);</blockcode>
     <p>Il existe deux familles par défaut (d'autres peuvent être ajoutées) :
@@ -104,19 +105,19 @@ require '/usr/local/lib/hoa/Core/Core.php';</blockcode>
       <title>Chemin d'importation</title>
 
       <p>Un chemin d'importation exprime un chemin vers un fichier contenant la
-      classe à importer. Le séparateur entre chaque partie du chemin est le point
-      (symbole « <code>.</code> ») et l'extension du fichier doit être
-      « <code>.php</code> » sans être précisée dans le chemin. Ainsi, si on veut
-      inclure la classe <code>Hoa\Router\Http</code> située dans le fichier
-      <code>Library/Router/Http.php</code>, on écrira :</p>
+      classe à importer. Le séparateur entre chaque partie du chemin est le
+      point (symbole « <code>.</code> ») et l'extension du fichier doit être
+      « <code>.php</code> » sans être précisée dans le chemin. Ainsi, si nous
+      voulons inclure la classe <code>Hoa\Router\Http</code> située dans le
+      fichier <code>Library/Router/Http.php</code>, nous écrirons :</p>
       <blockcode language="php">from('Hoa')
 -> import('Router.Http');</blockcode>
-      <p>On comprend que la famille <code>Hoa</code> correspond à l'espace de
-      nommage racine <code>\Hoa</code> et est contenue dans le dossier
-      <code>Library/</code>. Tout ceci est bien évidement modifiable, on le verra
-      plus tard.</p>
-      <p>On est capable d'enchaîner les importations et de changer de famille de
-      cette manière :</p>
+      <p>Nous comprenons que la famille <code>Hoa</code> correspond à l'espace
+      de nommage racine <code>\Hoa</code> et est contenue dans le dossier
+      <code>Library/</code>. Tout ceci est bien évidement modifiable, nous le
+      verrons plus tard.</p>
+      <p>Nous sommes capable d'enchaîner les importations et de changer de
+      famille de cette manière :</p>
       <blockcode language="php">from('Hoa')
 -> import('Router.Http')
 -> import('Dispatcher.Basic')
@@ -140,33 +141,33 @@ from('Hoathis')
       <code>Stream.I~.*</code> correspond à tous les chemins possibles depuis le
       point <code>Stream.IStream</code>. L'opérateur étoile n'est pas récursif,
       <ie /> il ne comprend qu'un seul niveau.</p>
-      <p>Néanmoins, on déconseille l'utilisation abondante de l'opérateur
+      <p>Néanmoins, nous déconseillons l'utilisation abondante de l'opérateur
       étoile. En effet, il est utile voire inévitable dans certaines situations,
       mais il est toujours préférable de gérer les importations au cas par cas,
-      quand c'est possible, afin de toujours savoir ce qu'on manipule.</p>
+      quand c'est possible, afin de toujours savoir ce que nous manipulons.</p>
     </section3>
 
     <section3 id="Pre-chargement_chargement_et_auto-chargement" for="main-toc">
       <title>Pré-chargement, chargement et auto-chargement</title>
 
-      <p>Lorsque l'on importe une classe, elle n'est pas chargée. On dit qu'elle
-      est <strong>pré-chargée</strong>, <ie /> qu'elle n'est pas chargée tant
-      qu'on n'en a pas besoin. Le fichier, et la classe qu'il contient, seront
-      chargés en toute dernière minute afin de ne pas surcharger la mémoire et
-      éviter des accès disque inutiles.</p>
+      <p>Lorsque nous importons une classe, elle n'est pas chargée. Nous disons
+      qu'elle est <strong>pré-chargée</strong>, <ie /> qu'elle n'est pas chargée
+      tant que nous n'en avons pas besoin. Le fichier, et la classe qu'il
+      contient, seront chargés en toute dernière minute afin de ne pas
+      surcharger la mémoire et éviter des accès disque inutiles.</p>
       <p>Le chargement s'effectue donc à travers le mécanisme
       d'<strong>auto-chargement</strong> que propose PHP. Les étapes sont les
       suivantes :
       <olist>
-        <item>on a besoin d'une classe qui n'est pas chargée ;</item>
+        <item>nous avons besoin d'une classe qui n'est pas chargée ;</item>
         <item>si elle n'est pas pré-chargée, une exception est levée ;</item>
-        <item>si elle est pré-chargée, on la charge.</item>
+        <item>si elle est pré-chargée, nous la chargeons.</item>
       </olist></p>
       <p>Cette suite d'opérations n'a lieu qu'une seule fois par classe.</p>
-      <p>Toutefois, si on ne souhaite pas pré-charger mais charger la classe
-      lors de l'importation, on peut utiliser le second paramètre de la méthode
-      <code>import</code> qui est un booléen : <code>true</code> pour charger,
-      <code>false</code> pour pré-charger. Ainsi :</p>
+      <p>Toutefois, si nous ne souhaitons pas pré-charger mais charger la classe
+      lors de l'importation, nous pouvons utiliser le second paramètre de la
+      méthode <code>import</code> qui est un booléen : <code>true</code> pour
+      charger, <code>false</code> pour pré-charger. Ainsi :</p>
       <blockcode language="php">from('Hoa')
 -> import('Router.Http', true) // chargée
 -> import('Dispatcher.Basic'); // pré-chargée</blockcode>
@@ -203,10 +204,11 @@ var_dump($family);
     <section3 id="Dynamic_new" for="main-toc">
       <title><em>Dynamic new</em></title>
 
-      <p>La couche <em>Consistency</em> introduit un mécanisme appelé <em>dynamic
-      new</em>, comprendre un moyen d'importer, de charger et d'instancier des
-      classes <strong>dynamiques</strong>. Ceci est une implémentation légère et
-      efficace du modèle de conception <em>Fabrique abstraite</em>.</p>
+      <p>La couche <em>Consistency</em> introduit un mécanisme appelé
+      <em>dynamic new</em>, comprendre un moyen d'importer, de charger et
+      d'instancier des classes <strong>dynamiques</strong>. Ceci est une
+      implémentation légère et efficace du modèle de conception <em>Fabrique
+      abstraite</em>.</p>
       <p>Ce mécanisme est exposé à travers la fonction <code>dnew</code>, qui
       est un alias pour la méthode <code>Hoa\Core\Consistency::dnew</code>, pour
       des raisons de facilité d'écriture et de lecture. Cette fonction utilise
@@ -215,7 +217,7 @@ var_dump($family);
       <blockcode language="php">$server = dnew('Hoa\Socket\Server', array($arguments));</blockcode>
       <p>La classe dynamiquement créée n'a pas besoin d'être pré-chargée, tout
       se fera en une seule fois.</p>
-      <p>Ce mécanisme a un intérêt plus important lorsque l'on considère
+      <p>Ce mécanisme a un intérêt plus important lorsque nous considèrons
       plusieurs familles potentielles contenant notre classe. Ainsi :</p>
       <blockcode language="php">$server = dnew('(Hoathis or Hoa)\Socket\Server', array($arguments));
 var_dump(get_class($server));
@@ -224,12 +226,12 @@ var_dump(get_class($server));
 //     string(32) "Hoathis\Socket\Server"
 // or:
 //     string(28) "Hoa\Socket\Server"</blockcode>
-      <p>Ce mécanisme est très intéressant lorsque l'on propose une
+      <p>Ce mécanisme est très intéressant lorsque nous proposons une
       implémentation par défaut que l'utilisateur peut remplacer par sa propre
-      implémentation dans une autre famille. C'est un avantage pour ajouter de la
-      modularité dans son programme. Toutefois, il faudra porter une attention
-      toute particulière aux types de données manipulées en vérifiant par
-      exemple les interfaces, ceci n'étant pas effectué par
+      implémentation dans une autre famille. C'est un avantage pour ajouter de
+      la modularité dans son programme. Toutefois, il faudra porter une
+      attention toute particulière aux types de données manipulées en vérifiant
+      par exemple les interfaces, ceci n'étant pas effectué par
       <code>dnew</code>.</p>
     </section3>
 
@@ -240,7 +242,7 @@ var_dump(get_class($server));
       dans la famille <code>Hoathis</code>, l'importer et l'utiliser.</p>
       <p>Par défaut, les bibliothèques utilisateurs se placent entre autre dans
       le dossier <code>Module/</code> de Hoa (situé normalement dans
-      <code>/usr/local/lib/hoa</code>). On va y créer le fichier
+      <code>/usr/local/lib/hoa</code>). Nous allons y créer le fichier
       <code>Exercise/Core/First.php</code> :</p>
       <blockcode language="php">&lt;?php
 
@@ -255,7 +257,7 @@ class First {
 }
 
 }</blockcode>
-      <p>On note que l'espace de nom suit le chemin vers le fichier. On va
+      <p>Nous netons l'espace de nom suit le chemin vers le fichier. Nous allons
       maintenant utiliser cette classe dans n'importe quel fichier n'importe
       où :</p>
       <blockcode language="php">&lt;?php
@@ -286,7 +288,7 @@ $first->say();
       construire un objet <code>Hoa\Core\Consistency\Xcallable</code>. Cette
       fonction utilise deux arguments qui sont <strong>systématiques</strong>
       dans Hoa : <code>$call</code> et <code>$able</code>, le dernier étant
-      optionnel. On peut les utiliser de la manière suivante :
+      optionnel. Nous pouvons les utiliser de la manière suivante :
       <ulist>
         <item><code>xcallable('<em>function</em>')</code> ;</item>
         <item><code>xcallable('<em>class::method</em>')</code> ;</item>
@@ -297,20 +299,20 @@ $first->say();
         <item><code>xcallable(<em>$object</em>)</code> ;</item>
         <item><code>xcallable(<em>function ( … ) { … }</em>)</code>.</item>
       </ulist></p>
-      <p>On remarque que beaucoup de forme sont supportées. Dans tous les cas,
-      pour effectuer un appel, on fera comme ceci :</p>
+      <p>Nous remarquons que beaucoup de forme sont supportées. Dans tous les
+      cas, pour effectuer un appel, nous ferons comme ceci :</p>
       <blockcode language="php">$callable = xcallable(…);
 $callable($argument1, $argument2, …);</blockcode>
-      <p>Si on donne un objet mais que la méthode n'est pas précisée, c'est
+      <p>Si nous donnons un objet mais que la méthode n'est pas précisée, c'est
       <code>Hoa\Core\Consistency\Xcallable</code> qui va déterminer la méthode :
       si c'est un événement, si c'est un flux, si c'est une exception etc.</p>
-      <p>On notera deux méthodes qui peuvent avoir leur utilité :
+      <p>Nous noterons deux méthodes qui peuvent avoir leur utilité :
       <code>getValidCallback</code> qui retournera un <em>callback</em> avec un
       format PHP valide et <code>getHash</code> qui retournera un identifiant
       unique pour cet appel.</p>
-      <p>Il est préférable de savoir réagir lorsque l'on rencontre le couple
-      d'arguments <code>$call</code> et <code>$able</code> dans une méthode. On
-      aura alors le réflexe de fournir des données comme présentées
+      <p>Il est préférable de savoir réagir lorsque nous rencontrons le couple
+      d'arguments <code>$call</code> et <code>$able</code> dans une méthode.
+      Nous aurons alors le réflexe de fournir des données comme présentées
       ci-dessus.</p>
     </section3>
   </section2>
@@ -319,8 +321,8 @@ $callable($argument1, $argument2, …);</blockcode>
     <title><em>Event</em></title>
 
     <p>Une des fonctionnalités que Hoa ajoute à PHP est la gestion des
-    <strong>événements</strong>. Les événements sont très pratiques pour
-    faire interagir des composants entre eux. On distingue alors deux catégories
+    <strong>événements</strong>. Les événements sont très pratiques pour faire
+    interagir des composants entre eux. Nous distinguons alors deux catégories
     d'événements :
     <ulist>
       <item>événements : <strong>asynchrones</strong> à l'enregistrement,
@@ -333,8 +335,8 @@ $callable($argument1, $argument2, …);</blockcode>
       <strong>interactions proches</strong> entre un ou quelques
       composants.</item>
     </ulist></p>
-    <p>Ces définitions peuvent laisser perplexes au début mais on va détailler
-    les cas d'utilisations.</p>
+    <p>Ces définitions peuvent laisser perplexes au début mais nous allons
+    détailler les cas d'utilisations.</p>
 
     <section3 id="Creer_et_envoyer_des_evenements" for="main-toc">
       <title>Créer et envoyer des événements</title>
@@ -345,16 +347,16 @@ $callable($argument1, $argument2, …);</blockcode>
       canal d'événements sont contenues dans la classe
       <code>Hoa\Core\Event\Bucket</code> et l'enregistrement d'un événement ne
       s'effectue qu'une seule fois et est associé à une classe. Autrement dit :
-      on associe un objet à un canal d'événements et seul cet objet est capable
-      d'émettre sur ce canal. L'enregistrement s'effectue à l'aide de la méthode
-      <code>Hoa\Core\Event::register</code>, où le premier argument est
+      nous associons un objet à un canal d'événements et seul cet objet est
+      capable d'émettre sur ce canal. L'enregistrement s'effectue à l'aide de la
+      méthode <code>Hoa\Core\Event::register</code>, où le premier argument est
       l'identifiant de l'événement et le second argument est le propriétaire (ou
       l'émetteur) :</p>
       <blockcode language="php">Hoa\Core\Event::register('Id', $observable);</blockcode>
-      <p>Une fois l'événement enregistré (ou créé), on est capable d'émettre
-      grâce à la méthode <code>Hoa\Core\Event::notify</code>, dont le premier
-      argument est l'identifiant de l'événement, le deuxième est l'émetteur et
-      le dernier les données :</p>
+      <p>Une fois l'événement enregistré (ou créé), nous sommes capable
+      d'émettre grâce à la méthode <code>Hoa\Core\Event::notify</code>, dont le
+      premier argument est l'identifiant de l'événement, le deuxième est
+      l'émetteur et le dernier les données :</p>
       <blockcode language="php">Hoa\Core\Event::notify('Id', $observable, new \Hoa\Core\Event\Bucket($data));</blockcode>
     </section3>
 
@@ -385,9 +387,9 @@ $callable($argument1, $argument2, …);</blockcode>
       fonction <code>event</code>, alias de
       <code>Hoa\Core\Event::getEvent</code>. Cette fonction requiert un seul
       argument : un identifiant, et va retourner l'événement associé. Sur ce
-      dernier, on pourra alors attacher des actions : une fonction déclarée, une
-      fonction anonyme, une classe et une méthode, un objet et une méthode, un
-      flux etc. Ainsi, si on veut capturer des exceptions :</p>
+      dernier, nous pourrons alors attacher des actions : une fonction déclarée,
+      une fonction anonyme, une classe et une méthode, un objet et une méthode,
+      un flux etc. Ainsi, si nous voulons capturer des exceptions :</p>
       <blockcode language="php">event('hoa://Event/Exception')->attach(
     function ( Hoa\Core\Event\Bucket $bucket ) {
 
@@ -399,7 +401,7 @@ $callable($argument1, $argument2, …);</blockcode>
     }
 );</blockcode>
       <p>Même si les exceptions sont capturées, elles sont envoyées sur le canal
-      d'événement. De cette façon, on est capable de journaliser toutes les
+      d'événement. De cette façon, nous sommes capable de journaliser toutes les
       exceptions en « redigirant » l'événement vers un flux, par exemple un
       fichier <code>Exception.log</code> :</p>
       <blockcode language="php">from('Hoa')
@@ -415,20 +417,21 @@ catch ( Hoa\Core\Exception $e ) {
 
     // Shuut.
 }</blockcode>
-      <p>On parle d'<strong>asynchrone à l'enregistrement</strong> car même si
-      l'événement n'est pas encore créé, on pourra dans tous les cas y attacher
-      une action. On parle d'<strong>anonymat à l'utilisation</strong> car on ne
-      sait pas qui va nous envoyer l'événement (on le saura une fois l'événement
-      reçu grâce à la méthode <code>getSource</code>), et on parle de
-      <strong>larges diffusions</strong> car n'importe quel composant peut
-      écouter n'importe quel canal d'événements.</p>
+      <p>Nous parlons d'<strong>asynchrone à l'enregistrement</strong> car même
+      si l'événement n'est pas encore créé, nous pourrons dans tous les cas y
+      attacher une action. Nous parlons d'<strong>anonymat à
+      l'utilisation</strong> car nous ne savons pas qui va nous envoyer
+      l'événement (nous le saurons une fois l'événement reçu grâce à la méthode
+      <code>getSource</code>). Et nous parlons de <strong>larges
+      diffusions</strong> car n'importe quel composant peut écouter n'importe
+      quel canal d'événements.</p>
     </section3>
 
     <section3 id="Exercice_ajout_d-un_evenement" for="main-toc">
       <title>Exercice : ajout d'un événement</title>
 
-      <p>Nous allons créer la classe <code>Hoathis\Exercise\Core\Second</code> pour
-      lui ajouter des événements :</p>
+      <p>Nous allons créer la classe <code>Hoathis\Exercise\Core\Second</code>
+      pour lui ajouter des événements :</p>
       <blockcode language="php">&lt;?php
 
 namespace Hoathis\Exercise\Core {
@@ -482,16 +485,16 @@ var_dump($second->doSomething('Gordon'));
       <code>Hoa\Core\Event\Listenable</code> (qui est un enfant de l'interface
       <code>Hoa\Core\Event\Source</code>). Cette nouvelle interface nous impose
       d'écrire la méthode <code>on</code> qui va permettre d'attacher une action
-      à un écouteur. Le mécanisme d'écouteurs est basé sur la
-      classe <code>Hoa\Core\Event\Listener</code> et peut être porté par la
-      classe ; peu importe comment du moment que l'on propose la méthode
+      à un écouteur. Le mécanisme d'écouteurs est basé sur la classe
+      <code>Hoa\Core\Event\Listener</code> et peut être porté par la classe ;
+      peu importe comment du moment que nous proposons la méthode
       <code>on</code>. Le constructeur de cette classe a deux arguments : le
       premier pour désigner le propriétaire des écouteurs, le second est un
-      tableau des écouteurs disponibles. Enfin, pour lancer un écouteur, on
-      utilisera la méthode <code>Hoa\Core\Event\Listener::fire</code>. Les
+      tableau des écouteurs disponibles. Enfin, pour lancer un écouteur, nous
+      utiliserons la méthode <code>Hoa\Core\Event\Listener::fire</code>. Les
       données des écouteurs sont également portées par la classe
       <code>Hoa\Core\Event\Bucket</code>.</p>
-      <p>On crée la classe <code>Hoathis\Exercise\Core\Third</code> :</p>
+      <p>Nous créons la classe <code>Hoathis\Exercise\Core\Third</code> :</p>
       <blockcode language="php">&lt;?php
 
 namespace Hoathis\Exercise\Core {
@@ -542,13 +545,14 @@ var_dump($third->doSomething('Gordon'));
 // Will output:
 //     I have received “Hello Gordon”.
 //     int(53)</blockcode>
-      <p>On parle de <strong>synchrones à l'enregistrement</strong> car le
+      <p>Nous parlons de <strong>synchrones à l'enregistrement</strong> car le
       composant qui porte les écouteurs existe nécessairement pour y attacher
-      des actions. On parle d'<strong>identification à l'utilisation</strong>
-      car on connait le composant que l'on écoute. Et c'est pourquoi on parle
-      d'<strong>interactions proches</strong> car il est obligatoire d'avoir une
-      proximité pour pouvoir interagir avec ce composant, d'où le fait que ça ne
-      concerne que quelques composants.</p>
+      des actions. Nous parlons d'<strong>identification à
+      l'utilisation</strong> car nous connaissons le composant que nous
+      écoutons. Et c'est pourquoi nous parlons d'<strong>interactions
+      proches</strong> car il est obligatoire d'avoir une proximité pour pouvoir
+      interagir avec ce composant, d'où le fait que ça ne concerne que quelques
+      composants.</p>
     </section3>
   </section2>
 
@@ -624,7 +628,7 @@ catch ( Hoa\Core\Exception $e ) {
     //     %s %s.
     //     Hello Gordon.
 }</blockcode>
-      <p>On aura compris qu'il faut préférer la méthode
+      <p>Nous aurons compris qu'il faut préférer la méthode
       <code>getFormattedMessage</code> à <code>getMessage</code> pour avoir un
       message lisible dans tous les cas.</p>
     </section3>
@@ -647,9 +651,9 @@ catch ( Hoa\Core\Exception $e ) {
       <title>Exception imbriquée</title>
 
       <p>Parfois, il existe un lien de causalité entre les exceptions. En effet,
-      on ne peut pas toujours faire remonter les exceptions telles quelles pour
-      des raisons de facilité d'utilisation. C'est pourquoi on a la possibilité
-      d'imbriquer les exceptions entre elles. Ainsi :</p>
+      nous ne pouvons pas toujours faire remonter les exceptions telles quelles
+      pour des raisons de facilité d'utilisation. C'est pourquoi nous avons la
+      possibilité d'imbriquer les exceptions entre elles. Ainsi :</p>
       <blockcode language="php">try {
 
     throw new Hoa\Core\Exception\Idle('I\'m a nested exception!', 42);
@@ -670,13 +674,13 @@ catch ( Hoa\Core\Exception\Idle $e ) {
 //     Nested exception (Hoa\Core\Exception\Idle):
 //     {main}: (42) I'm a nested exception!
 //     in /Flatland/Foobar.php at line 18.</blockcode>
-      <p>On remarque que l'affichage des exceptions non-capturées sait repérer
-      les imbrications. Pour cela, on a la méthode <code>getPreviousThrow</code>
-      qui retourne l'exception causale ou <code>null</code> si aucune
-      n'existe.</p>
-      <p>De même, on remarque que la première exception levée est de type
+      <p>Nous remarquons que l'affichage des exceptions non-capturées sait
+      repérer les imbrications. Pour cela, nous avons la méthode
+      <code>getPreviousThrow</code> qui retourne l'exception causale ou
+      <code>null</code> si aucune n'existe.</p>
+      <p>De même, nous remarquons que la première exception levée est de type
       <code>Hoa\Core\Exception\Idle</code>. Ainsi, seule la seconde exception
-      sera copiée sur le canal d'événements approprié. On pourra toutefois
+      sera copiée sur le canal d'événements approprié. Nous pourrons toutefois
       retrouver la première en utilisant justement la méthode
       <code>getPreviousThrow</code>.</p>
     </section3>
@@ -685,7 +689,7 @@ catch ( Hoa\Core\Exception\Idle $e ) {
       <title>Exercice : créer sa propre exception</title>
 
       <p>Cet exercice est très facile mais utile : nous allons créer notre
-      propre exception à notre bibliothèque. Pour cela, on crée le fichier
+      propre exception à notre bibliothèque. Pour cela, nous créons le fichier
       <code>Exercise/Core/Exception.php</code> :</p>
       <blockcode language="php">&lt;?php
 
@@ -745,7 +749,7 @@ catch ( Hoathis\Exercise\Core\Exception $e ) {
     <title><em>Protocol</em></title>
 
     <p>Le protocole <code>hoa://</code> permet d'<strong>abstraire l'accès à des
-    ressources</strong>. Il existe trois racines principales que l'on peut
+    ressources</strong>. Il existe trois racines principales que nous pouvons
     regrouper en deux catégories.</p>
 
     <section3 id="Format_du_protocole" for="main-toc">
@@ -753,12 +757,12 @@ catch ( Hoathis\Exercise\Core\Exception $e ) {
 
       <p>Le protocole adopte le <strong>formalisme</strong> suivant :
       <code>hoa://<em>root</em>[/<em>component</em>][#<em>anchor</em>]</code>.
-      Toutefois, ce formalisme n'est pas fermé. Il peut exister des différences et
-      des subtilités. Cela sera toujours précisé si c'est le cas.</p>
+      Toutefois, ce formalisme n'est pas fermé. Il peut exister des différences
+      et des subtilités. Cela sera toujours précisé si c'est le cas.</p>
       <p>Les composants qui seront présentés dans les sections suivantes sont
-      ceux par défaut. Ils peuvent bien sûr être modifiés. De plus, on a la
-      possibilité d'ajouter facilement des composants. Ainsi, on pourra créer
-      ses propres abstractions.</p>
+      ceux par défaut. Ils peuvent bien sûr être modifiés. De plus, nous avons
+      la possibilité d'ajouter facilement des composants. Ainsi, nous pourrons
+      créer nos propres abstractions.</p>
     </section3>
 
     <section3 id="Abstraction_destinee_aux_applications" for="main-toc">
@@ -804,7 +808,7 @@ catch ( Hoathis\Exercise\Core\Exception $e ) {
         régulièrement (dits variables), comme les caches, les bases de données,
         les logs, les tests etc.</item>
       </ulist></p>
-      <p>On les utilise simplement de cette façon :</p>
+      <p>Nous les utilisons simplement de cette façon :</p>
       <blockcode language="php">from('Hoa')
 -> import('File.Write');
 
@@ -813,8 +817,8 @@ $file->writeAll('Bazqux');</blockcode>
       <p>Cela fonctionne également sur des instructions bien plus
       élémentaires :</p>
       <blockcode language="php">$foo = require 'hoa://Data/Etc/Configuration/.Cache/HoaCoreCore.php';</blockcode>
-      <p>On verra plus en détail comment cela fonctionne quand on écrira une
-      application. Il faut retenir que c'est une suite de composants, chacun
+      <p>Nous verrons plus en détail comment cela fonctionne quand nous écrirons
+      une application. Il faut retenir que c'est une suite de composants, chacun
       pouvant être vu comme un lien symbolique. L'utilisation de ce protocole
       dans votre programme abstrait totalement la dépendance aux ressources.
       Modifier le nom d'un dossier, voire carrément le déplacer, n'engendrera
@@ -830,7 +834,7 @@ $file->writeAll('Bazqux');</blockcode>
       <title>Abstraction destinée aux bibliothèques</title>
 
       <p>Une racine est destinée à l'accès aux bibliothèques standards :
-      <code>hoa://Library</code>. Actuellement, on rencontre peu de cas
+      <code>hoa://Library</code>. Actuellement, nous rencontrons peu de cas
       d'utilisations. La bibliothèque <code>Hoa\Xyl</code> propose des
       ressources accessibles de cette manière (mais pas par l'utilisateur,
       uniquement par le système interne, le protocole se transforme à la volée).
@@ -848,9 +852,9 @@ var_dump(
 
 // Will output:
 //     string(3) "bar"</blockcode>
-      <p>On peut imaginer stocker des instances de cache, de base de données,
-      des fonctions anonymes etc.</p>
-      <p>On remarquera l'utilisation de la fonction <code>resolve</code>, un
+      <p>Nous pouvons imaginer stocker des instances de cache, de base de
+      données, des fonctions anonymes etc.</p>
+      <p>Nous remarquerons l'utilisation de la fonction <code>resolve</code>, un
       alias plus évolué, qui permet de résoudre des composants du protocole
       <code>hoa://</code>.</p>
     </section3>

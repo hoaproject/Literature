@@ -238,10 +238,10 @@ $limit     = 2;
 $statement->bindParameter('my_limit', $limit);
 $statement->execute();</blockcode>
       <p>Ce qui est intéressant est que la variable qui porte la valeur du
-      paramètre est passée en référence ! Ce qui signifie que tant que l'on n'a
-      pas exécuter la requête, nos paramètres sont modifiables en modifiant
-      simplement la valeur de cette variable (<ie /> pas besoin d'appeler à
-      nouveau la méthode <code>bindParameter</code>) :</p>
+      paramètre est passée en référence ! Ce qui signifie que tant que nous
+      n'avons pas exécuter la requête, nos paramètres sont modifiables en
+      modifiant simplement la valeur de cette variable (<ie /> pas besoin
+      d'appeler à nouveau la méthode <code>bindParameter</code>) :</p>
       <blockcode language="php">$statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
 $limit     = 1;
 $statement->bindParameter('my_limit', $limit);

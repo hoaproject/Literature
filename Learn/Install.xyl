@@ -16,9 +16,9 @@
                 sref-title="//__current_ns:section1/@id">Exploration du noyau <next_chapter /></link></item>
   </ulist>
 
-  <p>Dans ce chapitre, on s'intéresse à l'installation de Hoa, ainsi qu'à
-  l'installation de PHP (normalement pas nécessaire sur tout système digne de
-  ce nom).</p>
+  <p>Dans ce chapitre, nous nous intéressons à l'installation de Hoa, ainsi qu'à
+  l'installation de PHP (normalement pas nécessaire sur tout système digne de ce
+  nom).</p>
 
   <section2 id="Table_des_matieres" for="menu-toc">
     <title>Table des matières</title>
@@ -29,7 +29,7 @@
   <section2 id="Installer_Hoa" for="main-toc menu-toc">
     <title>Installer Hoa</title>
 
-    <p>On s'intéresse à l'installation de Hoa à travers de multiples
+    <p>Nous nous intéressons à l'installation de Hoa à travers de multiples
     mécanismes.</p>
 
     <section3 id="Confort_maximal" for="main-toc">
@@ -40,7 +40,7 @@
       Standard</em></link> (dans sa version 2.2 minimum), Hoa préfèrera
       s'installer dans le dossier <code>/usr/local/lib/hoa</code>. Pour les
       autres systèmes, comme par exemple Windows, Hoa préfèrera s'installer dans
-      le dossier <code>C:\Program Files\Hoa\</code>.</p>
+      le dossier <code>C:\Program Files\Hoa</code>.</p>
     </section3>
 
     <section3 id="Depuis_un_depot_Mercurial" for="main-toc">
@@ -129,7 +129,7 @@ require '/usr/local/lib/hoa/Core/Core.php';
 var_dump(HOA);</blockcode>
     <p>ou directement en ligne de commande :</p>
     <blockcode language="shell">$ php -r "require '/usr/local/lib/hoa/Core/Core.php'; var_dump(HOA);"</blockcode>
-    <p>À l'exécution, on doit voir <code>bool(true)</code>. Si c'est le cas,
+    <p>À l'exécution, nosu devons voir <code>bool(true)</code>. Si c'est le cas,
     c'est que Hoa est correctement installé.</p>
   </section2>
 
@@ -155,27 +155,27 @@ var_dump(HOA);</blockcode>
       <item><code>Stub</code>, permet d'exporter Hoa sous différents formats.</item>
     </ulist>
     <p>Hoa est conçu selon le principe <em>un ensemble de bibliothèques pour
-    plusieurs applications</em>, <ie /> on place le dossier Hoa a un seul
+    plusieurs applications</em>, <ie /> nous plaçons le dossier Hoa a un seul
     endroit et toutes les applications vont travailler dessus.</p>
-    <p>On va ainsi commencer par explorer un peu les fonctionnalités du noyau
-    avant d'installer notre première application.</p>
+    <p>Nous allons ainsi commencer par explorer un peu les fonctionnalités du
+    noyau avant d'installer notre première application.</p>
   </section2>
 
   <section2 id="Hoa_en_ligne_de_commande" for="main-toc menu-toc">
     <title>Hoa en ligne de commande</title>
 
-    <p>Lorsqu'on exécute le script <code>hoa</code> (ou
+    <p>Lorsque nous exécutons le script <code>hoa</code> (ou
     <code>hoa.bat</code>), un écran d'accueil apparaît :</p>
     <blockcode language="shell">$ cd Bin/
 $ ./hoa
 // Homescreen.</blockcode>
-    <p>Sur toutes les commandes, on trouvera les options <code>-h</code>,
+    <p>Sur toutes les commandes, nous trouverons les options <code>-h</code>,
     <code>--help</code> ou encore <code>-?</code>, pour obtenir de l'aide.
-    Ainsi, on apprend que les commandes sont constituées d'un groupe et d'un
-    nom en exécutant :</p>
+    Ainsi, nous apprendrons que les commandes sont constituées d'un groupe et
+    d'un nom en exécutant :</p>
     <blockcode language="shell">$ ./hoa --help</blockcode>
-    <p>Par exemple, pour afficher l'arbre du protocole <code>hoa://</code>, on
-    fera :</p>
+    <p>Par exemple, pour afficher l'arbre du protocole <code>hoa://</code>, nous
+    ferons :</p>
     <blockcode language="shell">$ ./hoa protocol:tree
 hoa://
   Application
@@ -195,14 +195,13 @@ hoa://
     <code>~/.<em>shell</em>rc</code> (par exemple : <code>~/.bashrc</code>,
     <code>~/.zshrc</code> etc.) :</p>
     <blockcode language="shell">export PATH=/usr/local/lib/hoa/Bin:$PATH</blockcode>
-    <p>On recharge notre profil et le script sera disponible partout :</p>
+    <p>Nous rechargeons notre profil et le script sera disponible partout :</p>
     <blockcode language="shell">$ source ~/.zshrc
 $ hoa
 // Homescreen.</blockcode>
     <p>Pour Windows, il faudra consulter
     <link href="http://social.technet.microsoft.com/Search/en-US?query=path&amp;ac=8"><em>Microsoft
-    TechNet</em></link> car la manipulation est
-    moins triviale.</p>
+    TechNet</em></link> car la manipulation est moins triviale.</p>
   </section2>
 </section1>
 

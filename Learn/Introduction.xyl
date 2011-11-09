@@ -23,7 +23,7 @@
   apprendre. Toutes ces raisons sont autant de justifications pour expliquer
   sa popularité.</p>
   <p>Dans le but d'améliorer la puissance, l'uniformité et la rigueur du
-  langage, on propose Hoa : un ensemble de bibliothèques PHP
+  langage, nous proposons Hoa : un ensemble de bibliothèques PHP
   <strong>puissantes</strong>, <strong>rapides</strong>, hautement
   <strong>modulaires</strong>, <strong>sûres</strong>,
   <strong>sécurisées</strong>, <strong>innovantes</strong> et respectueuses des
@@ -57,7 +57,7 @@
     représente un concept que Hoa introduit dans PHP ou que Hoa propose. Il est
     alors préférable de lire les chapitres dans l'ordre. En effet, des exercices
     et exemples sont régulièrement proposés au fil des chapitres et sections, et
-    on essaye au maximum d'utiliser le même exercice afin de le faire
+    nous essayons au maximum d'utiliser le même exercice afin de le faire
     évoluer.</p>
   </section2>
 </section1>
