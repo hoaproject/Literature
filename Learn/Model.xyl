@@ -94,14 +94,16 @@
       de données et la pré-remplir de quelques données. Dans un fichier,
       n'importe où (par exemple <code>/tmp/foo)</code>, nous écrivons nos
       requêtes SQL :</p>
-      <blockcode language="sql">CREATE TABLE foo (
-    bar VARCHAR(32),
-    baz VARCHAR(32)
+      <blockcode language="sql">CREATE TABLE user (
+    id INTEGER PRIMARY KEY ASC AUTOINCREMENT,
+    firstname VARCHAR(32),
+    lastname VARCHAR(32),
+    age INTEGER
 );
 
-INSERT INTO foo VALUES ( 'abc', 'def' );
-INSERT INTO foo VALUES ( 'ghi', 'jkl' );
-INSERT INTO foo VALUES ( 'mno', 'pqr' );</blockcode>
+INSERT INTO user VALUES ( 'Gordon', 'Freeman', 27 );
+INSERT INTO user VALUES ( 'Alyx', 'Vance', 25 );
+INSERT INTO user VALUES ( 'G', 'Man', 153 );</blockcode>
       <p>Puis nous allons créer notre base de données :</p>
       <blockcode language="shell">$ sqlite3 -init /tmp/foo -echo /var/db/Foo.sqlite
 // … our queries.</blockcode>
@@ -141,7 +143,7 @@ INSERT INTO foo VALUES ( 'mno', 'pqr' );</blockcode>
 
 Hoa\Database\Dal::initializeParameters(array(
     'connection.list.default.dal' => Hoa\Database\Dal::PDO,
-    'connection.list.default.dns' => 'sqlite:/var/db/Foo.sqlite'
+    'connection.list.default.dsn' => 'sqlite:/var/db/Foo.sqlite'
 ));</blockcode>
 
       <p>Toutefois, dans une application, la connexion vers une base de données
@@ -166,7 +168,7 @@ Hoa\Database\Dal::initializeParameters(array(
       comme si la connexion avait déjà été ouverte :</p>
       <blockcode language="php">Hoa\Database\Dal::initializeParameters(array(
     'connection.list.default.dal' => Hoa\Database\Dal::PDO,
-    'connection.list.default.dns' => 'sqlite:/var/db/Foo.sqlite',
+    'connection.list.default.dsn' => 'sqlite:/var/db/Foo.sqlite',
     'connection.autoload'         => 'default'
 ));
 
@@ -200,14 +202,18 @@ print_r($statement->fetchAll());
 // (
 //     [0] => Array
 //         (
-//             [bar] => abc
-//             [baz] => def
+//             [id] => 1
+//             [firstname] => Gordon
+//             [lastname] => Freeman
+//             [age] => 27
 //         )
 //
 //     [1] => Array
 //         (
-//            [bar] => ghi
-//            [baz] => jkl
+//             [id] => 2
+//             [firstname] => Alyx
+//             [lastname] => Vance
+//             [age] => 25
 //         )
 //
 // )</blockcode>
@@ -275,6 +281,146 @@ $statement->execute();</blockcode>
 
   <section2 id="Modeliser_des_donnees" for="main-toc menu-toc">
     <title>Modéliser des données</title>
+
+    <p>L'Informatique est la science de l'information. Le meilleur moyen de se
+    représenter une information est de la modéliser. Une modélisation ne
+    correspond pas toujours à l'implémentation de l'information, <ie /> la
+    représentation de l'information lors de son utilisation peut différer de sa
+    modélisation mais peu importe. Une information bien modéliser permet de
+    mieux se la représenter et ainsi pouvoir raisonner automatiquement dessus.
+    Par exemple, selon la précision des informations portées par le modèle, nous
+    pouvons automatiser la génération de données de tests ou carrément de
+    tests !</p>
+
+    <section3 id="Premier_pas_avec_un_modele" for="main-toc">
+      <title>Premier pas avec un modèle</title>
+
+      <p>Il y a plusieurs façon de représenter un modèle : soit textuellement
+      avec du code, soit graphiquement (graphiques qui seront probablement
+      compilés vers du code). Nous avons fait le choix de représenter un modèle
+      avec du code, à travers la bibliothèque <code>Hoa\Model</code>. Nous
+      profitons du paradigme objet de PHP en choisissant de représenter chaque
+      élément du modèle par une classe, et ainsi, les données sont portées par
+      les attributs de classes. Par exemple pour représenter un utilisateur qui
+      a un identifiant, un prénom, un nom et un âge, nous aurions :</p>
+      <blockcode language="php">from('Hoa')
+-> import('Model.~');
+
+class User extends Hoa\Model {
+
+    public $_id;
+    public $_firstname;
+    public $_lastname;
+    public $_age;
+}</blockcode>
+      <p>Pour instancier un utilisateur, nous allons travailler sur ses
+      attributs en faisant abstraction du <em>underscore</em> (le symbole
+      « <code>_</code> »), ainsi :</p>
+      <blockcode language="php">$user     = new User();
+$user->id = 42;
+var_dump($user->id);
+
+// Will output:
+//     int(42)</blockcode>
+      <p>C'est un bon début mais c'est très naïf. Nous aimerions faire le lien
+      entre modèle et données.</p>
+    </section3>
+
+    <section3 id="Lien_entre_modele_et_donnees" for="main-toc">
+      <title>Lien entre modèle et données</title>
+
+      <p>Un modèle représente une information, ou plutôt un ensemble de données.
+      Ces données peuvent venir de plusieurs endroits différents, peu importe
+      d'où. C'est pourquoi <code>Hoa\Model</code> propose entre autre un
+      mécanisme pour ouvrir un modèle et l'enregistrer. À l'utilisateur ensuite
+      d'écrire le lien entre son modèle et ses données.</p>
+      <p>Commençons par la méthode qui permet d'ouvrir un modèle :
+      <code>open</code> qui prend en argument un tableau de contraintes portant
+      par exemple sur les attributs (ce sera la sémantique la plus répandue pour
+      les contraintes mais rien ne nous empêche d'en donner une autre). Nous
+      allons utiliser les données stocker dans <code>/var/db/Foo.sqlite</code> à
+      travers <code>Hoa\Database</code> pour les extraire, que nous devons
+      définir comme lien — ou <em>mapping layer</em> — dans le constructeur
+      spécial <code>construct</code>. Enfin, nous allons effectuer le lien entre
+      les données extraites et notre modèle grâce à la méthode
+      <code>map</code> :</p>
+      <blockcode language="php">from('Hoa')
+-> import('Model.~')
+-> import('Model.Exception')
+-> import('Database.Dal');
+
+class User extends Hoa\Model {
+
+    public $_id;
+    public $_firstname;
+    public $_lastname;
+    public $_age;
+
+    public function construct ( ) {
+
+        // 1. set mapping layer.
+        $this->setMappingLayer(Hoa\Database\Dal::getLastInstance());
+
+        return;
+    }
+
+    public function open ( Array $constraints = array() ) {
+
+        // 2. ensure that the constraint “id” exists.
+        if(!isset($constraints['id']))
+            throw new Hoa\Model\Exception('The constraint “id” is needed.', 0);
+
+        // 3. extract data.
+        $data = $this->getMappingLayer()
+                     ->prepare(
+                         'SELECT id, firstname, lastname, age ' .
+                         'FROM   user ' .
+                         'WHERE  id = :id'
+                     )
+                     ->execute($constraints)
+                     ->fetchAll();
+
+        // 4. map data to our model.
+        $this->map($data[0]);
+
+        return;
+    }
+}</blockcode>
+      <p>Nous pouvons tester ce modèle de cette façon :</p>
+      <blockcode language="php">$user = new User();
+$user->open(array('id' => 1));
+var_dump($user->firsname);
+
+// Will output:
+//     string(6) "Gordon"</blockcode>
+      <p>Il existe une autre manière de définir des contraintes en définissant
+      des valeurs aux attributs avant d'ouvrir le modèle. Pour cela, nous devons
+      fusionner les contraintes données dans la méthode <code>open</code> (si
+      jamais) avec les contraintes définies par les attributs. Nous ajoutons
+      alors juste avant le point 2 :</p>
+      <blockcode language="php">$constraints = array_merge($constraints, $this->getConstraints());</blockcode>
+      <p>Puis, pour arriver au même résultat que précédemment :</p>
+      <blockcode language="php">$user = new User();
+$user->id = 1;
+$user->open();
+var_dump($user->firstname);</blockcode>
+    </section3>
+
+    <section3 id="Validation_des_donnees" for="main-toc">
+      <title>Validation des données</title>
+
+      <p>Nous pouvons écrire des validateurs (validate*()).</p>
+
+      <p>Dans l'optique d'automatiser la génération de tests, Hoa propose le
+      langage <strong>Praspel</strong>. Ce dernier repose sur des structures
+      algébriques, avec des propriétés particulières, appelées <strong>domaines
+      réalistes</strong>. Praspel exploite le paradigme des contrats à travers
+      plusieurs clauses (<ie /> plusieurs contraintes formelles). Il est
+      prématuré d'expliquer Praspel dans ce chapitre et c'est pourquoi nous
+      allons nous restreindre à une clause particulière :
+      <code>@invariant</code> pour spécifier les données portées par notre
+      modèle représenté </p>
+    </section3>
   </section2>
 
   <section2 id="Application_Gordon-s_blog" for="main-toc menu-toc">
