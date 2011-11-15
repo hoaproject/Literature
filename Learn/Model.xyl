@@ -28,30 +28,38 @@
     <title>Base de données</title>
 
     <p>Les bases de données sont des outils permettant de stocker et d'extraire
-    des données de différentes formes et de différentes tailles. Nous pouvons
-    distinguer deux familles de bases de données : relationnelles et objets.
-    Nous parlons plutôt de gestionnaires de base de données. Actuellement, les
+    des données de différentes formes et de différentes tailles.  Nous parlons
+    plutôt de gestionnaires de base de données. Nous pouvons distinguer deux
+    familles de bases de données : relationnelles et objets. Actuellement, les
     usages les plus courants se tournent vers des bases de données
     relationnelles qui utilisent la théorie des ensembles pour stocker et
     extraire leurs données.</p>
-    <p>Le langage <strong>SQL</strong> (pour <em>Standard Query Language</em>)
+    <p>Le langage <strong>SQL</strong> (pour <em>Structured Query Language</em>)
     permet de communiquer avec ces bases de données. Plusieurs standards ont été
-    dictés, comme la norme … … …. Le langage SQL est partagé en quatre
-    objectifs :
+    dictés, comme les normes
+    <link href="https://secure.wikimedia.org/wikipedia/en/wiki/SQL-92">SQL-92</link>
+    (ou SQL2) et
+    <link href="https://secure.wikimedia.org/wikipedia/en/wiki/SQL:1999">SQL-99</link>
+    (ou SQL3) pour ne citer que les plus connues et répandues. Le langage SQL
+    est partagé en quatre objectifs :
     <ulist>
-      <item>DML : … ;</item>
-      <item>DDL : … ;</item>
-      <item>… : … ;</item>
-    </ulist> (parler des schémas)</p>
+      <item>DDL (pour <em>Data Definition Language</em>) permet d'ajouter, de
+      modifier ou de supprimer des définitions de tables ;</item>
+      <item>DML (pour <em>Data Manipulation Language</em>) permet de
+      sélectionner, d'insérer, de mettre à jour ou de supprimer des données
+      d'une table ;</item>
+      <item>DCL (pour <em>Data Control Language</em>) permet de gérer les droits
+      d'accès aux données.</item>
+    </ulist>
+    La structure des données est appelée un <strong>schéma</strong>.</p>
     <p>Dans une application, pour communiquer avec un gestionnaire de base de
     données, nous devrons nous y connecter, puis y exécuter des requêtes (à
     l'aide du langage SQL). La base de données nous calculera un résultat
-    qu'elle nous renverra et que nous pourrons exploiter. Le maximum de calcul
+    qu'elle nous renverra et que nous pourrons exploiter. Le maximum de calculs
     doit être effectué par la base de données qui est optimisée dans ce type de
-    traitement !</p>
-    <p>Nous verrons par la suite comme faciliter l'exploitation de ces données
-    qui peut devenir un processus complexe si le schéma des données évolue ou
-    n'est pas trivial.</p>
+    traitement !  Nous verrons par la suite comme faciliter l'exploitation de
+    ces données qui peut devenir un processus complexe si le schéma des données
+    évolue ou n'est pas trivial.</p>
 
     <section3 id="Abstraction_des_diverses_bases_de_donnees" for="main-toc">
       <title>Abstraction des diverses bases de données</title>
@@ -64,13 +72,10 @@
       tous ces pilotes. C'est pourquoi il existe des <strong>couches
       d'abstraction de bases de données</strong>, ou DBAL (pour <em>Database
       Abstract Layer</em>). PHP en propose une :
-      <link href="http://php.net/book.pdo">PDO</link> (pour <em>PHP …</em>),
+      <link href="http://php.net/book.pdo">PDO</link> (pour <em>PHP Data Objects</em>),
       mais il en existe d'autres, comme par exemple :
-      <ulist>
-        <item>DBA : … ;</item>
-        <item>DBX : … ;</item>
-        <item>ODBC : … ;</item>
-      </ulist></p>
+      <link href="msdn.microsoft.com/fr-fr/library/ms710252(v=VS.85).aspx">ODBC</link>
+      (pour <em>Open Database Connectivity</em>).</p>
       <p>Hoa définit une couche d'abstraction par dessus ces couches
       d'abstraction, grâce aux classes <code>Hoa\Database\Dal</code> et
       <code>Hoa\Database\DalStatement</code>. Cette couche d'abstraction permet
@@ -82,9 +87,9 @@
       Dans la suite de ce chapitre, nous allons utiliser PDO avec le
       gestionnaire de base de données
       <link href="http://sqlite.org/">SQLite</link>, lui aussi intégré à PHP
-      (ainsi qu'à de <link href="…">nombreux outils</link>). Ce dernier
-      est très léger et travaille sur des fichiers contenant des petites base de
-      données, ce qui le rend portable.</p>
+      (ainsi qu'à de <link href="http://sqlite.org/famous.html">nombreux
+      outils</link>). Ce dernier est très léger et travaille sur des fichiers
+      contenant des petites base de données, ce qui le rend portable.</p>
       <p>Pour illuster les premiers exemples, nous allons créer une petite base
       de données et la pré-remplir de quelques données. Dans un fichier,
       n'importe où (par exemple <code>/tmp/foo)</code>, nous écrivons nos
@@ -98,7 +103,7 @@ INSERT INTO foo VALUES ( 'abc', 'def' );
 INSERT INTO foo VALUES ( 'ghi', 'jkl' );
 INSERT INTO foo VALUES ( 'mno', 'pqr' );</blockcode>
       <p>Puis nous allons créer notre base de données :</p>
-      <blockcode language="shell">$ cat /tmp/foo | sqlite3 -init 0 -echo /var/db/Foo.sqlite
+      <blockcode language="shell">$ sqlite3 -init /tmp/foo -echo /var/db/Foo.sqlite
 // … our queries.</blockcode>
     </section3>
 
@@ -112,7 +117,8 @@ INSERT INTO foo VALUES ( 'mno', 'pqr' );</blockcode>
       porte les données suivantes :
       <ulist>
         <item><code>id</code>, unique et représente le profil ;</item>
-        <item><code>dsn</code>, … ;</item>
+        <item><code>dsn</code> (pour <em>Data Source Name</em>), décrit une
+        connexion vers une base de données (spécifique à chaque DBAL) ;</item>
         <item><code>username</code>, un nom d'utilisateur pour se connecter à la
         base de données (inutile avec SQLite) ;</item>
         <item><code>password</code>, un mot de passe se couplant avec le nom
@@ -120,11 +126,12 @@ INSERT INTO foo VALUES ( 'mno', 'pqr' );</blockcode>
         <item><code>options</code>, un tableau d'options spécifiques au
         gestionnaire de base de données utilisé.</item>
       </ulist></p>
-      <p>Cette liste de profils fait partie des paramètres de classe, proposés
-      par <code>Hoa\Core\Parameter</code> (une des couches du noyau). Toutefois,
-      <code>Hoa\Database\Dal</code> étant un multiton un peu particulier (comme
-      nous le verrons rapidement), une méthode intermédiaire est proposée pour
-      initialiser les paramètres de cette classe :
+
+      <p>Cette liste de profils fait partie des paramètres de notre classe à
+      partir de <code>Hoa\Core\Parameter</code> (une des couches du noyau).
+      Toutefois, <code>Hoa\Database\Dal</code> étant un multiton un peu
+      particulier (comme nous le verrons rapidement), une méthode intermédiaire
+      est proposée pour initialiser les paramètres de cette classe :
       <code>initializeParameters</code> Par exemple, si nous utilisons une base
       de données SQLite située dans le fichier
       <code>/var/db/Foo.sqlite</code> sous le profil
