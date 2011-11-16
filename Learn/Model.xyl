@@ -44,12 +44,16 @@
     est partagé en quatre objectifs :
     <ulist>
       <item>DDL (pour <em>Data Definition Language</em>) permet d'ajouter, de
-      modifier ou de supprimer des définitions de tables ;</item>
+      modifier ou de supprimer des définitions de tables (<code>CREATE
+      TABLE</code>, <code>ALTER TABLE</code>, <code>DROP
+      TABLE</code> …) ;</item>
       <item>DML (pour <em>Data Manipulation Language</em>) permet de
       sélectionner, d'insérer, de mettre à jour ou de supprimer des données
-      d'une table ;</item>
+      d'une table (<code>INSERT</code>, <code>DELETE</code>,
+      <code>UPDATE</code>, <code>SELECT</code> …) ;</item>
       <item>DCL (pour <em>Data Control Language</em>) permet de gérer les droits
-      d'accès aux données.</item>
+      d'accès aux données (<code>GRANT</code>, <code>DENY</code>,
+      <code>REVOKE</code> …).</item>
     </ulist>
     La structure des données est appelée un <strong>schéma</strong>.</p>
     <p>Dans une application, pour communiquer avec un gestionnaire de base de
@@ -102,8 +106,8 @@
 );
 
 INSERT INTO user VALUES ( NULL, 'Gordon', 'Freeman', 1973 );
-INSERT INTO user VALUES ( NULL, 'Alyx', 'Vance', 1995 );
-INSERT INTO user VALUES ( NULL, 'Cave', 'Johnson', 1947 );</blockcode>
+INSERT INTO user VALUES ( NULL, 'Alyx',   'Vance',   1995 );
+INSERT INTO user VALUES ( NULL, 'Cave',   'Johnson', 1947 );</blockcode>
       <p>Puis nous allons créer notre base de données :</p>
       <blockcode language="shell">$ sqlite3 -init /tmp/foo -echo /var/db/Foo.sqlite
 // … our queries.</blockcode>
