@@ -98,12 +98,12 @@
     id INTEGER PRIMARY KEY ASC AUTOINCREMENT,
     firstname VARCHAR(32),
     lastname VARCHAR(32),
-    age INTEGER
+    birthday INTEGER
 );
 
-INSERT INTO user VALUES ( 'Gordon', 'Freeman', 27 );
-INSERT INTO user VALUES ( 'Alyx', 'Vance', 25 );
-INSERT INTO user VALUES ( 'G', 'Man', 153 );</blockcode>
+INSERT INTO user VALUES ( NULL, 'Gordon', 'Freeman', 1973 );
+INSERT INTO user VALUES ( NULL, 'Alyx', 'Vance', 1995 );
+INSERT INTO user VALUES ( NULL, 'Cave', 'Johnson', 1947 );</blockcode>
       <p>Puis nous allons créer notre base de données :</p>
       <blockcode language="shell">$ sqlite3 -init /tmp/foo -echo /var/db/Foo.sqlite
 // … our queries.</blockcode>
@@ -205,7 +205,7 @@ print_r($statement->fetchAll());
 //             [id] => 1
 //             [firstname] => Gordon
 //             [lastname] => Freeman
-//             [age] => 27
+//             [birthday] => 1973
 //         )
 //
 //     [1] => Array
@@ -213,7 +213,7 @@ print_r($statement->fetchAll());
 //             [id] => 2
 //             [firstname] => Alyx
 //             [lastname] => Vance
-//             [age] => 25
+//             [birthday] => 1995
 //         )
 //
 // )</blockcode>
@@ -311,7 +311,7 @@ class User extends Hoa\Model {
     public $_id;
     public $_firstname;
     public $_lastname;
-    public $_age;
+    public $_birthday;
 }</blockcode>
       <p>Pour instancier un utilisateur, nous allons travailler sur ses
       attributs en faisant abstraction du <em>underscore</em> (le symbole
@@ -354,7 +354,7 @@ class User extends Hoa\Model {
     public $_id;
     public $_firstname;
     public $_lastname;
-    public $_age;
+    public $_birthday;
 
     public function construct ( ) {
 
@@ -373,7 +373,7 @@ class User extends Hoa\Model {
         // 3. extract data.
         $data = $this->getMappingLayer()
                      ->prepare(
-                         'SELECT id, firstname, lastname, age ' .
+                         'SELECT id, firstname, lastname, birthday ' .
                          'FROM   user ' .
                          'WHERE  id = :id'
                      )
@@ -423,16 +423,30 @@ var_dump($user->firstname);</blockcode>
       s'ajouter au nom de la méthode de validation (nous faisons une
       transformation vers du
       <link href="https://en.wikipedia.org/wiki/CamelCase">CamelCase</link>).</p>
-      <p>Ainsi, si nous voulons ajouter une validation sur l'âge qui doit être
-      compris entre 0 et 200, nous ferions :</p>
-      <blockcode language="php">public function validateAge ( $age ) {
+      <p>Ainsi, si nous voulons ajouter une validation sur la date de naissance
+      qui doit être compris entre 0 et l'année courante, nous ferions :</p>
+      <blockcode language="php">public function validateBirthday ( $birthday ) {
 
-    return 0 &lt;= $age &amp;&amp; 200 &gt;= $age;
+    return 0 &lt;= $age &amp;&amp; ((int) date('Y')) &gt;= $birthday;
 }</blockcode>
+      <p>Si nous testons notre validateur en assignant des valeurs à la donnée
+      <code>birthday</code>, nous aurons :</p>
+      <blockcode language="php">$user = new User();
+$user->birthday = 1973;  // all right.
+$user->birthday = 65537; // an exception is thrown.</blockcode>
+      <!-- 65537 is a Fermat number (2^2^n + 1) -->
+      <p>Nous pouvons désactiver la validation à l'aide de la méthode
+      <code>setEnableValidation</code> de cette manière :</p>
+      <blockcode language="php">$user->setEnableVaidation(false);</blockcode>
+      <p>Notons que comme notre modèle est représenté par un ensemble de classe,
+      nous pouvons avoir de l'héritage et ainsi hériter des propriétés de
+      validations. Nous sommes ainsi capable d'en surcharger certaines et d'y
+      ajouter des contraintes. Cela peut être mécanisme intéressant à ne pas
+      négliger.</p>
     </section3>
 
-    <section3 id="Un_peu_de_Praspel" for="main-toc">
-      <title>Un peu de Praspel</title>
+    <section3 id="Un_peu_de_Praspel_pour_valider_et_meme_plus" for="main-toc">
+      <title>Un peu de Praspel pour valider et même plus</title>
 
       <p>Dans l'optique d'automatiser la génération de tests, Hoa propose le
       langage <strong>Praspel</strong>. Ce dernier repose sur des structures
@@ -442,7 +456,80 @@ var_dump($user->firstname);</blockcode>
       prématuré d'expliquer Praspel dans ce chapitre et c'est pourquoi nous
       allons nous restreindre à une clause particulière :
       <code>@invariant</code> pour spécifier les données portées par notre
-      modèle représenté </p>
+      modèle.</p>
+      <p>Praspel permet d'utiliser les domaines réalistes de manière simple et
+      permet de caractériser assez finement la forme des données. Dans la
+      majorité des cas, une clause Praspel peut remplacer une méthode validation
+      vue précédémment. L'idée est alors d'écrire des méthodes de validations
+      pour ajouter des contraintes supplémentaires sur la forme des données
+      uniquement. Notons qu'il est très facile d'écrire son propre domaine
+      réaliste (voir la bibliothèque <code>Hoa\Realdom</code>) et qu'il est
+      préférable de passer par là s'il sera utilisé souvent car les
+      domaines réalistes offrent deux propriétés intéressants qui sont la
+      <em>prédicabilité</em> (vérification) et <em>générabilité</em>
+      (génération). En effet, nous sommes capable de générer des données
+      automatiquement et si notre modèle est <strong>annoté</strong> avec le
+      langage Praspel, nous pourrons générer automatiquement des données pour
+      remplir notre modèle. Les conséquences immédiates sont : construire
+      plusieurs modèles valides rapidement, l'enregistrer et ainsi construire
+      des données (par exemple remplir une base de données) ou générer des cas
+      de tests automatiquement.</p>
+      <p>Même si nous n'expliquons pas Praspel dans le détail, nous allons
+      montrer comment valider notre modèle :</p>
+      <blockcode language="php">class User extends Hoa\Model {
+
+    /**
+     * @invariant id: boundinteger(1);
+     */
+    public $_id;
+
+    /**
+     * @invariant firstname: regex('[\w\'\- ]{1,42}');
+     */
+    public $_firstname;
+
+    /**
+     * @invariant firstname: regex('[\w\'\- ]{1,42}');
+     */
+    public $_lastname;
+
+    /**
+     * @invariant birthday: date('Y', boundinteger(0, timestamp('now')));
+     */
+    public $_birthday;
+
+    // …
+}</blockcode>
+      <p>Nous rappelons que les méthodes <code>validate<em>Data</em></code>
+      peuvent venir en soutient à Praspel. Nous rappelons également que nous
+      sommes sur des exemples simples et que Praspel peut exprimer des
+      contraintes plus fines que ça.</p>
+    </section3>
+
+    <section3 id="Gerer_les_relations" for="main-toc">
+      <title>Gérer les relations</title>
+
+      <p>Les relations entre les différentes parties du modèle sont une
+      composante à ne pas négliger. En effet, si nous avons notre élément
+      <code>User</code> qui peut être relié à disons l'élément
+      <code>Mail</code>. Cette relation peut avoir une arité et un sens : par
+      exemple « combien de mails un utilisateur peut avoir ? ».</p>
+
+      <p>Une relation en Praspel s'exprime avec le domaine réaliste
+      <code>relation</code> qui est une simplification syntaxique d'une domaine
+      réaliste <code>array</code>. Nous devons préciser à quel élément du modèle
+      est relié notre élément courant et son arité. Par exemple, pour dire
+      qu'« un utilisateur peut avoir zéro ou vingts mails », nous
+      écririons :</p>
+      <blockcode language="php">/**
+ * @invariant mails: relation('Mail', boundinteger(0, 20));
+ */
+public $mails;</blockcode>
+      <p>Enfin, pour faire le lien entre les données et la relation de notre
+      modèle, nous n'utiliserons pas la méthode <code>map</code> mais
+      <code>mapRelation</code> qui fonctionne de manière assez similaire. Nous
+      allons détaillé ce point dans notre application <code>Gordon's
+      blog</code>.</p>
     </section3>
   </section2>
 
