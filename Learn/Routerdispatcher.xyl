@@ -144,8 +144,8 @@ $ curl -X POST 127.0.0.1:8888/bye
 // error
 $ curl 127.0.0.1:8888/hello_gordon
 Welcome Gordon!
-$ curl 127.0.0.1:8888/hello_alix
-Welcome Alix!</blockcode>
+$ curl 127.0.0.1:8888/hello_alyx
+Welcome Alyx!</blockcode>
     <p>Par défaut, cURL va envoyer une requête HTTP avec la méthode
     <code>GET</code>. Nous remarquons que si nous appellons <code>/hello</code>
     en <code>GET</code> ou en <code>POST</code>, cela n'a pas le même effet. De
