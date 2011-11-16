@@ -409,7 +409,30 @@ var_dump($user->firstname);</blockcode>
     <section3 id="Validation_des_donnees" for="main-toc">
       <title>Validation des données</title>
 
-      <p>Nous pouvons écrire des validateurs (validate*()).</p>
+      <p>Avant d'enregistrer de nouvelles données, nous devons les valider.
+      C'est pourquoi <code>Hoa\Model</code> propose un mécanisme de validatation
+      dynamique. En effet, à chaque donnée du modèle, <ie /> à chaque attribut,
+      nous pouvons associer une méthode de validation dont la convention de
+      nommage est <code>validate<em>Data</em></code> et qui prend en unique
+      argument une valeur. Cette méthode se comporte comme un prédicat, <ie />
+      une fonction qui retourne <code>true</code> ou <code>false</code>.
+      L'assignation de la valeur à la donnée ne s'effectue pas dans les méthodes
+      de validations.</p>
+      <p>Précisons pour la convention de nommage que l'attribut
+      <code>aBc_DeF_GHI</code> sera renommée <code>AbcDefGhi</code> pour
+      s'ajouter au nom de la méthode de validation (nous faisons une
+      transformation vers du
+      <link href="https://en.wikipedia.org/wiki/CamelCase">CamelCase</link>).</p>
+      <p>Ainsi, si nous voulons ajouter une validation sur l'âge qui doit être
+      compris entre 0 et 200, nous ferions :</p>
+      <blockcode language="php">public function validateAge ( $age ) {
+
+    return 0 &lt;= $age &amp;&amp; 200 &gt;= $age;
+}</blockcode>
+    </section3>
+
+    <section3 id="Un_peu_de_Praspel" for="main-toc">
+      <title>Un peu de Praspel</title>
 
       <p>Dans l'optique d'automatiser la génération de tests, Hoa propose le
       langage <strong>Praspel</strong>. Ce dernier repose sur des structures
