@@ -131,8 +131,9 @@ $dispatcher->dispatch($router);</blockcode>
     seulement) et <link href="http://curl.haxx.se/">cURL</link> (pour <em>Client
     URL Request Library</em>), un client en ligne de commande permettant de
     manipuler plusieurs protocoles, dont HTTP. Tout d'abord, démarrons
-    Bhoa :</p>
-    <blockcode language="shell">$ myapp bhoa --root hoa://Application/Public</blockcode>
+    PHP FastCGI et Bhoa :</p>
+    <blockcode language="shell">$ php-cgi -b 127.0.0.1:9000&amp;
+$ myapp bhoa --root hoa://Application/Public</blockcode>
     <p>Puis dans un autre terminal, envoyons-lui une requête avec cURL :</p>
     <blockcode language="shell">$ curl 127.0.0.1:8888/hello
 world!
