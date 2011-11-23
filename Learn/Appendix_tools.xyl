@@ -5,7 +5,8 @@
 <yield name="chapter">
 
 <section1 id="Appendix_tools">
-  <title>Manuel d'apprentissage<title_break />Outils autour de Hoa</title>
+  <title>Manuel d'apprentissage<title_break />Annexe, Outils autour de
+  Hoa</title>
 
   <ulist class="prev_next">
     <item><link href="@l"><previous_chapter /> Sommaire</link></item>
