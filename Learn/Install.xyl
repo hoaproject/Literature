@@ -78,7 +78,7 @@ $ hg update</blockcode>
       sont produites par jours concernant le tronc.</p>
     </section3>
 
-    <section3 id="Depuis_une_archive_PHAR" for="main-toc">
+    <section3 id="Depuis_une_archive_Phar" for="main-toc">
       <title>Depuis une archive Phar</title>
 
       <p>PHP fournit son propre système d'archive :
