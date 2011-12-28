@@ -9,12 +9,13 @@
   <ul class="prev_next">
     <li><a href="@ll:chapter=Routerdispatcher"><previous_chapter /> Router +
         Dispatcher = ♥</a></li>
+    <li><a href="@ll:chapter=Xyl">XYL <next_chapter /></a></li>
   </ul>
 
   <p>Une part importante d'une application est la <strong>manipulation des
   données</strong>, sa facilité, son uniformité et sa pérennité. Dans ce
   chapitre, nous allons présenter la bibliothèque <code>Hoa\Database</code>
-  ainsi que <code>Hoa\Model</code>.</p>
+  ainsi que la bibliothèque <code>Hoa\Model</code>.</p>
 
   <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
 
@@ -404,7 +405,7 @@ var_dump($user->firstname);</code></pre>
   doit être compris entre 0 et l'année courante, nous ferions :</p>
   <pre><code language="php">public function validateBirthday ( $birthday ) {
 
-    return 0 &amp;lt;= $age &amp;amp;&amp;amp; ((int) date('Y')) >= $birthday;
+    return 1970 &amp;lt;= $birthday &amp;amp;&amp;amp; ((int) date('Y')) >= $birthday;
 }</code></pre>
   <p>Si nous testons notre validateur en assignant des valeurs à la donnée
   <code>birthday</code>, nous aurons :</p>
@@ -513,6 +514,7 @@ public $mails;</code></pre>
   <ul class="prev_next">
     <li><a href="@ll:chapter=Routerdispatcher"><previous_chapter /> Router +
         Dispatcher = ♥</a></li>
+    <li><a href="@ll:chapter=Xyl">XYL <next_chapter /></a></li>
   </ul>
 
 </yield>
