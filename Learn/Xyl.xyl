@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xyl-use href="../Definitions.xyl"?>
+
+<definition xmlns="http://hoa-project.net/xyl/xylophone">
+<yield name="chapter">
+
+
+  <h1 id="Model">Manuel d'apprentissage<title_break />XYL</h1>
+
+  <ul class="prev_next">
+    <li><a href="@ll:chapter=Model"><previous_chapter /> Modèle de
+        données</a></li>
+  </ul>
+
+  <p>Le système d'interface graphique permet de déclarer des
+  <strong>vues</strong>. Il peut se cantonner à un simple affichage de données
+  de manière ordonnée ou alors offrir bien plus de services, notamment sur la
+  sur la <strong>maintenance</strong>. Dans ce chapitre, nous allons présenter
+  la bibliothèque <code>Hoa\View</code> et la bibliothèque
+  <code>Hoa\Xyl</code>.</p>
+
+  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+
+  <tableofcontents id="main-toc" />
+
+  <h2 id="Introduction" for="main-toc menu-toc">Introduction</h2>
+
+  <p>D'une manière générale, le mécanisme habituel d'un système de vue est le
+  suivant : à partir de <strong>données</strong> sous différentes formes, nous
+  allons créer une <strong>vues</strong>, l'agencer, la modifer, la mélanger aux
+  données, puis en faire un rendu. Un <strong>rendu</strong> est comparable à
+  peindre notre vue, <ie /> nous voulons avoir un résultat partiel ou total. Ce
+  résultat est affiché ou stocké, ce qui est dans tous les cas comparables à
+  l'envoyer sur un flux. Enfin, un besoin annexe mais indispensable aux vues est
+  la présence d'un <strong>routeur</strong>. En effet, les vues ont besoin de
+  connaître les accès aux différentes ressources voire de localiser d'autres
+  vues.</p>
+  <p>Les besoins en terme d'interface graphique sont <strong>nombreux</strong>
+  et très <strong>variés</strong> les uns des autres selon les contextes
+  d'utilisation. C'est pourquoi il existe plusieurs outils. Dans un souci
+  d'ouverture et d'uniformité, la bibliothèque <code>Hoa\View</code> ne définit
+  qu'une seule interface : <code>Hoa\View\Viewable</code> qui définit quatre
+  méthodes :</p>
+  <ul>
+    <li><code>getOutputStream</code> pour connaître le flux sortant, <ie /> le
+    flux sur lequel la vue va être rendue ;</li>
+    <li><code>getData</code> pour obtenir les données de la vue ;</li>
+    <li><code>render</code> pour effectuer un rendu de la vue ;</li>
+    <li><code>getRouter</code> pour obtenir le routeur associé à la vue.</li>
+  </ul>
+  <p>Cette interface est suffisante pour représenter la majorité des systèmes
+  d'interface graphique. Ainsi, il est envisageable de développer votre propre
+  système ou de brancher un système existant au reste des bibliothèques de Hoa.
+  Toutefois, pour plus de confort, un système d'interface graphique est proposé
+  dans Hoa : XYL.</p>
+  <p><strong>XYL</strong> signifie <em>XML Yielding Language</em>. C'est un
+  langage XML qui se base sur la théorie des composants et mélange des
+  paradigmes de plusieurs langages d'interface graphique ou de manipulation de
+  données tels que <a href="http://w3.org/TR/html5">HTML</a>,
+  <a href="https://developer.mozilla.org/en/XUL">XUL</a>,
+  <a href="http://w3.org/TR/xslt20">XSLT</a>,
+  <a href="http://w3.org/TR/xpath20">XPath</a>,
+  <a href="http://www.w3.org/TR/CSS">CSS</a> etc.</p>
+
+  <h3 id="Composants" for="main-toc">Composants</h3>
+
+  <p>XYL permet la création de <strong>composants</strong> graphiques
+  <strong>exécutables</strong> et <strong>réutilisables</strong>. Ces composants
+  peuvent être <strong>assembler</strong> entre eux afin de construire des
+  composants plus importants. Il est possible d'avoir des
+  <strong>bibliothèques</strong> de composants graphiques centralisées,
+  facilement partageables et maintenables. Une bibliothèque de composants par
+  défaut existe et reprend toutes les balises d'HTML en y ajoutant les
+  particularités de XYL. Nous parlons du vocabulaire de XYL, ou du nommage des
+  composants. Un avantage non négligeable d'avoir repris le vocabulaire d'HTML
+  est que l'apprentissage de XYL est quasiment nul, sachant que les
+  particularités proposées sont simples mais puissantes.</p>
+
+  <h3 id="Yielding" for="main-toc"><em>Yielding</em></h3>
+
+  <p>Le « Y » de XYL signifie <em>yielding</em>, <ie /> que XYL est un langage
+  de production. Le mécanisme de <em>yielding</em> propre à XYL est bien adapté
+  aux problématiques des systèmes d'interface graphique. Par exemple, lors de la
+  création d'un composant graphique, il ne connait pas la quantité de données
+  qu'il va devoir produire ; il ne connaît que la forme (branches et nœuds). Il
+  ne connaît pas non plus le contexte dans lequel il va être utilisé et encore
+  moins avec quels composants il sera associé.</p>
+
+  <h3 id="Multi-plateformes_et_multi-sorties" for="main-toc">Multi-plateformes
+  et multi-sorties</h3>
+
+  <p>Nous avons dit que XYL était exécutables. Mieux encore, c'est un langage
+  interprétable : en fonction de la plateforme ou du type de sortie
+  (applications Web, applications de bureau, de tablette, de téléphone, de
+  télévision, un terminal, un
+  <a href="https://www.adobe.com/devnet/pdf/pdf_reference_archive.html">PDF</a>
+  etc.), nous allons choisir un interpréteur et l'exécuter sur nos documents
+  XYL. Le résultat sera normalement celui attendu.</p>
+  <p>Cela offre des perspectives intéressantes pour PHP à savoir que nous
+  pourrons le placer sur d'autres appareils et machines que des serveurs. Par
+  exemple sur une machine cliente, un téléphone portable ou une télévision.</p>
+
+  <h2 id="Document" for="main-toc menu-toc">Document</h2>
+
+  <p>Pour introduire XYL, nous allons commencer par créer un document à l'aide
+  du <strong>composant racine</strong> <code>&amp;amp;lt;document></code> dans
+  le fichier <code>Main.xyl</code>. Tous les documents ou composants XYL
+  travaillent sur l'espace de nom XML
+  <code>http://hoa-project.net/xyl/xylophone</code> (attention à la casse). À ce
+  document, nous allons définir un titre grâce au composant
+  <code>&amp;amp;lt;title></code>, et enfin nous allons ajouter un paragraphe
+  avec une liste non-ordonnée grâce aux composants <code>&amp;amp;lt;p></code>,
+  <code>&amp;amp;lt;ul></code> et <code>&amp;amp;lt;li></code> :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>First step with XYL&amp;lt;/title>
+
+  &amp;lt;p>This is my first XYL document! XYL is:&amp;lt;/p>
+  &amp;lt;ul>
+    &amp;lt;li>easy to learn&amp;lt;/li>
+    &amp;lt;li>simple&amp;lt;/li>
+    &amp;lt;li>powerful&amp;lt;/li>
+  &amp;lt;/ul>
+&amp;lt;/document></code></pre>
+  <p>Nous allons maintenant interpréter ce document.</p>
+
+  <h3 id="Interpretation" for="main-toc">Interprétation</h3>
+
+  <p>Pour interpréter XYL, nous avons besoin de la classe <code>Hoa\Xyl</code>
+  qui va préparer nos documents ainsi que nos données, et lancer le rendu de
+  notre interprétation. XYL a besoin au minimum de :</p>
+  <ul>
+    <li>un flux d'entrée, pour lire le document XYL ;</li>
+    <li>un flux de sortie, pour écrire le rendu de l'interprétation ;</li>
+    <li>un interpréteur, représenté par la classe abstraite
+    <code>Hoa\Xyl\Interpreter</code>.</li>
+  </ul>
+  <p>Nous allons commencer avec l'interpréteur HTML qui est le plus simple à
+  déployer, représenté par la classe <code>Hoa\Xyl\Interpreter\Html</code>.
+  Notre flux de sortie sera représentée par la classe
+  <code>Hoa\Http\Response</code>. Ainsi :</p>
+  <pre><code language="php">from('Hoa')
+-> import('File.Read')
+-> import('Http.Response')
+-> import('Xyl.~')
+-> import('Xyl.Interpreter.Html.~');
+
+$xyl = new Hoa\Xyl(
+    new Hoa\File\Read('Main.xyl'),
+    new Hoa\Http\Response(),
+    new Hoa\Xyl\Interpreter\Html()
+);
+$xyl->render();</code></pre>
+  <p>Il suffit maintenant d'exécuter ce fichier PHP pour observer le
+  résultat :</p>
+  <pre><code language="shell">$ php index.php</code></pre>
+  <p>ou depuis un navigateur (à l'aide de Bhoa par exemple) :</p>
+  <pre><code language="shell">$ myapp bhoa --root .</code></pre>
+  <p>puis en ouvrant l'URL
+  <a href="http://localhost:8888"><code>localhost:8888</code></a>.</p>
+  <p>Nous vous conseillons d'essayer de modifier ce document XYL comme si
+  c'était de l'HTML pour vous rendre compte que le vocabulaire est le même (par
+  exemple en ajoutant des identifiants, des classes, d'autres composants/balises
+  etc.)</p>
+
+  <h3 id="Feuilles_CSS" for="main-toc">Feuilles CSS</h3>
+
+  <p>Pour utiliser des feuilles CSS, nous utilisons la
+  <em>processing-instruction</em>
+  <code>&amp;amp;lt?xyl-stylesheet</code> en tête de n'importe quels documents
+  XYL. Ainsi :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+&amp;lt;?xyl-stylesheet href="/UI.css"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>First step with XYL&amp;lt;/title>
+
+  …</code></pre>
+  <p>Et notre fichier <code>UI.css</code> :</p>
+  <pre><code language="css">body {
+    color: #3b6898;
+    background: #f2ede3
+}
+
+li {
+    font-style: italic
+}</code></pre>
+  <p>Maintenant, réouvrons <a
+  href="http://localhost:8888"><code>localhost:8888</code></a> et nous
+  observons que notre document a changé de style.</p>
+  <p>Nous pouvons aussi ajouter des feuilles CSS grâce à la méthode
+  <code>addStylesheet</code>.</p>
+
+  <h3 id="Routeur_et_liens" for="main-toc">Routeur et liens</h3>
+
+  <p>Nous avons vu qu'une vue au sens de <code>Hoa\View\Viewable</code> comporte
+  un routeur. Comme <code>Hoa\Xyl</code> implémente cette interface, nous
+  pouvons alors définir et utiliser un routeur au sein de nos documents XYL.
+  Nous allons commencer par écrire une règle sur un routeur HTTP et le donner à
+  notre instance de XYL. La règle aura pour identifiant « <code>blog</code> » et
+  n'aura aucune action (<ie /> <em>callable</em>) attachée. Nous voulons juste
+  écrire un lien et non pas le reconnaître. Ainsi :</p>
+  <pre><code language="php">from('Hoa')
+-> …
+-> import('Router.Http');
+
+$router = new Hoa\Router\Http();
+$router->get('blog', '/Blog/(?&amp;lt;id>\d+)-(?&amp;lt;title>[^\.]+)\.html');
+
+$xyl    = new Hoa\Xyl(
+    new Hoa\File\Read('Main.xyl'),
+    new Hoa\Http\Response(),
+    new Hoa\Xyl\Interpreter\Html(),
+    $router
+);
+$xyl->render();</code></pre>
+  <p>Pour utiliser cette règle dans XYL, il faut tout d'abord se placer dans un
+  attribut qui se comporte comme un lien (par exemple <code>href</code> pour
+  le composant <code>&amp;amp;lt;a></code>, <code>src</code> pour le composant
+  <code>&amp;amp;lt;img></code> etc.) et utiliser le formalisme suivant pour
+  déclarer le lien :
+  <code>@<em>anId</em>:<em>key</em>=<em>value</em>[<em>key</em>=<em>value</em>]*</code>.
+  Chaque <code>key</code> correspond à une variable de notre règle
+  <code>anId</code>. Ainsi :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+&amp;lt;?xyl-stylesheet href="/UI.css"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>First step with XYL&amp;lt;/title>
+
+  &amp;lt;p>This is a link to &amp;lt;a href="@blog:id=42&amp;amp;amp;amp;title=Foobar">an article in my
+  blog&amp;lt;/a>!&amp;lt;/p>
+&amp;lt;/document></code></pre>
+  <p>Le contenu de l'attribut <code>href</code> vaudra
+  <code>/Blog/42-Foobar.html</code> après interprétation. Notre lien est bien
+  créé. Maintenant, si nous modifions la règle pour autre chose mais toujours
+  avec les variables <code>id</code> et <code>title</code> placées
+  différemment, nous verrons le lien se réécrire automatiquement.</p>
+  <p>Notons que le « <code>&amp;amp;amp;amp;</code> » est obligatoire car écrire
+  simplement « <code>&amp;amp;</code> » serait une source d'erreur lors de
+  l'analyse du document XYL (qui est du XML).</p>
+
+  <h2 id="Overlay" for="main-toc menu-toc"><em>Overlay</em></h2>
+
+  <p>Les <em>overlays</em> sont un ou plusieurs composants que nous voulons
+  insérer dans un document. Par exemple, imaginons une application qui présente
+  un contenu et une colone sur le côté contenant plusieurs extensions que
+  l'utilisateur peut installer comme il le souhaite. Chaque extension peut
+  définir un <em>overlay</em> qui ne sait pas comment est construit le document
+  principal, mais il connaît l'identifiant de la colonne contenant les
+  extensions. Cette information est amplement suffisante ! Ainsi, lorsque
+  l'extension va s'installer, l'application n'aura qu'à déclarer un nouvel
+  <em>overlay</em> dans le document et il bénéficiera de toutes les ressources
+  du document. En plus de préciser où s'accrocher par rapport à un bloc, il peut
+  préciser sa position dans ce bloc.</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+&amp;lt;?xyl-stylesheet href="/ui.css"?>
+&amp;lt;?xyl-overlay href="/Extensions.xyl"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>first step with xyl&amp;lt;/title>
+
+  &amp;lt;h1>my blog&amp;lt;/h1>
+
+  &amp;lt;p>this is a link to &amp;lt;a href="@blog:id=42&amp;amp;amp;amp;title=foobar">an article in my
+  blog&amp;lt;/a>!&amp;lt;/p>
+
+  &amp;lt;div id="extension">
+    &amp;lt;h1>extensions&amp;lt;/h1>
+    &amp;lt;div id="bar">
+      &amp;lt;h2>bar&amp;lt;/h2>
+      &amp;lt;p>awesome bar.&amp;lt;/p>
+    &amp;lt;/div>
+  &amp;lt;/div>
+&amp;lt;/document></code></pre>
+  <p>…</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;div id="extension">
+    &amp;lt;div id="foo" position="1">
+      &amp;lt;h2>Foo&amp;lt;/h2>
+
+      &amp;lt;p>Awesome foo.&amp;lt;/p>
+    &amp;lt;/div>
+  &amp;lt;/div>
+&amp;lt;/overlay></code></pre>
+
+  <h2 id="Binding_et_yielding" for="main-toc menu-toc"><em>Binding</em> et
+  <em>yielding</em></h2>
+
+  <h3 id="Arbre_de_donnees" for="main-toc">Arbre de données</h3>
+
+  <h3 id="Donnees_symboliques" for="main-toc">Données symboliques</h3>
+
+  <!-- ?binding et inner-binding -->
+
+  <h3 id="Definition_de_composants" for="main-toc">Défition de composants</h3>
+
+  <ul class="prev_next">
+    <li><a href="@ll:chapter=Model"><previous_chapter /> Modèle de
+        données</a></li>
+  </ul>
+
+</yield>
+</definition>
