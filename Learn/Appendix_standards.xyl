@@ -4,102 +4,93 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
-<section1 id="Appendix_standards">
-  <title>Manuel d'apprentissage<title_break />Annexe, Conventions de codage et
-  de nommage</title>
+  <h1 id="Appendix_standards">Manuel d'apprentissage<title_break />Annexe,
+  Conventions de codage et de nommage</h1>
 
-  <ulist class="prev_next">
-    <item><link href="@l"><previous_chapter /> Sommaire</link></item>
-  </ulist>
+  <ul class="prev_next">
+    <li><a href="@l"><previous_chapter /> Sommaire</a></li>
+  </ul>
 
   <p>Cette annexe présente les conventions de codages et de nommages utilisées
   Hoa.</p>
 
-  <section2 id="Table_des_matieres" for="menu-toc">
-    <title>Table des matières</title>
+  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
 
-    <tableofcontents id="main-toc" />
-  </section2>
+  <tableofcontents id="main-toc" />
 
-  <section2 id="Introduction" for="main-toc menu-toc">
-    <title>Introduction</title>
+  <h2 id="Introduction" for="main-toc menu-toc">Introduction</h2>
 
-    <p>Les conventions de codages et de nommages sont essentielles pour qu'un
-    projet ait une <strong>solidité</strong> et une <strong>uniformité</strong>
-    qui facilite sa <strong>compréhension</strong> et sa
-    <strong>maintenance</strong>. On peut pousser très loin les détails des
-    conventions mais ce serait inutile et fastidieux. On préfère donner les
-    traits généraux pour faire ressentir la philosophie derrière ces
-    conventions.</p>
-  </section2>
+  <p>Les conventions de codages et de nommages sont essentielles pour qu'un
+  projet ait une <strong>solidité</strong> et une <strong>uniformité</strong>
+  qui facilite sa <strong>compréhension</strong> et sa
+  <strong>maintenance</strong>. On peut pousser très loin les détails des
+  conventions mais ce serait inutile et fastidieux. On préfère donner les traits
+  généraux pour faire ressentir la philosophie derrière ces conventions.</p>
 
-  <section2 id="Fichiers_dossiers_et_encodage" for="main-toc menu-toc">
-    <title>Fichiers, dossiers et encodage</title>
+  <h2 id="Fichiers_dossiers_et_encodage" for="main-toc menu-toc">Fichiers,
+  dossiers et encodage</h2>
 
-    <p>Le nom des fichiers et dossiers adoptent la notation
-    <strong><em>CamelCase</em></strong>, <ie /> que les mots ne sont pas séparés
-    par des espaces mais la première lettre de chaque mots est mise en
-    majuscule, les autres en minuscules. Tous les noms commencent également par
-    une majuscule. Ainsi : <code>Router</code>, <code>Http</code>,
-    <code>XmlRpc</code> etc., sont des noms valides.</p>
-    <p>Il faut accorder une attention toute particulière à la
-    <strong>casse</strong> (différence entre les majuscules et minuscules),
-    notamment si les systèmes de fichiers y sont sensibles (comme par exemple
-    <code>ext4</code>, <em>a contrario</em> de <code>HFS+</code>). En effet,
-    cela peut être la source d'erreur lors de la portabilité d'un projet.</p>
-    <p>L'encodage des fichiers est obligatoirement Unicode, et uniquement sur
-    8 bits, <ie /> <strong>UTF-8</strong>. Cela permet d'avoir des fichiers
-    portables dans toutes les langues et sur tous les éditeurs, et permet
-    d'éviter des conflits d'encodages/décodages. De plus, Unicode est compatible
-    avec les jeux de caractères inférieurs, comme les normes ISO ou UCS.</p>
-    <p>Le caractère de fin de ligne est <strong><em>line feed</em></strong>
-    (<code>0x0A</code> ou <code>\n</code>). Une ligne a une taille de
-    <strong>80 caractères</strong> maximum. Les lignes vides (uniquement des
-    caractères blancs) sont interdites. Une <strong>tabulation</strong> est
-    constituée de quatre espaces.</p>
-    <p>Enfin, quand un fichier contient du PHP, la <strong>balise de
-    fermeture</strong> <code>?&gt;</code> est omise.</p>
-  </section2>
+  <p>Le nom des fichiers et dossiers adoptent la notation
+  <strong><em>CamelCase</em></strong>, <ie /> que les mots ne sont pas séparés
+  par des espaces mais la première lettre de chaque mots est mise en majuscule,
+  les autres en minuscules. Tous les noms commencent également par une
+  majuscule. Ainsi : <code>Router</code>, <code>Http</code>, <code>XmlRpc</code>
+  etc., sont des noms valides.</p>
+  <p>Il faut accorder une attention toute particulière à la
+  <strong>casse</strong> (différence entre les majuscules et minuscules),
+  notamment si les systèmes de fichiers y sont sensibles (comme par exemple
+  <code>ext4</code>, <em>a contrario</em> de <code>HFS+</code>). En effet,
+  cela peut être la source d'erreur lors de la portabilité d'un projet.</p>
+  <p>L'encodage des fichiers est obligatoirement Unicode, et uniquement sur
+  8 bits, <ie /> <strong>UTF-8</strong>. Cela permet d'avoir des fichiers
+  portables dans toutes les langues et sur tous les éditeurs, et permet d'éviter
+  des conflits d'encodages/décodages. De plus, Unicode est compatible avec les
+  jeux de caractères inférieurs, comme les normes ISO ou UCS.</p>
+  <p>Le caractère de fin de ligne est <strong><em>line feed</em></strong>
+  (<code>0x0A</code> ou <code>\n</code>). Une ligne a une taille de
+  <strong>80 caractères</strong> maximum. Les lignes vides (uniquement des
+  caractères blancs) sont interdites. Une <strong>tabulation</strong> est
+  constituée de quatre espaces.</p>
+  <p>Enfin, quand un fichier contient du PHP, la <strong>balise de
+  fermeture</strong> <code>?&gt;</code> est omise.</p>
 
-  <section2 id="Visibilite" for="main-toc menu-toc">
-    <title>Visilité</title>
+  <h2 id="Visibilite" for="main-toc menu-toc">Visilité</h2>
 
-    <p>La visibilité s'exprime au niveau du code à l'aide des intructions
-    <code>public</code>, <code>protected</code> et <code>private</code>. Cela ne
-    concerne que les méthodes. Les conventions de Hoa permettent de connaître la
-    visibilité des structures manipulées, et ce raisonnement peut s'appliquer à
-    d'autres structures que des méthodes.</p>
-    <p>Si le nom est préfixé par <em>underscore</em> (symbole
-    « <code>_</code> »), alors la structure est protégée ou privée, <ie />
-    qu'elle n'est pas publique. Ainsi, une classe dont le nom est
-    <code>_Protocol</code> ne devrait pas être utilisée par l'utilisateur.</p>
-    <p>Néanmoins, on notera l'utilisation du conditionnel ici. En effet,
-    l'utilisateur ne <em>devrait</em> pas, mais il peut tout à fait ! Hoa aime
-    la philosophie adoptant le concept d'<strong><em>hackability</em></strong>
-    (ou bidouillabilité), qui permet à tout utilisateur de <strong>modifier le
-    comportement</strong> du système. C'est pourquoi la majorité des structures,
-    qui ne sont pas publiques, sont protégées, et rarement privées (sauf si cela
-    se justifie). De même, rares sont les structures marquées de l'instruction
-    <code>final</code> (<ie /> qu'on ne peut plus les modifier). On rappelle que
-    ce n'est parce que le système peut être modifié qu'il est moins sûr. Une
-    bonne conception peut laisser des libertés tout en assurant une certaine
-    <strong>confiance</strong> dans le code.</p>
-    <p>Enfin, on peut rencontrer des structures avec une visibilité protégée
-    mais avec un nom non préfixé. Cela indique que ce sera une méthode
-    inévitable à l'utilisation (comprendre qu'on l'utilisera très régulièrement)
-    lors d'une extension du système.</p>
-  </section2>
+  <p>La visibilité s'exprime au niveau du code à l'aide des intructions
+  <code>public</code>, <code>protected</code> et <code>private</code>. Cela ne
+  concerne que les méthodes. Les conventions de Hoa permettent de connaître la
+  visibilité des structures manipulées, et ce raisonnement peut s'appliquer à
+  d'autres structures que des méthodes.</p>
+  <p>Si le nom est préfixé par <em>underscore</em> (symbole « <code>_</code> »),
+  alors la structure est protégée ou privée, <ie /> qu'elle n'est pas publique.
+  Ainsi, une classe dont le nom est <code>_Protocol</code> ne devrait pas être
+  utilisée par l'utilisateur.</p>
+  <p>Néanmoins, on notera l'utilisation du conditionnel ici. En effet,
+  l'utilisateur ne <em>devrait</em> pas, mais il peut tout à fait ! Hoa aime la
+  philosophie adoptant le concept d'<strong><em>hackability</em></strong> (ou
+  bidouillabilité), qui permet à tout utilisateur de <strong>modifier le
+  comportement</strong> du système. C'est pourquoi la majorité des structures,
+  qui ne sont pas publiques, sont protégées, et rarement privées (sauf si cela
+  se justifie). De même, rares sont les structures marquées de l'instruction
+  <code>final</code> (<ie /> qu'on ne peut plus les modifier). On rappelle que
+  ce n'est parce que le système peut être modifié qu'il est moins sûr. Une bonne
+  conception peut laisser des libertés tout en assurant une certaine
+  <strong>confiance</strong> dans le code.</p>
+  <p>Enfin, on peut rencontrer des structures avec une visibilité protégée mais
+  avec un nom non préfixé. Cela indique que ce sera une méthode inévitable à
+  l'utilisation (comprendre qu'on l'utilisera très régulièrement) lors d'une
+  extension du système.</p>
 
-  <section2 id="Espaces_de_nommage_classes_interfaces_methods_etc"
-            for="main-toc menu-toc">
-    <title>Espaces de nommage, classes, interfaces, méthodes etc.</title>
+  <h2 id="Espaces_de_nommage_classes_interfaces_methods_etc"
+      for="main-toc menu-toc">Espaces de nommage, classes, interfaces, méthodes
+  etc.</h2>
 
-    <p>Les espaces de nommages, les classes concrètes, les classes abstraites,
-    les interfaces, les méthodes, les attributs et les variables adoptent tous
-    la notation <strong><em>CamelCase</em></strong>. Tout ce qui n'est pas une
-    variable (de classes, de méthodes ou de fonctions), une méthode ou une
-    fonction, voient leur première lettre mise en majuscule. Ainsi :</p>
-    <blockcode language="php">namespace Foo\BarBaz\Qux {
+  <p>Les espaces de nommages, les classes concrètes, les classes abstraites, les
+  interfaces, les méthodes, les attributs et les variables adoptent tous la
+  notation <strong><em>CamelCase</em></strong>. Tout ce qui n'est pas une
+  variable (de classes, de méthodes ou de fonctions), une méthode ou une
+  fonction, voient leur première lettre mise en majuscule. Ainsi :</p>
+  <pre><code language="php">namespace Foo\BarBaz\Qux {
 
 class FooBar {
 
@@ -119,86 +110,73 @@ namespace {
 
 function iAmAFunction ( ) { }
 
-}
-    </blockcode>
-    <p>Les <strong>interfaces</strong> sont souvent suffixées par
-    <code>able</code>. Même si ce n'est pas toujours correct (grammaticalement
-    parlant), ça peut être amusant ! Ainsi <code>Structural</code>,
-    <code>Cryonicable</code>, <code>Viewable</code> sont des noms d'interfaces
-    valides. Les interfaces peuvent également être rangées dans un espace de nom
-    qui porte le même nom que l'espace parent mais préfixé par <code>I</code>,
-    comme <code>Hoa\Stream\IStream\In</code> ou
-    <code>Hoa\Tree\ITree\Node</code>, lorsque le paquetage propose plusieurs
-    interfaces de même niveau.</p>
-    <p>Les <strong>classes abstraites</strong> portent souvent le nom
-    <code>Generic</code>.</p>
-    <p>Enfin, les <strong>constantes</strong> seront toujours marquées en
-    majuscules.</p>
-  </section2>
+}</code></pre>
+  <p>Les <strong>interfaces</strong> sont souvent suffixées par
+  <code>able</code>. Même si ce n'est pas toujours correct (grammaticalement
+  parlant), ça peut être amusant ! Ainsi <code>Structural</code>,
+  <code>Cryonicable</code>, <code>Viewable</code> sont des noms d'interfaces
+  valides. Les interfaces peuvent également être rangées dans un espace de nom
+  qui porte le même nom que l'espace parent mais préfixé par <code>I</code>,
+  comme <code>Hoa\Stream\IStream\In</code> ou <code>Hoa\Tree\ITree\Node</code>,
+  lorsque le paquetage propose plusieurs interfaces de même niveau.</p>
+  <p>Les <strong>classes abstraites</strong> portent souvent le nom
+  <code>Generic</code>.</p>
+  <p>Enfin, les <strong>constantes</strong> seront toujours marquées en
+  majuscules.</p>
 
-  <section2 id="Toujours_etre_explicite" for="main-toc menu-toc">
-    <title>Toujours être explicite</title>
+  <h2 id="Toujours_etre_explicite" for="main-toc menu-toc">Toujours être
+  explicite</h2>
 
-    <p>Même si le nom d'une variable commence à être longue ou compliquée à
-    écrire, on ne l'abrégera jamais ! On veut toujours être
-    <strong>explicite</strong> dans le nom des variables, des constantes, des
-    méthodes, des classes etc. Les éditeurs textes savent facilement
-    auto-compléter le nom si celui devient compliqué à écrire. Cela évite
-    d'avoir une mauvaise compréhension du code et de son objectif.</p>
-    <p>De même, on ne laissera jamais le langage décidé du comportement par
-    défaut pour nous. C'est pourquoi, par exemple, on précisera toujours la
-    visibilité.</p>
-  </section2>
+  <p>Même si le nom d'une variable commence à être longue ou compliquée à
+  écrire, on ne l'abrégera jamais ! On veut toujours être
+  <strong>explicite</strong> dans le nom des variables, des constantes, des
+  méthodes, des classes etc. Les éditeurs textes savent facilement
+  auto-compléter le nom si celui devient compliqué à écrire. Cela évite d'avoir
+  une mauvaise compréhension du code et de son objectif.</p>
+  <p>De même, on ne laissera jamais le langage décidé du comportement par défaut
+  pour nous. C'est pourquoi, par exemple, on précisera toujours la
+  visibilité.</p>
 
-  <section2 id="Coding_style" for="main-toc menu-toc">
-    <title><em>Coding style</em></title>
+  <h2 id="Coding_style" for="main-toc menu-toc"><em>Coding style</em></h2>
 
-    <p>Un bon style de codage permet une lisibilité rapide et ainsi une bonne
-    compréhension.</p>
+  <p>Un bon style de codage permet une lisibilité rapide et ainsi une bonne
+  compréhension.</p>
 
-    <section3 id="Accolades" for="main-toc">
-      <title>Accolades</title>
+  <h2 id="Accolades" for="main-toc">Accolades</h2>
 
-      <p>Si un bloc ne contient pas plus d'une instruction, les accolades ne
-      sont pas obligatoires. On respectera toujours cette règle. Ainsi :</p>
-      <blockcode language="php">if(/* condition */)
+  <p>Si un bloc ne contient pas plus d'une instruction, les accolades ne sont
+  pas obligatoires. On respectera toujours cette règle. Ainsi :</p>
+  <pre><code language="php">if(/* condition */)
     /* a lonely instruction */;
 else {
   
     /* an instruction */
     /* another instruction */
-}</blockcode>
-      <p>On remarquera le positionnement des accolades : l'accolade ouvrante se
-      situe sur la même ligne que l'instruction, puis est suivie d'une ligne
-      vide, et enfin l'accolade fermante seule sur une ligne.</p>
-    </section3>
+}</code></pre>
+    <p>On remarquera le positionnement des accolades : l'accolade ouvrante se
+    situe sur la même ligne que l'instruction, puis est suivie d'une ligne vide,
+    et enfin l'accolade fermante seule sur une ligne.</p>
 
-    <section3 id="Parentheses" for="main-toc">
-      <title>Parenthèses</title>
+    <h3 id="Parentheses" for="main-toc">Parenthèses</h3>
 
-      <p>Les parenthèses sont présentes pour enlever des ambiguïtés dans le
-      code. Mais ses ambiguïtés existent rarement pour l'être humain. Il n'est
-      donc pas utile de mettre les parenthèses en avant. C'est pourquoi aucun
-      espace n'est présent autour.</p>
-    </section3>
+    <p>Les parenthèses sont présentes pour enlever des ambiguïtés dans le code.
+    Mais ses ambiguïtés existent rarement pour l'être humain. Il n'est donc pas
+    utile de mettre les parenthèses en avant. C'est pourquoi aucun espace n'est
+    présent autour.</p>
 
-    <section3 id="Alignement" for="main-toc">
-      <title>Alignement</title>
+    <h3 id="Alignement" for="main-toc">Alignement</h3>
 
-      <p>Un code se lit horizontalement mais aussi verticalement. Ainsi, aligner
-      son code pour former des colonnes quand cela est utile offre une bien
-      meilleure lisibilité et compréhension :</p>
-      <blockcode language="php">$i         = 0;
+    <p>Un code se lit horizontalement mais aussi verticalement. Ainsi, aligner
+    son code pour former des colonnes quand cela est utile offre une bien
+    meilleure lisibilité et compréhension :</p>
+    <pre><code language="php">$i         = 0;
 $short     = 42;
 $loongName = 53;
-$foo       = 'bar';</blockcode>
-    </section3>
-  </section2>
-</section1>
+$foo       = 'bar';</code></pre>
 
-<ulist class="prev_next">
-  <item><link href="@l"><previous_chapter /> Sommaire</link></item>
-</ulist>
+  <ul class="prev_next">
+    <li><a href="@l"><previous_chapter /> Sommaire</a></li>
+  </ul>
 
 </yield>
 </definition>

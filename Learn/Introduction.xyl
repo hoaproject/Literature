@@ -4,15 +4,13 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
-<section1 id="Introduction">
-  <title>Manuel d'apprentissage<title_break />Introduction</title>
+<h1 id="Introduction">Manuel d'apprentissage<title_break />Introduction</h1>
 
-  <ulist class="prev_next">
-    <item><link href="@l"><previous_chapter /> Sommaire</link></item>
-    <item><link href="@ll:chapter=(!title)"
-                sref="hoa://Application/External/Literature/Learn/Discover.xyl"
-                sref-title="//__current_ns:section1/@id">À la découverte de Hoa <next_chapter /></link></item>
-  </ulist>
+  <ul class="prev_next">
+    <li><a href="@l"><previous_chapter /> Sommaire</a></li>
+    <li><a href="@ll:chapter=Discover">À la découverte de Hoa
+        <next_chapter /></a></li>
+  </ul>
 
   <p>PHP est un langage très répandu qui apporte une dynamique rarement
   rencontrée. PHP est principalement utilisé dans le milieu de la programmation
@@ -20,8 +18,8 @@
   avec beaucoup d'autres modules et programmes (tels que des serveurs HTTP, des
   bases de données, des bibliothèques systèmes, des logiciels additionnels
   etc.). Mais PHP est également multi-plateforme, interprété et très facile à
-  apprendre. Toutes ces raisons sont autant de justifications pour expliquer
-  sa popularité.</p>
+  apprendre. Toutes ces raisons sont autant de justifications pour expliquer sa
+  popularité.</p>
   <p>Dans le but d'améliorer la puissance, l'uniformité et la rigueur du
   langage, nous proposons Hoa : un ensemble de bibliothèques PHP
   <strong>puissantes</strong>, <strong>rapides</strong>, hautement
@@ -29,45 +27,38 @@
   <strong>sécurisées</strong>, <strong>innovantes</strong> et respectueuses des
   <strong>standards</strong>.</p>
 
-  <section2 id="Table_des_matieres" for="menu-toc">
-    <title>Table des matières</title>
+  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
 
-    <tableofcontents id="main-toc" />
-  </section2>
+  <tableofcontents id="main-toc" />
 
-  <section2 id="Contributions" for="main-toc menu-toc">
-    <title>Contributions</title>
+  <h2 id="Contributions" for="main-toc menu-toc">Contributions</h2>
 
-    <p>Un projet comme Hoa peut s'aborder de plusieurs façons. Un excellent
-    point de départ est le manuel d'apprentissage, qui permet de faire
-    connaissance rapidement avec le projet : ce qu'il est, ce qu'il fait,
-    comment l'utiliser et où il va, sont des questions pertinentes qui trouvent
-    des réponses rapides dans ce manuel d'apprentissage, <em>a contrario</em> du
-    manuel de références ou documentation API qui sont respectivement un manuel
-    détaillé de toutes les fonctionnalités et une documentation bas-niveau. Le
-    manuel d'apprentissage ira plus loin en apportant des exemples concrets, par
-    exemple sous forme de tutoriels ou d'exercices, afin de mieux guider la
-    lectrice ou le lecteur dans sa découverte de Hoa.</p>
-  </section2>
+  <p>Un projet comme Hoa peut s'aborder de plusieurs façons. Un excellent point
+  de départ est le manuel d'apprentissage, qui permet de faire connaissance
+  rapidement avec le projet : ce qu'il est, ce qu'il fait, comment l'utiliser et
+  où il va, sont des questions pertinentes qui trouvent des réponses rapides
+  dans ce manuel d'apprentissage, <em>a contrario</em> du manuel de références
+  ou documentation API qui sont respectivement un manuel détaillé de toutes les
+  fonctionnalités et une documentation bas-niveau. Le manuel d'apprentissage ira
+  plus loin en apportant des exemples concrets, par exemple sous forme de
+  tutoriels ou d'exercices, afin de mieux guider la lectrice ou le lecteur dans
+  sa découverte de Hoa.</p>
 
-  <section2 id="Modus_operandi" for="main-toc menu-toc">
-    <title><em>Modus operandi</em></title>
+  <h2 id="Modus_operandi" for="main-toc menu-toc"><em>Modus operandi</em></h2>
 
-    <p>Le manuel d'apprentissage est organisé en chapitre. Chaque chapitre
-    représente un concept que Hoa introduit dans PHP ou que Hoa propose. Il est
-    alors préférable de lire les chapitres dans l'ordre. En effet, des exercices
-    et exemples sont régulièrement proposés au fil des chapitres et sections, et
-    nous essayons au maximum d'utiliser le même exercice afin de le faire
-    évoluer.</p>
-  </section2>
-</section1>
+  <p>Le manuel d'apprentissage est organisé en chapitre. Chaque chapitre
+  représente un concept que Hoa introduit dans PHP ou que Hoa propose. Il est
+  alors préférable de lire les chapitres dans l'ordre. En effet, des exercices
+  et exemples sont régulièrement proposés au fil des chapitres et sections, et
+  nous essayons au maximum d'utiliser le même exercice afin de le faire
+  évoluer.</p>
 
-<ulist class="prev_next">
-  <item><link href="@l"><previous_chapter /> Sommaire</link></item>
-  <item><link href="@ll:chapter=(!title)"
-              sref="hoa://Application/External/Literature/Learn/Discover.xyl"
-              sref-title="//__current_ns:section1/@id">À la découverte de Hoa <next_chapter /></link></item>
-</ulist>
+
+  <ul class="prev_next">
+    <li><a href="@l"><previous_chapter /> Sommaire</a></li>
+    <li><a href="@ll:chapter=Discover">À la découverte de Hoa
+        <next_chapter /></a></li>
+</ul>
 
 </yield>
 </definition>

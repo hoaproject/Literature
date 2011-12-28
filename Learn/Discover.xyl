@@ -4,215 +4,188 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
-<section1 id="Discover">
-  <title>Manuel d'apprentissage<title_break />À la découverte de Hoa</title>
+  <h1 id="Discover">Manuel d'apprentissage<title_break />À la découverte de
+  Hoa</h1>
 
-  <ulist class="prev_next">
-    <item><link href="@ll:chapter=(!title)"
-                sref="hoa://Application/External/Literature/Learn/Introduction.xyl"
-                sref-title="//__current_ns:section1/@id"><previous_chapter /> Introduction</link></item>
-    <item><link href="@ll:chapter=(!title)"
-                sref="hoa://Application/External/Literature/Learn/Install.xyl"
-                sref-title="//__current_ns:section1/@id">Installation <next_chapter /></link></item>
-  </ulist>
+  <ul class="prev_next">
+    <li><a href="@ll:chapter=Introduction"><previous_chapter /> Introduction</a></li>
+    <li><a href="@ll:chapter=Install">Installation <next_chapter /></a></li>
+  </ul>
 
   <p>Cette section dévoile quelques atouts de Hoa.</p>
 
-  <section2 id="Table_des_matieres" for="menu-toc">
-    <title>Table des matières</title>
+  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
 
-    <tableofcontents id="main-toc" />
-  </section2>
+  <tableofcontents id="main-toc" />
 
-  <section2 id="Trois_principes_fondamentaux" for="main-toc menu-toc">
-    <title>Trois principes fondamentaux</title>
+  <h2 id="Trois_principes_fondamentaux" for="main-toc menu-toc">Trois principes
+  fondamentaux</h2>
 
-    <p>En tout premier lieu, Hoa se définit comme un <strong>ensemble de
-    bibliothèques</strong>. Une bibliothèque est un ensemble de
-    <strong>fonctionnalités</strong> autour d'un sujet ou d'un domaine
-    précis. La philosophie des bibliothèques est de proposer un
-    environnement <strong>propre</strong>, <strong>logique</strong> et
-    <strong>intuitif</strong>, dans lequel l'utilisatrice ou l'utilisateur
-    peut développer <strong>efficacement</strong>,
-    <strong>sereinement</strong> et <strong>rapidement</strong>. En effet, si
-    elles sont bien conçues, les bibliothèques apportent un ensemble de
-    solutions pour résoudre des problèmes de manières efficaces. Si les
-    solutions sont pertinentes, alors le développement sera efficace.
-    Ensuite, si les bibliothèques sont en harmonies entre elles, <ie /> si
-    elles sont génériques, alors on peut travailler sereinement : on sait
-    que modifier un flux par un autre flux ne créera pas de régression dans
-    notre programme car les interfaces sont scrupuleusement les mêmes.
-    Enfin, comme les bibliothèques sont pensées de la même manière, on
-    acquierera des automatismes à l'utilisation et on se surprendra à
-    utiliser des bibliothèques sans presque en avoir lu la documentation.</p>
-    <p>En deuxième lieu, Hoa se veut être un pont entre le monde de la
-    <strong>recherche</strong> et le monde de l'<strong>entreprise</strong>.
-    En effet, la recherche est à la pointe de la découverte, des solutions,
-    des avancées etc., mais elle manque de retour sur ses travaux. <em>A
-    contrario</em>, l'entreprise est en contact avec une multitude
-    d'utilisateurs et a besoin d'innover.  Alors, Hoa essaye d'apporter des
-    solutions venant du milieu de la recherche aux entreprises, ce afin de
-    proposer des <strong>retours à la recherche</strong> et de
-    l'<strong>innovation aux entreprises</strong>. Ces retours s'expriment
-    sous la forme de commentaires, de contraintes ou de besoins. Et les
-    innovations s'expriment sous la forme de solutions efficaces,
-    performantes, une autre façon d'aborder un problème d'une manière plus
-    générique ou plus optimale. Néanmoins, tout cela reste invisible aux
-    deux milieux.  Les utilisateurs, d'où qu'ils proviennent, utiliseront
-    Hoa et pourront profiter de tous ces échanges enrichissants. On souligne
-    que les contributions viennent autant du monde de la recherche que du
-    monde de l'entreprise. C'est ce qui fait <strong>la richesse de
-    Hoa</strong>. Notons que Hoa est utilisé entre autre par la
-    <link href="http://mozilla.org/">fondation Mozilla</link>, par le
-    <link href="http://lifc.univ-fcomte.fr">Laboratoire Informatique de
-    Franche-Comté</link>, ainsi que par
-    l'<link href="http://www.inria.fr">Institut National de Recherche en
-    Informatique et en Automatique</link>.</p>
-    <p>Enfin, en dernier lieu, Hoa est <strong>développé en PHP</strong>. Ce
-    langage est très intéressant. Il apporte une <strong>dynamique</strong>
-    rarement rencontrée dans d'autres langages. Toutefois, en raison de son
-    histoire, il est possible qu'on lui reconnaisse certaines faiblesses et
-    certains manques. Notamment le fait qu'il n'offre pas de réelle bibliothèque
-    standard comme le feraient d'autres langages. Hoa pallie à ce problème en
-    proposant ses bibliothèques. L'objectif étant de <strong>redécouvrir
-    PHP</strong> et de profiter de toute sa puissance. Cette redécouverte de PHP
-    sera d'autant plus forte que les solutions apportées par Hoa sont les plus
-    innovantes possibles. Mais n'oublions pas que Hoa propose un <strong>cadre
-    de développement</strong> ; ainsi vous pourrez développer <strong>vos
-    propres bibliothèques</strong> et vous assurer d'une certaine pérennité et
-    d'une forte intégration dans tous les projets utilisant Hoa.</p>
-  </section2>
+  <p>En tout premier lieu, Hoa se définit comme un <strong>ensemble de
+  bibliothèques</strong>. Une bibliothèque est un ensemble de
+  <strong>fonctionnalités</strong> autour d'un sujet ou d'un domaine précis. La
+  philosophie des bibliothèques est de proposer un environnement
+  <strong>propre</strong>, <strong>logique</strong> et
+  <strong>intuitif</strong>, dans lequel l'utilisatrice ou l'utilisateur peut
+  développer <strong>efficacement</strong>, <strong>sereinement</strong> et
+  <strong>rapidement</strong>. En effet, si elles sont bien conçues, les
+  bibliothèques apportent un ensemble de solutions pour résoudre des problèmes
+  de manières efficaces. Si les solutions sont pertinentes, alors le
+  développement sera efficace.  Ensuite, si les bibliothèques sont en harmonies
+  entre elles, <ie /> si elles sont génériques, alors on peut travailler
+  sereinement : on sait que modifier un flux par un autre flux ne créera pas de
+  régression dans notre programme car les interfaces sont scrupuleusement les
+  mêmes.  Enfin, comme les bibliothèques sont pensées de la même manière, on
+  acquierera des automatismes à l'utilisation et on se surprendra à utiliser des
+  bibliothèques sans presque en avoir lu la documentation.</p>
+  <p>En deuxième lieu, Hoa se veut être un pont entre le monde de la
+  <strong>recherche</strong> et le monde de l'<strong>entreprise</strong>.  En
+  effet, la recherche est à la pointe de la découverte, des solutions, des
+  avancées etc., mais elle manque de retour sur ses travaux. <em>A
+  contrario</em>, l'entreprise est en contact avec une multitude d'utilisateurs
+  et a besoin d'innover.  Alors, Hoa essaye d'apporter des solutions venant du
+  milieu de la recherche aux entreprises, ce afin de proposer des
+  <strong>retours à la recherche</strong> et de l'<strong>innovation aux
+  entreprises</strong>. Ces retours s'expriment sous la forme de commentaires,
+  de contraintes ou de besoins. Et les innovations s'expriment sous la forme de
+  solutions efficaces, performantes, une autre façon d'aborder un problème d'une
+  manière plus générique ou plus optimale. Néanmoins, tout cela reste invisible
+  aux deux milieux.  Les utilisateurs, d'où qu'ils proviennent, utiliseront Hoa
+  et pourront profiter de tous ces échanges enrichissants. On souligne que les
+  contributions viennent autant du monde de la recherche que du monde de
+  l'entreprise. C'est ce qui fait <strong>la richesse de Hoa</strong>. Notons
+  que Hoa est utilisé entre autre par la <a href="http://mozilla.org/">fondation
+  Mozilla</a>, par le <a href="http://lifc.univ-fcomte.fr">Laboratoire
+  Informatique de Franche-Comté</a>, ainsi que par l'<a
+  href="http://www.inria.fr">Institut National de Recherche en Informatique et
+  en Automatique</a>.</p>
+  <p>Enfin, en dernier lieu, Hoa est <strong>développé en PHP</strong>. Ce
+  langage est très intéressant. Il apporte une <strong>dynamique</strong>
+  rarement rencontrée dans d'autres langages. Toutefois, en raison de son
+  histoire, il est possible qu'on lui reconnaisse certaines faiblesses et
+  certains manques. Notamment le fait qu'il n'offre pas de réelle bibliothèque
+  standard comme le feraient d'autres langages. Hoa pallie à ce problème en
+  proposant ses bibliothèques. L'objectif étant de <strong>redécouvrir
+  PHP</strong> et de profiter de toute sa puissance. Cette redécouverte de PHP
+  sera d'autant plus forte que les solutions apportées par Hoa sont les plus
+  innovantes possibles. Mais n'oublions pas que Hoa propose un <strong>cadre de
+  développement</strong> ; ainsi vous pourrez développer <strong>vos propres
+  bibliothèques</strong> et vous assurer d'une certaine pérennité et d'une forte
+  intégration dans tous les projets utilisant Hoa.</p>
 
-  <section2 id="Les_points_forts_de_Hoa" for="main-toc menu-toc">
-    <title>Les points forts de Hoa</title>
+  <h2 id="Les_points_forts_de_Hoa" for="main-toc menu-toc">Les points forts de
+  Hoa</h2>
 
-    <p>Cette section décrit ce que l'on estime être les points forts de
-    Hoa.</p>
+  <p>Cette section décrit ce que l'on estime être les points forts de Hoa.</p>
 
-    <section3 id="Le_noyau" for="main-toc">
-      <title>Le noyau</title>
+  <h3 id="Le_noyau" for="main-toc">Le noyau</h3>
 
-      <p>Le noyau de Hoa est au centre de toutes les bibliothèques, <ie />
-      chaque bibliothèque requiert le noyau pour fonctionner. Ce dernier
-      propose des fonctionnalités vitales pour le bon fonctionnement des
-      bibliothèques et pour assurer une bonne cohésion de leurs
-      fonctionnements.</p>
-      <p>Tout d'abord, le noyau est responsable du pré-chargement et chargement
-      des bibliothèques, selon une taxonomie en famille, <ie /> chaque
-      bibliothèque définit un paquetage qui appartient à une famille. Par
-      exemple, toutes les bibliothèques que Hoa propose appartiennent à la
-      famille <code>Hoa</code>. Ainsi, l'exemple suivant permet d'utiliser
-      un routeur et un dispatcheur :</p>
-      <blockcode language="php">from('Hoa')
+  <p>Le noyau de Hoa est au centre de toutes les bibliothèques, <ie /> chaque
+  bibliothèque requiert le noyau pour fonctionner. Ce dernier propose des
+  fonctionnalités vitales pour le bon fonctionnement des bibliothèques et pour
+  assurer une bonne cohésion de leurs fonctionnements.</p>
+  <p>Tout d'abord, le noyau est responsable du pré-chargement et chargement des
+  bibliothèques, selon une taxonomie en famille, <ie /> chaque bibliothèque
+  définit un paquetage qui appartient à une famille. Par exemple, toutes les
+  bibliothèques que Hoa propose appartiennent à la famille <code>Hoa</code>.
+  Ainsi, l'exemple suivant permet d'utiliser un routeur et un dispatcheur :</p>
+  <pre><code language="php">from('Hoa')
 -> import('Router.Http')
--> import('Dispatcher.Basic');</blockcode>
-      <p>Notons que les fichiers sont pré-chargés, c'est à dire qu'ils sont
-      en attente d'utilisation. Ainsi, tant que la classe
-      <code>Hoa\Router\Http</code> n'est pas utilisée, le fichier ne
-      sera pas chargé. En revanche, si le pré-chargement n'est pas effectué,
-      une erreur sera naturellement levée.</p>
-      <p>Ensuite, le noyau permet le paramétrage des bibliothèques et des
-      classes. Les paramètres peuvent influer sur le comportement qu'aura
-      une bibliothèque. Ils s'expriment sous la forme de tableaux et
-      se définissent avec des mots-clés et des paramètres. Le langage
-      <em>zFormat</em> permet d'exprimer des manipulations sur les
-      paramètres.</p>
-      <p>Le noyau abstrait également tous les chemins de votre programme,
-      grâce au protocole <code>hoa://</code>. Ce protocole porte plusieurs
-      types de données, mais il faut le voir dans la plupart des cas comme
-      une suite de liens symboliques. Par exemple,
-      <code>hoa://Application/Public/</code> sera toujours l'accès au
-      dossier qui contient les données publiques de votre programme. Ce
-      dossier n'est pas forcément dans un dossier <code>Application</code>
-      et ne s'appelle pas forcément <code>Public</code>, mais dans votre
-      programme, vous direz simplement que ce chemin pointe vers tel
-      dossier. Si jamais l'architecture de votre application se voit
-      modifiée, alors vous n'aurez qu'à changer la cible du protocole, mais
-      en aucun cas vous n'aurez à reprendre votre programme et modifier tous
-      les liens. Par défaut, le protocole définit trois racines :</p>
-      <ulist>
-        <item><code>hoa://Application/</code> concerne votre
-        programme ;</item>
-        <item><code>hoa://Data/</code> concerne toutes les données de
-        votre programme ;</item>
-        <item><code>hoa://Library/</code> concerne les bibliothèques de
-        Hoa.</item>
-      </ulist>
-      <p>Par exemple, <code>hoa://Data/Etc/Configuration/</code> contient
-      les configurations de votre programme, tout comme
-      <code>hoa://Data/Variable/Cache/</code> contient les caches, ou
-      <code>hoa://Data/Variable/Database/</code> contient les bases de
-      données ou encore <code>hoa://Data/Bin/</code> qui contient des
-      binaires pour manipuler votre application. Tous ces chemins n'existent
-      pas nécessairement, ce sont une suite de liens symboliques.
-      Naturellement, cela fonctionne en bas-niveau dans l'application :</p>
-      <blockcode language="php">from('Hoa')
+-> import('Dispatcher.Basic');</code></pre>
+  <p>Notons que les fichiers sont pré-chargés, c'est à dire qu'ils sont en
+  attente d'utilisation. Ainsi, tant que la classe <code>Hoa\Router\Http</code>
+  n'est pas utilisée, le fichier ne sera pas chargé. En revanche, si le
+  pré-chargement n'est pas effectué, une erreur sera naturellement levée.</p>
+  <p>Ensuite, le noyau permet le paramétrage des bibliothèques et des classes.
+  Les paramètres peuvent influer sur le comportement qu'aura une bibliothèque.
+  Ils s'expriment sous la forme de tableaux et se définissent avec des mots-clés
+  et des paramètres. Le langage <em>zFormat</em> permet d'exprimer des
+  manipulations sur les paramètres.</p>
+  <p>Le noyau abstrait également tous les chemins de votre programme, grâce au
+  protocole <code>hoa://</code>. Ce protocole porte plusieurs types de données,
+  mais il faut le voir dans la plupart des cas comme une suite de liens
+  symboliques. Par exemple, <code>hoa://Application/Public/</code> sera toujours
+  l'accès au dossier qui contient les données publiques de votre programme. Ce
+  dossier n'est pas forcément dans un dossier <code>Application</code> et ne
+  s'appelle pas forcément <code>Public</code>, mais dans votre programme, vous
+  direz simplement que ce chemin pointe vers tel dossier. Si jamais
+  l'architecture de votre application se voit modifiée, alors vous n'aurez qu'à
+  changer la cible du protocole, mais en aucun cas vous n'aurez à reprendre
+  votre programme et modifier tous les liens. Par défaut, le protocole définit
+  trois racines :</p>
+  <ul>
+    <li><code>hoa://Application/</code> concerne votre programme ;</li>
+    <li><code>hoa://Data/</code> concerne toutes les données de votre
+    programme ;</li>
+    <li><code>hoa://Library/</code> concerne les bibliothèques de Hoa.</li>
+  </ul>
+  <p>Par exemple, <code>hoa://Data/Etc/Configuration/</code> contient les
+  configurations de votre programme, tout comme
+  <code>hoa://Data/Variable/Cache/</code> contient les caches, ou
+  <code>hoa://Data/Variable/Database/</code> contient les bases de données ou
+  encore <code>hoa://Data/Bin/</code> qui contient des binaires pour manipuler
+  votre application. Tous ces chemins n'existent pas nécessairement, ce sont une
+  suite de liens symboliques.  Naturellement, cela fonctionne en bas-niveau dans
+  l'application :</p>
+  <pre><code language="php">from('Hoa')
 -> import('File.Read');
 
 $file = new Hoa\File\Read('hoa://Data/Temporary/Foo.txt');
-echo $file->readAll();</blockcode>
-      <p>Ou encore plus bas-niveau :</p>
-      <blockcode language="php">require 'hoa://Data/Etc/Configuration/.Cache/HoaTest.php';</blockcode>
-      <p>Il est bien évidemment possible, grâce au noyau, de créer vos
-      propres liens sur le protocole.</p>
-      <p>Le noyau propose également un système d'événements natif à PHP. Il
-      est parfois très pratique d'utiliser ce paradigme. Cela permet une
-      grande souplesse dans la façon dont les composants de notre programme
-      peuvent communiquer entre eux. Ainsi, l'exemple suivant permet
-      d'afficher tous les événements provenant des tests lorsqu'ils sont
-      exécutés :</p>
-      <blockcode language="php">event('hoa://Event/Log/Test/Praspel')
+echo $file->readAll();</code></pre>
+  <p>Ou encore plus bas-niveau :</p>
+  <pre><code language="php">require 'hoa://Data/Etc/Configuration/.Cache/HoaTest.php';</code></pre>
+  <p>Il est bien évidemment possible, grâce au noyau, de créer vos propres liens
+  sur le protocole.</p>
+  <p>Le noyau propose également un système d'événements natif à PHP. Il est
+  parfois très pratique d'utiliser ce paradigme. Cela permet une grande
+  souplesse dans la façon dont les composants de notre programme peuvent
+  communiquer entre eux. Ainsi, l'exemple suivant permet d'afficher tous les
+  événements provenant des tests lorsqu'ils sont exécutés :</p>
+  <pre><code language="php">event('hoa://Event/Log/Test/Praspel')
     ->attach(function ( Hoa\Core\Event\Bucket $event ) {
 
         print_r($event->getData());
-    });</blockcode>
-    <p>Nous venons de parcourir les fonctionnalités principales fournies par le
-    noyau.</p>
-    </section3>
+    });</code></pre>
+  <p>Nous venons de parcourir les fonctionnalités principales fournies par le
+  noyau.</p>
 
-    <section3 id="Les_flux" for="main-toc">
-      <title>Les flux</title>
+  <h3 id="Les_flux" for="main-toc">Les flux</h3>
 
-      <p>La majorité des langages destinés aux entreprises manipulent des
-      flux. PHP, de part sa position de langage glu, est au centre de
-      plusieurs technologies et doit donc gérer au mieux les flux.</p>
-      <p>Dans Hoa, il existe un mécanisme de gestion de flux très poussé.
-      Ainsi, les fichiers, les sockets, certaines chaînes de caractères, le
-      terminal etc., sont des flux. Plusieurs catégories de flux existent :
-      comme les flux primitifs, les flux composites, les flux structurels,
-      les flux d'entrées, de sorties, tampons, verrouillables etc.</p>
-      <p>Prenons l'interface <code>Hoa\Stream\IStream\In</code> qui permet
-      de manipuler des flux en entrée (soit en lecture), on trouvera alors
-      des méthodes comme <code>read</code>, <code>readInteger</code>,
-      <code>readFloat</code>, <code>readCharacter</code>,
-      <code>readString</code>, <code>readArray</code> etc. On trouvera
-      toutes les méthodes inverses sur l'interface
-      <code>Hoa\Stream\IStream\Out</code> pour les flux de sorties (soit
-      d'écriture), tel que : <code>write</code>, <code>writeInteger</code>
-      etc. Mais on trouve également l'interface
-      <code>Hoa\Stream\IStream\Structural</code> pour caractériser des flux
-      dits structurels, comme des arbres, tels que XML, YAML, JSON etc. On
-      y trouvera alors les méthodes <code>selectElements</code>,
-      <code>selectDescendantElements</code>,
-      <code>selectChildElements</code>,
-      <code>selectAdjacentSiblingElement</code>, <code>querySelector</code>
-      etc.</p>
-      <p>Les flux composites sont quant à eux des flux qui contiennent des
-      flux. Il est naturel de comprendre qu'un flux XML ne travaille pas
-      forcément sur un fichier mais peut travailler sur une socket. Ici, les
-      flux primitifs sont les fichiers et les sockets, et le flux composite
-      est le flux XML, qui permet d'interpréter le contenu des flux
-      primitifs comme étant du XML. Cela implique que si on modifie le flux
-      primitif, tout le traitement effectué sur notre fichier XML restera
-      inchangé. Encore mieux : le flux JSON, <em>a l'instar</em> du flux
-      XML, est composite mais également structurel (en effet, autant XML que
-      JSON définissent des arbres). Si un traitement est fait sur un fichier
-      qui n'est plus du XML mais du JSON, on modifie simplement la classe
-      utilisée pour lire notre flux primitif, mais les opérations de
-      traitements qui suivent ne seront pas modifiées. Tout cela grâce aux
-      nombreuses interfaces que proposent les flux. Ainsi, l'exemple suivant
-      va sélectionner des éléments et lire leur contenu :</p>
-      <blockcode language="php">from('Hoa')
+  <p>La majorité des langages destinés aux entreprises manipulent des flux. PHP,
+  de part sa position de langage glu, est au centre de plusieurs technologies et
+  doit donc gérer au mieux les flux.</p>
+  <p>Dans Hoa, il existe un mécanisme de gestion de flux très poussé.  Ainsi,
+  les fichiers, les sockets, certaines chaînes de caractères, le terminal etc.,
+  sont des flux. Plusieurs catégories de flux existent : comme les flux
+  primitifs, les flux composites, les flux structurels, les flux d'entrées, de
+  sorties, tampons, verrouillables etc.</p>
+  <p>Prenons l'interface <code>Hoa\Stream\IStream\In</code> qui permet de
+  manipuler des flux en entrée (soit en lecture), on trouvera alors des méthodes
+  comme <code>read</code>, <code>readInteger</code>, <code>readFloat</code>,
+  <code>readCharacter</code>, <code>readString</code>, <code>readArray</code>
+  etc. On trouvera toutes les méthodes inverses sur l'interface
+  <code>Hoa\Stream\IStream\Out</code> pour les flux de sorties (soit
+  d'écriture), tel que : <code>write</code>, <code>writeInteger</code> etc. Mais
+  on trouve également l'interface <code>Hoa\Stream\IStream\Structural</code>
+  pour caractériser des flux dits structurels, comme des arbres, tels que XML,
+  YAML, JSON etc. On y trouvera alors les méthodes <code>selectElements</code>,
+  <code>selectDescendantElements</code>, <code>selectChildElements</code>,
+  <code>selectAdjacentSiblingElement</code>, <code>querySelector</code> etc.</p>
+  <p>Les flux composites sont quant à eux des flux qui contiennent des flux. Il
+  est naturel de comprendre qu'un flux XML ne travaille pas forcément sur un
+  fichier mais peut travailler sur une socket. Ici, les flux primitifs sont les
+  fichiers et les sockets, et le flux composite est le flux XML, qui permet
+  d'interpréter le contenu des flux primitifs comme étant du XML. Cela implique
+  que si on modifie le flux primitif, tout le tralient effectué sur notre
+  fichier XML restera inchangé. Encore mieux : le flux JSON, <em>a l'instar</em>
+  du flux XML, est composite mais également structurel (en effet, autant XML que
+  JSON définissent des arbres). Si un tralient est fait sur un fichier qui n'est
+  plus du XML mais du JSON, on modifie simplement la classe utilisée pour lire
+  notre flux primitif, mais les opérations de tralients qui suivent ne seront
+  pas modifiées. Tout cela grâce aux nombreuses interfaces que proposent les
+  flux. Ainsi, l'exemple suivant va sélectionner des éléments et lire leur
+  contenu :</p>
+  <pre><code language="php">from('Hoa')
 -> import('File.Read')
 -> import('Xml.Read');
 
@@ -221,163 +194,139 @@ $xml = new Hoa\Xml\Read(
 );
 
 foreach($xml->querySelectorAll('foo > bar[attr^="ibute"]') as $element)
-    echo $element->readAll() . "\n";</blockcode>
-    </section3>
+    echo $element->readAll() . "\n";</code></pre>
 
-    <section3 id="La_securite_et_la_surete" for="main-toc">
-      <title>La sécurité et la sûreté</title>
+  <h3 id="La_securite_et_la_surete" for="main-toc">La sécurité et la sûreté</h3>
 
-      <p>La sécurité et la sûreté du logiciel est une discipline
-      Informatique à part entière. Cela consiste à s'assurer que rien de
-      malveillant n'arrivera et que ce qui doit arriver arrivera, ou plus
-      trivialement : notre programme fera tout ce qu'on a prévu, ni plus, ni
-      moins, et dans de bonnes conditions.</p>
-      <p>Pour cela, il existe plusieurs approches, non mutuellement
-      exclusives. L'une d'entre elle est le test. Des travaux de recherche
-      ont été menés au sein même de Hoa afin de créer un générateur
-      automatique de tests unitaires. Cela a donné lieu à la création d'un
-      langage d'annotation et de spécification : <em>Praspel</em>. Ce
-      langage est conçu pour exprimer des contraintes sur un algorithme et
-      y effectuer plusieurs tests, de différents types, de différentes
-      natures, à travers différents procédés. Ce langage constitue la base
-      de notre générateur automatique de tests unitaires. Un rapport de
-      recherche ainsi que des articles ont été publiés autour de ce sujet.
-      Des conférences ont également été données.</p>
-      <p>Enfin, la sécurité, dans son sens le plus répandu, existe
-      bel et bien dans Hoa. Toutes les données utilisateurs sont protégées
-      et vérifiées au maximum. Notons que Hoa, dans sa conception, est basé
-      sur une forme de discrétion, ce qui est une forme de sécurité. En
-      effet, de part son protocole <code>hoa://</code> qui masque tous les
-      chemins, si jamais des erreurs apparaissent à l'utilisatrice ou
-      l'utilisateur, aucune information ne pourra en être extraite. C'est un
-      exemple certes, mais un parmi beaucoup.</p>
-    </section3>
+  <p>La sécurité et la sûreté du logiciel est une discipline Informatique à part
+  entière. Cela consiste à s'assurer que rien de malveillant n'arrivera et que
+  ce qui doit arriver arrivera, ou plus trivialement : notre programme fera tout
+  ce qu'on a prévu, ni plus, ni moins, et dans de bonnes conditions.</p>
+  <p>Pour cela, il existe plusieurs approches, non mutuellement exclusives.
+  L'une d'entre elle est le test. Des travaux de recherche ont été menés au sein
+  même de Hoa afin de créer un générateur automatique de tests unitaires. Cela a
+  donné lieu à la création d'un langage d'annotation et de spécification :
+  <em>Praspel</em>. Ce langage est conçu pour exprimer des contraintes sur un
+  algorithme et y effectuer plusieurs tests, de différents types, de différentes
+  natures, à travers différents procédés. Ce langage constitue la base de notre
+  générateur automatique de tests unitaires. Un rapport de recherche ainsi que
+  des articles ont été publiés autour de ce sujet.  Des conférences ont
+  également été données.</p>
+  <p>Enfin, la sécurité, dans son sens le plus répandu, existe bel et bien dans
+  Hoa. Toutes les données utilisateurs sont protégées et vérifiées au maximum.
+  Notons que Hoa, dans sa conception, est basé sur une forme de discrétion, ce
+  qui est une forme de sécurité. En effet, de part son protocole
+  <code>hoa://</code> qui masque tous les chemins, si jamais des erreurs
+  apparaissent à l'utilisatrice ou l'utilisateur, aucune information ne pourra
+  en être extraite. C'est un exemple certes, mais un parmi beaucoup.</p>
 
-    <section3 id="La_modularite" for="main-toc">
-      <title>La modularité</title>
+  <h3 id="La_modularite" for="main-toc">La modularité</h3>
 
-      <p>Hoa est conçu pour proposer un environnement propre de
-      développement. Cela implique que vous pouvez vous-même développer au
-      sein de Hoa, à travers le mécanisme de modularité appelé
-      <em>Hoathis</em>. Ce mécanisme permet d'étendre ou d'ajouter des
-      fonctionnalités aux bibliothèques standards que propose Hoa. Vous
-      pouvez ainsi les utiliser soit dans un programme (en les déclarant
-      au même niveau que votre programme), soit dans tous vos programmes (en
-      les déclarant au même niveau que les bibliothèques standards).</p>
-      <p>De part la conception de Hoa, l'utilisation de vos bibliothèques se
-      fera de la même manière que pour les bibliothèques standards.
-      Ainsi :</p>
-      <blockcode language="php">from('Hoathis')
+  <p>Hoa est conçu pour proposer un environnement propre de développement. Cela
+  implique que vous pouvez vous-même développer au sein de Hoa, à travers le
+  mécanisme de modularité appelé <em>Hoathis</em>. Ce mécanisme permet d'étendre
+  ou d'ajouter des fonctionnalités aux bibliothèques standards que propose Hoa.
+  Vous pouvez ainsi les utiliser soit dans un programme (en les déclarant au
+  même niveau que votre programme), soit dans tous vos programmes (en les
+  déclarant au même niveau que les bibliothèques standards).</p>
+  <p>De part la conception de Hoa, l'utilisation de vos bibliothèques se fera de
+  la même manière que pour les bibliothèques standards.  Ainsi :</p>
+  <pre><code language="php">from('Hoathis')
 -> import('Test.Report.Xformat');
 
 event('hoa://Event/Log/Test/Praspel')->attach(
     new Hoathis\Test\Report\Xformat()
-);</blockcode>
-      <p>On comprend que si le flux de rapports de tests utilise les interfaces
-      de flux, alors il s'intégrera sans problème au reste de Hoa.</p>
-    </section3>
+);</code></pre>
+  <p>On comprend que si le flux de rapports de tests utilise les interfaces de
+  flux, alors il s'intégrera sans problème au reste de Hoa.</p>
 
-    <section3 id="L-interface_graphique" for="main-toc">
-      <title>L'interface graphique</title>
+  <h3 id="L-interface_graphique" for="main-toc">L'interface graphique</h3>
 
-      <p>Un des problèmes majeurs lors de la création d'un programme est
-      l'interface graphique. Il existe une multitude de bibliothèques,
-      principalement pour <em>micro-templating</em>, mais aucune ne répond
-      vraiment aux besoins. Ces besoins sont : dynamicité, modularité et
-      extensibilité. Hoa propose un langage d'interface graphique sous forme
-      XML qui répond à de très nombreux besoins : <em>XYL</em>.</p>
-      <p><em>XYL</em> est un langage d'interface graphique multi-plateforme
-      et multi-sortie, <ie /> vous écrivez votre interface graphique une
-      seule fois et vous demandez une interprétation particulière : vers un
-      navigateur Web de bureau ou de mobile, vers une application native
-      bureau ou mobile, vers une tablette, vers un terminal, vers un fichier
-      PDF, vers un fichier XML, JSON etc. Quand on parle de
-      multi-plateforme, ça sous entend plusieurs systèmes, avec les
-      particularités de chacun.</p>
-      <p><em>XYL</em> propose un système de <em>yielding</em> qui permet de
-      fixer des données dans l'interface graphique de manière dynamique et
-      qui permet de créer des composants graphiques.</p>
-      <blockcode language="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;?xyl-stylesheet href="hoa://Library/Xyl/Css/Core.css"?&gt;
-&lt;?xyl-use href="Comments.xyl"?&gt;
+  <p>Un des problèmes majeurs lors de la création d'un programme est l'interface
+  graphique. Il existe une multitude de bibliothèques, principalement pour
+  <em>micro-templating</em>, mais aucune ne répond vraiment aux besoins. Ces
+  besoins sont : dynamicité, modularité et extensibilité. Hoa propose un langage
+  d'interface graphique sous forme XML qui répond à de très nombreux besoins :
+  <em>XYL</em>.</p>
+  <p><em>XYL</em> est un langage d'interface graphique multi-plateforme et
+  multi-sortie, <ie /> vous écrivez votre interface graphique une seule fois et
+  vous demandez une interprétation particulière : vers un navigateur Web de
+  bureau ou de mobile, vers une application native bureau ou mobile, vers une
+  tablette, vers un terminal, vers un fichier PDF, vers un fichier XML, JSON
+  etc. Quand on parle de multi-plateforme, ça sous entend plusieurs systèmes,
+  avec les particularités de chacun.</p>
+  <p><em>XYL</em> propose un système de <em>yielding</em> qui permet de fixer
+  des données dans l'interface graphique de manière dynamique et qui permet de
+  créer des composants graphiques.</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+&amp;lt;?xyl-stylesheet href="hoa://Library/Xyl/Css/Core.css"?>
+&amp;lt;?xyl-use href="Comments.xyl"?>
 
-&lt;document xmlns="http://hoa-project.net/xyl/xylophone"&gt;
-  &lt;title&gt;Exemple&lt;/title&gt;
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>Exemple&amp;lt;/title>
 
-  &lt;section1&gt;
-    &lt;title&gt;Commentaires&lt;/title&gt;
+  &amp;lt;h1>Commentaires&amp;lt;/h1>
 
-    &lt;comments bind="?data/to/comments" /&gt;
-  &lt;/section1&gt;
-&lt;/document&gt;</blockcode>
-      <p>et notre fichier <code>Comments.xyl</code> :</p>
-      <blockcode language="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+  &amp;lt;comments bind="?data/to/comments" />
+&amp;lt;/document></code></pre>
+  <p>et notre fichier <code>Comments.xyl</code> :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
-&lt;definition xmlns="http://hoa-project.net/xyl/xylophone"&gt;
-  &lt;yield name="comments"&gt;
-    &lt;box bind="comment"&gt;
-      &lt;image href="?avatar" /&gt;
-      &lt;p&gt;&lt;value bind="?pseudo" /&gt; dit :&lt;/p&gt;
-      &lt;blockquote bind="?message" /&gt;
-    &lt;/box&gt;
-    &lt;hseparator /&gt;
-  &lt;/yield&gt;
-&lt;/definition&gt;</blockcode>
-      <p>Mais <em>XYL</em> propose également un système d'<em>overlay</em>,
-      <ie /> la capacité d'ajouter une partie d'une interface graphique dans
-      une interface déjà existante. Ce qui est très pratique pour ajouter
-      des modules sur un site de commerce par exemple.</p>
-      <p><em>XYL</em> est un langage prometteur, assez différent de ce qui se
-      fait actuellement, mais qui a un avenir certain.</p>
-    </section3>
+&amp;lt;definition xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;yield name="comments">
+    &amp;lt;div bind="comment">
+      &amp;lt;img src="?avatar" />
+      &amp;lt;p>&amp;lt;value bind="?pseudo" /> dit :&amp;lt;/p>
+      &amp;lt;blockquote bind="?message" />
+    &amp;lt;/div>
+    &amp;lt;hr />
+  &amp;lt;/yield>
+&amp;lt;/definition></code></pre>
+  <p>Mais <em>XYL</em> propose également un système d'<em>overlay</em>, <ie />
+  la capacité d'ajouter une partie d'une interface graphique dans une interface
+  déjà existante. Ce qui est très pratique pour ajouter des modules sur un site
+  de commerce par exemple.</p>
+  <p><em>XYL</em> est un langage prometteur, assez différent de ce qui se fait
+  actuellement, mais qui a un avenir certain.</p>
 
-    <section3 id="Le_respect_des_standards" for="main-toc">
-      <title>Le respect des standards</title>
+  <h3 id="Le_respect_des_standards" for="main-toc">Le respect des standards</h3>
 
-      <p>Hoa insiste énormément sur le respect des standards. En effet, les
-      standards assurent une <strong>homogénéité</strong>, une
-      <strong>interopérabilité</strong> et une <strong>pérennité</strong>.
-      Des standards écrits par le <link href="http://w3.org">W3C</link> ne
-      peuvent par exemple pas être ignorés. De même pour les RFC écrites par
-      l'<link href="http://ietf.org/">IETF</link>, les normes
-      <link href="http://iso.org/">ISO</link> ou encore les normes
-      <link href="http://ieee.org/">IEEE</link> telle que la norme
-      POSIX.</p>
-      <p>Les normes ne manquent pas mais sont vitales. Leur respect est
-      parfois difficile et compliqué. C'est pourquoi Hoa propose des
-      bibliothèques respectueuses de ces standards. Ainsi, vous n'aurez pas
-      à vous soucier de la syntaxe ou de la sémantique des données
-      manipulées ou produites, vous êtes assurés quelles seront
-      compréhensibles et exploitables par d'autres programmes.</p>
-    </section3>
-  </section2>
+  <p>Hoa insiste énormément sur le respect des standards. En effet, les
+  standards assurent une <strong>homogénéité</strong>, une
+  <strong>interopérabilité</strong> et une <strong>pérennité</strong>.
+  Des standards écrits par le <a href="http://w3.org">W3C</a> ne
+  peuvent par exemple pas être ignorés. De même pour les RFC écrites par
+  l'<a href="http://ietf.org/">IETF</a>, les normes
+  <a href="http://iso.org/">ISO</a> ou encore les normes
+  <a href="http://ieee.org/">IEEE</a> telle que la norme
+  POSIX.</p>
+  <p>Les normes ne manquent pas mais sont vitales. Leur respect est parfois
+  difficile et compliqué. C'est pourquoi Hoa propose des bibliothèques
+  respectueuses de ces standards. Ainsi, vous n'aurez pas à vous soucier de la
+  syntaxe ou de la sémantique des données manipulées ou produites, vous êtes
+  assurés quelles seront compréhensibles et exploitables par d'autres
+  programmes.</p>
 
-  <section2 id="Ensemble_de_bibliotheques_ou_framework" for="main-toc menu-toc">
-    <title>Ensemble de bibliothèques ou framework ?</title>
+  <h2 id="Ensemble_de_bibliotheques_ou_framework" for="main-toc menu-toc">Ensemble
+  de bibliothèques ou framework ?</h2>
 
-    <p>Avoir un ensemble de bibliothèques est pratique et utile pour
-    développer ses propres outils, voire ses propres bibliothèques. En
-    revanche, certaines contraintes rencontrées au quotidien nous obligent à
-    travailler vite, ce qui implique d'avoir des processus automatisés.
-    C'est en cela que les frameworks sont un atout de poids : ils
-    automatisent des tâches.</p>
-    <p>Hoa est avant tout un ensemble de bibliothèques. Néanmoins, il est
-    également proposé un aspect framework, comme une preuve du concept de la
-    modularité des bibliothèques. C'est pourquoi, en ajoutant quelques outils,
-    vous pouvez ajouter à Hoa un aspect framework et donc automatisé.</p>
-    <p>La découverte de ses outils se fera au fur et à mesure de la
-    documentation.</p>
-  </section2>
-</section1>
+  <p>Avoir un ensemble de bibliothèques est pratique et utile pour développer
+  ses propres outils, voire ses propres bibliothèques. En revanche, certaines
+  contraintes rencontrées au quotidien nous obligent à travailler vite, ce qui
+  implique d'avoir des processus automatisés.  C'est en cela que les frameworks
+  sont un atout de poids : ils automatisent des tâches.</p>
+  <p>Hoa est avant tout un ensemble de bibliothèques. Néanmoins, il est
+  également proposé un aspect framework, comme une preuve du concept de la
+  modularité des bibliothèques. C'est pourquoi, en ajoutant quelques outils,
+  vous pouvez ajouter à Hoa un aspect framework et donc automatisé.</p>
+  <p>La découverte de ses outils se fera au fur et à mesure de la
+  documentation.</p>
 
-<ulist class="prev_next">
-  <item><link href="@ll:chapter=(!title)"
-              sref="hoa://Application/External/Literature/Learn/Introduction.xyl"
-              sref-title="//__current_ns:section1/@id"><previous_chapter /> Introduction</link></item>
-  <item><link href="@ll:chapter=(!title)"
-              sref="hoa://Application/External/Literature/Learn/Install.xyl"
-              sref-title="//__current_ns:section1/@id">Installation <next_chapter /></link></item>
-</ulist>
+  <ul class="prev_next">
+    <li><a href="@ll:chapter=Introduction"><previous_chapter />
+        Introduction</a></li>
+    <li><a href="@ll:chapter=Install">Installation <next_chapter /></a></li>
+  </ul>
 
 </yield>
 </definition>

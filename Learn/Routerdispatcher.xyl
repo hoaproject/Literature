@@ -4,17 +4,14 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
-<section1 id="Routerdispatcher">
-  <title>Manuel d'apprentissage<title_break />Router + Dispatcher = ♥</title>
+  <h1 id="Routerdispatcher">Manuel d'apprentissage<title_break />Router +
+  Dispatcher = ♥</h1>
 
-  <ulist class="prev_next">
-    <item><link href="@ll:chapter=(!title)"
-                sref="hoa://Application/External/Literature/Learn/Framework.xyl"
-                sref-title="//__current_ns:section1/@id"><previous_chapter /> Aspect framework</link></item>
-    <item><link href="@ll:chapter=(!title)"
-                sref="hoa://Application/External/Literature/Learn/Model.xyl"
-                sref-title="//__current_ns:section1/@id">Modèle de données <next_chapter /></link></item>
-  </ulist>
+  <ul class="prev_next">
+    <li><a href="@ll:chapter=Framework"><previous_chapter /> Aspect
+       framework</a></li>
+    <li><a href="@ll:chapter=Model">Modèle de données <next_chapter /></a></li>
+  </ul>
 
   <p>Un aspect aussi nécessaire qu'important est l'<strong>assignation des
   tâches</strong> en fonction des requêtes effectuées sur l'application. Dans ce
@@ -22,85 +19,76 @@
   <code>Hoa\Router</code> et <code>Hoa\Dispatcher</code> afin de construire
   notre première application.</p>
 
-  <section2 id="Table_des_matieres" for="menu-toc">
-    <title>Table des matières</title>
+  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
 
-    <tableofcontents id="main-toc" />
-  </section2>
+  <tableofcontents id="main-toc" />
 
-  <section2 id="Introduction" for="main-toc menu-toc">
-    <title>Introduction</title>
+  <h2 id="Introduction" for="main-toc menu-toc">Introduction</h2>
 
-    <p>Maintenant que nous connaissons un peu le fonctionnement de Hoa et que
-    nous avons fait connaissance avec quelques aspects framework, nous allons
-    entamer notre <strong>première application</strong>.</p>
-    <p>Nous allons tout d'abord commencer par un peu d'histoire pour bien
-    comprendre comment fonctionne une application Web. Par la suite, nous
-    donnerons un aperçu du fonctionnement, qui se résumera à écrire et tester
-    quelques règles. Puis nous expliquerons le fonctionnement du routeur et du
-    dispatcheur utilisés dans l'aperçu. Et enfin, nous commencerons un blog.</p>
-  </section2>
+  <p>Maintenant que nous connaissons un peu le fonctionnement de Hoa et que nous
+  avons fait connaissance avec quelques aspects framework, nous allons entamer
+  notre <strong>première application</strong>.</p>
+  <p>Nous allons tout d'abord commencer par un peu d'histoire pour bien
+  comprendre comment fonctionne une application Web. Par la suite, nous
+  donnerons un aperçu du fonctionnement, qui se résumera à écrire et tester
+  quelques règles. Puis nous expliquerons le fonctionnement du routeur et du
+  dispatcheur utilisés dans l'aperçu. Et enfin, nous commencerons un blog.</p>
 
-  <section2 id="Un_peu_d-histoire" for="main-toc menu-toc">
-    <title>Un peu d'histoire</title>
+  <h2 id="Un_peu_d-histoire" for="main-toc menu-toc">Un peu d'histoire</h2>
 
-    <p>Contrairement à des applications de bureaux, les applications Web ne
-    restent pas en exécution durant toute leur utilisation (même s'il existe
-    quelques exceptions, nous préfèrons rester dans les généralités). PHP ne
-    déroge pas à la règle. En effet, quand nous effectuons une demande auprès de
-    l'application (par exemple : « je veux telle page »), PHP reçoit la demande,
-    exécute la tâche associée à la demande, fournit une réponse et s'arrête.
-    Ceci est le fonctionnement schématique type de PHP.</p>
-    <p>Nous ne parlons pas réellement de demande mais plutôt de
-    <strong>requête</strong>. La majorité des requêtes sur le Web sont exprimées
-    sous le format <strong>HTTP</strong> (pour <em>HyperText Transfer
-    Protocol</em>). Seulement trois versions d'HTTP ont été écrites :
-    <link href="http://tools.ietf.org/html/rfc1945">RFC1945</link> pour
-    HTTP1.0, <link href="http://tools.ietf.org/html/rfc2068">RFC2068</link>
-    pour HTTP1.1 et
-    <link href="http://tools.ietf.org/html/rfc2616">RFC2616</link> pour la
-    version finale d'HTTP1.1, que nous utilisons actuellement partout. La
-    personne qui émet une requête est un <strong>client</strong> (souvent un
-    navigateur Web). Cette requête est envoyée à un <strong>serveur</strong>,
-    qui connait votre application. Si nous entrons un peu plus dans le détail,
-    côté serveur, un programme filtre la réception des requêtes. Dans le cas
-    d'HTTP, nous appellons ce programme un <strong>serveur HTTP</strong>. Quand
-    ce serveur HTTP reçoit une requête, il regarde quel programme est
-    susceptible d'être concerné par cette requête et lui redirige la requête en
-    attendant sa réponse, qu'il renverra alors au client.</p>
-    <p>Un protocole standard a été défini pour faciliter la communication entre
-    le serveur HTTP et le programme qui va réceptionner la requête. Nous
-    appellons ce protocole : <strong>CGI</strong> (pour <em>Common Interface
-    Gateway</em>), définie par la <link
-    href="http://tools.ietf.org/html/rfc3875">RFC3875</link>. Toutefois, ce
-    protocole n'était plus suffisant pour répondre aux nombres grandissants de
-    requêtes sur les serveurs. C'est pourquoi, <link
-    href="http://fastcgi.com/">FastCGI</link> (pour <em>Fast Common Gateway
-    Interface</em>) a été créé.</p>
-    <p>PHP fonctionne derrière FastCGI pour recevoir les communications du
-    serveur HTTP. La requête HTTP reçue fournit toutes les informations
-    nécessaires pour que PHP exécute une tâche sans problème.</p> <p>Une requête
-    HTTP est principalement caractérisée par une <strong>méthode</strong>. Nous
-    en dénombrons huit au total : <code>CONNECT</code>, <code>DELETE</code>,
-    <code>GET</code>, <code>HEAD</code>, <code>OPTIONS</code>,
-    <code>POST</code>, <code>PUT</code> et <code>TRACE</code>. Nous sommes
-    capable bien sûr d'ajouter nos propres méthodes mais l'objectif ici n'est
-    pas de faire un cours sur HTTP. À chaque méthode est associée une
-    <strong>URI</strong> (pour <em>Uniform Resource Identifier</em>),
-    standardisée par la
-    <link href="http://tools.ietf.org/html/rfc3986">RFC3986</link>. Ainsi,
-    l'exemple suivant est une requête qui exprime « je souhaite obtenir la
-    ressource <code>/path/to/resource</code> » :</p>
-    <blockcode>GET /path/to/resource</blockcode>
-  </section2>
+  <p>Contrairement à des applications de bureaux, les applications Web ne
+  restent pas en exécution durant toute leur utilisation (même s'il existe
+  quelques exceptions, nous préfèrons rester dans les généralités). PHP ne
+  déroge pas à la règle. En effet, quand nous effectuons une demande auprès de
+  l'application (par exemple : « je veux telle page »), PHP reçoit la demande,
+  exécute la tâche associée à la demande, fournit une réponse et s'arrête.  Ceci
+  est le fonctionnement schématique type de PHP.</p>
+  <p>Nous ne parlons pas réellement de demande mais plutôt de
+  <strong>requête</strong>. La majorité des requêtes sur le Web sont exprimées
+  sous le format <strong>HTTP</strong> (pour <em>HyperText Transfer
+  Protocol</em>). Seulement trois versions d'HTTP ont été écrites : <a
+  href="http://tools.ietf.org/html/rfc1945">RFC1945</a> pour HTTP1.0, <a
+  href="http://tools.ietf.org/html/rfc2068">RFC2068</a> pour HTTP1.1 et <a
+  href="http://tools.ietf.org/html/rfc2616">RFC2616</a> pour la version finale
+  d'HTTP1.1, que nous utilisons actuellement partout. La personne qui émet une
+  requête est un <strong>client</strong> (souvent un navigateur Web). Cette
+  requête est envoyée à un <strong>serveur</strong>, qui connait votre
+  application. Si nous entrons un peu plus dans le détail, côté serveur, un
+  programme filtre la réception des requêtes. Dans le cas d'HTTP, nous appellons
+  ce programme un <strong>serveur HTTP</strong>. Quand ce serveur HTTP reçoit
+  une requête, il regarde quel programme est susceptible d'être concerné par
+  cette requête et lui redirige la requête en attendant sa réponse, qu'il
+  renverra alors au client.</p>
+  <p>Un protocole standard a été défini pour faciliter la communication entre le
+  serveur HTTP et le programme qui va réceptionner la requête. Nous appellons ce
+  protocole : <strong>CGI</strong> (pour <em>Common Interface Gateway</em>),
+  définie par la <a href="http://tools.ietf.org/html/rfc3875">RFC3875</a>.
+  Toutefois, ce protocole n'était plus suffisant pour répondre aux nombres
+  grandissants de requêtes sur les serveurs. C'est pourquoi, <a
+  href="http://fastcgi.com/">FastCGI</a> (pour <em>Fast Common Gateway
+  Interface</em>) a été créé.</p>
+  <p>PHP fonctionne derrière FastCGI pour recevoir les communications du serveur
+  HTTP. La requête HTTP reçue fournit toutes les informations nécessaires pour
+  que PHP exécute une tâche sans problème.</p>
+  <p>Une requête HTTP est principalement caractérisée par une
+  <strong>méthode</strong>. Nous en dénombrons huit au total :
+  <code>CONNECT</code>, <code>DELETE</code>, <code>GET</code>,
+  <code>HEAD</code>, <code>OPTIONS</code>, <code>POST</code>, <code>PUT</code>
+  et <code>TRACE</code>. Nous sommes capable bien sûr d'ajouter nos propres
+  méthodes mais l'objectif ici n'est pas de faire un cours sur HTTP.  À chaque
+  méthode est associée une <strong>URI</strong> (pour <em>Uniform Resource
+  Identifier</em>), standardisée par la <a
+  href="http://tools.ietf.org/html/rfc3986">RFC3986</a>. Ainsi, l'exemple
+  suivant est une requête qui exprime « je souhaite obtenir la ressource
+  <code>/path/to/resource</code> » :</p>
+  <pre><code>GET /path/to/resource</code></pre>
 
-  <section2 id="Apercu" for="main-toc menu-toc">
-    <title>Aperçu</title>
+  <h2 id="Apercu" for="main-toc menu-toc">Aperçu</h2>
 
-    <p>Un aperçu est ici utile pour faire quelques essais avant de détailler le
-    fonctionnement. Nous écrivons l'exemple suivant dans le fichier
-    <code>Application/Public/index.php</code> :</p>
-    <blockcode language="php">from('Hoa')
+  <p>Un aperçu est ici utile pour faire quelques essais avant de détailler le
+  fonctionnement. Nous écrivons l'exemple suivant dans le fichier
+  <code>Application/Public/index.php</code> :</p>
+  <pre><code language="php">from('Hoa')
 -> import('Router.Http')
 -> import('Dispatcher.Basic');
 
@@ -118,109 +106,102 @@ $router
 
         echo $_request['a'] + $_request['b'], "\n";
     })
-    ->get('x', '/hello_(?&lt;nick&gt;\w+)', function ( $nick ) {
+    ->get('x', '/hello_(?&amp;lt;nick>\w+)', function ( $nick ) {
 
         echo 'Welcome ', ucfirst($nick), '!', "\n";
     });
 
 $dispatcher = new Hoa\Dispatcher\Basic();
-$dispatcher->dispatch($router);</blockcode>
-
-    <p>Et pour tester notre routeur et notre dispatcheur, nous allons nous
-    appuyer sur Bhoa (un serveur HTTP fourni avec Hoa, réservé à du dévelopement
-    seulement) et <link href="http://curl.haxx.se/">cURL</link> (pour <em>Client
-    URL Request Library</em>), un client en ligne de commande permettant de
-    manipuler plusieurs protocoles, dont HTTP. Tout d'abord, démarrons
-    PHP FastCGI et Bhoa :</p>
-    <blockcode language="shell">$ php-cgi -b 127.0.0.1:9000&amp;
-$ myapp bhoa --root hoa://Application/Public</blockcode>
-    <p>Puis dans un autre terminal, envoyons-lui une requête avec cURL :</p>
-    <blockcode language="shell">$ curl 127.0.0.1:8888/hello
+$dispatcher->dispatch($router);</code></pre>
+  <p>Et pour tester notre routeur et notre dispatcheur, nous allons nous
+  appuyer sur Bhoa (un serveur HTTP fourni avec Hoa, réservé à du dévelopement
+  seulement) et <a href="http://curl.haxx.se/">cURL</a> (pour <em>Client URL
+  Request Library</em>), un client en ligne de commande permettant de
+  manipuler plusieurs protocoles, dont HTTP. Tout d'abord, démarrons
+  PHP FastCGI et Bhoa :</p>
+  <pre><code language="shell">$ php-cgi -b 127.0.0.1:9000&amp;amp;
+$ myapp bhoa --root hoa://Application/Public</code></pre>
+  <p>Puis dans un autre terminal, envoyons-lui une requête avec cURL :</p>
+  <pre><code language="shell">$ curl 127.0.0.1:8888/hello
 world!
 $ curl 127.0.0.1:8888/bye
 ohh :-(
-$ curl -X POST -d a=3\&amp;b=39 127.0.0.1:8888/hello
+$ curl -X POST -d a=3\&amp;amp;b=39 127.0.0.1:8888/hello
 42
 $ curl -X POST 127.0.0.1:8888/bye
 // error
 $ curl 127.0.0.1:8888/hello_gordon
 Welcome Gordon!
 $ curl 127.0.0.1:8888/hello_alyx
-Welcome Alyx!</blockcode>
-    <p>Par défaut, cURL va envoyer une requête HTTP avec la méthode
-    <code>GET</code>. Nous remarquons que si nous appellons <code>/hello</code>
-    en <code>GET</code> ou en <code>POST</code>, cela n'a pas le même effet. De
-    même, <code>/bye</code> n'est accessible qu'avec la méthode
-    <code>GET</code>. Enfin, nous remarquons comment nous pouvons avoir des
-    règles dynamiques et comment nous pouvons capturer certaines parties que
-    nous retrouvons en argument de nos actions.</p>
-    <p>Dans cet aperçu, nous avons utilisé un routeur et un dispatcheur. Nous
-    allons, dans un premier temps, détailler le fonctionnement du routeur, puis,
-    dans un second temps, celui du dispatcheur.</p>
-  </section2>
+Welcome Alyx!</code></pre>
+  <p>Par défaut, cURL va envoyer une requête HTTP avec la méthode
+  <code>GET</code>. Nous remarquons que si nous appellons <code>/hello</code> en
+  <code>GET</code> ou en <code>POST</code>, cela n'a pas le même effet. De même,
+  <code>/bye</code> n'est accessible qu'avec la méthode <code>GET</code>. Enfin,
+  nous remarquons comment nous pouvons avoir des règles dynamiques et comment
+  nous pouvons capturer certaines parties que nous retrouvons en argument de nos
+  actions.</p>
+  <p>Dans cet aperçu, nous avons utilisé un routeur et un dispatcheur. Nous
+  allons, dans un premier temps, détailler le fonctionnement du routeur, puis,
+  dans un second temps, celui du dispatcheur.</p>
 
-  <section2 id="Routeur_HTTP" for="main-toc menu-toc">
-    <title>Routeur HTTP</title>
+  <h2 id="Routeur_HTTP" for="main-toc menu-toc">Routeur HTTP</h2>
 
-    <p>Nous allons nous concentrer sur les explications relatives au routeur
-    HTTP, à savoir la classe <code>Hoa\Router\Http</code>.</p>
+  <p>Nous allons nous concentrer sur les explications relatives au routeur HTTP,
+  à savoir la classe <code>Hoa\Router\Http</code>.</p>
 
-    <section3 id="Ecrire_une_regle" for="main-toc menu-toc">
-      <title>Écrire une règle</title>
+  <h3 id="Ecrire_une_regle" for="main-toc menu-toc">Écrire une règle</h3>
 
-      <p>Une règle est définie par un <strong><em>t</em>-uplet</strong> :
-      <ulist>
-        <item>visibilité : ne pas en tenir compte pour ce chapitre ;</item>
-        <item>méthodes HTTP : un tableau des méthodes qui permettent d'atteindre
-        la règle, parmi <code>GET</code>, <code>POST</code>, <code>PUT</code>,
-        <code>DELETE</code>, <code>HEAD</code> et <code>OPTIONS</code> ;</item>
-        <item>identifant : l'identifiant (unique) de la règle ;</item>
-        <item>motif : une expression régulière définissant la forme de la
-        règle ;</item>
-        <item><em>call</em> et <em>able</em> : composantes définissants une
-        action que nous pouvons appeler ;</item>
-        <item>variables : valeurs par défaut ou nouvelles variables pour les
-        variables de la règle.</item>
-      </ulist></p>
-      <p>La liste des méthodes va permettre de <strong>filtrer</strong> les
-      règles en fonction de la méthode de la requête HTTP reçue. Ainsi, si nous
-      recevons une requête avec une méthode <code>GET</code>, nous n'allons
-      sélectionner que les règles qui acceptent cette méthode. La liste exprime
-      la capacité d'une règle à accepter <strong>plusieurs
-      méthodes</strong>.</p>
-      <p>Le motif s'exprime sous forme d'une expression régulière qui
-      s'appliquera sur le <strong>chemin</strong> de l'URI (voir la
-      <link href="http://tools.ietf.org/html/rfc3986#section-3">section 3,
-      <em>Syntax Components</em>, de la RFC3986</link>). Note : nous sommes
-      également capable d'étendre le motif aux
-      <strong>sous-domaines</strong>.</p>
-      <p>Pour écrire une règle, nous utilisons la méthode
-      <code>Hoa\Router\Http::addRule</code> qui ajoute une règle avec une
-      visibilité publique, <ie /> nous ne nous occuperons pas de la visibilité,
-      elle sera gérée toute seule. Ainsi :</p>
-      <blockcode language="php">from('Hoa')
+  <p>Une règle est définie par un <strong><em>t</em>-uplet</strong> :</p>
+  <ul>
+    <li>visibilité : ne pas en tenir compte pour ce chapitre ;</li>
+    <li>méthodes HTTP : un tableau des méthodes qui permettent d'atteindre la
+    règle, parmi <code>GET</code>, <code>POST</code>, <code>PUT</code>,
+    <code>DELETE</code>, <code>HEAD</code> et <code>OPTIONS</code> ;</li>
+    <li>identifant : l'identifiant (unique) de la règle ;</li>
+    <li>motif : une expression régulière définissant la forme de la règle ;</li>
+    <li><em>call</em> et <em>able</em> : composantes définissants une action que
+    nous pouvons appeler ;</li>
+    <li>variables : valeurs par défaut ou nouvelles variables pour les variables
+    de la règle.</li>
+  </ul>
+  <p>La liste des méthodes va permettre de <strong>filtrer</strong> les règles
+  en fonction de la méthode de la requête HTTP reçue. Ainsi, si nous recevons
+  une requête avec une méthode <code>GET</code>, nous n'allons sélectionner que
+  les règles qui acceptent cette méthode. La liste exprime la capacité d'une
+  règle à accepter <strong>plusieurs méthodes</strong>.</p>
+  <p>Le motif s'exprime sous forme d'une expression régulière qui s'appliquera
+  sur le <strong>chemin</strong> de l'URI (voir la
+  <a href="http://tools.ietf.org/html/rfc3986#section-3">section 3, <em>Syntax
+  Components</em>, de la RFC3986</a>). Note : nous sommes également capable
+  d'étendre le motif aux <strong>sous-domaines</strong>.</p>
+  <p>Pour écrire une règle, nous utilisons la méthode
+  <code>Hoa\Router\Http::addRule</code> qui ajoute une règle avec une visibilité
+  publique, <ie /> nous ne nous occuperons pas de la visibilité, elle sera gérée
+  toute seule. Ainsi :</p>
+  <pre><code language="php">from('Hoa')
 -> import('Router.Http');
 
 $router = new Hoa\Router\Http();
-$router->addRule($methods, $id, $pattern, $call, $able, $variables);</blockcode>
-      <p>Le dernier argument <code>$variables</code> est évidemment optionnel
-      puisqu'il sert à déclarer de nouvelles variables ou des valeurs par défaut
-      pour les variables. Parfois, les arguments <code>$call</code> et
-      <code>$able</code> peuvent être partiellement ou totalement optionels
-      selon le contexte.</p>
-      <p>Si nous devions exprimer la règle <code>u</code> de notre aperçu, on
-      aurait ceci :</p>
-      <blockcode language="php">$router->addRule(array('get'), 'u', '/hello', function ( ) { … });</blockcode>
-      <p>Par soucis de simplicité, nous pouvons ne pas utiliser la méthode
-      <code>Hoa\Router\Http::addRule</code> mais invoquer un peu de magie ! En
-      effet, l'écriture qui va suivre est strictement identique à la
-      précédente :</p>
-      <blockcode language="php">$router->get('u', '/hello', function ( ) { … });</blockcode>
-      <p>Voici comment opère la magie : les appels vers une méthode
-      <code><em>method</em>[_<em>method</em>]*(…)</code> seront redirigés vers
-      la méthode <code>addRule(array('<em>method</em>'[, '<em>method</em>']*),
-      …)</code>. Voyons plutôt des exemples d'équivalences :</p>
-      <blockcode language="php">$router->get(…);
+$router->addRule($methods, $id, $pattern, $call, $able, $variables);</code></pre>
+  <p>Le dernier argument <code>$variables</code> est évidemment optionnel
+  puisqu'il sert à déclarer de nouvelles variables ou des valeurs par défaut
+  pour les variables. Parfois, les arguments <code>$call</code> et
+  <code>$able</code> peuvent être partiellement ou totalement optionels selon le
+  contexte.</p>
+  <p>Si nous devions exprimer la règle <code>u</code> de notre aperçu, on aurait
+  ceci :</p>
+  <pre><code language="php">$router->addRule(array('get'), 'u', '/hello', function ( ) { … });</code></pre>
+  <p>Par soucis de simplicité, nous pouvons ne pas utiliser la méthode
+  <code>Hoa\Router\Http::addRule</code> mais invoquer un peu de magie ! En
+  effet, l'écriture qui va suivre est strictement identique à la
+  précédente :</p>
+  <pre><code language="php">$router->get('u', '/hello', function ( ) { … });</code></pre>
+  <p>Voici comment opère la magie : les appels vers une méthode
+  <code><em>method</em>[_<em>method</em>]*(…)</code> seront redirigés vers la
+  méthode <code>addRule(array('<em>method</em>'[, '<em>method</em>']*),
+  …)</code>. Voyons plutôt des exemples d'équivalences :</p>
+  <pre><code language="php">$router->get(…);
 $router->addRule(array('get'), …);
 
 $router->get_post(…);
@@ -229,97 +210,89 @@ $router->addRule(array('get', 'post'), …);
 $router->put_delete_get(…);
 $router->addRule(array('put', 'delete', 'get'), …);
 
-// etc.</blockcode>
-      <p>L'ordre des règle a une importance, car les règles sont filtrées
-      puis évaluées dans l'ordre de déclaration. Il est alors conseillé décrire
-      les règles spécifiques avant les règles génériques.</p>
-      <p>Nous conviendrons de la simplicité qu'introduit cette magie.</p>
-    </section3>
+// etc.</code></pre>
+  <p>L'ordre des règle a une importance, car les règles sont filtrées puis
+  évaluées dans l'ordre de déclaration. Il est alors conseillé décrire les
+  règles spécifiques avant les règles génériques.</p>
+  <p>Nous conviendrons de la simplicité qu'introduit cette magie.</p>
 
-    <section3 id="Bien_comprendre_les_variables_et_les_motifs" for="main-toc">
-      <title>Bien comprendre les variables et les motifs</title>
+  <h3 id="Bien_comprendre_les_variables_et_les_motifs" for="main-toc">Bien
+  comprendre les variables et les motifs</h3>
 
-      <p>Le rôle principal d'un routeur est d'<strong>extraire des
-      données</strong> d'une requête à partir d'une <strong>règle</strong> afin
-      de les <strong>placer dans des variables</strong> (nous noterons que les
-      routeurs savent faire l'opération inverse). C'est pourquoi nous sommes
-      capable de définir des valeurs par défaut pour certaines variables si
-      elles ne sont pas définies ou alors de définir de nouvelles variables. Ils
-      existent des variables qui peuvent être définies par le routeur lui-même
-      (toujours préfixées par le symbole <code>_</code>). Nous éviterons
-      l'utilisation des noms de variables utilisant ce préfixe.</p>
-      <p>Les expressions régulières dans PHP sont basées sur les <link
-      href="https://pcre.org/">PCRE</link> qui ont un pouvoir d'expression plus
-      avancé que de simples expressions régulières traditionnelles. Elles
-      permettent entre autre de nommer des motifs, en plus de les indexer
-      automatiquement, grâce à la syntaxe
-      <code>(?&amp;lt;<em>name</em>&amp;gt;<em>pattern</em>)</code> (nous
-      retrouverons <link href="https://pcre.org/pcre.txt">la syntaxe des
-      PCRE</link> à la section <em>pcresyntax(3)</em>). Chaque motif capturé et
-      nommé se retrouvera dans une variable, au niveau du routeur, du même nom
-      que le motif. C'est pourquoi, lorsque nous écrivons
-      <code>/hello_(?&amp;amp;lt;nick&amp;amp;gt;\w+)</code>, une variable
-      <code>nick</code> sera créée dans le routeur et aura pour valeur la donnée
-      capturée par le motif <code>\w+</code>.</p>
-      <p>Toutes les variables définies par le routeur lors de l'interprétation
-      d'une règle seront prioritaires sur les variables attachées à la règle par
-      l'utilisateur. C'est pourquoi nous retrouvons un comportement de valeur
-      par défaut.</p>
-    </section3>
-  </section2>
+  <p>Le rôle principal d'un routeur est d'<strong>extraire des données</strong>
+  d'une requête à partir d'une <strong>règle</strong> afin de les <strong>placer
+  dans des variables</strong> (nous noterons que les routeurs savent faire
+  l'opération inverse). C'est pourquoi nous sommes capable de définir des
+  valeurs par défaut pour certaines variables si elles ne sont pas définies ou
+  alors de définir de nouvelles variables. Ils existent des variables qui
+  peuvent être définies par le routeur lui-même (toujours préfixées par le
+  symbole <code>_</code>). Nous éviterons l'utilisation des noms de variables
+  utilisant ce préfixe.</p>
+  <p>Les expressions régulières dans PHP sont basées sur les
+  <a href="https://pcre.org/">PCRE</a> qui ont un pouvoir d'expression plus
+  avancé que de simples expressions régulières traditionnelles. Elles permettent
+  entre autre de nommer des motifs, en plus de les indexer automatiquement,
+  grâce à la syntaxe
+  <code>(?&amp;lt;<em>name</em>><em>pattern</em>)</code> (nous
+  retrouverons <a href="https://pcre.org/pcre.txt">la syntaxe des PCRE</a> à la
+  section <em>pcresyntax(3)</em>). Chaque motif capturé et nommé se retrouvera
+  dans une variable, au niveau du routeur, du même nom que le motif. C'est
+  pourquoi, lorsque nous écrivons
+  <code>/hello_(?&amp;amp;lt;nick>\w+)</code>, une variable
+  <code>nick</code> sera créée dans le routeur et aura pour valeur la donnée
+  capturée par le motif <code>\w+</code>.</p>
+  <p>Toutes les variables définies par le routeur lors de l'interprétation d'une
+  règle seront prioritaires sur les variables attachées à la règle par
+  l'utilisateur. C'est pourquoi nous retrouvons un comportement de valeur par
+  défaut.</p>
 
-  <section2 id="Dispatcheur" for="main-toc menu-toc">
-    <title>Dispatcheur</title>
+  <h2 id="Dispatcheur" for="main-toc menu-toc">Dispatcheur</h2>
 
-    <p>Un dispatcheur est souvent couplé à un routeur mais pas nécessairement.
-    Selon la terminologie des dispatcheurs, son rôle est d'être capable de
-    dispatcher une <strong>tâche</strong> définie par certaines
-    <strong>données</strong> sur un <strong>contrôleur</strong> et une
-    <strong>action</strong> en fonction de la <strong>nature</strong> des
-    données manipulées. Si nous utilisons la terminologie de Hoa, un couple
-    contrôleur et action est strictement équivalent à un couple <em>call</em> et
-    <em>able</em>, seule la terminologie diffère, le comportement restant le
-    même et étant connu.</p>
-    <p>Les dispatcheurs sont définis par une classe abstraite
-    <code>Hoa\Dispatcher</code>. Cette classe propose d'utiliser la
-    <strong>règle sélectionnée</strong> par un routeur pour savoir vers quels
-    contrôleurs et actions rediriger les données <strong>extraites</strong> du
-    routeur. Notre point d'entrée sera la méthode <code>dispatch</code> sur tout
-    dispatcheur. Nous allons particulièrement nous intéresser au dispatcheur
-    proposé par défaut, à savoir <code>Hoa\Dispatcher\Basic</code>.</p>
+  <p>Un dispatcheur est souvent couplé à un routeur mais pas nécessairement.
+  Selon la terminologie des dispatcheurs, son rôle est d'être capable de
+  dispatcher une <strong>tâche</strong> définie par certaines
+  <strong>données</strong> sur un <strong>contrôleur</strong> et une
+  <strong>action</strong> en fonction de la <strong>nature</strong> des données
+  manipulées. Si nous utilisons la terminologie de Hoa, un couple contrôleur et
+  action est strictement équivalent à un couple <em>call</em> et <em>able</em>,
+  seule la terminologie diffère, le comportement restant le même et étant
+  connu.</p>
+  <p>Les dispatcheurs sont définis par une classe abstraite
+  <code>Hoa\Dispatcher</code>. Cette classe propose d'utiliser la <strong>règle
+  sélectionnée</strong> par un routeur pour savoir vers quels contrôleurs et
+  actions rediriger les données <strong>extraites</strong> du routeur. Notre
+  point d'entrée sera la méthode <code>dispatch</code> sur tout dispatcheur.
+  Nous allons particulièrement nous intéresser au dispatcheur proposé par
+  défaut, à savoir <code>Hoa\Dispatcher\Basic</code>.</p>
 
-    <section3 id="Pas_si_basic_que_ca" for="main-toc">
-      <title>Pas si basic que ça</title>
+  <h3 id="Pas_si_basic_que_ca" for="main-toc">Pas si basic que ça</h3>
 
-      <p>La classe <code>Hoa\Dispatcher\Basic</code> supporte <strong>trois
-      types</strong> de contrôleurs et d'actions : fonctions anonymes en tant
-      que contrôleurs (pas d'action), fonctions déclarées en tant que
-      contrôleurs (pas d'action) et classes et méthodes en tant que contrôleurs
-      et actions. Dans le dernier cas, des <strong>règles de nommage</strong>
-      sont proposées :
-      <code>Application\Controller\<em>ControllerName</em></code> pour le
-      contrôleur (qui est alors une classe) et
-      <code><em>ActionName</em>Action</code> pour l'action (qui est alors une
-      méthode). Nous pouvons modifier ces règles de nommage facilement. De même,
-      il est proposé des règles de nommage différentes pour des <strong>appels
-      synchrones</strong> ou <strong>asynchrones</strong> ; nous proposons
-      <code><em>ActionName</em>ActionAsync</code> pour les actions asynchrones.
-      Un appel asynchrone peut s'effectuer par exemple à travers
-      <strong>XHR</strong> (pour <em>XML HTTP Request</em>),
-      <link href="need_a_link">protocole standardisée par le W3C</link>.</p>
-      <p>Le routeur HTTP définit les variables <code>_call</code> et
-      <code>_able</code> qui correspondent aux composantes <em>call</em> et
-      <em>able</em> lors d'une définition de règle de routeur. Ces variables
-      vont être utilisées pour le nom du contrôleur et de l'action par le
-      dispatcheur. Dans un souci de cohérence dans la terminologie, nous pouvons
-      utiliser les variables <code>controller</code> et <code>action</code> dans
-      le routeur, ce qui sera compris de la même manière par le dispatcheur
-      basic et qui aura le mérite de ne pas réécrire <code>_call</code> et
-      <code>_able</code>.</p>
-      <p>Dans l'aperçu, nous avons utilisé des fonctions anonymes. Nosu allons à
-      présent utiliser une partie de cet aperçu mais en le transformant pour
-      avoir des fonctions déclarées :</p>
-      <blockcode language="php">$router = new Hoa\Router\Http();
+  <p>La classe <code>Hoa\Dispatcher\Basic</code> supporte <strong>trois
+  types</strong> de contrôleurs et d'actions : fonctions anonymes en tant que
+  contrôleurs (pas d'action), fonctions déclarées en tant que contrôleurs (pas
+  d'action) et classes et méthodes en tant que contrôleurs et actions. Dans le
+  dernier cas, des <strong>règles de nommage</strong> sont proposées :
+  <code>Application\Controller\<em>ControllerName</em></code> pour le contrôleur
+  (qui est alors une classe) et <code><em>ActionName</em>Action</code> pour
+  l'action (qui est alors une méthode). Nous pouvons modifier ces règles de
+  nommage facilement. De même, il est proposé des règles de nommage différentes
+  pour des <strong>appels synchrones</strong> ou <strong>asynchrones</strong> ;
+  nous proposons <code><em>ActionName</em>ActionAsync</code> pour les actions
+  asynchrones.  Un appel asynchrone peut s'effectuer par exemple à travers
+  <strong>XHR</strong> (pour <em>XML HTTP Request</em>),
+  <a href="need_a_link">protocole standardisée par le W3C</a>.</p>
+  <p>Le routeur HTTP définit les variables <code>_call</code> et
+  <code>_able</code> qui correspondent aux composantes <em>call</em> et
+  <em>able</em> lors d'une définition de règle de routeur. Ces variables vont
+  être utilisées pour le nom du contrôleur et de l'action par le dispatcheur.
+  Dans un souci de cohérence dans la terminologie, nous pouvons utiliser les
+  variables <code>controller</code> et <code>action</code> dans le routeur, ce
+  qui sera compris de la même manière par le dispatcheur basic et qui aura le
+  mérite de ne pas réécrire <code>_call</code> et <code>_able</code>.</p>
+  <p>Dans l'aperçu, nous avons utilisé des fonctions anonymes. Nosu allons à
+  présent utiliser une partie de cet aperçu mais en le transformant pour
+  avoir des fonctions déclarées :</p>
+  <pre><code language="php">$router = new Hoa\Router\Http();
 $router->get('u', '/hello', 'hello')
        ->get('v', '/bye', 'bye');
 
@@ -334,57 +307,53 @@ function bye ( ) {
 }
 
 $dispatcher = new Hoa\Dispatcher\Basic();
-$dispatcher->dispatch($router);</blockcode>
-      <p>Nous remarquons que pour <code>/hello</code>, nous appellons la
-      fonction <code>hello</code>. Pareil pour <code>/bye</code> et
-      <code>bye</code>. Le nom du contrôleur est identique à la partie à droite
-      du symbole <code>/</code> dans la règle. Nous pouvons alors simplifier les
-      règles en capturant la valeur de la variable <code>controller</code> de
-      cette manière :</p>
-      <blockcode language="php">$router = new Hoa\Router\Http();
-$router->get('u', '/(?&lt;controller&gt;hello|bye)');</blockcode>
-      <p>Nous pouvons imaginer utiliser le motif <code>\w+</code> à la place de
-      <code>hello|bye</code> pour avoir plus de dynamisme (mais il ne faudra pas
-      oublier de gérer les erreurs si l'action n'existe pas, grâce à l'exception
-      <code>Hoa\Router\Exception\NotFound</code>).</p>
-      <p>En plus de gérer trois types de contrôleurs et d'actions, le
-      dispatcheur basic sait <strong>distribuer les variables</strong> sur les
-      <strong>arguments des actions</strong>. C'est pourquoi quand nous écrivons
-      la règle <code>/hello_(?&amp;amp;lt;nick&amp;amp;gt;\w+)</code>, nous
-      pouvons retrouver la valeur de la variable <code>nick</code> directement
-      dans notre action dans son argument <code>$nick</code> ; de cette
-      manière :</p>
-      <blockcode language="php">->get('x', 'hello_(?&lt;nick&gt;\w+)', function ( $nick ) {
+$dispatcher->dispatch($router);</code></pre>
+  <p>Nous remarquons que pour <code>/hello</code>, nous appellons la fonction
+  <code>hello</code>. Pareil pour <code>/bye</code> et <code>bye</code>. Le nom
+  du contrôleur est identique à la partie à droite du symbole <code>/</code>
+  dans la règle. Nous pouvons alors simplifier les règles en capturant la valeur
+  de la variable <code>controller</code> de cette manière :</p>
+  <pre><code language="php">$router = new Hoa\Router\Http();
+$router->get('u', '/(?&amp;lt;controller>hello|bye)');</code></pre>
+  <p>Nous pouvons imaginer utiliser le motif <code>\w+</code> à la place de
+  <code>hello|bye</code> pour avoir plus de dynamisme (mais il ne faudra pas
+  oublier de gérer les erreurs si l'action n'existe pas, grâce à l'exception
+  <code>Hoa\Router\Exception\NotFound</code>).</p>
+  <p>En plus de gérer trois types de contrôleurs et d'actions, le dispatcheur
+  basic sait <strong>distribuer les variables</strong> sur les <strong>arguments
+  des actions</strong>. C'est pourquoi quand nous écrivons la règle
+  <code>/hello_(?&amp;amp;lt;nick>\w+)</code>, nous pouvons retrouver
+  la valeur de la variable <code>nick</code> directement dans notre action dans
+  son argument <code>$nick</code> ; de cette manière :</p>
+  <pre><code language="php">->get('x', 'hello_(?&amp;lt;nick>\w+)', function ( $nick ) {
 
     echo 'Welcome ', ucfirst($nick), '!', "\n";
-}</blockcode>
-      <p>L'ordre des arguments n'a aucune importance, seul le nom est important.
-      Nous pouvons retrouver aussi bien les variables extraites des règles que
-      celles définies par le routeur (<ie /> préfixées par le symbole
-      <code>_</code>).  C'est ce que nous faisons avec <code>/hello</code> en
-      <code>POST</code> et l'argument <code>$_request</code> qui est une
-      variable définie par le routeur et qui contient des données d'une requête
-      HTTP non-accessible <em>via</em> l'URI.</p>
-    </section3>
+}</code></pre>
+  <p>L'ordre des arguments n'a aucune importance, seul le nom est important.
+  Nous pouvons retrouver aussi bien les variables extraites des règles que
+  celles définies par le routeur (<ie /> préfixées par le symbole
+  <code>_</code>). C'est ce que nous faisons avec <code>/hello</code> en
+  <code>POST</code> et l'argument <code>$_request</code> qui est une variable
+  définie par le routeur et qui contient des données d'une requête HTTP
+  non-accessible <em>via</em> l'URI.</p>
 
-    <section3 id="Notion_de_kit" for="main-toc">
-      <title>Notion de kit</title>
+  <h3 id="Notion_de_kit" for="main-toc">Notion de kit</h3>
 
-      <p>Basiquement, un <strong>kit</strong> joue le rôle de lien entre les
-      bibliothèques et l'application en rassemblant, proposant ou exposant
-      certaines fonctionnalités. Par exemple, quand le dispatcheur appelle un
-      contrôleur et une action, il peut transmettre des données provenant du
-      routeur. Toutefois, nous aimerions en profiter pour <strong>transmettre
-      plus d'informations</strong> en même temps. C'est à ce moment qu'un kit
-      peut être intéressant.</p>
-      <p>Un kit contient de base le routeur, le dispatcheur, une vue (simplement
-      n'importe quel objet de type <code>Hoa\View\Viewable</code>) et des
-      données (de type <code>Hoa\Core\Data</code>). La création d'un kit se fait
-      automatiquement, tout ce qui est nécessaire est de fournir le nom du kit
-      au dispatcheur grâce à la méthode <code>Hoa\Dispatcher::setKitName</code>.
-      Par exemple, nous créons un kit qui va ajouter une méthode
-      <code>listRequestKeys</code> se basant sur le routeur HTTP :</p>
-      <blockcode language="php">from('Hoa')
+  <p>Basiquement, un <strong>kit</strong> joue le rôle de lien entre les
+  bibliothèques et l'application en rassemblant, proposant ou exposant certaines
+  fonctionnalités. Par exemple, quand le dispatcheur appelle un contrôleur et
+  une action, il peut transmettre des données provenant du routeur. Toutefois,
+  nous aimerions en profiter pour <strong>transmettre plus
+  d'informations</strong> en même temps. C'est à ce moment qu'un kit peut être
+  intéressant.</p>
+  <p>Un kit contient de base le routeur, le dispatcheur, une vue (simplement
+  n'importe quel objet de type <code>Hoa\View\Viewable</code>) et des données
+  (de type <code>Hoa\Core\Data</code>). La création d'un kit se fait
+  automatiquement, tout ce qui est nécessaire est de fournir le nom du kit au
+  dispatcheur grâce à la méthode <code>Hoa\Dispatcher::setKitName</code>.  Par
+  exemple, nous créons un kit qui va ajouter une méthode
+  <code>listRequestKeys</code> se basant sur le routeur HTTP :</p>
+  <pre><code language="php">from('Hoa')
 -> import('Dispatcher.Kit')
 -> import('Dispatcher.Basic')
 -> import('Router.Http');
@@ -400,105 +369,101 @@ class MyKit extends Hoa\Dispatcher\Kit {
 }
 
 $dispatcher = new Hoa\Dispatcher\Basic();
-$dispatcher->setKitName('MyKit');</blockcode>
-      <p>Et maintenant, toutes les actions ayant ce kit pourront appeler la
-      méthode <code>listRequestKeys</code>.</p>
-      <p>Le dispatcheur basic <code>Hoa\Dispatcher\Basic</code> ajoute le kit en
-      tant que variable du routeur sous le nom <code>_this</code>. Ainsi, si on
-      veut récupérer le kit depuis une action, nous n'aurons qu'à avoir un
-      argument <code>$_this</code> :</p>
-      <blockcode language="php">$router = new Hoa\Router\Http();
-$router->get_post('u', '/(?&lt;controller&gt;hello)');
+$dispatcher->setKitName('MyKit');</code></pre>
+  <p>Et maintenant, toutes les actions ayant ce kit pourront appeler la méthode
+  <code>listRequestKeys</code>.</p>
+  <p>Le dispatcheur basic <code>Hoa\Dispatcher\Basic</code> ajoute le kit en
+  tant que variable du routeur sous le nom <code>_this</code>. Ainsi, si on veut
+  récupérer le kit depuis une action, nous n'aurons qu'à avoir un argument
+  <code>$_this</code> :</p>
+  <pre><code language="php">$router = new Hoa\Router\Http();
+$router->get_post('u', '/(?&amp;lt;controller>hello)');
 
 function hello ( MyKit $_this ) {
 
     print_r($_this->listRequestKeys());
 }
 
-$dispatcher->dispatch($router);</blockcode>
-      <p>Nous testons notre nouveau kit :</p>
-      <blockcode language="shell">$ curl -X POST -d foo=bar\&amp;baz=qux 127.0.0.1:8888/hello
+$dispatcher->dispatch($router);</code></pre>
+  <p>Nous testons notre nouveau kit :</p>
+  <pre><code language="shell">$ curl -X POST -d foo=bar\&amp;amp;baz=qux 127.0.0.1:8888/hello
 Array
 (
     [0] => foo
     [1] => baz
-)</blockcode>
-      <p>Le dispatcheur basic va plus loin quand le contrôleur est une classe et
-      l'action une méthode. En effet, si le contrôleur étend le kit (avec le
-      mot-clé <code>extends</code>), alors pas besoin d'avoir d'argument
-      <code>$_this</code> dans les actions, utiliser simplement
-      <code>$this</code> aura le même effet.</p>
-    </section3>
+)</code></pre>
+  <p>Le dispatcheur basic va plus loin quand le contrôleur est une classe et
+  l'action une méthode. En effet, si le contrôleur étend le kit (avec le mot-clé
+  <code>extends</code>), alors pas besoin d'avoir d'argument <code>$_this</code>
+  dans les actions, utiliser simplement <code>$this</code> aura le même
+  effet.</p>
 
-    <section3 id="Vers_un_MVC" for="main-toc">
-      <title>Vers un MVC</title>
+  <h3 id="Vers_un_MVC" for="main-toc">Vers un MVC</h3>
 
-      <p>Quand nous concevons une application, nous pouvons utiliser le
-      <strong>modèle de conception</strong> <em>Modèle-Vue-Contrôleur</em> (ou
-      MVC, pour <em>Model-View-Controller</em>). Vulgairement, ce modèle
-      considère une application composée de <strong>trois couches</strong> : le
-      <strong>modèle</strong> pour gérer les données (lire et écrire), la
-      <strong>vue</strong> pour afficher des données et le
-      <strong>contrôleur</strong> pour faire le lien entre les deux (le
-      contrôleur utilise le modèle pour construire la vue). Plus ou moins de
-      connexions peuvent exister entre les couches et le sens des connexions
-      peut également différer d'une implémentation à une autre.</p>
-      <p>Ce que nous avons vu avec <code>Hoa\Router</code> et
-      <code>Hoa\Dispatcher</code> est qu'il est facile de créer et d'adopter un
-      tel modèle de conception, et qu'il est tout aussi facile de l'enrichir
-      grâce au kit représenté par <code>Hoa\Dispatcher\Kit</code>. Par exemple,
-      la bibliothèque <code>Hoa\Console</code> propose un dispatcheur avec un
-      kit dédié à l'écriture de programme en ligne de commande avec des méthodes
-      assistantes utiles pour des opérations répétitives (créer une aide, lister
-      les entrées d'une commande, lire les options d'une commande etc. ;
-      regrouper plusieurs outils dans le kit de manière intelligente). La couche
-      contrôleur est immédiate avec le dispatcheur basic, la couche modèle n'a
-      pour l'instant pas été abordée et la vue peut être n'importe quelle classe
-      implémentant l'interface <code>Hoa\View\Viewable</code>. Toutefois, ces
-      bibliothèques peuvent être utilisées dans une autre optique que le MVC
-      grâce à un assemblage totalement différent.</p>
-    </section3>
-  </section2>
+  <p>Quand nous concevons une application, nous pouvons utiliser le
+  <strong>modèle de conception</strong> <em>Modèle-Vue-Contrôleur</em> (ou MVC,
+  pour <em>Model-View-Controller</em>). Vulgairement, ce modèle considère une
+  application composée de <strong>trois couches</strong> : le
+  <strong>modèle</strong> pour gérer les données (lire et écrire), la
+  <strong>vue</strong> pour afficher des données et le
+  <strong>contrôleur</strong> pour faire le lien entre les deux (le contrôleur
+  utilise le modèle pour construire la vue). Plus ou moins de connexions peuvent
+  exister entre les couches et le sens des connexions peut également différer
+  d'une implémentation à une autre.</p>
+  <p>Ce que nous avons vu avec <code>Hoa\Router</code> et
+  <code>Hoa\Dispatcher</code> est qu'il est facile de créer et d'adopter un tel
+  modèle de conception, et qu'il est tout aussi facile de l'enrichir grâce au
+  kit représenté par <code>Hoa\Dispatcher\Kit</code>. Par exemple, la
+  bibliothèque <code>Hoa\Console</code> propose un dispatcheur avec un kit dédié
+  à l'écriture de programme en ligne de commande avec des méthodes assistantes
+  utiles pour des opérations répétitives (créer une aide, lister les entrées
+  d'une commande, lire les options d'une commande etc. ; regrouper plusieurs
+  outils dans le kit de manière intelligente). La couche contrôleur est
+  immédiate avec le dispatcheur basic, la couche modèle n'a pour l'instant pas
+  été abordée et la vue peut être n'importe quelle classe implémentant
+  l'interface <code>Hoa\View\Viewable</code>. Toutefois, ces bibliothèques
+  peuvent être utilisées dans une autre optique que le MVC grâce à un assemblage
+  totalement différent.</p>
 
-  <section2 id="Application_Gordon-s_blog" for="main-toc menu-toc">
-    <title>Application : <em>Gordon's blog</em></title>
+  <h2 id="Application_Gordon-s_blog" for="main-toc menu-toc">Application :
+  <em>Gordon's blog</em></h2>
 
-    <p>Nous allons maintenant mettre <strong>en pratique</strong> ce que nous
-    venons d'apprendre en créant une petite application. Cette application est
-    le <strong>blog</strong> du très célèbre
-    <link href="https://secure.wikimedia.org/wikipedia/en/wiki/Gordon_Freeman">Dr.
-    Gordon Freeman</link>.</p>
-    <p>Nous allons modifier le fichier <code>Application/Public/index.php</code>
-    pour qu'il contienne le routeur HTTP et le dispatcheur vers des contrôleurs.
-    Nous aurons deux actions possibles :
-    <ulist>
-      <item>afficher la liste des articles ;</item>
-      <item>afficher un article en particulier.</item>
-    </ulist></p>
-    <p>Pour cela, nous avons besoin de deux règles dans notre routeur pour nos
-    actions respectives : disons <code>i</code> pour afficher la liste des
-    articles et <code>a</code> pour afficher un article en particulier. La règle
-    <code>i</code> sera accessible depuis le chemin de l'URI <code>/</code> et
-    la règle <code>a</code> depuis <code>/article-<em>id</em>.html</code>. Nous
-    allons avoir un contrôleur qui sera une classe avec deux méthodes, une pour
-    chaque action :</p>
-    <blockcode language="php">from('Hoa')
+  <p>Nous allons maintenant mettre <strong>en pratique</strong> ce que nous
+  venons d'apprendre en créant une petite application. Cette application est le
+  <strong>blog</strong> du très célèbre
+  <a href="https://secure.wikimedia.org/wikipedia/en/wiki/Gordon_Freeman">Dr.
+  Gordon Freeman</a>.</p>
+  <p>Nous allons modifier le fichier <code>Application/Public/index.php</code>
+  pour qu'il contienne le routeur HTTP et le dispatcheur vers des contrôleurs.
+  Nous aurons deux actions possibles :</p>
+  <ul>
+    <li>afficher la liste des articles ;</li>
+    <li>afficher un article en particulier.</li>
+  </ul>
+  <p>Pour cela, nous avons besoin de deux règles dans notre routeur pour nos
+  actions respectives : disons <code>i</code> pour afficher la liste des
+  articles et <code>a</code> pour afficher un article en particulier. La règle
+  <code>i</code> sera accessible depuis le chemin de l'URI <code>/</code> et la
+  règle <code>a</code> depuis <code>/article-<em>id</em>.html</code>. Nous
+  allons avoir un contrôleur qui sera une classe avec deux méthodes, une pour
+  chaque action :</p>
+  <pre><code language="php">from('Hoa')
 -> import('Router.Http')
 -> import('Dispatcher.Basic');
 
 $router     = new Hoa\Router\Http();
 $router->get('i', '/', 'blog', 'index')
-       ->get('a', '/article-(?&lt;id&gt;\d+)\.html', 'blog', 'article');
+       ->get('a', '/article-(?&amp;lt;id>\d+)\.html', 'blog', 'article');
 
 $dispatcher = new Hoa\Dispatcher\Basic();
-$dispatcher->dispatch($router);</blockcode>
-    <p>Nous avons dit que par défaut, le contrôleur était représenté par une
-    classe <code>Application\Controller\<em>ControllerName</em></code>. C'est
-    pourquoi nous allons écrire la classe
-    <code>Application\Controller\Blog</code>, avec deux méthodes :
-    <code>IndexAction</code> et <code>ArticleAction</code>, respectivement pour
-    la règle <code>i</code> et <code>a</code>. Ainsi :</p>
-    <blockcode language="php">namespace Application\Controller {
+$dispatcher->dispatch($router);</code></pre>
+  <p>Nous avons dit que par défaut, le contrôleur était représenté par une
+  classe <code>Application\Controller\<em>ControllerName</em></code>. C'est
+  pourquoi nous allons écrire la classe
+  <code>Application\Controller\Blog</code>, avec deux méthodes :
+  <code>IndexAction</code> et <code>ArticleAction</code>, respectivement pour la
+  règle <code>i</code> et <code>a</code>. Ainsi :</p>
+  <pre><code language="php">namespace Application\Controller {
 
 class Blog extends \Hoa\Dispatcher\Kit {
 
@@ -513,57 +478,51 @@ class Blog extends \Hoa\Dispatcher\Kit {
     }
 }
 
-}</blockcode>
-    <p>Nous allons maintenant tester notre application à l'aide de Bhoa en
-    précisant que la racine est le dossier <code>Public/</code> de notre
-    application. Nous allons profiter de l'abstraction qu'offre le protocole
-    <code>hoa://</code> au lieu d'utiliser un chemin en dur :</p>
-    <blockcode language="shell">$ myapp bhoa --root hoa://Application/Public</blockcode>
-    <p>Puis, à l'aide de cURL ou d'un navigateur, nous allons joindre
-    <link href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></link> :</p>
-    <blockcode language="shell">$ curl 127.0.0.1:8888/
+}</code></pre>
+  <p>Nous allons maintenant tester notre application à l'aide de Bhoa en
+  précisant que la racine est le dossier <code>Public/</code> de notre
+  application. Nous allons profiter de l'abstraction qu'offre le protocole
+  <code>hoa://</code> au lieu d'utiliser un chemin en dur :</p>
+  <pre><code language="shell">$ myapp bhoa --root hoa://Application/Public</code></pre>
+  <p>Puis, à l'aide de cURL ou d'un navigateur, nous allons joindre
+  <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a> :</p>
+  <pre><code language="shell">$ curl 127.0.0.1:8888/
 Gordon's blog index
 $ curl 127.0.0.1:8888/article-1.html
 Article n°1
 $ curl 127.0.0.1:8888/article-42.html
-Article n°42</blockcode>
-    <p>Tout fonctionne bien ! Mais ce ne sera pas toujours le cas. Par exemple,
-    si nous appelons une URI qui n'est pas comprise par le routeur, une erreur
-    sera levée :</p>
-    <blockcode language="shell">$ curl 127.0.0.1:8888/foobar
+Article n°42</code></pre>
+  <p>Tout fonctionne bien ! Mais ce ne sera pas toujours le cas. Par exemple, si
+  nous appelons une URI qui n'est pas comprise par le routeur, une erreur sera
+  levée :</p>
+  <pre><code language="shell">$ curl 127.0.0.1:8888/foobar
 Uncaught exception (Hoa\Router\Exception\NotFound):
 Hoa\Router\Http::route(): (6) Cannot found an appropriated rule to route foobar.
-in hoa://Library/Router/Http.php at line 490.</blockcode>
-    <p>Plus précisément, une exception de type
-    <code>Hoa\Router\Exception\NotFound</code> sera levée lors du dispatche.
-    D'autres exceptions peuvent apparaître (comme
-    <code>Hoa\Router\Exception</code>) mais ce ne sera pas à cause d'un problème
-    de routage dû à l'utilisateur. Il serait intéressant de capturer cette
-    exception et de réagir en conséquence, par exemple en indiquant qu'une
-    erreur s'est produite :</p>
-    <blockcode language="php">try {
+in hoa://Library/Router/Http.php at line 490.</code></pre>
+  <p>Plus précisément, une exception de type
+  <code>Hoa\Router\Exception\NotFound</code> sera levée lors du dispatche.
+  D'autres exceptions peuvent apparaître (comme
+  <code>Hoa\Router\Exception</code>) mais ce ne sera pas à cause d'un problème
+  de routage dû à l'utilisateur. Il serait intéressant de capturer cette
+  exception et de réagir en conséquence, par exemple en indiquant qu'une erreur
+  s'est produite :</p>
+  <pre><code language="php">try {
 
     $dispatcher->dispatch($router);
 }
 catch ( Hoa\Router\Exception\NotFound $e ) {
 
     echo 'Your page seems to be not found /o\.', "\n";
-}</blockcode>
-    <p>Et ainsi, plus d'exception affichée à l'utilisateur mais notre
-    erreur :</p>
-    <blockcode language="shell">$ curl 127.0.0.1:8888/foobar
-Your page seems to be not found /o\.</blockcode>
-  </section2>
-</section1>
+}</code></pre>
+  <p>Et ainsi, plus d'exception affichée à l'utilisateur mais notre erreur :</p>
+  <pre><code language="shell">$ curl 127.0.0.1:8888/foobar
+Your page seems to be not found /o\.</code></pre>
 
-<ulist class="prev_next">
-  <item><link href="@ll:chapter=(!title)"
-              sref="hoa://Application/External/Literature/Learn/Framework.xyl"
-              sref-title="//__current_ns:section1/@id"><previous_chapter /> Aspect framework</link></item>
-  <item><link href="@ll:chapter=(!title)"
-              sref="hoa://Application/External/Literature/Learn/Model.xyl"
-              sref-title="//__current_ns:section1/@id">Modèle de données <next_chapter /></link></item>
-</ulist>
+  <ul class="prev_next">
+    <li><a href="@ll:chapter=Framework"><previous_chapter /> Aspect
+        framework</a></li>
+    <li><a href="@ll:chapter=Model">Modèle de données <next_chapter /></a></li>
+  </ul>
 
 </yield>
 </definition>

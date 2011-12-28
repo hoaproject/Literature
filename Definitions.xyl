@@ -6,7 +6,7 @@
   </yield>
 
   <yield name="title_break">
-    <value><fbreak />⁂<fbreak /></value>
+    <value><br />⁂<br /></value>
   </yield>
 
   <yield name="previous_chapter">
