@@ -177,13 +177,14 @@ $xyl->render();</code></pre>
   définira son style. Ce travail doit être réalisé par un autre langage, de
   préférence <a href="http://www.w3.org/TR/CSS">CSS</a> mais ce n'est pas
   obligatoire, le choix étant laissé à à'utilisateur.</p>
-  <p>Pour utiliser une feuille de style, nous utilisons la
+  <p>Pour déclarer une feuille de style, nous utilisons la
   <a href="http://w3.org/TR/xml11/#sec-pi"><em>processing-instruction</em></a>
   <code>&amp;amp;lt?xyl-stylesheet?></code> en tête de n'importe quels documents
   XYL avec son attribut <code>href</code> pour préciser l'emplacement de notre
-  feuille. Nous parlons d'une <strong>déclaration statique</strong>. Ainsi :</p>
+  feuille de style. Nous parlons d'une <strong>déclaration statique</strong>.
+  Ainsi :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
-&amp;lt;?xyl-stylesheet href="/UI.css"?>
+&amp;lt;?xyl-stylesheet href="UI.css"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
@@ -200,15 +201,15 @@ $xyl->render();</code></pre>
   <p>Maintenant, réouvrons
   <a href="http://localhost:8888"><code>localhost:8888</code></a> et nous
   observons que notre document a changé de style.</p>
-  <p>Nous pouvons dynamiquement ajouter un lien vers une feuille de style en
-  utilisant la méthode <code>addStylesheet</code> de la classe
-  <code>Hoa\Xyl</code>. Ainsi, le code suivant produira le même résultat :</p>
+  <p>Nous pouvons dynamiquement déclarer une feuille de style en utilisant la
+  méthode <code>addStylesheet</code> de la classe <code>Hoa\Xyl</code>. Ainsi,
+  le code suivant produira le même résultat :</p>
   <pre><code language="php">$xyl = new Hoa\Xyl(
     new Hoa\File\Read('Main.xyl'),
     new Hoa\Http\Response(),
     new Hoa\Xyl\Interpreter\Html()
 );
-$xyl->addStylesheet('/UI.css');
+$xyl->addStylesheet('UI.css');
 $xyl->render();</code></pre>
 
   <h3 id="Routeur_et_liens" for="main-toc">Routeur et liens</h3>
@@ -249,7 +250,7 @@ $xyl->render();</code></pre>
   allons définir une <strong>valeur</strong> <code><em>value</em></code>. Ainsi,
   nous allons écrire le lien <code>@blog:id=42&amp;amp;title=Foobar</code> :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
-&amp;lt;?xyl-stylesheet href="/UI.css"?>
+&amp;lt;?xyl-stylesheet href="UI.css"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
@@ -272,49 +273,207 @@ $xyl->render();</code></pre>
 
   <h2 id="Overlay" for="main-toc menu-toc"><em>Overlay</em></h2>
 
-  <p>Les <em>overlays</em> sont un ou plusieurs composants que nous voulons
-  insérer dans un document. Par exemple, imaginons une application qui présente
-  un contenu et une colone sur le côté contenant plusieurs extensions que
-  l'utilisateur peut installer comme il le souhaite. Chaque extension peut
-  définir un <em>overlay</em> qui ne sait pas comment est construit le document
-  principal, mais il connaît l'identifiant de la colonne contenant les
-  extensions. Cette information est amplement suffisante ! Ainsi, lorsque
-  l'extension va s'installer, l'application n'aura qu'à déclarer un nouvel
-  <em>overlay</em> dans le document et il bénéficiera de toutes les ressources
-  du document. En plus de préciser où s'accrocher par rapport à un bloc, il peut
-  préciser sa position dans ce bloc.</p>
+  <p>Les <strong><em>overlays</em></strong> sont un ou plusieurs composants que
+  nous voulons <strong>insérer</strong> dans un document. Par exemple, imaginons
+  une application qui présente un contenu et une colone sur le côté contenant
+  plusieurs extensions que l'utilisateur peut installer comme il le souhaite.
+  Chaque extension est définie comme un <em>overlay</em> qui ne sait pas comment
+  est construit le document principal, mais il connaît l'identifiant de la
+  colonne contenant les extensions. Cette information est amplement suffisante !
+  Ainsi, lorsque l'extension va s'installer, l'application n'aura qu'à déclarer
+  un nouvel <em>overlay</em> dans le document et il <strong>bénéficiera de
+  toutes les ressources</strong> du document (comme le routeur). En plus de
+  préciser où s'accrocher par rapport à un composant, il peut préciser sa
+  position dans ce composant.</p>
+  <p><em>À l'instar</em> d'une déclaration de feuille de style, une déclaration
+  d'<em>overlay</em> se fait avec une <em>processing-instruction</em> :
+  <code>&amp;amp;lt;?xyl-overlay?></code> en tête de n'importe quels documents
+  XYL et avec son attribut <code>href</code> pour préciser l'emplacement de
+  notre <em>overlay</em>. De même, pour une déclaration dynamique, nous avons la
+  méthode <code>addOverlay</code> sur la classe <code>Hoa\Xyl</code>. Ainsi,
+  nous déclarons l'<em>overlay</em> contenu dans le fichier
+  <code>Extension.xyl</code> à notre document auquel nous avons ajouté un
+  composant portant l'identifiant <code>extensions</code> et accueillant déjà
+  une extension :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
-&amp;lt;?xyl-stylesheet href="/ui.css"?>
-&amp;lt;?xyl-overlay href="/Extensions.xyl"?>
+&amp;lt;?xyl-stylesheet href="UI.css"?>
+&amp;lt;?xyl-overlay href="Extension.xyl"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
-  &amp;lt;title>first step with xyl&amp;lt;/title>
+  &amp;lt;title>First step with XYL&amp;lt;/title>
 
-  &amp;lt;h1>my blog&amp;lt;/h1>
+  &amp;lt;article>
+    &amp;lt;h1>My blog&amp;lt;/h1>
 
-  &amp;lt;p>this is a link to &amp;lt;a href="@blog:id=42&amp;amp;amp;amp;title=foobar">an article in my
-  blog&amp;lt;/a>!&amp;lt;/p>
+    &amp;lt;p>This is a link to &amp;lt;a href="@blog:id=42&amp;amp;amp;amp;title=foobar">an article in my
+    blog&amp;lt;/a>!&amp;lt;/p>
+  &amp;lt;/article>
 
-  &amp;lt;div id="extension">
-    &amp;lt;h1>extensions&amp;lt;/h1>
+  &amp;lt;aside id="extensions">
+    &amp;lt;h1>Extensions&amp;lt;/h1>
     &amp;lt;div id="bar">
-      &amp;lt;h2>bar&amp;lt;/h2>
-      &amp;lt;p>awesome bar.&amp;lt;/p>
+      &amp;lt;h2>Bar&amp;lt;/h2>
+      &amp;lt;p>Awesome bar.&amp;lt;/p>
     &amp;lt;/div>
-  &amp;lt;/div>
+  &amp;lt;/aside>
 &amp;lt;/document></code></pre>
-  <p>…</p>
+  <p>Nous avons précisé que tous les documents XYL peuvent déclarer des
+  <em>overlays</em>, ce qui signifie qu'un <em>overlay</em> peut utiliser
+  d'autres <em>overlays</em> et ainsi de suite, mais tous s'appliqueront sur le
+  document final.</p>
+
+  <h3 id="Composition_d-un_overlay" for="main-toc">Composition d'un
+  <em>overlay</em></h3>
+
+  <p>Étudions maintenant la <strong>composition</strong> d'un <em>overlay</em>.
+  Tout d'abord, nous utilisons le <strong>composant racine</strong>
+  <code>overlay</code>. Chaque fils de ce composant racine représente un
+  <strong>composant de référence</strong> qui indique sur quel composant nous
+  voulons nous <strong>accrocher</strong>. Chaque fils d'un composant de
+  référence représente un <strong>composant à insérer</strong>.</p>
+  <pre><code language="xml">&amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;reference_component>
+    &amp;lt;component_to_insert>…&amp;lt;/component_to_insert>
+    &amp;lt;component_to_insert>…&amp;lt;/component_to_insert>
+  &amp;lt;/reference_component>
+
+  &amp;lt;reference_component>
+    …
+  &amp;lt;/reference_component>
+&amp;lt;/overlay></code></pre>
+  <p>Le composant de référence a besoin d'un <strong>identifiant</strong> pour
+  correctement créer une référence vers le composant dans lequel il va insérer
+  des nouveaux composants. Tous ses nouveaux composants seront insérés après
+  les composants déjà existants.</p>
+  <p>Ajoutons une nouvelle extension dans notre colonne en écrivant dans notre
+  fichier <code>Extension.xyl</code> :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
-  &amp;lt;div id="extension">
-    &amp;lt;div id="foo" position="1">
+  &amp;lt;aside id="extension">
+    &amp;lt;div id="foo">
       &amp;lt;h2>Foo&amp;lt;/h2>
-
       &amp;lt;p>Awesome foo.&amp;lt;/p>
     &amp;lt;/div>
-  &amp;lt;/div>
+  &amp;lt;/aside>
 &amp;lt;/overlay></code></pre>
+  <p>Réinterprétons notre document principal et notre nouvelle extension est
+  bien présente dans notre colonne ! Seulement, nous aurions aimé placer cette
+  extension en tête de colonne et non pas à la suite des extensions déjà
+  présentes.</p>
+
+  <h3 id="Positionner_des_overlays" for="main-toc">Positionner des
+  <em>overlays</em></h3>
+
+  <p>Chaque composant à insérer possède l'attribut <code>position</code> qui
+  permet de <strong>positionner</strong> notre <em>overlay</em> parmi les
+  composants qui vont l'accueillir. Les valeurs sont constituées des expressions
+  suivantes :</p>
+  <ul>
+    <li>un <strong>index</strong> supérieur ou égal à zéro (<code>0</code>,
+    <code>1</code>, …, <code><em>n</em></code>) ;</li>
+    <li>une <a href="http://w3.org/TR/xpath20/#id-arithmetic"><strong>opération</strong>
+    arithmétique XPath</a>, soit : l'addition (<code>+</code>, unaire ou
+    binaire), la soustraction (<code>-</code>, unaire ou binaire), la
+    multiplication (<code>*</code>), la division (<code>div</code>), la division
+    entière (<code>idiv</code>) et le modulo (<code>mod</code>) ;</li>
+    <li>un index <strong>dynamique</strong> :
+    <code>element(#<em>anId</em>)</code>, pour connaître la position d'un
+    élément déjà existant, ou <code>last()</code>.</li>
+  </ul>
+  <p>Prenons quelques exemples concrets pour bien comprendre. Pour positionner
+  un <em>overlay</em> :</p>
+  <ul>
+    <li>en première position : <code>0</code> ;</li>
+    <li>en seconde position : <code>1</code> (nous devrions comprendre que
+    l'insertion se fait à <strong>gauche</strong>) ;</li>
+    <li>en dernière position : <code>last()</code> ;</li>
+    <li>en avant-dernière position : <code>last() - 1</code> ;</li>
+    <li>après un composant portant l'identifiant <code>baz</code> :
+    <code>element(#baz)</code> ;</li>
+    <li>avant un composant portant l'identifiant <code>baz</code> :
+    <code>element(#baz) - 1</code> ;</li>
+    <li>de manière non-logique : <code>last() - 2 * element(#qux) mod
+    3</code> ;</li>
+    <li>etc.</li>
+  </ul>
+  <p>Attention : l'ordre d'insertion des nœuds va influer sur leur position.
+  Toutes les expressions de position sont évaluées au dernier moment, soit juste
+  avant l'insertion. Une position négative sera réduite à <code>0</code>, une
+  position trop grande sera réduite à <code>last()</code> et une position
+  non-entière sera tronquée à sa partie entière.</p>
+  <p>Ainsi pour positionner notre nouvelle extension <code>foo</code> non pas en
+  dernière position mais en première position, nous aurons la position
+  <code>1</code> (utiliser la position <code>0</code> la placerait avant le
+  titre de notre colonne) :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;aside id="extension">
+    &amp;lt;div id="foo" position="1">
+      &amp;lt;h2>Foo&amp;lt;/h2>
+      &amp;lt;p>Awesome foo.&amp;lt;/p>
+    &amp;lt;/div>
+  &amp;lt;/aside>
+&amp;lt;/overlay></code></pre>
+  <p>En complément, nous voulons ajouter un séparateur entre nos deux extensions
+  grâce aux composants <code>&amp;amp;lt;hr /></code>. Nous avons donc un second
+  composant à insérer et nous le positionnerons après notre composant
+  <code>foo</code> ; ainsi :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;aside id="extension">
+    &amp;lt;div id="foo" position="1">
+      &amp;lt;h2>Foo&amp;lt;/h2>
+      &amp;lt;p>Awesome foo.&amp;lt;/p>
+    &amp;lt;/div>
+
+    &amp;lt;hr position="element(#foo)" />
+  &amp;lt;/aside>
+&amp;lt;/overlay></code></pre>
+  <p>Si la position de nouvelle extension est modifiée, son séparateur sera
+  toujours après elle.</p>
+
+  <h3 id="Overlays_et_feuilles_de_style" for="main-toc"><em>Overlays</em> et
+  feuilles de style</h3>
+
+  <p>Les <em>overlays</em> peuvent également déclarer des feuilles de style
+  grâce aux mécanismes vus précédemment. Ainsi, nous pouvons imaginer
+  avoir :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+&amp;lt;xyl-stylesheet href="Extension.css"?>
+
+&amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;aside id="extension">
+    &amp;lt;div id="foo" position="1">
+      …</code></pre>
+  <p>Avec notre fichier <code>Extension.css</code> qui contiendrait :</p>
+  <pre><code language="css">#foo {
+    color: green
+}</code></pre>
+  <p>Après réinterprétation de notre document, le texte de notre extension aura
+  un style différent. Ce mécanisme est intéressant si des extensions veulent
+  embarquer leurs propres styles (ou d'autres ressources).</p>
+
+  <h3 id="Un_peu_plus_loin_avec_les_overlays" for="main-toc">Un peu plus loin
+  avec les <em>overlays</em></h3>
+
+  <p>Un composant de référence est capable de modifier le composant dans lequel
+  il va insérer de nouveaux composants : il peut lui ajouter ou modifier des
+  attributs (mais pas en supprimer). Par exemple, si nous voulons ajouter un
+  attribut <code>class</code> à notre colonne :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+&amp;lt;xyl-stylesheet href="Extension.css"?>
+
+&amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;aside id="extension" class="baz">
+    &amp;lt;div id="foo" position="1">
+      …</code></pre>
+  <p>Selon le type d'attribut, le comportement s'adaptera. Dans le classe de
+  l'attribut <code>class</code> (qui est de type liste), les nouvelles classes
+  de style seront ajoutées aux existantes, alors que pour d'autres attributs, la
+  valeur sera peut-être simplement remplacée.</p>
 
   <h2 id="Binding_et_yielding" for="main-toc menu-toc"><em>Binding</em> et
   <em>yielding</em></h2>
