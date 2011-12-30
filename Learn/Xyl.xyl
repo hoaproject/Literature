@@ -442,7 +442,7 @@ $xyl->render();</code></pre>
   grâce aux mécanismes vus précédemment. Ainsi, nous pouvons imaginer
   avoir :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
-&amp;lt;xyl-stylesheet href="Extension.css"?>
+&amp;lt;?xyl-stylesheet href="Extension.css"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;aside id="extension">
@@ -464,7 +464,6 @@ $xyl->render();</code></pre>
   attributs (mais pas en supprimer). Par exemple, si nous voulons ajouter un
   attribut <code>class</code> à notre colonne :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
-&amp;lt;xyl-stylesheet href="Extension.css"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;aside id="extension" class="baz">
