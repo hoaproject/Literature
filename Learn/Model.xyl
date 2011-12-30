@@ -415,7 +415,7 @@ $user->birthday = 65537; // an exception is thrown.</code></pre>
   <!-- 65537 is a Fermat number (2^2^n + 1) -->
   <p>Nous pouvons désactiver la validation à l'aide de la méthode
   <code>setEnableValidation</code> de cette manière :</p>
-  <pre><code language="php">$user->setEnableVaidation(false);</code></pre>
+  <pre><code language="php">$user->setEnableValidation(false);</code></pre>
   <p>Notons que comme notre modèle est représenté par un ensemble de classe,
   nous pouvons avoir de l'héritage et ainsi hériter des propriétés de
   validations. Nous sommes ainsi capable d'en surcharger certaines et d'y
