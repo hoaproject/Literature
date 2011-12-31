@@ -706,7 +706,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   puissant. L'<strong>abstraction</strong> des données par leur caractère
   symbolique empêche des regressions.</p>
 
-  <h2 id="Routeur_et_liens" for="main-toc menu-lien">Routeur et liens</h2>
+  <h2 id="Routeur_et_liens" for="main-toc menu-toc">Routeur et liens</h2>
 
   <p>Nous avons vu qu'une vue au sens de <code>Hoa\View\Viewable</code> comporte
   un <strong>routeur</strong>. Comme <code>Hoa\Xyl</code> implémente cette
