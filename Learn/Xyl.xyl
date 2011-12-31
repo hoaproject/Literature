@@ -15,7 +15,7 @@
   <p>Le système d'interface graphique permet de déclarer des
   <strong>vues</strong>. Il peut se cantonner à un simple affichage de données
   de manière ordonnée ou alors offrir bien plus de services, notamment sur la
-  sur la <strong>maintenance</strong>. Dans ce chapitre, nous allons présenter
+  <strong>maintenance</strong>. Dans ce chapitre, nous allons présenter
   la bibliothèque <code>Hoa\View</code> et la bibliothèque
   <code>Hoa\Xyl</code>.</p>
 
@@ -42,8 +42,8 @@
   qu'une seule interface : <code>Hoa\View\Viewable</code> qui définit quatre
   méthodes :</p>
   <ul>
-    <li><code>getOutputStream</code> pour connaître le flux sortant, <ie /> le
-    flux sur lequel la vue va être rendue ;</li>
+    <li><code>getOutputStream</code> pour connaître le flux sur lequel la vue va
+    être rendue ;</li>
     <li><code>getData</code> pour obtenir les données de la vue ;</li>
     <li><code>render</code> pour effectuer un rendu de la vue ;</li>
     <li><code>getRouter</code> pour obtenir le routeur associé à la vue.</li>
@@ -108,14 +108,13 @@
   <h2 id="Document" for="main-toc menu-toc">Document</h2>
 
   <p>Pour introduire XYL, nous allons commencer par créer un document à l'aide
-  du <strong>composant racine</strong> <code>&amp;amp;lt;document></code> dans
-  le fichier <code>Main.xyl</code>. Tous les documents ou composants XYL
-  travaillent sur l'<strong>espace de nom XML</strong>
+  du <strong>composant racine</strong> <code>document</code> dans le fichier
+  <code>Main.xyl</code>. Tous les documents ou composants XYL travaillent sur
+  l'<strong>espace de nom XML</strong>
   <code>http://hoa-project.net/xyl/xylophone</code> (attention à la casse). À ce
-  document, nous allons définir un titre grâce au composant
-  <code>&amp;amp;lt;title></code>, et enfin nous allons ajouter un paragraphe
-  avec une liste non-ordonnée grâce aux composants <code>&amp;amp;lt;p></code>,
-  <code>&amp;amp;lt;ul></code> et <code>&amp;amp;lt;li></code> :</p>
+  document, nous allons définir un titre grâce au composant <code>title</code>,
+  et enfin nous allons ajouter un paragraphe avec une liste non-ordonnée grâce
+  aux composants <code>p</code>, <code>ul</code> et <code>li</code> :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
@@ -176,7 +175,7 @@ $xyl->render();</code></pre>
   partie du <strong>comportement</strong> d'un document mais jamais il ne
   définira son style. Ce travail doit être réalisé par un autre langage, de
   préférence <a href="http://www.w3.org/TR/CSS">CSS</a> mais ce n'est pas
-  obligatoire, le choix étant laissé à à'utilisateur.</p>
+  obligatoire, le choix étant laissé à l'utilisateur.</p>
   <p>Pour déclarer une feuille de style, nous utilisons la
   <a href="http://w3.org/TR/xml11/#sec-pi"><em>processing-instruction</em></a>
   <code>&amp;amp;lt?xyl-stylesheet?></code> en tête de n'importe quels documents
@@ -190,10 +189,6 @@ $xyl->render();</code></pre>
   &amp;lt;title>First step with XYL&amp;lt;/title>
 
   …</code></pre>
-  <p>Évidemment, utiliser le protocole <code>hoa://</code> dans l'attribut
-  <code>href</code> fonctionne tout à fait, comme ce serait le cas pour d'autres
-  protocoles (<code>file://</code>, <code>href://</code>, votre propre protocole
-  etc.).</p>
   <p>Et notre fichier <code>UI.css</code> :</p>
   <pre><code language="css">body {
     color: red
@@ -212,79 +207,20 @@ $xyl->render();</code></pre>
 $xyl->addStylesheet('UI.css');
 $xyl->render();</code></pre>
 
-  <h3 id="Routeur_et_liens" for="main-toc">Routeur et liens</h3>
-
-  <p>Nous avons vu qu'une vue au sens de <code>Hoa\View\Viewable</code> comporte
-  un <strong>routeur</strong>. Comme <code>Hoa\Xyl</code> implémente cette
-  interface, nous pouvons définir et utiliser un routeur au sein de nos
-  documents XYL.</p>
-  <p>Nous allons commencer par écrire une règle sur un routeur HTTP et le donner
-  à notre instance de XYL. La règle aura pour identifiant « <code>blog</code> »
-  et n'aura aucune action (<ie /> <em>callable</em>) attachée. Nous voulons
-  juste écrire un lien et non pas le reconnaître. Ainsi :</p>
-  <pre><code language="php">from('Hoa')
--> import('File.Read')
--> import('Http.Response.~')
--> import('Xyl.~')
--> import('Xyl.Interpreter.Html.~')
--> import('Router.Http');
-
-$router = new Hoa\Router\Http();
-$router->get('blog', '/Blog/(?&amp;lt;id>\d+)-(?&amp;lt;title>[^\.]+)\.html');
-
-$xyl    = new Hoa\Xyl(
-    new Hoa\File\Read('Main.xyl'),
-    new Hoa\Http\Response(),
-    new Hoa\Xyl\Interpreter\Html(),
-    $router
-);
-$xyl->render();</code></pre>
-  <p>Pour utiliser cette règle dans XYL, il faut tout d'abord se placer dans un
-  attribut qui se comporte comme un <strong>lien</strong> (par exemple
-  <code>href</code> pour le composant <code>&amp;amp;lt;a></code>,
-  <code>src</code> pour le composant <code>&amp;amp;lt;img></code> etc.) et
-  utiliser le formalisme suivant pour déclarer le lien :
-  <code>@<em>anId</em>:<em>key</em>=<em>value</em>[&amp;amp;<em>key</em>=<em>value</em>]*</code>.
-  Chaque <code><em>key</em></code> correspond à une <strong>variable</strong> de
-  notre <strong>règle</strong> <code><em>anId</em></code> pour laquelle nous
-  allons définir une <strong>valeur</strong> <code><em>value</em></code>. Ainsi,
-  nous allons écrire le lien <code>@blog:id=42&amp;amp;title=Foobar</code> :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
-&amp;lt;?xyl-stylesheet href="UI.css"?>
-
-&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
-  &amp;lt;title>First step with XYL&amp;lt;/title>
-
-  &amp;lt;p>This is a link to &amp;lt;a href="@blog:id=42&amp;amp;amp;amp;title=Foobar">an article in my
-  blog&amp;lt;/a>!&amp;lt;/p>
-&amp;lt;/document></code></pre>
-  <p>Le contenu de l'attribut <code>href</code> vaudra
-  <code>/Blog/42-Foobar.html</code> après interprétation. Notre lien est bien
-  créé. Maintenant, si nous modifions la règle pour autre chose mais toujours
-  avec les variables <code>id</code> et <code>title</code> placées
-  différemment (par exemple
-  <code>/Blog/Article-(?&amp;amp;lt;title>[^\.]+)-(?&amp;amp;lt;id>\d+)\.html</code>),
-  nous verrons le lien se réécrire automatiquement. Amusez-vous à supprimer des
-  variables de votre règle pour voir comment elle réagit ; le mécanisme est
-  assez intuitif.</p>
-  <p>Notons que le « <code>&amp;amp;amp;amp;</code> » est obligatoire car écrire
-  simplement « <code>&amp;amp;</code> » serait une source d'erreur lors de
-  l'analyse du document XYL (qui est du XML).</p>
-
   <h2 id="Overlay" for="main-toc menu-toc"><em>Overlay</em></h2>
 
   <p>Les <strong><em>overlays</em></strong> sont un ou plusieurs composants que
   nous voulons <strong>insérer</strong> dans un document. Par exemple, imaginons
   une application qui présente un contenu et une colone sur le côté contenant
-  plusieurs extensions que l'utilisateur peut installer comme il le souhaite.
-  Chaque extension est définie comme un <em>overlay</em> qui ne sait pas comment
-  est construit le document principal, mais il connaît l'identifiant de la
-  colonne contenant les extensions. Cette information est amplement suffisante !
-  Ainsi, lorsque l'extension va s'installer, l'application n'aura qu'à déclarer
-  un nouvel <em>overlay</em> dans le document et il <strong>bénéficiera de
-  toutes les ressources</strong> du document (comme le routeur). En plus de
-  préciser où s'accrocher par rapport à un composant, il peut préciser sa
-  position dans ce composant.</p>
+  plusieurs extensions que l'utilisateur de l'application peut installer comme
+  il le souhaite.  Chaque extension est définie comme un <em>overlay</em> qui ne
+  sait pas comment est construit le document principal, mais il connaît
+  l'identifiant de la colonne contenant les extensions. Cette information est
+  amplement suffisante !  Ainsi, lorsque l'extension va s'installer,
+  l'application n'aura qu'à déclarer un nouvel <em>overlay</em> dans le document
+  et il bénéficiera de <strong>toutes les ressources</strong> du document. En
+  plus de préciser où s'accrocher par rapport à un composant, il peut préciser
+  sa position dans ce composant.</p>
   <p><em>À l'instar</em> d'une déclaration de feuille de style, une déclaration
   d'<em>overlay</em> se fait avec une <em>processing-instruction</em> :
   <code>&amp;amp;lt;?xyl-overlay?></code> en tête de n'importe quels documents
@@ -304,9 +240,7 @@ $xyl->render();</code></pre>
 
   &amp;lt;article>
     &amp;lt;h1>My blog&amp;lt;/h1>
-
-    &amp;lt;p>This is a link to &amp;lt;a href="@blog:id=42&amp;amp;amp;amp;title=foobar">an article in my
-    blog&amp;lt;/a>!&amp;lt;/p>
+    &amp;lt;p>This is my blog.&amp;lt;/p>
   &amp;lt;/article>
 
   &amp;lt;aside id="extensions">
@@ -397,11 +331,11 @@ $xyl->render();</code></pre>
     3</code> ;</li>
     <li>etc.</li>
   </ul>
-  <p>Attention : l'ordre d'insertion des nœuds va influer sur leur position.
-  Toutes les expressions de position sont évaluées au dernier moment, soit juste
-  avant l'insertion. Une position négative sera réduite à <code>0</code>, une
-  position trop grande sera réduite à <code>last()</code> et une position
-  non-entière sera tronquée à sa partie entière.</p>
+  <p>Attention : l'ordre d'insertion des composants va influer sur leurs
+  positions. Toutes les expressions de position sont évaluées au dernier moment,
+  soit juste avant l'insertion. Une position négative sera réduite à
+  <code>0</code>, une position trop grande sera réduite à <code>last()</code> et
+  une position non-entière sera tronquée à sa partie entière.</p>
   <p>Ainsi pour positionner notre nouvelle extension <code>foo</code> non pas en
   dernière position mais en première position, nous aurons la position
   <code>1</code> (utiliser la position <code>0</code> la placerait avant le
@@ -417,9 +351,9 @@ $xyl->render();</code></pre>
   &amp;lt;/aside>
 &amp;lt;/overlay></code></pre>
   <p>En complément, nous voulons ajouter un séparateur entre nos deux extensions
-  grâce aux composants <code>&amp;amp;lt;hr /></code>. Nous avons donc un second
-  composant à insérer et nous le positionnerons après notre composant
-  <code>foo</code> ; ainsi :</p>
+  grâce au composant <code>hr</code>. Nous avons donc un second composant à
+  insérer et nous le positionnerons après notre composant <code>foo</code> ;
+  ainsi :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
@@ -432,8 +366,8 @@ $xyl->render();</code></pre>
     &amp;lt;hr position="element(#foo)" />
   &amp;lt;/aside>
 &amp;lt;/overlay></code></pre>
-  <p>Si la position de nouvelle extension est modifiée, son séparateur sera
-  toujours après elle.</p>
+  <p>Si la position de notre nouvelle extension est modifiée, son séparateur
+  sera toujours après elle sans <strong>ne rien changer</strong>.</p>
 
   <h3 id="Overlays_et_feuilles_de_style" for="main-toc"><em>Overlays</em> et
   feuilles de style</h3>
@@ -454,15 +388,16 @@ $xyl->render();</code></pre>
 }</code></pre>
   <p>Après réinterprétation de notre document, le texte de notre extension aura
   un style différent. Ce mécanisme est intéressant si des extensions veulent
-  embarquer leurs propres styles (ou d'autres ressources).</p>
+  <strong>embarquer</strong> leurs propres styles (ou d'autres ressources).</p>
 
   <h3 id="Un_peu_plus_loin_avec_les_overlays" for="main-toc">Un peu plus loin
   avec les <em>overlays</em></h3>
 
-  <p>Un composant de référence est capable de modifier le composant dans lequel
-  il va insérer de nouveaux composants : il peut lui ajouter ou modifier des
-  attributs (mais pas en supprimer). Par exemple, si nous voulons ajouter un
-  attribut <code>class</code> à notre colonne :</p>
+  <p>Un composant de référence est capable de <strong>modifier</strong> le
+  composant dans lequel il va insérer de nouveaux composants : il peut lui
+  ajouter ou modifier des attributs (mais pas en supprimer). Par exemple, si
+  nous voulons ajouter un attribut <code>class</code> à notre colonne, nous
+  ferons :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
@@ -477,18 +412,364 @@ $xyl->render();</code></pre>
   <h2 id="Binding_et_yielding" for="main-toc menu-toc"><em>Binding</em> et
   <em>yielding</em></h2>
 
-  <h3 id="Arbre_de_donnees" for="main-toc">Arbre de données</h3>
+  <p>Le mécanisme de <strong>liage</strong> (ou
+  <strong><em>binding</em></strong>) des données à notre vue est simple à
+  comprendre et à utiliser si nous comprenons bien la <strong>forme</strong> de
+  nos données.</p>
 
-  <h3 id="Donnees_symboliques" for="main-toc">Données symboliques</h3>
+  <h3 id="Arbres_et_forets_de_donnees" for="main-toc">Arbres et forêts de
+  données</h3>
 
-  <!-- ?binding et inner-binding -->
+  <p>XYL manipule des données qui ont la forme d'<strong>arbres</strong>. Pour
+  simplifier la construction et manipulation de ces arbres (et aussi pour des
+  raisons de performance), XYL utilise la classe <code>Hoa\Core\Data</code>.
+  Cette classe est hautement dynamique : tout se déclare à la volée (attributs,
+  indexes de tableaux etc.). Initialement, elle permet de manipuler des données
+  <strong>polymorphiques</strong> ; dans le cas de XYL nous voulons l'utiliser
+  uniquement comme un ensemble d'arbres, soit une <strong>forêt</strong>.</p>
+  <p>Pour débuter avec les données, nous avons besoin de définir la forme de
+  notre arbre pour <strong>un seul</strong> exemplaire. Imaginons par exemple un
+  arbre <code>article</code> représentant un article et comportant les données
+  suivantes :</p>
+  <ul>
+    <li>un identifiant <code>id</code> ;</li>
+    <li>un titre <code>title</code> ;</li>
+    <li>un auteur <code>author</code>.</li>
+  </ul>
+  <p>Avec une instance de <code>Hoa\Core\Data</code> que nous récupérons avec la
+  méthode <code>getData</code> de <code>Hoa\Xyl</code>, nous avons :</p>
+  <pre><code language="php">$xyl  = new Hoa\Xyl(…);
+$data = $xyl->getData();
 
-  <h3 id="Definition_de_composants" for="main-toc">Défition de composants</h3>
+$data->article->id     = 0;
+$data->article->title  = 'Foobar';
+$data->article->author = 'G. Freeman';
+
+$xyl->render();</code></pre>
+  <p>Essayons de <strong>lier</strong> ces données grâce à l'attribut
+  <code>bind</code> qui se trouve sur <strong>tous</strong> les composants
+  XYL. La syntaxe d'un liage est <code>?[p[ath]:]<em>aTreeName</em></code>. Ainsi :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>First step with XYL&amp;lt;/title>
+
+  &amp;lt;ul>
+    &amp;lt;li bind="?article">
+      #&amp;lt;value bind="?id" /> &amp;lt;cite bind="?title" /> — &amp;lt;em bind="?author" />
+    &amp;lt;/li>
+  &amp;lt;/ul>
+&amp;lt;/document></code></pre>
+  <p>Nous voyons que le composant <code>li</code> se <strong>lie</strong> à
+  l'arbre <code>article</code>, puis de même pour chacun de ses sous-arbres (ici
+  des feuilles), respectivement <code>id</code>, <code>title</code> et
+  <code>author</code>. Nous découvrons en même temps le composant
+  <code>value</code> qui sert à afficher une valeur verbatim. Nous déduisons
+  alors que faire <code language="xml">&amp;lt;cite bind="?title" /></code> est
+  strictement équivalent à faire <code language="xml">&amp;lt;cite>&amp;lt;value
+  bind="?title" />&amp;lt;/cite></code>.</p>
+  <p>Si nous interprétons notre document, nous verrons bien les données
+  apparaître.</p>
+  <p>Maintenant que nous avons notre arbre, nous allons créer une
+  <strong>forêt</strong>. Il faut savoir que dans le monde de XYL, tous les
+  arbres de la même espèce sont strictement identiques à part la couleur de
+  leurs feuilles, <ie /> les données finales, mais la forme des branches, et
+  donc de l'arbre, est toujours <strong>identique</strong>. C'est pourquoi si
+  nous créons un nouvel arbre <code>article</code>, il aura la même forme que
+  celui que nous venons de créer. Nous accédons aux différents arbres grâce à un
+  index comme pour un tableau ; ainsi :</p>
+  <pre><code language="php">$data->article[0]->id     = 0;
+$data->article[0]->title  = 'Foobar';
+$data->article[0]->author = 'G. Freeman';
+
+$data->article[1]->id     = 1;
+$data->article[1]->title  = 'Bazqux';
+$data->article[1]->author = 'A. Vance';</code></pre>
+  <p>Sans modifier notre fichier XYL, nous allons le réinterpréter. Nous voyons
+  que notre forêt d'arbres <code>article</code> est <strong>itérée</strong>
+  correctement.</p>
+  <p>Nous aimerions maintenant que chaque article puisse avoir plusieurs
+  auteurs, nous allons alors créer un nouveau sous-arbre <code>name</code> sous
+  le sous-arbre <code>author</code> :</p>
+  <pre><code language="php">$data->article[0]->id                 = 0;
+$data->article[0]->title           = 'Foobar';
+$data->article[0]->author->name[0] = 'G. Freeman';
+$data->article[0]->author->name[1] = 'G-Man';
+
+$data->article[1]->id              = 1;
+$data->article[1]->title           = 'Bazqux';
+$data->article[1]->author->name    = 'A. Vance';</code></pre>
+  <p>Nous devons modifier notre document XYL pour qu'il prenne en considérations
+  ce nouveau sous-arbre :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>First step with XYL&amp;lt;/title>
+
+  &amp;lt;ul>
+    &amp;lt;li bind="?article">
+      #&amp;lt;value bind="?id" /> &amp;lt;cite bind="?title" />
+      &amp;lt;ul bind="?author">&amp;lt;li bind="?name" />&amp;lt;/ul>
+    &amp;lt;/li>
+  &amp;lt;/ul>
+&amp;lt;/document></code></pre>
+  <p>Les auteurs apparaissent comme attendus.</p>
+  <p>Chaque composant qui fait un liage utilise un nouveau sous-arbre sur lequel
+  ses sous-composants vont travailler.</p>
+  <p>Cette forme de données peut paraître étrange au début mais elle s'adapte
+  très bien aux outils d'<strong>extraction</strong> de données (comme les bases
+  de données).</p>
+
+  <h3 id="Inner-binding" for="main-toc"><em>Inner-binding</em></h3>
+
+  <p>Nous avons vu l'attribut <code>bind</code> qui permet de lier le
+  <strong>contenu</strong> d'un composant avec des données, mais nous pouvons
+  également lier le contenu d'un <strong>attribut</strong> avec des données. Ce
+  mécanisme s'appelle le <strong>liage-interne</strong> (ou
+  <strong><em>inner-binding</em></strong>). Sa syntaxe est la même que pour un
+  liage normal sauf que nous y ajoutons des parenthèses, soit :
+  <code>(?[p[ath]:]<em>aTreeName</em>)</code>. Comme tous les composants sont
+  liables, <strong>tous</strong> les attributs de tous les composants le sont
+  également.  Ainsi, nous pouvons modifier notre document existant en
+  déplacement la donnée <code>id</code> dans un attribut :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>First step with XYL&amp;lt;/title>
+
+  &amp;lt;ul>
+    &amp;lt;li bind="?article" id="art_(?id)">
+      &amp;lt;cite bind="?title" />
+      &amp;lt;ul bind="?author">&amp;lt;li bind="?name" />&amp;lt;/ul>
+    &amp;lt;/li>
+  &amp;lt;/ul>
+&amp;lt;/document></code></pre>
+
+  <h3 id="Donnees_symboliques_et_definition_de_composants"
+  for="main-toc">Données symboliques et définition de composants</h3>
+
+  <p>Maintenant que nous connaissons la forme des données et le mécanisme de
+  liage (verbatim ou interne), nous allons nous intéresser à la création de
+  composants graphiques qui est une finalité de XYL. Les données sont découpées
+  uniformément et sont dites <strong>isolées</strong> et <strong>libres de
+  contexte</strong>, ou plus simplement nous parlons de <strong>données
+  symboliques</strong>.</p>
+  <p>Un nouveau composant qui est souvent utile dans XYL est <code>yield</code>.
+  Ce composant peut avoir trois fonctions :</p>
+  <ul>
+    <li>permettre de positionner un liage particulier, grâce à l'attribut
+    <code>bind</code>, déjà bien connu ;</li>
+    <li>créer un composant, grâce à l'attribut <code>name</code> ;</li>
+    <li>créer un composant dynamique, grâce à l'attribut
+    <code>select</code>.</li>
+  </ul>
+  <p>En premier lieu, <code>yield</code> ne fera aucun rendu de lui-même mais
+  uniquement de ses enfants s'ils existent ou alors de son liage. Ainsi, la
+  modification suivante du document remplacera notre liste d'auteurs avec les
+  composants <code>ul</code> et <code>li</code> par simplement <code>em</code>
+  (<code>yield</code> n'apparaîtra pas) :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>First step with XYL&amp;lt;/title>
+
+  &amp;lt;ul>
+    &amp;lt;li bind="?article" id="art_(?id)">
+      &amp;lt;cite bind="?title" /> — 
+      &amp;lt;yield bind="?author">
+        &amp;lt;em bind="?name" />
+      &amp;lt;/yield>
+    &amp;lt;/li>
+  &amp;lt;/ul>
+&amp;lt;/document></code></pre>
+  <p>Ensuite, si nous utilisons un <strong>composant nommé</strong>,
+  c'est à dire un composant <code>yield</code> avec l'attribut
+  <code>name</code>, alors nous créons un nouveau composant que nous pouvons
+  réutiliser où nous voulons et autant de fois que nous le désirons. Par
+  exemple, nous allons créer un composant nommé <code>author_article</code>,
+  puis l'utiliser :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>First step with XYL&amp;lt;/title>
+
+  &amp;lt;yield name="author_article">
+    &amp;lt;h1 id="art_(?id)">&amp;lt;value bind="?title" />&amp;lt;/h1>
+    &amp;lt;ul bind="?author">&amp;lt;li bind="?name" />&amp;lt;/ul>
+  &amp;lt;/yield>
+
+  &amp;lt;author_article bind="?article" />
+&amp;lt;/document></code></pre>
+  <p>Nous <strong>lions</strong> les données au composant
+  <code>author_article</code> toujours grâce à l'attribut <code>bind</code>.
+  Utiliser un attribut <code>bind</code> sur un composant <code>yield</code> qui
+  porte un attribut <code>name</code> n'aura <strong>aucun</strong> effet mais
+  peut servir de <em>memorandum</em> !</p>
+  <p>Bien entendu, nous pouvons réutiliser nos composants dans de nouveaux
+  composants et ainsi de suite (l'ordre n'a pas d'importance) :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>First step with XYL&amp;lt;/title>
+
+  &amp;lt;yield name="author_articles">
+    &amp;lt;author_article />
+    &amp;lt;hr />
+  &amp;lt;/yield>
+
+  &amp;lt;yield name="author_article">
+    &amp;lt;h1 id="art_(?id)">&amp;lt;value bind="?title" />&amp;lt;/h1>
+    &amp;lt;ul bind="?author">&amp;lt;li bind="?name" />&amp;lt;/ul>
+  &amp;lt;/yield>
+
+  &amp;lt;author_articles bind="?article" />
+&amp;lt;/document></code></pre>
+  <p>Enfin, utiliser un <strong>composant sélecteur</strong>, c'est à dire un
+  composant <code>yield</code> avec l'attribut <code>select</code>, n'est
+  possible que dans un composant nommé. L'objectif est de sélectionner des
+  composants lors de l'utilisation d'un composant nommé. La sélection se fait à
+  l'aide d'une <a href="http://w3.org/TR/xpath20">expression XPath</a> de la
+  forme <code>?x[path]:<em>expression</em></code>. Par exemple, au lieu
+  d'utiliser le composant <code>hr</code> de manière statique, nous allons
+  sélectionner tous les composants fournis par l'utilisateur :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>First step with XYL&amp;lt;/title>
+
+  &amp;lt;yield name="author_articles">
+    &amp;lt;author_article />
+    &amp;lt;yield select="?x:*" />
+  &amp;lt;/yield>
+
+  &amp;lt;yield name="author_article">
+    &amp;lt;h1 id="art_(?id)">&amp;lt;value bind="?title" />&amp;lt;/h1>
+    &amp;lt;ul bind="?author">&amp;lt;li bind="?name" />&amp;lt;/ul>
+  &amp;lt;/yield>
+
+  &amp;lt;author_articles bind="?article">
+    &amp;lt;p>&amp;lt;a href="#">top&amp;lt;/a>&amp;lt;/p>
+    &amp;lt;hr />
+  &amp;lt;/author_articles>
+&amp;lt;/document></code></pre>
+
 
   <h3 id="Definition_de_bibliotheques_de_composants" for="main-toc">Définition
   de bibliothèques de composants</h3>
 
+  <p>Nous savons créer des composants graphiques grâce aux composants nommés.
+  Nous pouvons alors avoir des <strong>bibliothèques de composants
+  graphiques</strong> stockées dans un ou plusieurs fichiers XYL.</p>
+  <p><em>À l'instar</em> d'une déclaration de feuille de style ou d'un
+  <em>overlay</em>, une utilisation d'une bibliothèque graphique se fait avec
+  une <em>processing-instruction</em> : <code>&amp;amp;lt;?xyl-use?></code> en
+  tête de n'importe quels documents XYL et avec son attribut <code>href</code>
+  pour préciser l'emplacement de notre bibliothèque graphique. De même, pour une
+  déclaration dynamique, nous avons la méthode <code>addUse</code> sur la classe
+  <code>Hoa\Xyl</code>. Une bibliothèque peut bien sûr inclure d'autres
+  bibliothèques et ainsi de suite. Une bibliothèque peut également déclarer des
+  feuilles de style mais pas des <em>overlays</em>. Ainsi, si nous
+  <strong>externalisons</strong> nos composants fraîchement créés :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+&amp;lt;?xyl-use href="Author.xyl"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>First step with XYL&amp;lt;/title>
+
+  &amp;lt;author_articles bind="?article">
+    &amp;lt;p>&amp;lt;a href="#">top&amp;lt;/a>&amp;lt;/p>
+    &amp;lt;hr />
+  &amp;lt;/author_articles>
+&amp;lt;/document></code></pre>
+  <p>Enfin, notre bibliothèque graphique est contenue dans le <strong>composant
+  racine</strong> <code>definition</code> et ne contient que des composants
+  nommés. Voici notre fichier <code>Author.xyl</code> :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;definition xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;yield name="author_articles">
+    &amp;lt;author_article />
+    &amp;lt;yield select="?x:*" />
+  &amp;lt;/yield>
+
+  &amp;lt;yield name="author_article">
+    &amp;lt;h1 id="art_(?id)">&amp;lt;value bind="?title" />&amp;lt;/h1>
+    &amp;lt;ul bind="?author">&amp;lt;li bind="?name" />&amp;lt;/ul>
+  &amp;lt;/yield>
+&amp;lt;/definition></code></pre>
+  <p>Nous pouvons imaginer <strong>partager</strong> des bibliothèques entre
+  <strong>plusieurs applications</strong> facilement ou même au sein d'une même
+  application. La <strong>maintenance</strong> des composants graphiques se voit
+  <strong>facilitée</strong> car tout est <strong>centralisé</strong> et
+  facilement accessible. La <strong>composition</strong> des composants avec la
+  <strong>propagation</strong> des liages vers les données offrent un mécanisme
+  puissant. L'<strong>abstraction</strong> des données par leur caractère
+  symbolique empêche des regressions.</p>
+
+  <h2 id="Routeur_et_liens" for="main-toc menu-lien">Routeur et liens</h2>
+
+  <p>Nous avons vu qu'une vue au sens de <code>Hoa\View\Viewable</code> comporte
+  un <strong>routeur</strong>. Comme <code>Hoa\Xyl</code> implémente cette
+  interface, nous pouvons définir et utiliser un routeur au sein de nos
+  documents XYL.</p>
+  <p>Nous allons commencer par écrire une règle sur un routeur HTTP et le donner
+  à notre instance de XYL. La règle aura pour identifiant <code>blog</code>
+  et n'aura aucune action (<ie /> <em>callable</em>) attachée. Nous voulons
+  juste écrire un lien et non pas le reconnaître. Ainsi :</p>
+  <pre><code language="php">from('Hoa')
+-> import('File.Read')
+-> import('Http.Response.~')
+-> import('Xyl.~')
+-> import('Xyl.Interpreter.Html.~')
+-> import('Router.Http');
+
+$router = new Hoa\Router\Http();
+$router->get('blog', '/Blog/(?&amp;lt;id>\d+)-(?&amp;lt;title>[^\.]+)\.html');
+
+$xyl    = new Hoa\Xyl(
+    new Hoa\File\Read('Main.xyl'),
+    new Hoa\Http\Response(),
+    new Hoa\Xyl\Interpreter\Html(),
+    $router
+);
+$xyl->render();</code></pre>
+  <p>Pour utiliser cette règle dans XYL, il faut tout d'abord se placer dans un
+  attribut qui se comporte comme un <strong>lien</strong> (par exemple
+  <code>href</code> pour le composant <code>&amp;amp;lt;a></code>,
+  <code>src</code> pour le composant <code>&amp;amp;lt;img></code> etc.) et
+  utiliser le formalisme suivant pour déclarer le lien :
+  <code>@<em>anId</em>:<em>key</em>=<em>value</em>[&amp;amp;<em>key</em>=<em>value</em>]*</code>.
+  Chaque <code><em>key</em></code> correspond à une <strong>variable</strong> de
+  notre <strong>règle</strong> <code><em>anId</em></code> pour laquelle nous
+  allons définir une <strong>valeur</strong> <code><em>value</em></code>. Ainsi,
+  nous allons écrire le lien <code>@blog:id=42&amp;amp;title=Foobar</code> :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+&amp;lt;?xyl-stylesheet href="UI.css"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>First step with XYL&amp;lt;/title>
+
+  &amp;lt;p>This is a link to &amp;lt;a href="@blog:id=42&amp;amp;amp;amp;title=Foobar">an article in my
+  blog&amp;lt;/a>!&amp;lt;/p>
+&amp;lt;/document></code></pre>
+  <p>Le contenu de l'attribut <code>href</code> vaudra
+  <code>/Blog/42-Foobar.html</code> après interprétation. Notre lien est bien
+  créé. Maintenant, si nous modifions la règle pour autre chose mais toujours
+  avec les variables <code>id</code> et <code>title</code> placées
+  différemment (par exemple
+  <code>/Blog/Article-(?&amp;amp;lt;title>[^\.]+)-(?&amp;amp;lt;id>\d+)\.html</code>),
+  nous verrons le lien se réécrire automatiquement. Amusez-vous à supprimer des
+  variables de votre règle pour voir comment elle réagit ; le mécanisme est
+  assez intuitif.</p>
+  <p>Notons que le « <code>&amp;amp;amp;amp;</code> » est obligatoire car écrire
+  simplement « <code>&amp;amp;</code> » serait une source d'erreur lors de
+  l'analyse du document XYL (qui est du XML).</p>
+
+
   <!-- Dans hoa://Data/… -->
+
+  <h2 id="Application_Gordon-s_blog" for="main-toc menu-toc">Application :
+  <em>Gordon's blog</em></h2>
 
   <ul class="prev_next">
     <li><a href="@ll:chapter=Model"><previous_chapter /> Modèle de
