@@ -469,7 +469,7 @@ $xyl->render();</code></pre>
   &amp;lt;aside id="extension" class="baz">
     &amp;lt;div id="foo" position="1">
       …</code></pre>
-  <p>Selon le type d'attribut, le comportement s'adaptera. Dans le classe de
+  <p>Selon le type d'attribut, le comportement s'adaptera. Dans le cas de
   l'attribut <code>class</code> (qui est de type liste), les nouvelles classes
   de style seront ajoutées aux existantes, alors que pour d'autres attributs, la
   valeur sera peut-être simplement remplacée.</p>
