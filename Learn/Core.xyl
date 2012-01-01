@@ -171,8 +171,7 @@ from('Hoathis')
   <p>Pour savoir quelle famille a été sélectionnée, vous pouvez utiliser un
   troisième paramètre de la méthode <code>import</code>, en référence :</p>
   <pre><code language="php">from('Hoathis or Hoa')
--> import('Socket.
-Server', false, $family);
+-> import('Socket.Server', false, $family);
 
 var_dump($family);
 
