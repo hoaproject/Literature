@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
-  <yield name="ie">
-    <em>i.e.</em>
-  </yield>
+  <yield name="ie"><em>i.e.</em></yield>
 
-  <yield name="title_break">
-    <value><br />⁂<br /></value>
-  </yield>
+  <yield name="title_break"><br />⁂<br /></yield>
 
-  <yield name="previous_chapter">
-    <value>↩</value>
-  </yield>
+  <yield name="previous_chapter">↩</yield>
 
-  <yield name="next_chapter">
-    <value>↪</value>
-  </yield>
+  <yield name="next_chapter">↪</yield>
 </definition>
