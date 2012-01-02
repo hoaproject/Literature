@@ -706,7 +706,15 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   puissant. L'<strong>abstraction</strong> des données par leur caractère
   symbolique empêche des regressions.</p>
 
-  <h2 id="Routeur_et_liens" for="main-toc menu-toc">Routeur et liens</h2>
+  <h2 id="Acces_ressources" for="main-toc menu-toc">Accès aux ressources</h2>
+
+  <p>Un système d'interface graphique doit faciliter l'accès aux
+  <strong>ressources</strong> qu'une vue manipule : comme des feuilles de style,
+  des médias (images, vidéos …), des polices, des scripts etc. Dans Hoa il
+  existe plusieurs mécanismes que nous connaissons déjà, comme le routeur ou le
+  protocole <code>hoa://</code>.  Étudions comme XYL les utilise.</p>
+
+  <h3 id="Routeur_et_liens" for="main-toc">Routeur et liens</h3>
 
   <p>Nous avons vu qu'une vue au sens de <code>Hoa\View\Viewable</code> comporte
   un <strong>routeur</strong>. Comme <code>Hoa\Xyl</code> implémente cette
@@ -715,7 +723,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   <p>Nous allons commencer par écrire une règle sur un routeur HTTP et le donner
   à notre instance de XYL. La règle aura pour identifiant <code>blog</code>
   et n'aura aucune action (<ie /> <em>callable</em>) attachée. Nous voulons
-  juste écrire un lien et non pas le reconnaître. Ainsi :</p>
+  juste écrire un lien et non pas le reconnaître pour l'instant. Ainsi :</p>
   <pre><code language="php">from('Hoa')
 -> import('File.Read')
 -> import('Http.Response.~')
@@ -735,16 +743,15 @@ $xyl    = new Hoa\Xyl(
 $xyl->render();</code></pre>
   <p>Pour utiliser cette règle dans XYL, il faut tout d'abord se placer dans un
   attribut qui se comporte comme un <strong>lien</strong> (par exemple
-  <code>href</code> pour le composant <code>&amp;amp;lt;a></code>,
-  <code>src</code> pour le composant <code>&amp;amp;lt;img></code> etc.) et
-  utiliser le formalisme suivant pour déclarer le lien :
+  <code>href</code> pour le composant <code>a</code>, <code>src</code> pour le
+  composant <code>img</code> etc.) et utiliser le formalisme suivant pour
+  déclarer le lien :
   <code>@<em>anId</em>:<em>key</em>=<em>value</em>[&amp;amp;<em>key</em>=<em>value</em>]*</code>.
   Chaque <code><em>key</em></code> correspond à une <strong>variable</strong> de
   notre <strong>règle</strong> <code><em>anId</em></code> pour laquelle nous
   allons définir une <strong>valeur</strong> <code><em>value</em></code>. Ainsi,
   nous allons écrire le lien <code>@blog:id=42&amp;amp;title=Foobar</code> :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
-&amp;lt;?xyl-stylesheet href="UI.css"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
@@ -764,6 +771,43 @@ $xyl->render();</code></pre>
   <p>Notons que le « <code>&amp;amp;amp;amp;</code> » est obligatoire car écrire
   simplement « <code>&amp;amp;</code> » serait une source d'erreur lors de
   l'analyse du document XYL (qui est du XML).</p>
+  <p>Notons également que le routeur est reconnu par les
+  <em>processing-instructions</em> de XYL, à savoir
+  <code>&amp;amp;lt;?xyl-stylesheet?></code>,
+  <code>&amp;amp;lt;?xyl-overlay?></code> et
+  <code>&amp;amp;lt;?xyl-use?></code>.</p>
+
+  <h3 id="Ressources_de_l-application_et_theme" for="main-toc">Ressources de
+  l'application et thème</h3>
+
+  <p>Le protocole <code>hoa://</code> définit plusieurs racines dont une
+  destinée à l'application : <code>hoa://Application</code>. Sur cette racine,
+  nous avons la branche <code>Public</code> qui donne accès aux données
+  publiques de l'application, comme les feuilles de syles, les médias, les
+  scripts etc. ; par exemple :
+  <code>hoa://Application/Public/Css/UI.css</code>.</p>
+  <p>Mais XYL définit la notion de <strong>thème</strong>. Un thème correspond à
+  un <strong>habillage</strong>, avec ses <strong>comportements</strong>
+  associés, particulier pour notre interface graphique. Une application peut
+  avoir plusieurs thèmes selon la plateforme visée (styles différents selon le
+  système, la taille de l'écran, interface tactile ou pas etc.) ou selon les
+  besoins de l'utilisateur (changements de couleurs, polices plus grosses
+  etc.) : les raisons sont multiples.</p>
+  <p>Après chaque branche <code>Public</code>, XYL va automatiquement
+  <strong>insérer</strong> une branche correspond au thème
+  <strong>courant</strong>. Le thème <strong>par défaut</strong> est
+  <code>Classic</code>, c'est pourquoi le chemin
+  <code>hoa://Application/Public/Css/UI.css</code> sera transformé en
+  <code>hoa://Application/Public/<em>Classic</em>/Css/UI.css</code>. Pour
+  modifier le thème, il existe la méthode <code>setTheme</code> sur
+  <code>Hoa\Xyl</code>.  Nous privilégerons toujours la méthode
+  <code>resolve</code> sur <code>Hoa\Xyl</code> pour résoudre un chemin exprimé
+  avec le protocole <code>hoa://</code> au lieu d'utiliser simplement la
+  fonction <code>resolve</code> car le thème sera pris en considération ainsi
+  que d'autres fonctionnalités.</p>
+
+  <h3 id="Ressources_des_bibliotheques" for="main-toc">Ressources des
+  bibliothèques</h3>
 
 
   <!-- Dans hoa://Data/… -->
