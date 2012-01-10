@@ -177,7 +177,7 @@ echo $file->readAll();</code></pre>
   fichiers et les sockets, et le flux composite est le flux XML, qui permet
   d'interpréter le contenu des flux primitifs comme étant du XML. Cela implique
   que si on modifie le flux primitif, tout le tralient effectué sur notre
-  fichier XML restera inchangé. Encore mieux : le flux JSON, <em>a l'instar</em>
+  fichier XML restera inchangé. Encore mieux : le flux JSON, <em>à l'instar</em>
   du flux XML, est composite mais également structurel (en effet, autant XML que
   JSON définissent des arbres). Si un tralient est fait sur un fichier qui n'est
   plus du XML mais du JSON, on modifie simplement la classe utilisée pour lire
