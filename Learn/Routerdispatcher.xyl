@@ -46,13 +46,13 @@
   <p>Nous ne parlons pas réellement de demande mais plutôt de
   <strong>requête</strong>. La majorité des requêtes sur le Web sont exprimées
   sous le format <strong>HTTP</strong> (pour <em>HyperText Transfer
-  Protocol</em>). Seulement trois versions d'HTTP ont été écrites : <a
-  href="http://tools.ietf.org/html/rfc1945">RFC1945</a> pour HTTP1.0, <a
-  href="http://tools.ietf.org/html/rfc2068">RFC2068</a> pour HTTP1.1 et <a
-  href="http://tools.ietf.org/html/rfc2616">RFC2616</a> pour la version finale
-  d'HTTP1.1, que nous utilisons actuellement partout. La personne qui émet une
-  requête est un <strong>client</strong> (souvent un navigateur Web). Cette
-  requête est envoyée à un <strong>serveur</strong>, qui connait votre
+  Protocol</em>). Seulement trois versions d'HTTP ont été écrites :
+  <a href="http://tools.ietf.org/html/rfc1945">RFC1945</a> pour HTTP1.0,
+  <a href="http://tools.ietf.org/html/rfc2068">RFC2068</a> pour HTTP1.1 et
+  <a href="http://tools.ietf.org/html/rfc2616">RFC2616</a> pour la version
+  finale d'HTTP1.1, que nous utilisons actuellement partout. La personne qui
+  émet une requête est un <strong>client</strong> (souvent un navigateur Web).
+  Cette requête est envoyée à un <strong>serveur</strong>, qui connait votre
   application. Si nous entrons un peu plus dans le détail, côté serveur, un
   programme filtre la réception des requêtes. Dans le cas d'HTTP, nous appellons
   ce programme un <strong>serveur HTTP</strong>. Quand ce serveur HTTP reçoit
@@ -77,8 +77,8 @@
   et <code>TRACE</code>. Nous sommes capable bien sûr d'ajouter nos propres
   méthodes mais l'objectif ici n'est pas de faire un cours sur HTTP.  À chaque
   méthode est associée une <strong>URI</strong> (pour <em>Uniform Resource
-  Identifier</em>), standardisée par la <a
-  href="http://tools.ietf.org/html/rfc3986">RFC3986</a>. Ainsi, l'exemple
+  Identifier</em>), standardisée par la
+  <a href="http://tools.ietf.org/html/rfc3986">RFC3986</a>. Ainsi, l'exemple
   suivant est une requête qui exprime « je souhaite obtenir la ressource
   <code>/path/to/resource</code> » :</p>
   <pre><code>GET /path/to/resource</code></pre>
@@ -150,7 +150,7 @@ Welcome Alyx!</code></pre>
   <p>Nous allons nous concentrer sur les explications relatives au routeur HTTP,
   à savoir la classe <code>Hoa\Router\Http</code>.</p>
 
-  <h3 id="Ecrire_une_regle" for="main-toc menu-toc">Écrire une règle</h3>
+  <h3 id="Ecrire_une_regle" for="main-toc">Écrire une règle</h3>
 
   <p>Une règle est définie par un <strong><em>t</em>-uplet</strong> :</p>
   <ul>
@@ -210,54 +210,15 @@ $router->addRule(array('get', 'post'), …);
 $router->put_delete_get(…);
 $router->addRule(array('put', 'delete', 'get'), …);
 
-<<<<<<< local
-// etc.</blockcode>
-      <p>Nous conviendrons de la simplicité qu'introduit cette magie.</p>
-      <p>L'ordre des règle a une importance, car les règles sont filtrées
-      puis évaluées dans l'ordre de déclaration. Il est alors conseillé décrire
-      les règles spécifiques avant les règles génériques.</p>
-    </section3>
-=======
 // etc.</code></pre>
   <p>L'ordre des règle a une importance, car les règles sont filtrées puis
   évaluées dans l'ordre de déclaration. Il est alors conseillé décrire les
   règles spécifiques avant les règles génériques.</p>
   <p>Nous conviendrons de la simplicité qu'introduit cette magie.</p>
->>>>>>> other
 
   <h3 id="Bien_comprendre_les_variables_et_les_motifs" for="main-toc">Bien
   comprendre les variables et les motifs</h3>
 
-<<<<<<< local
-      <p>Le rôle principal d'un routeur est d'<strong>extraire des
-      données</strong> d'une requête à partir d'une <strong>règle</strong> afin
-      de les <strong>placer dans des variables</strong> (nous noterons que les
-      routeurs savent faire l'opération inverse). C'est pourquoi nous sommes
-      capable de définir des valeurs par défaut pour certaines variables si
-      elles ne sont pas définies ou alors de définir de nouvelles variables. Ils
-      existent des variables qui peuvent être définies par le routeur lui-même
-      (toujours préfixées par le symbole « <code>_</code> »). Nous éviterons
-      l'utilisation des noms de variables utilisant ce préfixe.</p>
-      <p>Les expressions régulières dans PHP sont basées sur les <link
-      href="https://pcre.org/">PCRE</link> qui ont un pouvoir d'expression plus
-      avancé que de simples expressions régulières traditionnelles. Elles
-      permettent entre autre de nommer des motifs, en plus de les indexer
-      automatiquement, grâce à la syntaxe
-      <code>(?&amp;lt;<em>name</em>&amp;gt;<em>pattern</em>)</code> (nous
-      retrouverons <link href="https://pcre.org/pcre.txt">la syntaxe des
-      PCRE</link> à la section <em>pcresyntax(3)</em>). Chaque motif capturé et
-      nommé se retrouvera dans une variable, au niveau du routeur, du même nom
-      que le motif. C'est pourquoi, lorsque nous écrivons
-      <code>/hello_(?&amp;amp;lt;nick&amp;amp;gt;\w+)</code>, une variable
-      <code>nick</code> sera créée dans le routeur et aura pour valeur la donnée
-      capturée par le motif <code>\w+</code>.</p>
-      <p>Toutes les variables définies par le routeur lors de l'interprétation
-      d'une règle seront prioritaires sur les variables attachées à la règle par
-      l'utilisateur. C'est pourquoi nous retrouvons un comportement de valeur
-      par défaut.</p>
-    </section3>
-  </section2>
-=======
   <p>Le rôle principal d'un routeur est d'<strong>extraire des données</strong>
   d'une requête à partir d'une <strong>règle</strong> afin de les <strong>placer
   dans des variables</strong> (nous noterons que les routeurs savent faire
@@ -282,9 +243,72 @@ $router->addRule(array('put', 'delete', 'get'), …);
   capturée par le motif <code>\w+</code>.</p>
   <p>Toutes les variables définies par le routeur lors de l'interprétation d'une
   règle seront prioritaires sur les variables attachées à la règle par
-  l'utilisateur. C'est pourquoi nous retrouvons un comportement de valeur par
-  défaut.</p>
->>>>>>> other
+  l'utilisateur. Ainsi nous retrouvons un comportement de valeur par défaut.</p>
+
+  <h3 id="Router_et_derouter" for="main-toc">Router et dérouter</h3>
+
+  <p>Maintenant que nous avons déclaré plusieurs règles auprès du routeur, nous
+  allons lui demander de déterminer <em>la</em> règle qui correspond à notre
+  requête. Chaque routeur a une méthode <code>route</code> où tous ses arguments
+  doivent avoir une valeur par défaut. Dans le cas du routeur HTTP, les
+  arguments sont l'URI et la base (comprendre, le préfixe) de notre URI. Ses
+  valeurs par défaut sont automatiques déduites à partir des données provenant
+  du serveur. Une fois le routage terminé, nous utilisons la méthode
+  <code>getTheRule</code> pour obtenir <em>la</em> règle qui a servi à extraire
+  nos données de notre requête. Nous précisions que les constantes
+  <code>Hoa\Router::RULE_<em>*</em></code> existent pour manipuler le
+  <em>t</em>-uplet représentant une règle. Ainsi, à partir de notre
+  exemple :</p>
+  <pre><code language="php">$router->route('root/hello_gordon', 'root/');
+print_r($router->getTheRule());
+
+/**
+ * Will output:
+ *      Array
+ *      (
+ *          [0] => 0
+ *          [1] => Array
+ *              (
+ *                  [0] => get
+ *              )
+ *
+ *          [2] => x
+ *          [3] => /hello_(?&amp;lt;nick>\w+)
+ *          [4] => Closure Object…
+ *
+ *          [5] =>
+ *          [6] => Array
+ *              (
+ *                  [_domain] =>
+ *                  [_subdomain] =>
+ *                  [_call] => Closure Object…
+ *                  [_able] =>
+ *                  [_request] => Array
+ *                      (
+ *                      )
+ *
+ *                  [nick] => gordon
+ *              )
+ *
+ *      )
+ */</code></pre>
+  <p>Pour éviter de préciser la base à chaque fois, nous pouvons utiliser la
+  méthode <code>setBase</code> dont le seul argument est la base.</p>
+  <p><em>À l'instar</em> de la méthode <code>route</code>, chaque routeur
+  définit la méthode <code>unroute</code> qui permet d'écrire une requête
+  correspond à une règle. Pour cela, nous devons préciser deux arguments à cette
+  méthode : le premier étant l'identifiant de la règle et le second un tableau
+  de variables. Chaque nom de variable correspond au nom d'un motif. Par
+  exemple :</p>
+  <pre><code language="php">var_dump($router->unroute('x', array('nick', 'gordon')));
+
+/**
+ * Will output:
+ *     string(13) "/hello_gordon"
+ */
+</code></pre>
+  <p>Le mécanisme de routage peut être effectué automatiquement par les
+  dispatcheurs, comme nous allons le voir.</p>
 
   <h2 id="Dispatcheur" for="main-toc menu-toc">Dispatcheur</h2>
 
@@ -307,37 +331,6 @@ $router->addRule(array('put', 'delete', 'get'), …);
 
   <h3 id="Pas_si_basic_que_ca" for="main-toc">Pas si basic que ça</h3>
 
-<<<<<<< local
-      <p>La classe <code>Hoa\Dispatcher\Basic</code> supporte <strong>trois
-      types</strong> de contrôleurs et d'actions : fonctions anonymes en tant
-      que contrôleurs (pas d'action), fonctions déclarées en tant que
-      contrôleurs (pas d'action) et classes et méthodes en tant que contrôleurs
-      et actions. Dans le dernier cas, des <strong>règles de nommage</strong>
-      sont proposées :
-      <code>Application\Controller\<em>ControllerName</em></code> pour le
-      contrôleur (qui est alors une classe) et
-      <code><em>ActionName</em>Action</code> pour l'action (qui est alors une
-      méthode). Nous pouvons modifier ces règles de nommage facilement. De même,
-      il est proposé des règles de nommage différentes pour des <strong>appels
-      synchrones</strong> ou <strong>asynchrones</strong> ; nous proposons
-      <code><em>ActionName</em>ActionAsync</code> pour les actions asynchrones.
-      Un appel asynchrone peut s'effectuer par exemple à travers
-      <strong>XHR</strong> (pour <em>XML HTTP Request</em>),
-      <link href="need_a_link">protocole standardisée par le W3C</link>.</p>
-      <p>Le routeur HTTP définit les variables <code>_call</code> et
-      <code>_able</code> qui correspondent aux composantes <em>call</em> et
-      <em>able</em> lors d'une définition de règle de routeur. Ces variables
-      vont être utilisées pour le nom du contrôleur et de l'action par le
-      dispatcheur. Dans un souci de cohérence dans la terminologie, nous pouvons
-      utiliser les variables <code>controller</code> et <code>action</code> dans
-      le routeur, ce qui sera compris de la même manière par le dispatcheur
-      basic et qui aura le mérite de ne pas réécrire <code>_call</code> et
-      <code>_able</code>.</p>
-      <p>Dans l'aperçu, nous avons utilisé des fonctions anonymes. Nous allons à
-      présent utiliser une partie de cet aperçu mais en le transformant pour
-      avoir des fonctions déclarées :</p>
-      <blockcode language="php">$router = new Hoa\Router\Http();
-=======
   <p>La classe <code>Hoa\Dispatcher\Basic</code> supporte <strong>trois
   types</strong> de contrôleurs et d'actions : fonctions anonymes en tant que
   contrôleurs (pas d'action), fonctions déclarées en tant que contrôleurs (pas
@@ -351,7 +344,8 @@ $router->addRule(array('put', 'delete', 'get'), …);
   nous proposons <code><em>ActionName</em>ActionAsync</code> pour les actions
   asynchrones.  Un appel asynchrone peut s'effectuer par exemple à travers
   <strong>XHR</strong> (pour <em>XML HTTP Request</em>),
-  <a href="need_a_link">protocole standardisée par le W3C</a>.</p>
+  <a href="http://w3.org/TR/XMLHttpRequest/">protocole standardisée par le
+  W3C</a>.</p>
   <p>Le routeur HTTP définit les variables <code>_call</code> et
   <code>_able</code> qui correspondent aux composantes <em>call</em> et
   <em>able</em> lors d'une définition de règle de routeur. Ces variables vont
@@ -364,7 +358,6 @@ $router->addRule(array('put', 'delete', 'get'), …);
   présent utiliser une partie de cet aperçu mais en le transformant pour
   avoir des fonctions déclarées :</p>
   <pre><code language="php">$router = new Hoa\Router\Http();
->>>>>>> other
 $router->get('u', '/hello', 'hello')
        ->get('v', '/bye', 'bye');
 
@@ -379,29 +372,6 @@ function bye ( ) {
 }
 
 $dispatcher = new Hoa\Dispatcher\Basic();
-<<<<<<< local
-$dispatcher->dispatch($router);</blockcode>
-      <p>Nous remarquons que pour <code>/hello</code>, nous appellons la
-      fonction <code>hello</code>. Pareil pour <code>/bye</code> et
-      <code>bye</code>. Le nom du contrôleur est identique à la partie à droite
-      du symbole « <code>/</code> » dans la règle. Nous pouvons alors simplifier
-      les règles en capturant la valeur de la variable <code>controller</code>
-      de cette manière :</p>
-      <blockcode language="php">$router = new Hoa\Router\Http();
-$router->get('u', '/(?&lt;controller&gt;hello|bye)');</blockcode>
-      <p>Nous pouvons imaginer utiliser le motif <code>\w+</code> à la place de
-      <code>hello|bye</code> pour avoir plus de dynamisme (mais il ne faudra pas
-      oublier de gérer les erreurs si l'action n'existe pas, grâce à l'exception
-      <code>Hoa\Router\Exception\NotFound</code>).</p>
-      <p>En plus de gérer trois types de contrôleurs et d'actions, le
-      dispatcheur basic sait <strong>distribuer les variables</strong> sur les
-      <strong>arguments des contrôleurs ou des actions</strong>. C'est pourquoi
-      quand nous écrivons la règle
-      <code>/hello_(?&amp;amp;lt;nick&amp;amp;gt;\w+)</code>, nous pouvons
-      retrouver la valeur de la variable <code>nick</code> directement dans
-      notre action dans son argument <code>$nick</code> ; de cette manière :</p>
-      <blockcode language="php">->get('x', 'hello_(?&lt;nick&gt;\w+)', function ( $nick ) {
-=======
 $dispatcher->dispatch($router);</code></pre>
   <p>Nous remarquons que pour <code>/hello</code>, nous appellons la fonction
   <code>hello</code>. Pareil pour <code>/bye</code> et <code>bye</code>. Le nom
@@ -421,20 +391,8 @@ $router->get('u', '/(?&amp;lt;controller>hello|bye)');</code></pre>
   la valeur de la variable <code>nick</code> directement dans notre action dans
   son argument <code>$nick</code> ; de cette manière :</p>
   <pre><code language="php">->get('x', 'hello_(?&amp;lt;nick>\w+)', function ( $nick ) {
->>>>>>> other
 
     echo 'Welcome ', ucfirst($nick), '!', "\n";
-<<<<<<< local
-}</blockcode>
-      <p>L'ordre des arguments n'a aucune importance, seul le nom est important.
-      Nous pouvons retrouver aussi bien les variables extraites des règles que
-      celles définies par le routeur (<ie /> préfixées par le symbole
-      « <code>_</code> »).  C'est ce que nous faisons avec <code>/hello</code>
-      en <code>POST</code> et l'argument <code>$_request</code> qui est une
-      variable définie par le routeur et qui contient des données d'une requête
-      HTTP non-accessible <em>via</em> l'URI.</p>
-    </section3>
-=======
 }</code></pre>
   <p>L'ordre des arguments n'a aucune importance, seul le nom est important.
   Nous pouvons retrouver aussi bien les variables extraites des règles que
@@ -443,7 +401,6 @@ $router->get('u', '/(?&amp;lt;controller>hello|bye)');</code></pre>
   <code>POST</code> et l'argument <code>$_request</code> qui est une variable
   définie par le routeur et qui contient des données d'une requête HTTP
   non-accessible <em>via</em> l'URI.</p>
->>>>>>> other
 
   <h3 id="Notion_de_kit" for="main-toc">Notion de kit</h3>
 
