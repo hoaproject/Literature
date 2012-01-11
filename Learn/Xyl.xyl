@@ -721,9 +721,9 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   interface, nous pouvons définir et utiliser un routeur au sein de nos
   documents XYL.</p>
   <p>Nous allons commencer par écrire une règle sur un routeur HTTP et le donner
-  à notre instance de XYL. La règle aura pour identifiant <code>blog</code>
-  et n'aura aucune action (<ie /> <em>callable</em>) attachée — nous voulons
-  juste écrire un lien et non pas le reconnaître pour l'instant — , ainsi :</p>
+  à notre instance de XYL. La règle aura pour identifiant <code>blog</code> et
+  n'aura aucune action (<ie /> <em>callable</em>) attachée — nous voulons juste
+  écrire un lien, c'est à dire le <strong>dérouter</strong> — , ainsi :</p>
   <pre><code language="php">from('Hoa')
 -> import('File.Read')
 -> import('Http.Response.~')
@@ -808,9 +808,35 @@ $xyl->render();</code></pre>
   <strong>courant</strong>. Le thème <strong>par défaut</strong> est
   <code>Classic</code>. Ainsi, le chemin
   <code>hoa://Application/Public/Css/UI.css</code> sera transformé en
-  <code>hoa://Application/Public/<em>Classic</em>/Css/UI.css</code>. Pour
-  modifier le thème, il existe la méthode <code>setTheme</code> sur
-  <code>Hoa\Xyl</code>. Nous privilégerons toujours la méthode
+  <code>hoa://Application/Public/<em>Classic</em>/Css/UI.css</code>.</p>
+  <p>Mais XYL ne s'arrête pas là. Le protocole <code>hoa://</code> exprime un
+  chemin <strong>côté serveur</strong>, mais pas <strong>client</strong>. C'est
+  pourquoi, ce chemin est transformé en lien pour le routeur comme nous venons
+  de le voir. XYL extrait trois données :
+  <code>hoa://Application/Public/<em>theme</em>/<em>type</em>/<em>resource</em></code>
+  et les réécrit en lien de la forme :
+  <code>@_<em>type</em>:theme=<em>theme</em>&amp;amp;resource=<em>resource</em></code>.
+  Seul la donnée <code><em>type</em></code> est mise en minuscule. Prenons un
+  exemple : utiliser le lien <code>hoa://Application/Public/Css/UI.css</code>
+  sera strictement équivalent à utiliser le lien
+  <code>@_css:theme=Classic&amp;amp;resource=UI.css</code>. Puis dans notre
+  routeur, définissons la règle suivante :</p>
+  <pre><code language="php">$router->_get('_css', '/Assets/(?&amp;lt;theme>)/Style/(?&amp;lt;resource>)');</code></pre>
+  <p>Côté <strong>client</strong>, nous aurons le lien : <code>/Assets/Classic/Style/UI.css</code>.</p>
+  <p>Si la règle <code>_<em>type</em></code> n'existe pas dans le routeur, une
+  règle par <strong>défaut</strong> sera utilisée : <code>_resource</code>. XYL
+  l'ajoute sur le routeur automatiquement si elle n'est pas déjà présente et la
+  donnée <code><em>resource</em></code> est préfixée de
+  <code><em>type</em></code> pour éviter de perdre des données.</p>
+  <p>Notons que nous avons préfixer la méthode <code>get</code> par le symbole
+  <code>_</code>. Cela modifie la visibilité de la règle : elle n'est plus
+  publique mais <strong>privée</strong>. Cela implique que cette règle ne sera
+  jamais choisie pour faire du routage mais uniquement pour du
+  <strong>déroutage</strong>.</p>
+  <p>Enfin : il est préférable d'utiliser l'abstraction qu'offre
+  <code>hoa://</code> car il ajoute le thème et peut-être d'autres choses à
+  l'avenir.  Pour modifier le thème, il existe la méthode <code>setTheme</code>
+  sur <code>Hoa\Xyl</code>. Nous privilégerons toujours la méthode
   <code>resolve</code> sur <code>Hoa\Xyl</code> pour résoudre un chemin exprimé
   avec le protocole <code>hoa://</code> au lieu d'utiliser simplement la
   fonction <code>resolve</code> (aliase de
@@ -820,8 +846,17 @@ $xyl->render();</code></pre>
   <h3 id="Ressources_des_bibliotheques" for="main-toc">Ressources des
   bibliothèques</h3>
 
-
-  <!-- Dans hoa://Data/… -->
+  <p>XYL propose également des ressources utiles pour chaque interpréteur. Nous
+  pouvons y accéder toujours grâce au protocole <code>hoa://</code> en utilisant
+  la racine <code>Library</code> de cette manière :
+  <code>hoa://Library/Xyl/Css/Core.css</code> par exemple.</p>
+  <p>Chaque fichier <code>hoa://Library/Xyl/<em>resource</em></code> sera copié
+  en <code>hoa://Application/Public/<em>resource</em></code> s'il n'existe pas
+  (normalement, cette opération ne s'effectue qu'une seule fois). Ensuite, le
+  lien <code>hoa://Application/Public/<em>resource</em></code> sera transformé
+  comme nous venons de le voir.</p>
+  <p>Actuellement, XYL ne propose que très peu de ressources et elles ne sont
+  pas encore finalisée. Cette section sera mise à jour en temps voulu.</p>
 
   <h2 id="Application_Gordon-s_blog" for="main-toc menu-toc">Application :
   <em>Gordon's blog</em></h2>
