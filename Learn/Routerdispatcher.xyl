@@ -248,12 +248,12 @@ $router->addRule(array('put', 'delete', 'get'), …);
   <h3 id="Router_et_derouter" for="main-toc">Router et dérouter</h3>
 
   <p>Maintenant que nous avons déclaré plusieurs règles auprès du routeur, nous
-  allons lui demander de déterminer <em>la</em> règle qui correspond à notre
-  requête. Chaque routeur a une méthode <code>route</code> où tous ses arguments
-  doivent avoir une valeur par défaut. Dans le cas du routeur HTTP, les
-  arguments sont l'URI et la base (comprendre, le préfixe) de notre URI. Ses
-  valeurs par défaut sont automatiques déduites à partir des données provenant
-  du serveur. Une fois le routage terminé, nous utilisons la méthode
+  allons lui demander de <strong>déterminer</strong> <em>la</em> règle qui
+  correspond à notre requête. Chaque routeur a une méthode <code>route</code> où
+  tous ses arguments doivent avoir une valeur par défaut. Dans le cas du routeur
+  HTTP, les arguments sont l'URI et la base (comprendre, le préfixe) de notre
+  URI. Ses valeurs par défaut sont automatiques déduites à partir des données
+  provenant du serveur. Une fois le routage terminé, nous utilisons la méthode
   <code>getTheRule</code> pour obtenir <em>la</em> règle qui a servi à extraire
   nos données de notre requête. Nous précisions que les constantes
   <code>Hoa\Router::RULE_<em>*</em></code> existent pour manipuler le
@@ -295,11 +295,11 @@ print_r($router->getTheRule());
   <p>Pour éviter de préciser la base à chaque fois, nous pouvons utiliser la
   méthode <code>setBase</code> dont le seul argument est la base.</p>
   <p><em>À l'instar</em> de la méthode <code>route</code>, chaque routeur
-  définit la méthode <code>unroute</code> qui permet d'écrire une requête
-  correspond à une règle. Pour cela, nous devons préciser deux arguments à cette
-  méthode : le premier étant l'identifiant de la règle et le second un tableau
-  de variables. Chaque nom de variable correspond au nom d'un motif. Par
-  exemple :</p>
+  définit la méthode <code>unroute</code> qui permet <strong>d'écrire</strong>
+  une requête correspond à une règle. Pour cela, nous devons préciser deux
+  arguments à cette méthode : le premier étant l'identifiant de la règle et le
+  second un tableau de variables. Chaque nom de variable correspond au nom d'un
+  motif. Par exemple :</p>
   <pre><code language="php">var_dump($router->unroute('x', array('nick', 'gordon')));
 
 /**
@@ -307,8 +307,8 @@ print_r($router->getTheRule());
  *     string(13) "/hello_gordon"
  */
 </code></pre>
-  <p>Le mécanisme de routage peut être effectué automatiquement par les
-  dispatcheurs, comme nous allons le voir.</p>
+  <p>Le mécanisme de routage peut être effectué <strong>automatiquement</strong>
+  par les dispatcheurs, comme nous allons le voir.</p>
 
   <h2 id="Dispatcheur" for="main-toc menu-toc">Dispatcheur</h2>
 
