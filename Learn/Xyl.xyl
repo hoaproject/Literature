@@ -389,6 +389,48 @@ $xyl->render();</code></pre>
   <p>Après réinterprétation de notre document, le texte de notre extension aura
   un style différent. Ce mécanisme est intéressant si des extensions veulent
   <strong>embarquer</strong> leurs propres styles (ou d'autres ressources).</p>
+  <p>Toutefois, nous noterons que les feuilles de style se comportent comme une
+  <strong>pile</strong> : elles s'ajoutent les unes après les autres. Aussi bien
+  avec les <em>overlays</em> qu'avec tous les autres documents, la déclaration
+  d'une feuille de style peut <strong>se positionner</strong> grâce à l'attribut
+  <code>position</code>. Nous retrouvons les mêmes expressions que pour
+  l'attribut <code>position</code> des composants à insérer d'un
+  <em>overlay</em>, excepté que les index dynamiques ne sont pas supportés.
+  Ainsi, si nous souhaitons que notre feuille <code>Extension.css</code> se
+  place en première position, nous aurions :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+&amp;lt;?xyl-stylesheet href="Extension.css" position="0"?>
+
+&amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;aside id="extension">
+    &amp;lt;div id="foo" position="1">
+      …</code></pre>
+  <p>Les avantages sont nombreux. Par exemple, si nous définissons un ensemble
+  de règles de style pour un composant graphique et que l'ajout d'un nouveau
+  composant vient écraser ses règles, cela est gênant. Avec certains langages,
+  comme CSS, nous trouvons l'instruction <code>!important</code> qui empêche la
+  <strong>surchage</strong> d'une règle, mais cela peut parfois aboutir sur des
+  situations incomfortables pour une surchage <strong>future</strong>. De plus,
+  il n'est pas toujours évident de connaître l'ensemble des règles
+  <strong>impactées</strong> par une surcharge de style. Ainsi, pour éviter
+  toutes <strong>régressions</strong> et problématiques éventuelles, il est plus
+  souhaitable de <strong>réordoner</strong> les déclarations de feuilles de
+  style.</p>
+  <p>Il est intéressant de constater que XYL ne redéfinit pas les positions des
+  feuilles de style. Si nous avions déclaré la position <code>42</code> pour
+  notre feuille <code>Extension.css</code>, elle aurait été la dernière feuille
+  à être déclarée dans notre exemple, mais elle porterait toujours la position
+  <code>42</code>. Ce qui signifie que si une nouvelle feuille se déclare avec
+  la position <code>5</code>, elle se placerait avant. Il est alors possible
+  d'envisager des <strong>plages</strong> de feuilles de style
+  <strong>réservées</strong> à certaines tâches si une application devient
+  importante ou hautement extensible. Par exemple : <code>[0;100[</code> pour
+  des extensions, <code>[100;120[</code> pour la base, <code>[120;200[</code>
+  pour le thème etc. Si les feuilles sont bien conçues, elles peuvent devenir
+  facilement <strong>maintenables</strong>. Enfin, si deux règles ont la même
+  position, la dernière viendra s'insérer à sa position et décale les
+  précédentes vers le haut de la pile, <ie /> qu'elle se déclarera avant les
+  précédentes.</p>
 
   <h3 id="Un_peu_plus_loin_avec_les_overlays" for="main-toc">Un peu plus loin
   avec les <em>overlays</em></h3>
