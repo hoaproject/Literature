@@ -153,12 +153,11 @@ echo $file->readAll();</code></pre>
 
   <p>La majorité des langages destinés aux entreprises manipulent des flux. PHP,
   de part sa position de langage glu, est au centre de plusieurs technologies et
-  doit donc gérer au mieux les flux.</p>
-  <p>Dans Hoa, il existe un mécanisme de gestion de flux très poussé.  Ainsi,
-  les fichiers, les sockets, certaines chaînes de caractères, le terminal etc.,
-  sont des flux. Plusieurs catégories de flux existent : comme les flux
-  primitifs, les flux composites, les flux structurels, les flux d'entrées, de
-  sorties, tampons, verrouillables etc.</p>
+  doit donc gérer au mieux les flux.</p> <p>Dans Hoa, il existe un mécanisme de
+  gestion de flux très poussé.  Ainsi, les fichiers, les sockets, certaines
+  chaînes de caractères, le terminal etc., sont des flux. Plusieurs catégories
+  de flux existent : comme les flux primitifs, les flux composites, les flux
+  structurels, les flux d'entrées, de sorties, tampons, verrouillables etc.</p>
   <p>Prenons l'interface <code>Hoa\Stream\IStream\In</code> qui permet de
   manipuler des flux en entrée (soit en lecture), on trouvera alors des méthodes
   comme <code>read</code>, <code>readInteger</code>, <code>readFloat</code>,
@@ -176,18 +175,16 @@ echo $file->readAll();</code></pre>
   fichier mais peut travailler sur une socket. Ici, les flux primitifs sont les
   fichiers et les sockets, et le flux composite est le flux XML, qui permet
   d'interpréter le contenu des flux primitifs comme étant du XML. Cela implique
-  que si on modifie le flux primitif, tout le tralient effectué sur notre
+  que si on modifie le flux primitif, tout le traitement effectué sur notre
   fichier XML restera inchangé. Encore mieux : le flux JSON, <em>à l'instar</em>
   du flux XML, est composite mais également structurel (en effet, autant XML que
-  JSON définissent des arbres). Si un tralient est fait sur un fichier qui n'est
-  plus du XML mais du JSON, on modifie simplement la classe utilisée pour lire
-  notre flux primitif, mais les opérations de tralients qui suivent ne seront
-  pas modifiées. Tout cela grâce aux nombreuses interfaces que proposent les
-  flux. Ainsi, l'exemple suivant va sélectionner des éléments et lire leur
-  contenu :</p>
-  <pre><code language="php">from('Hoa')
--> import('File.Read')
--> import('Xml.Read');
+  JSON définissent des arbres). Si un traitement est fait sur un fichier qui
+  n'est plus du XML mais du JSON, on modifie simplement la classe utilisée pour
+  lire notre flux primitif, mais les opérations de traitement qui suivent ne
+  seront pas modifiées. Tout cela grâce aux nombreuses interfaces que proposent
+  les flux. Ainsi, l'exemple suivant va sélectionner des éléments et lire leur
+  contenu :</p> <pre><code language="php">from('Hoa') -> import('File.Read') ->
+  import('Xml.Read');
 
 $xml = new Hoa\Xml\Read(
     new Hoa\File\Read('hoa://Data/Temporary/Foo.xml')
