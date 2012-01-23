@@ -871,7 +871,7 @@ $xyl->render();</code></pre>
   donnée <code><em>resource</em></code> est préfixée de
   <code><em>type</em></code> pour éviter de perdre des données.</p>
   <p>Notons que nous avons préfixer la méthode <code>get</code> par le symbole
-  <code>_</code>. Cela modifie la visibilité de la règle : elle n'est plus
+  « <code>_</code> ». Cela modifie la visibilité de la règle : elle n'est plus
   publique mais <strong>privée</strong>. Cela implique que cette règle ne sera
   jamais choisie pour faire du routage mais uniquement pour du
   <strong>déroutage</strong>.</p>
@@ -902,6 +902,255 @@ $xyl->render();</code></pre>
 
   <h2 id="Application_Gordon-s_blog" for="main-toc menu-toc">Application :
   <em>Gordon's blog</em></h2>
+
+  <p>Nous allons donner au <em>Gordon's blog</em> une meilleure interface
+  graphique afin de pouvoir l'afficher dans un navigateur. Nous allons commencer
+  par déclarer les vues puis les attacher à nos données à travers notre
+  contrôleur pour enfin tester le tout.</p>
+
+  <h3 id="Document_principal" for="main-toc">Document principal</h3>
+
+  <p>Notre document principal sera <code>Application/View/Main.xyl</code> et
+  accueillera nos différentes pages. Chaque page sera un <em>overlay</em> par
+  rapport à ce document principal, il faudra donc préciser un identifiant.
+  Ainsi :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>&amp;lt;value bind="?title" /> — Gordon's blog&amp;lt;/title>
+
+  &amp;lt;header>
+    &amp;lt;h1>Gordon's blog&amp;lt;/h1>
+  &amp;lt;/header>
+
+  &amp;lt;article id="main" />
+
+  &amp;lt;footer>
+    &amp;lt;p>Author: Gordon Freeman © 1999-2001. This blog is powered by
+    &amp;lt;a href="http://hoa-project.net/">Hoa&amp;lt;/a> and
+    &amp;lt;a href="http://php.net/">PHP&amp;lt;/a>.&amp;lt;/p>
+  &amp;lt;/footer>
+&amp;lt;/document></code></pre>
+  <p>C'est un document très simple. Le titre est variable et nos pages
+  s'ajouteront dans le composant portant l'identifiant <code>main</code>.</p>
+
+  <h3 id="Liste_des_articles" for="main-toc">Liste des articles</h3>
+
+  <p>Nous proposons de ranger les vues du blog dans le dossier
+  <code>Application/View/Blog/</code>. Ainsi, la liste des articles sera
+  représentée par le fichier <code>Index.xyl</code> et va définir un
+  <em>overlay</em> pour l'identifiant <code>main</code> :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;article id="main">
+    &amp;lt;p>Here is the list of all articles I have written:&amp;lt;/p>
+    &amp;lt;ul>
+      &amp;lt;li bind="?articles">
+        &amp;lt;value bind="?posted" /> — &amp;lt;a href="@a:id=(?id)" bind="?title" />
+      &amp;lt;/li>
+    &amp;lt;/ul>
+  &amp;lt;/article>
+&amp;lt;/overlay></code></pre>
+  <p>Nous avons une liste qui va s'accrocher sur les arbres
+  <code>articles</code> et les feuilles de ces arbres vont servir à afficher la
+  date, le lien et le titre des articles. Pour écrire le lien, nous utilisons la
+  règle <code>a</code> définit dans notre routeur pour accéder à un article.</p>
+
+  <h3 id="Un_article_avec_ses_commentaires" for="main-toc">Un article avec ses
+  commentaires</h3>
+
+  <p>Maintenant, nous allons écrire la vue d'un article dans le fichier
+  <code>Article.xyl</code>, toujours en tant qu'<em>overlay</em>. Elle affichera
+  le titre de l'article, son contenu et les commentaires associés. Nous avons
+  fait le choix de définir un composant pour représenter les commentaires sous
+  le nom <code>comment</code> et définit dans le fichier
+  <code>Comment.xyl</code>. Ainsi :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+&amp;lt;?xyl-use href="hoa://Application/View/Blog/Comment.xyl"?>
+
+&amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;article id="main">
+    &amp;lt;p>&amp;lt;a href="@i">☜ Back to list&amp;lt;/a>&amp;lt;/p>
+
+    &amp;lt;yield bind="?article">
+      &amp;lt;h2 bind="?title" />
+      &amp;lt;p bind="?content" />
+    &amp;lt;/yield>
+
+    &amp;lt;h2>Comments&amp;lt;/h2>
+    &amp;lt;comment bind="?comments" />
+  &amp;lt;/article>
+&amp;lt;/overlay></code></pre>
+  <p>Les données concernant l'article se trouve dans l'arbre
+  <code>article</code> et les commentaires dans les arbres
+  <code>comments</code>. Nous noterons le lien pour revenir à la liste des
+  articles basé sur la règle <code>i</code> du routeur qui ne comporte aucune
+  variable d'où sa grande simplicité.</p>
+  <p>Et la déclaration de notre composant <code>comment</code> se fait de la
+  manière suivante :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;definition xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;yield name="comment">
+    &amp;lt;div class="comment">
+      &amp;lt;ul>
+        &amp;lt;li>
+          &amp;lt;span bind="?posted" /> • &amp;lt;span bind="?author" />
+          &amp;lt;p bind="?content" />
+        &amp;lt;/li>
+      &amp;lt;/ul>
+    &amp;lt;/div>
+  &amp;lt;/yield>
+&amp;lt;/definition></code></pre>
+  <p>Une fois de plus, les données nécessaires se devinent rapidement.</p>
+
+  <h3 id="Depuis_notre_controleur" for="main-toc">Depuis notre contrôleur</h3>
+
+  <p>Nous allons modifier nos deux méthodes de notre contrôleur, respectivement
+  <code>IndexAction</code> pour la liste des articles et
+  <code>ArticleAction</code> pour un seul article. Les données sont déjà
+  extraites, nous allons les donner à XYL. Commençons par
+  <code>IndexAction</code> :</p>
+  <pre><code language="php">public function IndexAction ( ) {
+
+    $article              = new \Application\Model\Article();
+    $list                 = $article->getShortList();
+    $this->data->title    = 'All articles';
+    $this->data->articles = $list;
+
+    $this->view->addOverlay('hoa://Application/View/Blog/Index.xyl');
+    $this->view->render();
+
+    return;
+}</code></pre>
+  <p>Nous déclarons deux données : le titre du document principal et la liste
+  des articles. Puis, nous demandons à la vue d'utiliser
+  l'<em>overlay</em> correspond à la liste des articles et d'en faire un
+  rendu. Nous remarquons que <code>Hoa\Core\Data</code> représenté par
+  l'attribut <code>data</code> comprend bien les données provenant des bases de
+  données (entre autre) : nous lui donnons <code>$list</code> sans effectuer
+  aucune opération.</p>
+  <p>Le traitement sera similaire pour un article et ses commentaires :</p>
+  <pre><code language="php">public function ArticleAction ( $id ) {
+
+    $article              = new \Application\Model\Article();
+    $article->open(array('id' => $id));
+    $this->data->title    = $article->title;
+    $this->data->article  = $article;
+    $this->data->comments = $article->comments;
+
+    $this->view->addOverlay('hoa://Application/View/Blog/Article.xyl');
+    $this->view->render();
+
+    return;
+}</code></pre>
+  <p>Encore une fois, en plus de <code>Hoa\Database\Dal</code>,
+  <code>Hoa\Core\Data</code> comprend bien les données provenant de
+  <code>Hoa\Model</code>. Cette couche du noyau est très utile pour ce genre de
+  manipulation de données et offre d'excellents résultats en plus d'excellentes
+  performances.</p>
+
+  <h3 id="Testons" for="main-toc">Testons !</h3>
+
+  <p>Avant de tester, nous devons modifier notre fichier d'amorçage
+  <code>index.php</code> pour préciser à notre dispatcheur qu'il doit utiliser
+  <code>Hoa\Xyl</code> comme vue :</p>
+  <pre><code language="php">from('Hoa')
+-> import('Database.Dal.~')
+-> import('Dispatcher.Basic')
+-> import('Router.Http')
+-> import('Xyl.~')
+-> improt('Xyl.Interpreter.Html.~')
+-> import('File.Read')
+-> import('Http.Response')
+
+Hoa\Database\Dal::initializeParameters(array(
+    'connection.list.default.dal' => Hoa\Database\Dal::PDO,
+    'connection.list.default.dsn' => 'sqlite:hoa://Data/Variable/Database/Blog.sqlite',
+    'connection.autoload'         => 'default'
+));
+
+$dispatcher = new Hoa\Dispatcher\Basic();
+$router     = new Hoa\Router\Http();
+$router->get('i', '/', 'blog', 'index')
+       ->get('a', '/article-(?&amp;lt;id>\d+)\.html', 'blog', 'article');
+
+try {
+
+    $dispatcher->dispatch(
+        $router,
+        new Hoa\Xyl(
+            new Hoa\File\Read('hoa://Application/View/Main.xyl'),
+            new Hoa\Http\Response(),
+            new Hoa\Xyl\Interpreter\Html(),
+            $router
+        )
+    );
+}
+catch ( Hoa\Router\Exception\NotFound $e ) {
+
+    echo 'Your page seems to be not found /o\.', "\n";
+}</code></pre>
+
+  <h3 id="Avec_des_ressources">Avec des ressources</h3>
+
+  <!--pre><code language="php">namespace {
+
+from('Application')
+-> import('Model.Article')
+-> import('Model.Comment');
+
+}
+
+namespace Application\Controller {
+
+class Blog extends \Hoa\Dispatcher\Kit {
+
+}
+
+}</code></pre>
+
+
+
+
+  <pre><code language="php">namespace {
+
+require dirname(dirname(__DIR__)) .
+        DIRECTORY_SEPARATOR . 'Data' .
+        DIRECTORY_SEPARATOR . 'Core.link.php';
+
+from('Hoa')
+-> import('Router.Http')
+-> import('Dispatcher.Basic')
+-> import('File.Read')
+-> import('Http.Response')
+-> import('Xyl.~')
+-> import('Xyl.Interpreter.Html.~')
+-> import('Database.Dal');
+
+$router = new Hoa\Router\Http();
+$router->get('i', '/', 'blog', 'index')
+       ->get('a', '/article-(?&amp;lt;id>\d+)\.html', 'blog', 'article');
+
+Hoa\Database\Dal::initializeParameters(array(
+    'connection.list.default.dal' => Hoa\Database\Dal::PDO,
+    'connection.list.default.dsn' => 'sqlite:hoa://Data/Variable/Database/Blog.sqlite',
+    'connection.autoload'         => 'default'
+));
+
+$dispatcher = new Hoa\Dispatcher\Basic();
+$dispatcher->dispatch(
+    $router,
+    new Hoa\Xyl(
+        new Hoa\File\Read('hoa://Application/View/Main.xyl'),
+        new Hoa\Http\Response(),
+        new Hoa\Xyl\Interpreter\Html(),
+        $router
+    )
+);
+
+}</code></pre-->
 
   <ul class="prev_next">
     <li><a href="@ll:chapter=Model"><previous_chapter /> Modèle de
