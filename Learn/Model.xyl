@@ -25,7 +25,7 @@
 
   <p>Les bases de données sont des outils permettant de stocker et d'extraire
   des données de différentes formes et de différentes tailles.  Nous parlons
-  plutôt de gestionnaires de base de données. Nous pouvons distinguer deux
+  plutôt de gestionnaires de bases de données. Nous pouvons distinguer deux
   familles de bases de données : relationnelles et objets. Actuellement, les
   usages les plus courants se tournent vers des bases de données relationnelles
   qui utilisent la théorie des ensembles pour stocker et extraire leurs
@@ -51,28 +51,28 @@
     <code>REVOKE</code> …).</li>
   </ul>
   <p>La structure des données est appelée un <strong>schéma</strong>.</p>
-  <p>Dans une application, pour communiquer avec un gestionnaire de base de
-  données, nous devrons nous y connecter, puis y exécuter des requêtes (à l'aide
-  du langage SQL). La base de données nous calculera un résultat qu'elle nous
-  renverra et que nous pourrons exploiter. Le maximum de calculs doit être
-  effectué par la base de données qui est optimisée dans ce type de tralient !
-  Nous verrons par la suite comme faciliter l'exploitation de ces données qui
-  peut devenir un processus complexe si le schéma des données évolue ou n'est
-  pas trivial.</p>
+  <p>Dans une application, pour communiquer avec un gestionnaire de bases de
+  données, nous devrons nous y connecter, puis y exécuter des
+  <strong>requêtes</strong> (à l'aide du langage SQL). La base de données nous
+  calculera un <strong>résultat</strong> qu'elle nous renverra et que nous
+  pourrons exploiter. Le maximum de calculs doit être effectué par la base de
+  données qui est optimisée dans ce type de traitement ! Nous verrons par la
+  suite comme faciliter l'exploitation de ces données qui peut devenir un
+  processus complexe si le schéma des données évolue ou n'est pas trivial.</p>
 
   <h3 id="Abstraction_des_diverses_bases_de_donnees" for="main-toc">Abstraction
   des diverses bases de données</h3>
 
-  <p>Chaque gestionnaire de base de données fournit un pilote pour pouvoir
+  <p>Chaque gestionnaire de bases de données fournit un pilote pour pouvoir
   communiquer avec sa base de données. Comme aucun standard n'existe pour ces
   pilotes, ils sont tous différents les uns des autres. Cela peut se comprendre
   car ils n'apportent pas tous le même degré d'optimisation selon les usages.
   Cependant, nous aimerions avoir une utilisation uniforme de tous ces pilotes.
-  C'est pourquoi il existe des <strong>couches d'abstraction de bases de
-  données</strong>, ou DBAL (pour <em>Database Abstract Layer</em>). PHP en
-  propose une : <a href="http://php.net/book.pdo">PDO</a> (pour <em>PHP Data
+  C'est pourquoi il existe des <strong>couches d'abstraction</strong> de bases
+  de données, ou DBAL (pour <em>Database Abstract Layer</em>). PHP en propose
+  une : <a href="http://php.net/book.pdo">PDO</a> (pour <em>PHP Data
   Objects</em>), mais il en existe d'autres, comme par exemple :
-  <a href="msdn.microsoft.com/fr-fr/library/ms710252(v=VS.85).aspx">ODBC</a>
+  <a href="http://msdn.microsoft.com/fr-fr/library/ms710252(v=VS.85).aspx">ODBC</a>
   (pour <em>Open Database Connectivity</em>).</p>
   <p>Hoa définit une couche d'abstraction par dessus ces couches d'abstraction,
   grâce aux classes <code>Hoa\Database\Dal</code> et
@@ -80,37 +80,37 @@
   simplement de choisir quelle couche nous voulons utiliser (ou alors plonger
   directement sur un pilote sans passer par une couche d'abstraction).</p>
   <p>Dans un premier temps, nous conseillons d'utiliser PDO car c'est une couche
-  native à PHP qui ne nécessite aucune installation particulière.  Dans la suite
-  de ce chapitre, nous allons utiliser PDO avec le gestionnaire de base de
-  données <a href="http://sqlite.org/">SQLite</a>, lui aussi intégré à PHP
-  (ainsi qu'à de <a href="http://sqlite.org/famous.html">nombreux outils</a>).
-  Ce dernier est très léger et travaille sur des fichiers contenant des petites
-  base de données, ce qui le rend portable.</p>
+  <strong>native</strong> à PHP qui ne nécessite aucune installation
+  particulière.  Dans la suite de ce chapitre, nous allons utiliser PDO avec le
+  gestionnaire de bases de données <a href="http://sqlite.org/">SQLite</a>, lui
+  aussi intégré à PHP (ainsi qu'à de
+  <a href="http://sqlite.org/famous.html">nombreux outils</a>). Ce dernier est
+  très léger et travaille sur des fichiers contenant des petites base de
+  données, ce qui le rend facilement <strong>portable</strong>.</p>
   <p>Pour illuster les premiers exemples, nous allons créer une petite base de
   données et la pré-remplir de quelques données. Dans un fichier, n'importe où
-  (par exemple <code>/tmp/foo)</code>, nous écrivons nos requêtes SQL :</p>
+  (par exemple <code>/tmp/Foo.sql)</code>, nous écrivons nos requêtes SQL :</p>
   <pre><code language="sql">CREATE TABLE user (
-    id INTEGER PRIMARY KEY ASC AUTOINCREMENT,
+    id        INTEGER PRIMARY KEY ASC AUTOINCREMENT,
     firstname VARCHAR(32),
-    lastname VARCHAR(32),
-    birthday INTEGER
+    lastname  VARCHAR(32),
+    birthday  INTEGER
 );
 
 INSERT INTO user VALUES ( NULL, 'Gordon', 'Freeman', 1973 );
 INSERT INTO user VALUES ( NULL, 'Alyx',   'Vance',   1995 );
 INSERT INTO user VALUES ( NULL, 'Cave',   'Johnson', 1947 );</code></pre>
   <p>Puis nous allons créer notre base de données :</p>
-  <pre><code language="shell">$ sqlite3 -init /tmp/foo -echo /var/db/Foo.sqlite
-// … our queries.</code></pre>
+  <pre><code language="shell">$ sqlite3 -init /tmp/Foo.sql -echo /var/db/Foo.sqlite</code></pre>
 
   <h3 id="Se_connecter_a_une_base_de_donnees" for="main-toc">Se connecter à une
   base de données</h3>
 
-  <p>Une application peut vouloir communiquer avec plusieurs bases de données.
-  C'est pourquoi la classe <code>Hoa\Database\Dal</code> définit une liste de
-  profils de connexions potentielles représentés par des identifiants uniques.
-  Chaque profil de connexion est une structure qui porte les données
-  suivantes :</p>
+  <p>Une application peut vouloir communiquer avec <strong>plusieurs</strong>
+  bases de données. C'est pourquoi la classe <code>Hoa\Database\Dal</code>
+  définit une liste de <strong>profils</strong> de connexions potentielles
+  représentés par des identifiants uniques. Chaque profil de connexion est une
+  structure qui porte les données suivantes :</p>
   <ul>
     <li><code>id</code>, unique et représente le profil ;</li>
     <li><code>dsn</code> (pour <em>Data Source Name</em>), décrit une connexion
@@ -120,13 +120,13 @@ INSERT INTO user VALUES ( NULL, 'Cave',   'Johnson', 1947 );</code></pre>
     <li><code>password</code>, un mot de passe se couplant avec le nom
     d'utilisateur (inutile avec SQLite) ;</li>
     <li><code>options</code>, un tableau d'options spécifiques au gestionnaire
-    de base de données utilisé.</li>
+    de bases de données utilisé.</li>
   </ul>
 
   <p>Cette liste de profils fait partie des paramètres de notre classe à partir
   de <code>Hoa\Core\Parameter</code> (une des couches du noyau).  Toutefois,
-  <code>Hoa\Database\Dal</code> étant un multiton un peu particulier (comme nous
-  le verrons rapidement), une méthode intermédiaire est proposée pour
+  <code>Hoa\Database\Dal</code> étant un multiton un peu particulier comme nous
+  le verrons rapidement, une méthode intermédiaire est proposée pour
   initialiser les paramètres de cette classe : <code>initializeParameters</code>
   Par exemple, si nous utilisons une base de données SQLite située dans le
   fichier <code>/var/db/Foo.sqlite</code> sous le profil <code>default</code>,
@@ -139,25 +139,26 @@ Hoa\Database\Dal::initializeParameters(array(
     'connection.list.default.dsn' => 'sqlite:/var/db/Foo.sqlite'
 ));</code></pre>
 
-  <p>Toutefois, dans une application, la connexion vers une base de données
-  peut être difficile à retrouver. En effet, les applications sont de plus
-  en plus découpées et il est difficile de conserver un chemin vers notre
-  connexion. C'est pourquoi <code>Hoa\Database\Dal</code> propose la méthode
-  <code>getInstance</code> qui permet de retrouver la connexion associée à
-  un identifiant ou de l'ouvrir si c'est la première fois. Ainsi, nous
-  ferons :</p>
+  <p>Toutefois, dans une application, la connexion vers une base de données peut
+  être difficile à retrouver. En effet, les applications sont de plus en plus
+  découpées et il est difficile de conserver un chemin vers notre connexion.
+  C'est pourquoi <code>Hoa\Database\Dal</code> propose la méthode
+  <code>getInstance</code> qui permet de <strong>retrouver</strong> la connexion
+  associée à un identifiant ou de l'<strong>ouvrir</strong> si c'est la première
+  fois. Ainsi, nous ferons :</p>
   <pre><code language="php">Hoa\Database\Dal::getInstance('default');</code></pre>
   <p>Mais il existe aussi des cas où nous voulons simplement utiliser la
-  connexion courante sans savoir laquelle c'est, en particulier si nous
-  manipulons plusieurs connexions en même temps. C'est pourquoi
+  connexion <strong>courante</strong> sans savoir laquelle c'est, en particulier
+  si nous manipulons plusieurs connexions en même temps. C'est pourquoi
   <code>Hoa\Database\Dal</code> définit la méthode <code>getLastInstance</code>
-  (d'arité nulle). Cette méthode va retrouver la dernière connexion utilisée.
-  Toutefois, si aucune n'a été précédemment ouverte, il serait agréable qu'elle
-  sache en ouvrir une. C'est pourquoi <code>Hoa\Database\Dal</code> propopose le
-  paramètre <code>connexion.autoload</code> pour choisir un profil à charger par
-  défaut. L'exemple suivant va enrichir les paramètres que nous avons déjà
-  écrits puis ouvrir la connexion attachée au profil <code>default</code> comme
-  si la connexion avait déjà été ouverte :</p>
+  (d'arité nulle). Cette méthode va retrouver la <strong>dernière</strong>
+  connexion utilisée.  Toutefois, si aucune n'a été précédemment ouverte, il
+  serait agréable qu'elle sache en ouvrir une. C'est pourquoi
+  <code>Hoa\Database\Dal</code> propopose le paramètre
+  <code>connexion.autoload</code> pour choisir un profil à charger par défaut.
+  L'exemple suivant va enrichir les paramètres que nous avons déjà écrits puis
+  ouvrir la connexion attachée au profil <code>default</code> comme si la
+  connexion avait déjà été ouverte :</p>
   <pre><code language="php">Hoa\Database\Dal::initializeParameters(array(
     'connection.list.default.dal' => Hoa\Database\Dal::PDO,
     'connection.list.default.dsn' => 'sqlite:/var/db/Foo.sqlite',
@@ -208,21 +209,23 @@ print_r($statement->fetchAll());
 //         )
 //
 // )</code></pre>
-  <p>Le résultat ici est un tableau des tuples indexés par notre sélection.</p>
+  <p>Le résultat ici est un tableau des <strong>tuples</strong> indexés par
+  notre sélection.</p>
   <p>Maintenant, imaginons que nous souhaitons que la limite (ici le nombre
-  maximum de tuples à sélectionner) soit variable : nous pouvons soit construire
-  la requête par concaténation à une variable <code>$limit</code>, soit en
-  utilisant des requêtes préparées. Les avantages des requêtes préparées sont
-  tout d'abord une optimisation de la part du gestionnaire de base de données
-  mais aussi une meilleure sécurité.  En effet, les paramètres (ou les
-  variables) d'une requête SQL sont protégés automatiquement, il est donc
-  toujours préférable d'utiliser ce mécanisme.  Pour exécuter une requête
-  paramétrée, nous devons commencer par la préparer à l'aide de la méthode
-  <code>Hoa\Database\Dal::prepare</code> qui retourne un objet
-  <code>Hoa\Database\DalStatement</code> comme attendu.  Puis nous l'exécutons à
+  maximum de tuples à sélectionner) soit <strong>variable</strong> : nous
+  pouvons soit construire la requête par concaténation à une variable
+  <code>$limit</code>, soit en utilisant des requêtes
+  <strong>préparées</strong>. Les avantages des requêtes préparées sont tout
+  d'abord une <strong>optimisation</strong> de la part du gestionnaire de bases
+  de données mais aussi une meilleure <strong>sécurité</strong>. En effet, les
+  paramètres (ou les variables) d'une requête SQL sont protégés automatiquement,
+  il est donc toujours préférable d'utiliser ce mécanisme. Pour exécuter une
+  requête paramétrée, nous devons commencer par la préparer à l'aide de la
+  méthode <code>Hoa\Database\Dal::prepare</code> qui retourne un objet
+  <code>Hoa\Database\DalStatement</code> comme attendu. Puis nous l'exécutons à
   l'aide de la méthode <code>Hoa\Database\DalStatement::execute</code>, qui, en
   argument, reçoit un tableau de valeurs pour chaque paramètre. Les paramètres
-  sont préfixés par deux-points (le symbole « <code>:</code> ») et ne doivent
+  sont préfixés par deux-points (symbole « <code>:</code> ») et ne doivent
   pas contenir d'espaces. Voyons plutôt :</p>
   <pre><code language="php">$dal       = Hoa\Database\Dal::getLastInstance();
 $statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
@@ -239,10 +242,9 @@ $limit     = 2;
 $statement->bindParameter('my_limit', $limit);
 $statement->execute();</code></pre>
   <p>Ce qui est intéressant est que la variable qui porte la valeur du paramètre
-  est passée en référence ! Ce qui signifie que tant que nous n'avons pas
-  exécuter la requête, nos paramètres sont modifiables en modifiant simplement
-  la valeur de cette variable (<ie /> pas besoin d'appeler à nouveau la méthode
-  <code>bindParameter</code>) :</p>
+  est passée en <strong>référence</strong> ! Ce qui signifie que nos paramètres
+  sont modifiables en modifiant simplement la valeur de cette variable sans
+  avoir besoin d'appeler à nouveau la méthode <code>bindParameter</code> :</p>
   <pre><code language="php">$statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
 $limit     = 1;
 $statement->bindParameter('my_limit', $limit);
@@ -250,11 +252,10 @@ $statement->bindParameter('my_limit', $limit);
 $statement->execute();</code></pre>
   <p>Et même après exécution de notre requête, nous pouvons modifier un
   paramètre et ré-exécuter notre requête, sur le même objet
-  <code>Hoa\Database\Dal</code>. Le gestionnaire de base de données quant à lui
+  <code>Hoa\Database\Dal</code>. Le gestionnaire de bases de données quant à lui
   doit être en mesure de fournir des optimisations pour calculer plus rapidement
   le résultat attendu (parfois même faire du cache paramétré). Ce mécanisme
-  n'est pas à négliger lorsque nous avons des requêtes paramétrées (<ie />
-  contenant des valeurs variables).</p>
+  n'est pas à négliger lorsque nous avons des requêtes paramétrées.</p>
 
   <h3 id="Bien_plus_d-operations" for="main-toc">Bien plus d'opérations</h3>
 
@@ -267,26 +268,29 @@ $statement->execute();</code></pre>
   données</h2>
 
   <p>L'Informatique est la science de l'information. Le meilleur moyen de se
-  représenter une information est de la modéliser. Une modélisation ne
-  correspond pas toujours à l'implémentation de l'information, <ie /> la
-  représentation de l'information lors de son utilisation peut différer de sa
-  modélisation mais peu importe. Une information bien modéliser permet de mieux
-  se la représenter et ainsi pouvoir raisonner automatiquement dessus.  Par
-  exemple, selon la précision des informations portées par le modèle, nous
-  pouvons automatiser la génération de données de tests ou carrément de
-  tests !</p>
+  représenter une information est de la <strong>modéliser</strong>. Une
+  modélisation ne correspond pas toujours à l'<strong>implémentation</strong> de
+  l'information, <ie /> la représentation de l'information lors de son
+  utilisation peut différer de sa modélisation mais peu importe. Une information
+  bien modéliser permet de mieux se la <strong>représenter</strong> et ainsi
+  pouvoir <strong>raisonner</strong> automatiquement dessus. Par exemple, selon
+  la précision des informations portées par le modèle, nous pouvons automatiser
+  la génération de données de tests ou carrément de tests !</p>
 
   <h3 id="Premier_pas_avec_un_modele" for="main-toc">Premier pas avec un
   modèle</h3>
 
-  <p>Il y a plusieurs façon de représenter un modèle : soit textuellement avec
-  du code, soit graphiquement (graphiques qui seront probablement compilés vers
-  du code). Nous avons fait le choix de représenter un modèle avec du code, à
-  travers la bibliothèque <code>Hoa\Model</code>. Nous profitons du paradigme
-  objet de PHP en choisissant de représenter chaque élément du modèle par une
-  classe, et ainsi, les données sont portées par les attributs de classes. Par
-  exemple pour représenter un utilisateur qui a un identifiant, un prénom, un
-  nom et un âge, nous aurions :</p>
+  <p>Il y a plusieurs façon de représenter un modèle : soit
+  <strong>textuellement</strong> avec du code, soit
+  <strong>graphiquement</strong> (graphiques qui seront probablement compilés
+  vers du code). Nous avons fait le choix de représenter un modèle avec du code,
+  à travers la bibliothèque <code>Hoa\Model</code>. Nous profitons du paradigme
+  objet de PHP en choisissant de représenter chaque <strong>entité</strong> du
+  modèle par une <strong>classe</strong>, et ainsi, les données sont portées par
+  les attributs de classes. Toute entitée aura comme parent la classe
+  <code>Hoa\Model</code> pour profiter de ses services. Par exemple pour
+  représenter un utilisateur qui a un identifiant, un prénom, un nom et un âge,
+  nous aurions :</p>
   <pre><code language="php">from('Hoa')
 -> import('Model.~');
 
@@ -298,7 +302,7 @@ class User extends Hoa\Model {
     public $_birthday;
 }</code></pre>
   <p>Pour instancier un utilisateur, nous allons travailler sur ses attributs en
-  faisant abstraction du <em>underscore</em> (le symbole « <code>_</code> »),
+  faisant abstraction du <em>underscore</em> (symbole « <code>_</code> »),
   ainsi :</p>
   <pre><code language="php">$user     = new User();
 $user->id = 42;
@@ -306,26 +310,28 @@ var_dump($user->id);
 
 // Will output:
 //     int(42)</code></pre>
-  <p>C'est un bon début mais c'est très naïf. Nous aimerions faire le lien entre
-  modèle et données.</p>
+  <p>C'est un bon début mais c'est très naïf. Nous aimerions faire le
+  <strong>lien</strong> entre modèle et données.</p>
 
   <h3 id="Lien_entre_modele_et_donnees" for="main-toc">Lien entre modèle et
   données</h3>
 
-  <p>Un modèle représente une information, ou plutôt un ensemble de données.
-  Ces données peuvent venir de plusieurs endroits différents, peu importe d'où.
-  C'est pourquoi <code>Hoa\Model</code> propose entre autre un mécanisme pour
-  ouvrir un modèle et l'enregistrer. À l'utilisateur ensuite d'écrire le lien
-  entre son modèle et ses données.</p>
+  <p>Un modèle représente une information, ou plutôt un <strong>ensemble de
+  données</strong>. Ces données peuvent venir de plusieurs endroits différents,
+  peu importe d'où. C'est pourquoi <code>Hoa\Model</code> propose entre autre un
+  mécanisme pour ouvrir un modèle et l'enregistrer. À l'utilisateur ensuite
+  d'écrire le lien entre son modèle et ses données.</p>
   <p>Commençons par la méthode qui permet d'ouvrir un modèle : <code>open</code>
-  qui prend en argument un tableau de contraintes portant par exemple sur les
-  attributs (ce sera la sémantique la plus répandue pour les contraintes mais
-  rien ne nous empêche d'en donner une autre). Nous allons utiliser les données
-  stocker dans <code>/var/db/Foo.sqlite</code> à travers
+  qui prend en argument un tableau de <strong>contraintes</strong> portant par
+  exemple sur les attributs (ce sera la sémantique la plus répandue pour les
+  contraintes mais rien ne nous empêche d'en donner une autre). Nous allons
+  utiliser les données stocker dans <code>/var/db/Foo.sqlite</code> à travers
   <code>Hoa\Database</code> pour les extraire, que nous devons définir comme
   lien — ou <em>mapping layer</em> — dans le constructeur spécial
-  <code>construct</code>. Enfin, nous allons effectuer le lien entre les données
-  extraites et notre modèle grâce à la méthode <code>map</code> :</p>
+  <code>construct</code> réservé au modèle. Enfin, nous allons effectuer le lien
+  entre les données extraites et notre modèle grâce à la méthode
+  <code>map</code> qui reconnaît des données de plusieurs formes courantes et
+  arrive à les associer à nos attributs :</p>
   <pre><code language="php">from('Hoa')
 -> import('Model.~')
 -> import('Model.Exception')
@@ -376,33 +382,36 @@ var_dump($user->firsname);
 // Will output:
 //     string(6) "Gordon"</code></pre>
   <p>Il existe une autre manière de définir des contraintes en définissant des
-  valeurs aux attributs avant d'ouvrir le modèle. Pour cela, nous devons
-  fusionner les contraintes données dans la méthode <code>open</code> (si
-  jamais) avec les contraintes définies par les attributs. Nous ajoutons alors
-  juste avant le point 2 :</p>
-  <pre><code language="php">$constraints = array_merge($constraints, $this->getConstraints());</code></pre>
+  valeurs aux attributs avant d'ouvrir le modèle. Pour assurer les deux
+  <strong>approches</strong>, nous pouvons fusionner les contraintes données
+  dans la méthode <code>open</code> avec les contraintes définies par les
+  attributs. Nous ajoutons alors juste avant le point 2 :</p>
+  <pre><code language="php">$constraints = array_merge($this->getConstraints(), $constraints);</code></pre>
   <p>Puis, pour arriver au même résultat que précédemment :</p>
   <pre><code language="php">$user     = new User();
 $user->id = 1;
 $user->open();
 var_dump($user->firstname);</code></pre>
+  <p>Notons que l'ordre des arguments de la fonction <code>array_merge</code>
+  aura une influence sur la priorité des contraintes.</p>
 
   <h3 id="Validation_des_donnees" for="main-toc">Validation des données</h3>
 
-  <p>Avant d'enregistrer de nouvelles données, nous devons les valider.  C'est
-  pourquoi <code>Hoa\Model</code> propose un mécanisme de validatation
-  dynamique. En effet, à chaque donnée du modèle, <ie /> à chaque attribut, nous
-  pouvons associer une méthode de validation dont la convention de nommage est
-  <code>validate<em>Data</em></code> et qui prend en unique argument une valeur.
-  Cette méthode se comporte comme un prédicat, <ie /> une fonction qui retourne
-  <code>true</code> ou <code>false</code>.  L'assignation de la valeur à la
+  <p>Il est agréable de pouvoir <strong>valider automatiquement</strong> ses
+  données. C'est pourquoi <code>Hoa\Model</code> propose un mécanisme de
+  validation. En effet, à chaque donnée du modèle, <ie /> à chaque attribut,
+  nous pouvons associer une <strong>méthode</strong> de validation dont la
+  convention de nommage est <code>validate<em>Data</em></code> et qui prend en
+  unique argument une valeur. Cette méthode se comporte comme un
+  <strong>prédicat</strong>, c'est à dire une fonction qui retourne
+  <code>true</code> ou <code>false</code>. L'assignation de la valeur à la
   donnée ne s'effectue pas dans les méthodes de validations.</p>
   <p>Précisons pour la convention de nommage que l'attribut
   <code>aBc_DeF_GHI</code> sera renommée <code>AbcDefGhi</code> pour s'ajouter
   au nom de la méthode de validation (nous faisons une transformation vers du <a
   href="https://en.wikipedia.org/wiki/CamelCase">CamelCase</a>).</p>
-  <p>Ainsi, si nous voulons ajouter une validation sur la date de naissance qui
-  doit être compris entre 0 et l'année courante, nous ferions :</p>
+  <p>Ainsi, si nous voulons ajouter une validation sur l'année de naissance qui
+  doit être compris entre 1970 et l'année courante, nous ferions :</p>
   <pre><code language="php">public function validateBirthday ( $birthday ) {
 
     return 1970 &amp;lt;= $birthday &amp;amp;&amp;amp; ((int) date('Y')) >= $birthday;
@@ -417,21 +426,21 @@ $user->birthday = 65537; // an exception is thrown.</code></pre>
   <code>setEnableValidation</code> de cette manière :</p>
   <pre><code language="php">$user->setEnableValidation(false);</code></pre>
   <p>Notons que comme notre modèle est représenté par un ensemble de classe,
-  nous pouvons avoir de l'héritage et ainsi hériter des propriétés de
-  validations. Nous sommes ainsi capable d'en surcharger certaines et d'y
-  ajouter des contraintes. Cela peut être mécanisme intéressant à ne pas
-  négliger.</p>
+  nous pouvons avoir de l'héritage et ainsi <strong>hériter</strong> des
+  propriétés de validations. Nous sommes ainsi capable d'en surcharger certaines
+  et ainsi de les <strong>affiner</strong>. Ceci peut être mécanisme intéressant
+  à ne pas négliger.</p>
 
   <h3 id="Un_peu_de_Praspel_pour_valider_et_meme_plus" for="main-toc">Un peu de
   Praspel pour valider et même plus</h3>
 
   <p>Dans l'optique d'automatiser la génération de tests, Hoa propose le langage
   <strong>Praspel</strong>. Ce dernier repose sur des structures algébriques,
-  avec des propriétés particulières, appelées <strong>domaines
-  réalistes</strong>. Praspel exploite le paradigme des contrats à travers
-  plusieurs clauses (<ie /> plusieurs contraintes formelles). Il est prématuré
-  d'expliquer Praspel dans ce chapitre et c'est pourquoi nous allons nous
-  restreindre à une clause particulière : <code>@invariant</code> pour spécifier
+  appelées <strong>domaines réalistes</strong>, avec des propriétés
+  particulières. Praspel exploite le paradigme des contrats à travers plusieurs
+  clauses (<ie /> plusieurs contraintes formelles). Il est prématuré d'expliquer
+  Praspel dans ce chapitre et c'est pourquoi nous allons nous restreindre à une
+  clause particulière : <code>@invariant</code> qui est adaptée pour spécifier
   les données portées par notre modèle.</p>
   <p>Praspel permet d'utiliser les domaines réalistes de manière simple et
   permet de caractériser assez finement la forme des données. Dans la majorité
@@ -459,12 +468,12 @@ $user->birthday = 65537; // an exception is thrown.</code></pre>
     public $_id;
 
     /**
-     * @invariant firstname: regex('[\w\'\- ]{1,42}');
+     * @invariant firstname: regex('[\w\'\- ]+', boundinteger(1, 42));
      */
     public $_firstname;
 
     /**
-     * @invariant firstname: regex('[\w\'\- ]{1,42}');
+     * @invariant lastname: regex('[\w\'\- ]+', boundinteger(1, 42));
      */
     public $_lastname;
 
@@ -475,6 +484,12 @@ $user->birthday = 65537; // an exception is thrown.</code></pre>
 
     // …
 }</code></pre>
+  <p>Cet exemple signifie que l'attribut <code>id</code> doit être un entier de
+  1 minimum (le maximum n'étant pas précisé, il dépend de la plateforme),
+  l'attribut <code>firstname</code> et <code>lastname</code> sont des chaînes de
+  caractères correspondants à des expressions régulières et dont la taille est
+  comprise entre 1 et 42, et l'attribut <code>birthday</code> correspond à une
+  année comprise entre 1970 (0 en <em>timestamp</em>) et l'année actuelle.</p>
   <p>Nous rappelons que les méthodes <code>validate<em>Data</em></code> peuvent
   venir en soutient à Praspel. Nous rappelons également que nous sommes sur des
   exemples simples et que Praspel peut exprimer des contraintes plus fines que
@@ -482,34 +497,369 @@ $user->birthday = 65537; // an exception is thrown.</code></pre>
 
   <h3 id="Gerer_les_relations" for="main-toc">Gérer les relations</h3>
 
-  <p>Les relations entre les différentes parties du modèle sont une composante à
-  ne pas négliger. En effet, si nous avons notre élément <code>User</code> qui
-  peut être relié à disons l'élément <code>Mail</code>. Cette relation peut
+  <p>Les relations entre les différentes entités du modèle sont une composante à
+  ne pas négliger. En effet, si nous avons notre entité <code>User</code> qui
+  peut être reliée à disons l'entité <code>Mail</code>, cette relation peut
   avoir une arité et un sens : par exemple « combien de mails un utilisateur
   peut avoir ? ».</p>
   <p>Une relation en Praspel s'exprime avec le domaine réaliste
-  <code>relation</code> qui est une simplification syntaxique d'une domaine
-  réaliste <code>array</code>. Nous devons préciser à quel élément du modèle est
-  relié notre élément courant et son arité. Par exemple, pour dire qu'« un
+  <code>relation</code> qui est une simplification syntaxique du domaine
+  réaliste <code>array</code>. Nous devons préciser à quelle entité du modèle est
+  reliée notre entitée courant et son arité. Par exemple, pour dire qu'« un
   utilisateur peut avoir zéro ou vingts mails », nous écririons :</p>
   <pre><code language="php">/**
  * @invariant mails: relation('Mail', boundinteger(0, 20));
  */
 public $mails;</code></pre>
   <p>Enfin, pour faire le lien entre les données et la relation de notre modèle,
-  nous n'utiliserons pas la méthode <code>map</code> mais
-  <code>mapRelation</code> qui fonctionne de manière assez similaire. Nous
-  allons détaillé ce point dans notre application <code>Gordon's
-  blog</code>.</p>
+  nous devons nous positionner sur l'attribut qui va accueillir la relation et
+  ensuite utiliser la méthode <code>map</code> :</p>
+  <pre><code language="php">$this->mails->map(…);</code></pre>
+  <p>Utilisé de cette façon, ce mécanisme est <strong>paresseux</strong>,
+  c'est à dire qu'il ne charge que quand c'est nécessaire.</p>
+  <p>Nous ne détaillons toutes les possibilités de <code>Hoa\Model</code>, juste
+  suffisamment pour démarrer.</p>
 
   <h2 id="Application_Gordon-s_blog" for="main-toc menu-toc">Application :
   <em>Gordon's blog</em></h2>
 
+  <p>Nous allons ajouter des données au <em>Gordon's blog</em>. Pour cela, nous
+  allons créer une base de données, puis l'exploiter à travers notre modèle
+  <code>Application\Model\<em>*</em></code>
+  utilisés dans notre contrôleur <code>Application\Controller\Blog</code>.</p>
+
   <h3 id="Schema_des_donnees" for="main-toc">Schéma des données</h3>
+
+  <p>Nous voulons représenter un blog. Le blog sera constitué d'articles
+  auxquels seront associés des commentaires. Un article est caractérisé par un
+  identifiant, un titre, une date et un contenu. Un commentaire est
+  caractérisé par d'un identifiant, un auteur, une date et un contenu. Un lien
+  existe entre les commentaires et les articles à travers leurs identifiants
+  respectifs.</p>
+  <p>Le schéma complet au format SQL peut être retrouvé dans
+  <a href="http://hg.hoa-project.net/Sandbox">le dépôt <code>Sandbox/</code></a>
+  dans le fichier <code>GordonsBlog/Data/Variable/Database/Blog.sql</code>. Nous
+  donnons ici la description des tables :</p>
+  <pre><code language="sql">CREATE TABLE article (
+    id      INTEGER,
+    title   VARCHAR(255),
+    posted  TIMESTAMP,
+    content LONGVARCHAR,
+
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE comment (
+    id      INTEGER,
+    article INTEGER,
+    author  VARCHAR(31),
+    posted  TIMESTAMP,
+    content LONGVARCHAR,
+
+    PRIMARY KEY(id)
+    FOREIGN KEY(article) REFERENCES article(id)
+);</code></pre>
+  <p>Pour créer la base de données, nous allons nous aider de
+  <code>sqlite3</code> en étant préalablement placé dans le dossier
+  <code>Data/Variable/Database/</code> :</p>
+  <pre><code language="shell">$ cd Data/Variable/Database
+$ sqlite3 -init Blog.sql -echo Blog.sqlite</code></pre>
+  <p>Notre base de données est maintenant créée. Nous allons écrire le modèle
+  correspondant.</p>
 
   <h3 id="Modele_des_donnees" for="main-toc">Modèle des données</h3>
 
+  <p>Nous allons créer deux fichiers, un pour chaque entité de notre modèle dans
+  le dossier <code>Application/Model</code>.</p>
+  <p>Nous commençons par écrire l'entité <code>Comment</code> comme étant la
+  classe <code>Application\Model\Comment</code> en fonction de notre
+  schéma :</p>
+  <pre><code language="php">namespace {
+
+from('Hoa')
+-> import('Model.~')
+-> import('Database.Dal');
+
+}
+
+namespace Application\Model {
+
+class Comment extends \Hoa\Model {
+
+    /**
+     * @invariant id: boundinteger(0);
+     */
+    protected $_id;
+
+    /**
+     * @invariant article: relation('Application\Model\Article', 1);
+     */
+    protected $_article;
+
+    /**
+     * @invariant author: regex('[\w\d\'\- ]+', boundinteger(1, 42));
+     */
+    protected $_author;
+
+    /**
+     * @invariant posted: boundinteger(
+     *                        timestamp('1 january 1999'),
+     *                        timestamp('now')
+     *                    );
+     */
+    protected $_posted;
+
+    /**
+     * @invariant content: string(boundinteger(1, 4096));
+     */
+    protected $_content;
+
+
+
+    protected function construct ( ) {
+
+        $this->setMappingLayer(\Hoa\Database\Dal::getLastInstance());
+
+        return;
+    }
+}
+
+}</code></pre>
+  <p>Nous avons écrit les contraintes de validation pour chaque donnée et nous
+  avons défini le lien vers nos données. Maintenant voyons l'entité
+  <code>Article</code> comme étant la classe
+  <code>Application\Model\Article</code> toujours en fonction de notre
+  schéma :</p>
+  <pre><code language="php">namespace {
+
+from('Hoa')
+-> import('Model.~')
+-> import('Model.Exception')
+-> import('Database.Dal');
+
+}
+
+namespace Application\Model {
+
+class Article extends \Hoa\Model {
+
+    /**
+     * @invariant id: boundinteger(0);
+     */
+    protected $_id;
+
+    /**
+     * @invariant title: string(boundinteger(1, 255));
+     */
+    protected $_title;
+
+    /**
+     * @invariant posted: boundinteger(
+     *                        timestamp('1 january 1999'),
+     *                        timestamp('now')
+     *                    );
+     */
+    protected $_posted;
+
+    /**
+     * @invariant content: string(boundinteger(1));
+     */
+    protected $_content;
+
+    /**
+     * @invariant comments: relation('Application\Model\Comment', boundinteger(0));
+     */
+    protected $_comments;
+
+
+
+    protected function construct ( ) {
+
+        $this->setMappingLayer(\Hoa\Database\Dal::getLastInstance());
+
+        return;
+    }
+
+    public function open ( Array $constraints = array() ) {
+
+        $constraints = array_merge($this->getConstraints(), $constraints);
+
+        if(!isset($constraints['id']))
+            throw new \Hoa\Model\Exception('The constraint “id” is needed.', 0);
+
+        $data = $this->getMappingLayer()
+                     ->prepare(
+                         'SELECT id, title, content ' .
+                         'FROM   article ' .
+                         'WHERE  id = :id'
+                     )
+                     ->execute($constraints)
+                     ->fetchAll();
+        $this->map($data[0]);
+        $this->comments->map(
+            $this->getMappingLayer()
+                 ->prepare(
+                     'SELECT id, posted, author, content ' .
+                     'FROM   comment '.
+                     'WHERE  article = :article'
+                 )
+                 ->execute(array('article' => $constraints['id']))
+                 ->fetchAll()
+        );
+
+        return;
+    }
+
+    public function getShortList ( ) {
+
+        return $this->getMappingLayer()->query(
+            'SELECT id, title, posted FROM article ORDER BY id DESC'
+        )->fetchAll();
+    }
+}
+
+}</code></pre>
+  <p>À nouveau, nous avons écrit les contraintes de validation pour chaque
+  donnée et nous avons défini le lien vers nos données. En plus, nous avons
+  écrit le comportement de la méthode <code>open</code> avec la gestion des
+  contraintes et des relations (à travers l'attribut <code>comments</code>).
+  Enfin, nous avons la méthode <code>getShortList</code> qui exploite l'entité
+  sans la modifier.</p>
+  <p>Nous allons maintenant exploiter notre modèle dans notre contrôleur.</p>
+
   <h3 id="Depuis_un_controleur" for="main-toc">Depuis un contrôleur</h3>
+
+  <p>Notre contrôleur <code>Application\Controller\Blog</code> comporte déjà
+  deux actions sous la forme de méthodes : <code>IndexAction</code> et
+  <code>ArticleAction</code>. Nous allons les enrichir pour utiliser le modèle
+  et afficher les données brutes.</p>
+  <p>Pour la méthode <code>IndexAction</code>, nous allons afficher la liste des
+  articles présents sur le blog. Pour cela, nous allons nous aider de la méthode
+  <code>getShortList</code> sur <code>Application\Model\Article</code> :</p>
+  <pre><code language="php">public function IndexAction ( ) {
+
+    $article = new \Application\Model\Article();
+    $list    = $article->getShortList();
+
+    echo "\n", str_repeat(' ', 31) . '★ Gordon\'s blog ★', "\n\n",
+         'Here is the list of all articles I have written:', "\n";
+
+    foreach($list as $l) {
+
+        echo '    #' .  $l['id'], ' ', date('d/m/Y', $l['posted']), ' — ',
+             wordwrap($l['title'], 59, "\n" . str_repeat(' ', 20), true),
+             "\n";
+    }
+
+    echo "\n";
+
+    return;
+}</code></pre>
+  <p>Pour la méthode <code>ArticleAction</code>, nous allons afficher un article
+  avec ses commentaires en fonction de l'identifiant de l'article demandé :</p>
+  <pre><code language="php">public function ArticleAction ( $id ) {
+
+    $article = new \Application\Model\Article();
+    $article->open(array('id' => $id));
+
+    echo "\n", str_repeat(' ', 31) . '★ Gordon\'s blog ★', "\n\n",
+         $article->title, "\n\n",
+         wordwrap($article->content, 80, "\n", true), "\n\n",
+         str_repeat(' ', 34), str_repeat('-', 10), "\n\n";
+
+    foreach($article->comments as $comment)
+        echo $comment->author, ' • ', date('d/m/Y', $comment->posted), "\n",
+             wordwrap($comment->content, 70, "\n", true), "\n\n";
+
+    echo "\n";
+
+    return;
+}</code></pre>
+
+  <h3 id="Testons" for="main-toc">Testons !</h3>
+
+  <p>N'oublions pas de modifier notre fichier d'amorçage <code>index.php</code>
+  pour lui ajouter la connexion à notre base de données qui sera exploitée par
+  notre modèle (à l'aide de la méthode <code>getLastInstance</code> de
+  <code>Hoa\Database\Dal</code>) ; ainsi :</p>
+  <pre><code language="php">from('Hoa')
+-> import('Database.Dal.~')
+-> import('Router.Http')
+-> import('Dispatcher.Basic');
+
+Hoa\Database\Dal::initializeParameters(array(
+    'connection.list.default.dal' => Hoa\Database\Dal::PDO,
+    'connection.list.default.dsn' => 'sqlite:hoa://Data/Variable/Database/Blog.sqlite',
+    'connection.autoload'         => 'default'
+));
+
+$router     = new Hoa\Router\Http();
+$router->get('i', '/', 'blog', 'index')
+       ->get('a', '/article-(?&amp;lt;id>\d+)\.html', 'blog', 'article');
+$dispatcher = new Hoa\Dispatcher\Basic();
+
+try {
+
+    $dispatcher->dispatch($router);
+}
+catch ( Hoa\Router\Exception\NotFound $e ) {
+
+    echo 'Your page seems to be not found /o\.', "\n";
+}</code></pre>
+  <p>Enfin, nous allons tester notre application un peu plus enrichie ! Nous
+  commençons par démarrer Bhoa :</p>
+  <pre><code language="shell">$ myapp bhoa --root hoa://Application/Public</code></pre>
+  <p>À l'aide de cURL, nous allons afficher le résultat de notre index et d'un
+  article :</p>
+  <pre><code language="shell">$ curl 127.0.0.1:8888/
+
+                               ★ Gordon's blog ★
+
+Here is the list of all articles I have written:
+    #5 07/01/2001 — G-Man or the hard deal
+    #4 03/01/2001 — ping -f Nihilanth
+    #3 16/12/2000 — I think I have made a blunder at Black Mesa
+    #2 15/12/2000 — Great party in the Anomalous Materials department with
+                    collegues!
+    #1 05/05/2000 — Dr. Isaac Kleiner, my mentor, has hired me at Black Mesa
+                    Research Facility
+    #0 18/11/1999 — Call me Ph.D!
+
+$ curl 127.0.0.1:8888/article-1.html
+
+                               ★ Gordon's blog ★
+
+Call me Ph.D!
+
+My thesis was accepted. What a long labor! Well, it is finally over. The harder
+part was to resume the title. You know, in Theoretical Physics, thesis have
+always very short and concise titles. Mine is quite simple; here it is:
+Observation of Einstein-Podolsky-Rosen Entanglement on Supraquantum Structures
+by Induction Through Nonlinear Transuranic Crystal of Extremely Long Wavelength
+(ELW) Pulse from Mode-Locked Source Array. I can gladly send you a copy if you
+want.
+
+                                  ----------
+
+Isaac Kleiner • 19/12/1999
+Nice work Gordon. Hope we will work together in a near future!
+
+Mummy • 19/12/1999
+I really donnot understand what you do but I am very proud of my
+little Gordy :-). xoxo, your Mummy.</code></pre>
+  <p>Notre application application exploite plusieurs <strong>couches</strong>.
+  Nous avons les <strong>données</strong> qui sont stockées dans une base de
+  données. Notre <strong>abstraction</strong> avec <code>Hoa\Database\Dal</code>
+  et une utilisation <strong>standard</strong> du langage SQL nous permet de
+  changer de gestionnaire de bases de données <strong>sans modifier</strong> le
+  code de notre application. De plus, les données sont manipulées par notre
+  application à travers un <strong>modèle</strong> les réprésentant (à l'aide de
+  <code>Hoa\Model</code>). Si les données viennent à changer de localisation ou
+  de <code>format</code>, mettre à jour le modèle sera la seule tâche à faire.
+  Elle peut nécessité une quantité de travail non négligeable mais la tâche est
+  <strong>isolée</strong> : seul le modèle sera à modifier, pas le reste de
+  l'application. Enfin, <code>Hoa\Model</code> peut servir à l'élaboration
+  d'outils de gestion de données plus complexes de part sa conception.</p>
 
   <ul class="prev_next">
     <li><a href="@ll:chapter=Routerdispatcher"><previous_chapter /> Router +
