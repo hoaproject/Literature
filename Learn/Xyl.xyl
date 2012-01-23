@@ -1047,15 +1047,18 @@ $xyl->render();</code></pre>
 }</code></pre>
   <p>Encore une fois, en plus de <code>Hoa\Database\Dal</code>,
   <code>Hoa\Core\Data</code> comprend bien les données provenant de
-  <code>Hoa\Model</code>. Cette couche du noyau est très utile pour ce genre de
-  manipulation de données et offre d'excellents résultats en plus d'excellentes
-  performances.</p>
+  <code>Hoa\Model</code>. En réalité, <code>Hoa\Core\Data</code> ne connaît pas
+  <code>Hoa\Model</code> et ne s'y adapte pas, mais c'est <code>Hoa\Model</code>
+  qui s'y adapte et comme <code>Hoa\Xyl</code> utilise
+  <code>Hoa\Core\Data</code>, le lien se fait par transivité. Cette couche du
+  noyau est très utile pour ce genre de manipulation de données et offre
+  d'excellents résultats en plus d'excellentes performances.</p>
 
   <h3 id="Testons" for="main-toc">Testons !</h3>
 
   <p>Avant de tester, nous devons modifier notre fichier d'amorçage
-  <code>index.php</code> pour préciser à notre dispatcheur qu'il doit utiliser
-  <code>Hoa\Xyl</code> comme vue :</p>
+  <code>index.php</code> pour préciser à notre dispatcheur en second argument
+  qu'il doit utiliser <code>Hoa\Xyl</code> comme vue :</p>
   <pre><code language="php">from('Hoa')
 -> import('Database.Dal.~')
 -> import('Dispatcher.Basic')
@@ -1092,65 +1095,16 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
 
     echo 'Your page seems to be not found /o\.', "\n";
 }</code></pre>
+  <p>Maintenant, utilisons Bhoa pour exécuter notre application :</p>
+  <pre><code language="shell">$ myapp bhoa --root hoa://Application/Public</code></pre>
+  <p>Puis, depuis votre navigateur en allant sur
+  <a href="http://127.0.0.1:8888/"><code>127.0.0.1:8888</code></a>, nous verrons
+  notre document rendu en HTML et plus précisément la liste des articles
+  présents sur le blog. De même en allant sur
+  <a href="http://127.0.0.1:8888/article-0.html"><code>127.0.0.1:8888/article-0.html</code></a>
+  nous verrons le premier article du blog.</p>
 
   <h3 id="Avec_des_ressources">Avec des ressources</h3>
-
-  <!--pre><code language="php">namespace {
-
-from('Application')
--> import('Model.Article')
--> import('Model.Comment');
-
-}
-
-namespace Application\Controller {
-
-class Blog extends \Hoa\Dispatcher\Kit {
-
-}
-
-}</code></pre>
-
-
-
-
-  <pre><code language="php">namespace {
-
-require dirname(dirname(__DIR__)) .
-        DIRECTORY_SEPARATOR . 'Data' .
-        DIRECTORY_SEPARATOR . 'Core.link.php';
-
-from('Hoa')
--> import('Router.Http')
--> import('Dispatcher.Basic')
--> import('File.Read')
--> import('Http.Response')
--> import('Xyl.~')
--> import('Xyl.Interpreter.Html.~')
--> import('Database.Dal');
-
-$router = new Hoa\Router\Http();
-$router->get('i', '/', 'blog', 'index')
-       ->get('a', '/article-(?&amp;lt;id>\d+)\.html', 'blog', 'article');
-
-Hoa\Database\Dal::initializeParameters(array(
-    'connection.list.default.dal' => Hoa\Database\Dal::PDO,
-    'connection.list.default.dsn' => 'sqlite:hoa://Data/Variable/Database/Blog.sqlite',
-    'connection.autoload'         => 'default'
-));
-
-$dispatcher = new Hoa\Dispatcher\Basic();
-$dispatcher->dispatch(
-    $router,
-    new Hoa\Xyl(
-        new Hoa\File\Read('hoa://Application/View/Main.xyl'),
-        new Hoa\Http\Response(),
-        new Hoa\Xyl\Interpreter\Html(),
-        $router
-    )
-);
-
-}</code></pre-->
 
   <ul class="prev_next">
     <li><a href="@ll:chapter=Model"><previous_chapter /> Modèle de
