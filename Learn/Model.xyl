@@ -784,8 +784,8 @@ class Article extends \Hoa\Model {
   <code>Hoa\Database\Dal</code>) ; ainsi :</p>
   <pre><code language="php">from('Hoa')
 -> import('Database.Dal.~')
--> import('Router.Http')
--> import('Dispatcher.Basic');
+-> import('Dispatcher.Basic')
+-> import('Router.Http');
 
 Hoa\Database\Dal::initializeParameters(array(
     'connection.list.default.dal' => Hoa\Database\Dal::PDO,
@@ -793,10 +793,10 @@ Hoa\Database\Dal::initializeParameters(array(
     'connection.autoload'         => 'default'
 ));
 
+$dispatcher = new Hoa\Dispatcher\Basic();
 $router     = new Hoa\Router\Http();
 $router->get('i', '/', 'blog', 'index')
        ->get('a', '/article-(?&amp;lt;id>\d+)\.html', 'blog', 'article');
-$dispatcher = new Hoa\Dispatcher\Basic();
 
 try {
 

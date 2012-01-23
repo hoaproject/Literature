@@ -513,14 +513,14 @@ Array
   allons avoir un contrôleur qui sera une classe avec deux méthodes, une pour
   chaque action :</p>
   <pre><code language="php">from('Hoa')
--> import('Router.Http')
--> import('Dispatcher.Basic');
+-> import('Dispatcher.Basic')
+-> import('Router.Http');
 
+$dispatcher = new Hoa\Dispatcher\Basic();
 $router     = new Hoa\Router\Http();
 $router->get('i', '/', 'blog', 'index')
        ->get('a', '/article-(?&amp;lt;id>\d+)\.html', 'blog', 'article');
 
-$dispatcher = new Hoa\Dispatcher\Basic();
 $dispatcher->dispatch($router);</code></pre>
   <p>Nous avons dit que par défaut, le contrôleur était représenté par une
   classe <code>Application\Controller\<em>ControllerName</em></code>. C'est
