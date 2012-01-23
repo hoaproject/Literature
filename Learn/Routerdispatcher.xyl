@@ -226,8 +226,8 @@ $router->addRule(array('put', 'delete', 'get'), …);
   valeurs par défaut pour certaines variables si elles ne sont pas définies ou
   alors de définir de nouvelles variables. Ils existent des variables qui
   peuvent être définies par le routeur lui-même (toujours préfixées par le
-  symbole <code>_</code>). Nous éviterons l'utilisation des noms de variables
-  utilisant ce préfixe.</p>
+  symbole « <code>_</code> »). Nous éviterons l'utilisation des noms de
+  variables utilisant ce préfixe.</p>
   <p>Les expressions régulières dans PHP sont basées sur les
   <a href="https://pcre.org/">PCRE</a> qui ont un pouvoir d'expression plus
   avancé que de simples expressions régulières traditionnelles. Elles permettent
@@ -375,7 +375,7 @@ $dispatcher = new Hoa\Dispatcher\Basic();
 $dispatcher->dispatch($router);</code></pre>
   <p>Nous remarquons que pour <code>/hello</code>, nous appellons la fonction
   <code>hello</code>. Pareil pour <code>/bye</code> et <code>bye</code>. Le nom
-  du contrôleur est identique à la partie à droite du symbole <code>/</code>
+  du contrôleur est identique à la partie à droite du symbole « <code>/</code> »
   dans la règle. Nous pouvons alors simplifier les règles en capturant la valeur
   de la variable <code>controller</code> de cette manière :</p>
   <pre><code language="php">$router = new Hoa\Router\Http();
@@ -397,7 +397,7 @@ $router->get('u', '/(?&amp;lt;controller>hello|bye)');</code></pre>
   <p>L'ordre des arguments n'a aucune importance, seul le nom est important.
   Nous pouvons retrouver aussi bien les variables extraites des règles que
   celles définies par le routeur (<ie /> préfixées par le symbole
-  <code>_</code>). C'est ce que nous faisons avec <code>/hello</code> en
+  « <code>_</code> »). C'est ce que nous faisons avec <code>/hello</code> en
   <code>POST</code> et l'argument <code>$_request</code> qui est une variable
   définie par le routeur et qui contient des données d'une requête HTTP
   non-accessible <em>via</em> l'URI.</p>
