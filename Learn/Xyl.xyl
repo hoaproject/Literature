@@ -10,6 +10,7 @@
   <ul class="prev_next">
     <li><a href="@ll:chapter=Model"><previous_chapter /> Modèle de
         données</a></li>
+    <li>??? <next_chapter/></li>
   </ul>
 
   <p>Le système d'interface graphique permet de déclarer des
@@ -163,7 +164,7 @@ $xyl->render();</code></pre>
   <p>Ou depuis un navigateur (à l'aide de Bhoa par exemple) :</p>
   <pre><code language="shell">$ myapp bhoa --root .</code></pre>
   <p>puis en ouvrant l'URL
-  <a href="http://localhost:8888"><code>localhost:8888</code></a>.</p>
+  <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a>.</p>
   <p>Nous vous conseillons d'essayer de modifier ce document XYL comme si
   c'était de l'HTML pour vous rendre compte que le vocabulaire est le même (par
   exemple en ajoutant des identifiants, des classes, d'autres composants/balises
@@ -194,7 +195,7 @@ $xyl->render();</code></pre>
     color: red
 }</code></pre>
   <p>Maintenant, réouvrons
-  <a href="http://localhost:8888"><code>localhost:8888</code></a> et nous
+  <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a> et nous
   observons que notre document a changé de style.</p>
   <p>Nous pouvons dynamiquement déclarer une feuille de style en utilisant la
   méthode <code>addStylesheet</code> de la classe <code>Hoa\Xyl</code>. Ainsi,
@@ -391,11 +392,11 @@ $xyl->render();</code></pre>
   <strong>embarquer</strong> leurs propres styles (ou d'autres ressources).</p>
   <p>Toutefois, nous noterons que les feuilles de style se comportent comme une
   <strong>pile</strong> : elles s'ajoutent les unes après les autres. Aussi bien
-  avec les <em>overlays</em> qu'avec tous les autres documents, la déclaration
-  d'une feuille de style peut <strong>se positionner</strong> grâce à l'attribut
-  <code>position</code>. Nous retrouvons les mêmes expressions que pour
-  l'attribut <code>position</code> des composants à insérer d'un
-  <em>overlay</em>, excepté que les index dynamiques ne sont pas supportés.
+  avec les <em>overlays</em> qu'avec <strong>tous</strong> les autres documents,
+  la déclaration d'une feuille de style peut <strong>se positionner</strong>
+  grâce à l'attribut <code>position</code>. Nous retrouvons les mêmes
+  expressions que pour l'attribut <code>position</code> des composants à insérer
+  d'un <em>overlay</em>, excepté que les index dynamiques ne sont pas supportés.
   Ainsi, si nous souhaitons que notre feuille <code>Extension.css</code> se
   place en première position, nous aurions :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
@@ -671,9 +672,11 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   possible que dans un composant nommé. L'objectif est de sélectionner des
   composants lors de l'utilisation d'un composant nommé. La sélection se fait à
   l'aide d'une <a href="http://w3.org/TR/xpath20">expression XPath</a> de la
-  forme <code>?x[path]:<em>expression</em></code>. Par exemple, au lieu
-  d'utiliser le composant <code>hr</code> de manière statique, nous allons
-  sélectionner tous les composants fournis par l'utilisateur :</p>
+  forme <code>?x[path]:<em>expression</em></code> ou d'un
+  <a href="http://w3.org/TR/css3-selectors">sélecteur CSS</a> de la forme
+  <code>?q[uery]:<em>selector</em></code>. Par exemple, au lieu d'utiliser le
+  composant <code>hr</code> de manière statique, nous allons sélectionner tous
+  les composants fournis par l'utilisateur :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
@@ -767,11 +770,11 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   n'aura aucune action (<ie /> <em>callable</em>) attachée — nous voulons juste
   écrire un lien, c'est à dire le <strong>dérouter</strong> — , ainsi :</p>
   <pre><code language="php">from('Hoa')
+-> import('Router.Http')
 -> import('File.Read')
 -> import('Http.Response.~')
 -> import('Xyl.~')
--> import('Xyl.Interpreter.Html.~')
--> import('Router.Http');
+-> import('Xyl.Interpreter.Html.~');
 
 $router = new Hoa\Router\Http();
 $router->get('blog', '/Blog/(?&amp;lt;id>\d+)-(?&amp;lt;title>[^\.]+)\.html');
@@ -880,8 +883,8 @@ $xyl->render();</code></pre>
   l'avenir.  Pour modifier le thème, il existe la méthode <code>setTheme</code>
   sur <code>Hoa\Xyl</code>. Nous privilégerons toujours la méthode
   <code>resolve</code> sur <code>Hoa\Xyl</code> pour résoudre un chemin exprimé
-  avec le protocole <code>hoa://</code> au lieu d'utiliser simplement la
-  fonction <code>resolve</code> (aliase de
+  avec le protocole <code>hoa://</code> dans un contexte XYL au lieu d'utiliser
+  simplement la fonction <code>resolve</code> (aliase de
   <code>Hoa\Core\Protocol::resolve</code>) car le thème sera pris en
   considération ainsi que d'autres fonctionnalités.</p>
 
@@ -1035,7 +1038,8 @@ $xyl->render();</code></pre>
   <pre><code language="php">public function ArticleAction ( $id ) {
 
     $article              = new \Application\Model\Article();
-    $article->open(array('id' => $id));
+    $article->id          = $id;
+    $article->open();
     $this->data->title    = $article->title;
     $this->data->article  = $article;
     $this->data->comments = $article->comments;
@@ -1097,7 +1101,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
 }</code></pre>
   <p>Maintenant, utilisons Bhoa pour exécuter notre application :</p>
   <pre><code language="shell">$ myapp bhoa --root hoa://Application/Public</code></pre>
-  <p>Puis, depuis votre navigateur en allant sur
+  <p>Puis, depuis un navigateur en allant sur
   <a href="http://127.0.0.1:8888/"><code>127.0.0.1:8888</code></a>, nous verrons
   notre document rendu en HTML et plus précisément la liste des articles
   présents sur le blog. De même en allant sur
@@ -1106,9 +1110,32 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
 
   <h3 id="Avec_des_ressources">Avec des ressources</h3>
 
+  <p>Quelques styles, images, polices etc. sont disponibles sur
+  <a href="http://hg.hoa-project.net/Sandbox">le dépôt <code>Sandbox/</code></a>
+  dans le dossier <code>GordonsBlog/Application/Public/Classic/</code>. Nous
+  pouvons les copier dans notre même dossier
+  <code>Application/Public/Classic/</code>. Pour les utiliser, nous allons
+  ajouter la feuille de style <code>Css/UI.css</code> à notre document
+  principal :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+&amp;lt;?xyl-stylesheet href="hoa://Application/Public/Css/UI.css"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>&amp;lt;value bind="?title" /> — Gordon's blog&amp;lt;/title></code></pre>
+  <p>Si nous retournons sur notre application, nous verrons que les styles sont
+  appliqués !</p>
+  <p>Une fois de plus, nous avons une bibliothèque qui introduit la dernière des
+  trois couches principales dans notre application, ce qui nous approche du
+  modèle de conception MVC. Nous noterons que toutes les couches sont des
+  bibliothèques totalement <strong>découplées</strong> et donc
+  <strong>interchangeables</strong> sans problème. Si XYL n'est pas nécessaire,
+  nous pouvons le remplacer par un autre système d'interface graphique sans
+  aucune impact sur notre architecture.</p>
+
   <ul class="prev_next">
     <li><a href="@ll:chapter=Model"><previous_chapter /> Modèle de
         données</a></li>
+    <li>??? <next_chapter/></li>
   </ul>
 
 </yield>
