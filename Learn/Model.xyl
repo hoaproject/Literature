@@ -56,7 +56,7 @@
   <strong>requêtes</strong> (à l'aide du langage SQL). La base de données nous
   calculera un <strong>résultat</strong> qu'elle nous renverra et que nous
   pourrons exploiter. Le maximum de calculs doit être effectué par la base de
-  données qui est optimisée dans ce type de traitement ! Nous verrons par la
+  données qui est optimisée pour ce type de traitement ! Nous verrons par la
   suite comme faciliter l'exploitation de ces données qui peut devenir un
   processus complexe si le schéma des données évolue ou n'est pas trivial.</p>
 
@@ -150,15 +150,14 @@ Hoa\Database\Dal::initializeParameters(array(
   <p>Mais il existe aussi des cas où nous voulons simplement utiliser la
   connexion <strong>courante</strong> sans savoir laquelle c'est, en particulier
   si nous manipulons plusieurs connexions en même temps. C'est pourquoi
-  <code>Hoa\Database\Dal</code> définit la méthode <code>getLastInstance</code>
-  (d'arité nulle). Cette méthode va retrouver la <strong>dernière</strong>
-  connexion utilisée.  Toutefois, si aucune n'a été précédemment ouverte, il
-  serait agréable qu'elle sache en ouvrir une. C'est pourquoi
-  <code>Hoa\Database\Dal</code> propopose le paramètre
-  <code>connexion.autoload</code> pour choisir un profil à charger par défaut.
-  L'exemple suivant va enrichir les paramètres que nous avons déjà écrits puis
-  ouvrir la connexion attachée au profil <code>default</code> comme si la
-  connexion avait déjà été ouverte :</p>
+  <code>Hoa\Database\Dal</code> définit la méthode <code>getLastInstance</code>.
+  Cette méthode va retrouver la <strong>dernière</strong> connexion utilisée.
+  Toutefois, si aucune n'a été précédemment ouverte, il serait agréable qu'elle
+  sache en ouvrir une. C'est pourquoi <code>Hoa\Database\Dal</code> propopose le
+  paramètre <code>connexion.autoload</code> pour choisir un profil à charger par
+  défaut. L'exemple suivant va enrichir les paramètres que nous avons déjà
+  écrits puis ouvrir la connexion attachée au profil <code>default</code> comme
+  si la connexion avait déjà été ouverte :</p>
   <pre><code language="php">Hoa\Database\Dal::initializeParameters(array(
     'connection.list.default.dal' => Hoa\Database\Dal::PDO,
     'connection.list.default.dsn' => 'sqlite:/var/db/Foo.sqlite',
@@ -179,7 +178,7 @@ $connexion = Hoa\Database\Dal::getLastInstance();</code></pre>
   suivantes : écrire une requête complète ou pas, la compléter si nécessaire,
   l'exécuter puis récupérer les résultats. Pour exécuter écrire et exécuter une
   requête directement, nous pouvons utiliser la méthode
-  <code>Hoa\Database\Dal::query</code> qui prend en seul argument une requête
+  <code>Hoa\Database\Dal::query</code> qui prend pour seul argument une requête
   SQL. Exécuter une requête va nous retourner un objet de type
   <code>Hoa\Database\DalStatement</code> qui représente une requête d'une
   manière générale. Pour récupérer les résultats de notre requête, nous
@@ -218,15 +217,16 @@ print_r($statement->fetchAll());
   <strong>préparées</strong>. Les avantages des requêtes préparées sont tout
   d'abord une <strong>optimisation</strong> de la part du gestionnaire de bases
   de données mais aussi une meilleure <strong>sécurité</strong>. En effet, les
-  paramètres (ou les variables) d'une requête SQL sont protégés automatiquement,
-  il est donc toujours préférable d'utiliser ce mécanisme. Pour exécuter une
-  requête paramétrée, nous devons commencer par la préparer à l'aide de la
-  méthode <code>Hoa\Database\Dal::prepare</code> qui retourne un objet
-  <code>Hoa\Database\DalStatement</code> comme attendu. Puis nous l'exécutons à
-  l'aide de la méthode <code>Hoa\Database\DalStatement::execute</code>, qui, en
-  argument, reçoit un tableau de valeurs pour chaque paramètre. Les paramètres
-  sont préfixés par deux-points (symbole « <code>:</code> ») et ne doivent
-  pas contenir d'espaces. Voyons plutôt :</p>
+  paramètres (ou les variables) d'une requête SQL sont protégés automatiquement
+  contre les injections, il est donc toujours préférable d'utiliser ce
+  mécanisme. Pour exécuter une requête paramétrée, nous devons commencer par la
+  préparer à l'aide de la méthode <code>Hoa\Database\Dal::prepare</code> qui
+  retourne un objet <code>Hoa\Database\DalStatement</code> comme attendu. Puis
+  nous l'exécutons à l'aide de la méthode
+  <code>Hoa\Database\DalStatement::execute</code>, qui attend en argument,
+  reçoit un tableau de valeurs pour chaque paramètre. Les paramètres sont
+  préfixés par deux-points (symbole « <code>:</code> ») et ne doivent pas
+  contenir d'espaces.  Voyons plutôt :</p>
   <pre><code language="php">$dal       = Hoa\Database\Dal::getLastInstance();
 $statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
 $limit     = 2;
@@ -272,7 +272,7 @@ $statement->execute();</code></pre>
   modélisation ne correspond pas toujours à l'<strong>implémentation</strong> de
   l'information, <ie /> la représentation de l'information lors de son
   utilisation peut différer de sa modélisation mais peu importe. Une information
-  bien modéliser permet de mieux se la <strong>représenter</strong> et ainsi
+  bien modélisée permet de mieux se la <strong>représenter</strong> et ainsi
   pouvoir <strong>raisonner</strong> automatiquement dessus. Par exemple, selon
   la précision des informations portées par le modèle, nous pouvons automatiser
   la génération de données de tests ou carrément de tests !</p>
@@ -325,9 +325,9 @@ var_dump($user->id);
   qui prend en argument un tableau de <strong>contraintes</strong> portant par
   exemple sur les attributs (ce sera la sémantique la plus répandue pour les
   contraintes mais rien ne nous empêche d'en donner une autre). Nous allons
-  utiliser les données stocker dans <code>/var/db/Foo.sqlite</code> à travers
-  <code>Hoa\Database</code> pour les extraire, que nous devons définir comme
-  lien — ou <em>mapping layer</em> — dans le constructeur spécial
+  extraire les données stocker dans <code>/var/db/Foo.sqlite</code> à travers
+  <code>Hoa\Database</code> que nous allons définir comme lien entre les données
+  et le modèle — ou <em>mapping layer</em> — dans le constructeur spécial
   <code>construct</code> réservé au modèle. Enfin, nous allons effectuer le lien
   entre les données extraites et notre modèle grâce à la méthode
   <code>map</code> qui reconnaît des données de plusieurs formes courantes et
@@ -515,10 +515,8 @@ public $mails;</code></pre>
   nous devons nous positionner sur l'attribut qui va accueillir la relation et
   ensuite utiliser la méthode <code>map</code> :</p>
   <pre><code language="php">$this->mails->map(…);</code></pre>
-  <p>Utilisé de cette façon, ce mécanisme est <strong>paresseux</strong>,
-  c'est à dire qu'il ne charge que quand c'est nécessaire.</p>
-  <p>Nous ne détaillons toutes les possibilités de <code>Hoa\Model</code>, juste
-  suffisamment pour démarrer.</p>
+  <p>Nous ne détaillons pas toutes les possibilités de <code>Hoa\Model</code>,
+  juste suffisamment pour démarrer.</p>
 
   <h2 id="Application_Gordon-s_blog" for="main-toc menu-toc">Application :
   <em>Gordon's blog</em></h2>
@@ -825,7 +823,7 @@ Here is the list of all articles I have written:
                     Research Facility
     #0 18/11/1999 — Call me Ph.D!
 
-$ curl 127.0.0.1:8888/article-1.html
+$ curl 127.0.0.1:8888/article-0.html
 
                                ★ Gordon's blog ★
 
@@ -847,16 +845,16 @@ Nice work Gordon. Hope we will work together in a near future!
 Mummy • 19/12/1999
 I really donnot understand what you do but I am very proud of my
 little Gordy :-). xoxo, your Mummy.</code></pre>
-  <p>Notre application application exploite plusieurs <strong>couches</strong>.
-  Nous avons les <strong>données</strong> qui sont stockées dans une base de
-  données. Notre <strong>abstraction</strong> avec <code>Hoa\Database\Dal</code>
-  et une utilisation <strong>standard</strong> du langage SQL nous permet de
+  <p>Notre application exploite plusieurs <strong>couches</strong>. Nous avons
+  les <strong>données</strong> qui sont stockées dans une base de données. Notre
+  <strong>abstraction</strong> avec <code>Hoa\Database\Dal</code> et une
+  utilisation <strong>standard</strong> du langage SQL nous permettent de
   changer de gestionnaire de bases de données <strong>sans modifier</strong> le
   code de notre application. De plus, les données sont manipulées par notre
   application à travers un <strong>modèle</strong> les réprésentant (à l'aide de
-  <code>Hoa\Model</code>). Si les données viennent à changer de localisation ou
-  de <code>format</code>, mettre à jour le modèle sera la seule tâche à faire.
-  Elle peut nécessité une quantité de travail non négligeable mais la tâche est
+  <code>Hoa\Model</code>). Si les données viennent à changer d'emplacement ou de
+  <code>format</code>, mettre à jour le modèle sera la seule tâche à faire.
+  Elle peut nécessiter une quantité de travail non négligeable mais la tâche est
   <strong>isolée</strong> : seul le modèle sera à modifier, pas le reste de
   l'application. Enfin, <code>Hoa\Model</code> peut servir à l'élaboration
   d'outils de gestion de données plus complexes de part sa conception.</p>
