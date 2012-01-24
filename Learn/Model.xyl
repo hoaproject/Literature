@@ -325,7 +325,7 @@ var_dump($user->id);
   qui prend en argument un tableau de <strong>contraintes</strong> portant par
   exemple sur les attributs (ce sera la sémantique la plus répandue pour les
   contraintes mais rien ne nous empêche d'en donner une autre). Nous allons
-  extraire les données stocker dans <code>/var/db/Foo.sqlite</code> à travers
+  extraire les données stockées dans <code>/var/db/Foo.sqlite</code> à travers
   <code>Hoa\Database</code> que nous allons définir comme lien entre les données
   et le modèle — ou <em>mapping layer</em> — dans le constructeur spécial
   <code>construct</code> réservé au modèle. Enfin, nous allons effectuer le lien
@@ -500,13 +500,13 @@ $user->birthday = 65537; // an exception is thrown.</code></pre>
   <p>Les relations entre les différentes entités du modèle sont une composante à
   ne pas négliger. En effet, si nous avons notre entité <code>User</code> qui
   peut être reliée à disons l'entité <code>Mail</code>, cette relation peut
-  avoir une arité et un sens : par exemple « combien de mails un utilisateur
-  peut avoir ? ».</p>
+  avoir une cardinalité et un sens : par exemple « combien de mails un
+  utilisateur peut avoir ? ».</p>
   <p>Une relation en Praspel s'exprime avec le domaine réaliste
   <code>relation</code> qui est une simplification syntaxique du domaine
-  réaliste <code>array</code>. Nous devons préciser à quelle entité du modèle est
-  reliée notre entitée courant et son arité. Par exemple, pour dire qu'« un
-  utilisateur peut avoir zéro ou vingts mails », nous écririons :</p>
+  réaliste <code>array</code>. Nous devons préciser à quelle entité du modèle
+  est reliée notre entitée courant et sa cardinalité. Par exemple, pour dire
+  qu'« un utilisateur peut avoir zéro ou vingts mails », nous écririons :</p>
   <pre><code language="php">/**
  * @invariant mails: relation('Mail', boundinteger(0, 20));
  */
