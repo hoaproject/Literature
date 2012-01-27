@@ -1112,6 +1112,9 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
   présents sur le blog. De même en allant sur
   <a href="http://127.0.0.1:8888/article-0.html"><code>127.0.0.1:8888/article-0.html</code></a>
   nous verrons le premier article du blog.</p>
+  <p>Notons que les dates s'affichent toujours en format timestamp. Nous verrons
+  comment résoudre ce problème sans passer par le contrôleur mais avec XYL
+  uniquement.</p>
 
   <h3 id="Avec_des_ressources">Avec des ressources</h3>
 
