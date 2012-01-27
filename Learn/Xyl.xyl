@@ -28,20 +28,19 @@
 
   <p>D'une manière générale, le mécanisme d'un système de vue est le suivant : à
   partir de <strong>données</strong> sous différentes formes, nous allons créer
-  une <strong>vues</strong>, l'agencer, la modifer, la mélanger aux données,
-  puis en faire un rendu. Un <strong>rendu</strong> est comparable à peindre
-  notre vue, <ie /> nous voulons en avoir un résultat partiel ou total. Ce
-  résultat est affiché ou stocké, ce qui est dans tous les cas comparables à
-  l'envoyer sur un flux. Enfin, un besoin annexe mais indispensable aux vues est
-  la présence d'un <strong>routeur</strong>. En effet, les vues ont besoin de
+  une <strong>vue</strong>, l'agencer, la modifer, la mélanger aux données, puis
+  en faire un rendu. Un <strong>rendu</strong> est comparable à peindre notre
+  vue, <ie /> nous voulons en avoir un résultat partiel ou total. Ce résultat
+  est affiché ou stocké, ce qui est dans tous les cas comparables à l'envoyer
+  sur un flux. Enfin, un besoin annexe mais indispensable aux vues est la
+  présence d'un <strong>routeur</strong>. En effet, les vues ont besoin de
   connaître les accès aux différentes ressources voire de localiser d'autres
   vues.</p>
   <p>Les besoins en terme d'interface graphique sont <strong>nombreux</strong>
-  et très <strong>variés</strong> les uns des autres selon les contextes
-  d'utilisation. C'est pourquoi il existe plusieurs outils. Dans un souci
-  d'ouverture et d'uniformité, la bibliothèque <code>Hoa\View</code> ne définit
-  qu'une seule interface : <code>Hoa\View\Viewable</code> qui définit quatre
-  méthodes :</p>
+  et très <strong>variés</strong> selon les contextes d'utilisation. C'est
+  pourquoi il existe plusieurs outils. Dans un souci d'ouverture et
+  d'uniformité, la bibliothèque <code>Hoa\View</code> ne définit qu'une seule
+  interface : <code>Hoa\View\Viewable</code> qui définit quatre méthodes :</p>
   <ul>
     <li><code>getOutputStream</code> pour connaître le flux sur lequel la vue va
     être rendue ;</li>
@@ -85,13 +84,13 @@
   de production. Le mécanisme de <em>yielding</em> <strong>propre à XYL</strong>
   est bien adapté aux problématiques des systèmes d'interface graphique. Par
   exemple, lors de la création d'un composant graphique, ce dernier ne connait
-  pas la quantité de données qu'il va devoir produire ; il ne connaît que la
+  pas la quantité de données qu'il va devoir produire ; il n'en connaît que la
   forme (nous détaillerons cette partie plus loin). Il ne connaît pas non plus
   le contexte dans lequel il va être utilisé et encore moins avec quels
   composants il sera associé.</p>
   <p>Cette approche facilite l'<strong>écriture</strong> de composants
   graphiques, le <strong>partage</strong> de tous ces composants entre plusieurs
-  projets et leurs <strong>maintenances</strong>.</p>
+  projets et leur <strong>maintenance</strong>.</p>
 
   <h3 id="Multi-plateformes_et_multi-sorties" for="main-toc">Multi-plateformes
   et multi-sorties</h3>
@@ -103,8 +102,6 @@
   <a href="https://www.adobe.com/devnet/pdf/pdf_reference_archive.html">PDF</a>
   etc.), nous allons choisir un interpréteur et l'exécuter sur nos documents
   XYL. Le résultat sera normalement celui attendu.</p>
-  <p>Cela offre des perspectives intéressantes pour PHP à savoir que nous
-  pourrons le placer sur d'autres appareils et machines que des serveurs.</p>
 
   <h2 id="Document" for="main-toc menu-toc">Document</h2>
 
@@ -179,7 +176,7 @@ $xyl->render();</code></pre>
   obligatoire, le choix étant laissé à l'utilisateur.</p>
   <p>Pour déclarer une feuille de style, nous utilisons la
   <a href="http://w3.org/TR/xml11/#sec-pi"><em>processing-instruction</em></a>
-  <code>&amp;amp;lt?xyl-stylesheet?></code> en tête de n'importe quels documents
+  <code>&amp;amp;lt?xyl-stylesheet?></code> en tête de n'importe quel document
   XYL avec son attribut <code>href</code> pour préciser l'emplacement de notre
   feuille de style. Nous parlons d'une <strong>déclaration statique</strong>.
   Ainsi :</p>
@@ -196,7 +193,7 @@ $xyl->render();</code></pre>
   <p>Maintenant, réouvrons
   <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a> et nous
   observons que notre document a changé de style.</p>
-  <p>Nous pouvons <strong>dynamiquement</strong> déclarer une feuille de style
+  <p>Nous pouvons déclarer <strong>dynamiquement</strong> une feuille de style
   en utilisant la méthode <code>addStylesheet</code> de la classe
   <code>Hoa\Xyl</code>. Ainsi, le code suivant produira le même résultat :</p>
   <pre><code language="php">$xyl = new Hoa\Xyl(
@@ -223,7 +220,7 @@ $xyl->render();</code></pre>
   peut préciser sa position dans ce composant.</p>
   <p><em>À l'instar</em> d'une déclaration de feuille de style, une déclaration
   d'<em>overlay</em> se fait avec une <em>processing-instruction</em> :
-  <code>&amp;amp;lt;?xyl-overlay?></code> en tête de n'importe quels documents
+  <code>&amp;amp;lt;?xyl-overlay?></code> en tête de n'importe quel document
   XYL et avec son attribut <code>href</code> pour préciser l'emplacement de
   notre <em>overlay</em>. De même, pour une déclaration dynamique, nous avons la
   méthode <code>addOverlay</code> sur la classe <code>Hoa\Xyl</code>. Ainsi,
@@ -332,11 +329,10 @@ $xyl->render();</code></pre>
     <li>etc.</li>
   </ul>
   <p>Attention : l'<strong>ordre</strong> d'insertion des composants va influer
-  sur leurs positions. Toutes les expressions de position sont évaluées au
-  dernier moment, soit juste avant l'insertion. Une position négative sera
-  réduite à <code>0</code>, une position trop grande sera réduite à
-  <code>last()</code> et une position non-entière sera tronquée à sa partie
-  entière.</p>
+  leurs positions. Toutes les expressions de position sont évaluées au dernier
+  moment, soit juste avant l'insertion. Une position négative sera réduite à
+  <code>0</code>, une position trop grande sera réduite à <code>last()</code> et
+  une position non-entière sera tronquée à sa partie entière.</p>
   <p>Ainsi pour positionner notre nouvelle extension <code>foo</code> non pas en
   dernière position mais en première position, nous aurons la position
   <code>1</code> (utiliser la position <code>0</code> la placerait avant le
@@ -368,7 +364,7 @@ $xyl->render();</code></pre>
   &amp;lt;/aside>
 &amp;lt;/overlay></code></pre>
   <p>Si la position de notre nouvelle extension est modifiée, son séparateur
-  sera toujours après elle sans <strong>ne rien changer</strong>.</p>
+  sera toujours après elle sans <strong>rien changer</strong>.</p>
 
   <h3 id="Overlays_et_feuilles_de_style" for="main-toc"><em>Overlays</em> et
   feuilles de style</h3>
@@ -409,14 +405,14 @@ $xyl->render();</code></pre>
       …</code></pre>
   <p>Les avantages sont nombreux. Par exemple, si nous définissons un ensemble
   de règles de style pour un composant graphique et que l'ajout d'un nouveau
-  composant vient écraser ses règles, cela est gênant. Avec certains langages,
+  composant vient écraser ces règles, cela est gênant. Avec certains langages,
   comme CSS, nous trouvons l'instruction <code>!important</code> qui empêche la
   <strong>surchage</strong> d'une règle, mais cela peut parfois aboutir sur des
   situations incomfortables pour une surchage <strong>future</strong>. De plus,
   il n'est pas toujours évident de connaître l'ensemble des règles
   <strong>impactées</strong> par une surcharge de style. Ainsi, pour éviter
   toutes <strong>régressions</strong> et problématiques éventuelles, il est plus
-  souhaitable de <strong>réordoner</strong> les déclarations de feuilles de
+  souhaitable de <strong>réordonner</strong> les déclarations de feuilles de
   style.</p>
   <p>Il est intéressant de constater que XYL ne redéfinit pas les positions des
   feuilles de style. Si nous avions déclaré la position <code>42</code> pour
@@ -431,8 +427,7 @@ $xyl->render();</code></pre>
   pour le thème etc. Si les feuilles sont bien conçues, elles peuvent devenir
   facilement <strong>maintenables</strong>. Enfin, si deux règles ont la même
   position, la dernière viendra s'insérer à sa position et décale les
-  précédentes vers le haut de la pile, <ie /> qu'elle se déclarera avant les
-  précédentes.</p>
+  précédentes vers le haut de la pile.</p>
 
   <h3 id="Un_peu_plus_loin_avec_les_overlays" for="main-toc">Un peu plus loin
   avec les <em>overlays</em></h3>
@@ -469,7 +464,7 @@ $xyl->render();</code></pre>
   simplifier la construction et manipulation de ces arbres (et aussi pour des
   raisons de performance), XYL utilise la classe <code>Hoa\Core\Data</code>.
   Cette classe est hautement dynamique : tout se déclare à la volée (attributs,
-  indexes de tableaux etc.). Initialement, elle permet de manipuler des données
+  index de tableaux etc.). Initialement, elle permet de manipuler des données
   <strong>polymorphiques</strong> ; dans le cas de XYL nous voulons l'utiliser
   uniquement comme un ensemble d'arbres, soit une <strong>forêt</strong>.</p>
   <p>Pour débuter avec les données, nous avons besoin de définir la forme de
@@ -517,9 +512,8 @@ $xyl->render();</code></pre>
   apparaître.</p>
   <p>Maintenant que nous avons notre arbre, nous allons créer une
   <strong>forêt</strong>. Il faut savoir que dans le monde de XYL, tous les
-  arbres de la même espèce sont strictement identiques à part la couleur de
-  leurs feuilles, <ie /> les données finales, mais la forme des branches, et
-  donc de l'arbre, est toujours <strong>identique</strong>. C'est pourquoi si
+  arbres de la même espèce sont strictement <strong>identiques</strong> à part
+  la couleur de leurs feuilles, <ie /> les données finales. C'est pourquoi si
   nous créons un nouvel arbre <code>article</code>, il aura la même forme que
   celui que nous venons de créer. Nous accédons aux différents arbres grâce à un
   index comme pour un tableau ; ainsi :</p>
@@ -575,8 +569,8 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   liage normal sauf que nous y ajoutons des parenthèses, soit :
   <code>(?[p[ath]:]<em>aTreeName</em>)</code>. Comme tous les composants sont
   liables, <strong>tous</strong> les attributs de tous les composants le sont
-  également.  Ainsi, nous pouvons modifier notre document existant en
-  déplacement la donnée <code>id</code> dans un attribut :</p>
+  également. Ainsi, nous pouvons modifier notre document existant en déplaçant
+  la donnée <code>id</code> dans un attribut :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
@@ -759,18 +753,17 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   application. La <strong>maintenance</strong> des composants graphiques se voit
   <strong>facilitée</strong> car tout est <strong>centralisé</strong> et
   facilement accessible. La <strong>composition</strong> des composants avec la
-  <strong>propagation</strong> des liages vers les données offrent un mécanisme
+  <strong>propagation</strong> des liages vers les données offre un mécanisme
   puissant. L'<strong>abstraction</strong> des données par leur caractère
   symbolique empêche des regressions.</p>
 
   <h2 id="Acces_ressources" for="main-toc menu-toc">Accès aux ressources</h2>
 
   <p>Un système d'interface graphique doit faciliter l'accès aux
-  <strong>ressources</strong> manipulées par une vue : comme des feuilles de
-  style, des médias (images, vidéos, …), des polices, des scripts etc. Dans Hoa
-  il existe plusieurs mécanismes que nous connaissons déjà bien, comme le
-  routeur ou le protocole <code>hoa://</code>. Étudions comment XYL les
-  utilise.</p>
+  <strong>ressources</strong> manipulées par une vue : des feuilles de style,
+  des médias (images, vidéos, …), des polices, des scripts etc. Dans Hoa il
+  existe plusieurs mécanismes que nous connaissons déjà bien, comme le routeur
+  ou le protocole <code>hoa://</code>. Étudions comment XYL les utilise.</p>
 
   <h3 id="Routeur_et_liens" for="main-toc">Routeur et liens</h3>
 
@@ -856,12 +849,12 @@ $xyl->render();</code></pre>
   <code>hoa://Application/Public/Css/UI.css</code>.</p>
   <p>Mais XYL définit la notion de <strong>thème</strong>. Un thème correspond à
   un <strong>habillage</strong>, avec ses <strong>comportements</strong>
-  associés, particulier pour notre interface graphique. Une application peut
+  associés, spécifique pour notre interface graphique. Une application peut
   avoir plusieurs thèmes selon la plateforme ciblée (styles différents selon le
   système, la taille de l'écran, interface tactile ou pas etc.) ou selon les
   besoins de l'utilisateur (changements de couleurs, polices plus grosses
   etc.) : les raisons sont multiples.</p>
-  <p>Cest pourquoi, après chaque branche <code>Public</code>, XYL va
+  <p>C'est pourquoi, après chaque branche <code>Public</code>, XYL va
   automatiquement <strong>insérer</strong> une branche correspond au thème
   <strong>courant</strong>. Le thème <strong>par défaut</strong> est
   <code>Classic</code>. Ainsi, le chemin
@@ -891,7 +884,7 @@ $xyl->render();</code></pre>
   publique mais <strong>privée</strong>. Cela implique que cette règle ne sera
   jamais choisie pour faire du routage mais uniquement pour du
   <strong>déroutage</strong>.</p>
-  <p>Enfin : il est préférable d'utiliser l'abstraction qu'offre
+  <p>Enfin : il est préférable d'utiliser l'abstraction qu'offre le protcole
   <code>hoa://</code> car il ajoute le thème et peut-être d'autres choses à
   l'avenir.  Pour modifier le thème, il existe la méthode <code>setTheme</code>
   sur <code>Hoa\Xyl</code>. Nous privilégerons toujours la méthode
@@ -914,7 +907,7 @@ $xyl->render();</code></pre>
   lien <code>hoa://Application/Public/<em>resource</em></code> sera transformé
   comme nous venons de le voir.</p>
   <p>Actuellement, XYL ne propose que très peu de ressources et elles ne sont
-  pas encore finalisée. Cette section sera mise à jour en temps voulu.</p>
+  pas encore finalisées. Cette section sera mise à jour en temps voulu.</p>
 
   <h2 id="Application_Gordon-s_blog" for="main-toc menu-toc">Application :
   <em>Gordon's blog</em></h2>
@@ -1023,7 +1016,8 @@ $xyl->render();</code></pre>
 
   <h3 id="Depuis_notre_controleur" for="main-toc">Depuis notre contrôleur</h3>
 
-  <p>Nous allons modifier nos deux méthodes de notre contrôleur, respectivement
+  <p>Nous allons modifier nos deux méthodes de notre contrôleur
+  <code>Application\Controller\Blog</code>, respectivement
   <code>IndexAction</code> pour la liste des articles et
   <code>ArticleAction</code> pour un seul article. Les données sont déjà
   extraites, nous allons les donner à XYL. Commençons par
@@ -1067,7 +1061,7 @@ $xyl->render();</code></pre>
   <code>Hoa\Model</code>. En réalité, <code>Hoa\Core\Data</code> ne connaît pas
   <code>Hoa\Model</code> et ne s'y adapte pas, mais c'est <code>Hoa\Model</code>
   qui s'y adapte et comme <code>Hoa\Xyl</code> utilise
-  <code>Hoa\Core\Data</code>, le lien se fait par transivité. Cette couche du
+  <code>Hoa\Core\Data</code>, le lien se fait par transitivité. Cette couche du
   noyau est très utile pour ce genre de manipulation de données et offre
   d'excellents résultats en plus d'excellentes performances.</p>
 
