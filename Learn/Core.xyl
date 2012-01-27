@@ -35,7 +35,7 @@
   <pre><code language="php">&amp;lt;?php
 
 require '/usr/local/lib/hoa/Core/Core.php';</code></pre>
-  <p>Le noyau ne peut être inclut qu'une seule fois. Si nous essayons de
+  <p>Le noyau ne peut être inclus qu'une seule fois. Si nous essayons de
   l'inclure une deuxième fois, le programme quittera avec une erreur. C'est le
   seul et unique cas où Hoa va quitter le programme.</p>
   <p>Toutes les classes appartenant à l'espace de nommage
@@ -63,15 +63,16 @@ require '/usr/local/lib/hoa/Core/Core.php';</code></pre>
     <li><em>Data</em> est la couche qui permet de manipuler des
     <strong>données</strong> polymorphiques avec de bonnes performances.</li>
   </ul>
-  <p>Nous présentons les quatre premières couches. Les couches restantes seront
-  présentées dans les chapitres suivants, cela dans un but pédagogique.</p>
+  <p>Nous présentons dans ce chapitre les quatre premières couches. Les couches
+  restantes seront présentées dans les chapitres suivants, cela dans un but
+  pédagogique.</p>
 
   <h2 id="Consistency" for="main-toc menu-toc"><em>Consistency</em></h2>
 
   <p>La classe <code>Hoa\Core\Consistency</code> porte le mécanisme
   d'<strong>importation</strong> et de <strong>chargement</strong> des classes.
-  Ce mécanisme est basé sur la notion de <strong>familles</strong> de classe et
-  d'espace de nommage. Quand nous souhaitons utiliser une classe, nous allons
+  Ce mécanisme est basé sur la notion de <strong>familles</strong> de classes et
+  d'espaces de nommage. Quand nous souhaitons utiliser une classe, nous allons
   commencer par préciser à quelle famille elle appartient, puis nous allons
   l'importer. La sélection de la famille se fait à l'aide de la fonction
   <code>from</code>. Cette fonction est un alias vers la méthode
@@ -98,7 +99,7 @@ require '/usr/local/lib/hoa/Core/Core.php';</code></pre>
 -> import('Router.Http');</code></pre>
   <p>Nous comprenons que la famille <code>Hoa</code> correspond à l'espace de
   nommage racine <code>\Hoa</code> et est contenue dans le dossier
-  <code>Library/</code>. Tout ceci est bien évidement modifiable, nous le
+  <code>Library/</code>. Tout ceci est bien évidemment modifiable, nous le
   verrons plus tard.</p>
   <p>Nous sommes capable d'enchaîner les importations et de changer de famille
   de cette manière :</p>
@@ -122,9 +123,9 @@ from('Hoathis')
   <p>L'opérateur étoile (qui fait référence à l'<strong>étoile de
   Kleene</strong>) signifie « tout ». Par exemple, le chemin
   <code>Stream.I~.*</code> correspond à tous les chemins possibles depuis le
-  point <code>Stream.IStream</code>. L'opérateur étoile n'est pas récursif, <ie
-  /> il ne comprend qu'un seul niveau.</p>
-  <p>Néanmoins, nous déconseillons l'utilisation abondante de l'opérateur
+  point <code>Stream.IStream</code>. L'opérateur étoile n'est pas récursif,
+  <ie /> il ne comprend qu'un seul niveau.</p>
+  <p>Néanmoins, nous déconseillons l'utilisation excessive de l'opérateur
   étoile. En effet, il est utile voire inévitable dans certaines situations,
   mais il est toujours préférable de gérer les importations au cas par cas,
   quand c'est possible, afin de toujours savoir ce que nous manipulons.</p>
@@ -134,9 +135,9 @@ from('Hoathis')
 
   <p>Lorsque nous importons une classe, elle n'est pas chargée. Nous disons
   qu'elle est <strong>pré-chargée</strong>, <ie /> qu'elle n'est pas chargée
-  tant que nous n'en avons pas besoin. Le fichier, et la classe qu'il contient,
+  tant que nous n'en avons pas besoin. Le fichier et la classe qu'il contient,
   seront chargés en toute dernière minute afin de ne pas surcharger la mémoire
-  et éviter des accès disque inutiles.</p>
+  et d'éviter des accès disque inutiles.</p>
   <p>Le chargement s'effectue donc à travers le mécanisme
   d'<strong>auto-chargement</strong> que propose PHP. Les étapes sont les
   suivantes :</p>
@@ -159,7 +160,7 @@ from('Hoathis')
 
   <p>Il arrive parfois que Hoa cherche d'abord les classes dans une autre
   famille que la sienne. Vous pouvez également utiliser ce mécanisme :
-  imaginons que vous souhaitez utiliser soit votre propre classe
+  imaginons que vous souhaitiez utiliser soit votre propre classe
   <code>Hoathis\Socket\Server</code>, soit si elle n'est pas présente, la
   classe standard <code>Hoa\Socket\Server</code>, alors vous feriez :</p>
   <pre><code language="php">from('Hoathis or Hoa')
@@ -207,8 +208,8 @@ var_dump(get_class($server));
   <p>Ce mécanisme est très intéressant lorsque nous proposons une implémentation
   par défaut que l'utilisateur peut remplacer par sa propre implémentation dans
   une autre famille. C'est un avantage pour ajouter de la modularité dans son
-  programme. Toutefois, il faudra porter une attention toute particulière aux
-  types de données manipulées en vérifiant par exemple les interfaces, ceci
+  programme. Toutefois, il faudra porter une attention toute particulière au
+  type des données manipulées en vérifiant par exemple les interfaces, ceci
   n'étant pas effectué par <code>dnew</code>.</p>
 
   <h3 id="Exercice_notre_premiere_classe" for="main-toc">Exercice : notre
@@ -216,7 +217,7 @@ var_dump(get_class($server));
 
   <p>Nous allons commencer par un exercice très facile : créer une classe dans
   la famille <code>Hoathis</code>, l'importer et l'utiliser.</p>
-  <p>Par défaut, les bibliothèques utilisateurs se placent entre autre dans
+  <p>Par défaut, les bibliothèques utilisateurs se placent entre autres dans
   le dossier <code>Module/</code> de Hoa (situé normalement dans
   <code>/usr/local/lib/hoa</code>). Nous allons y créer le fichier
   <code>Exercise/Core/First.php</code> :</p>
@@ -233,8 +234,8 @@ class First {
 }
 
 }</code></pre>
-  <p>Nous netons l'espace de nom suit le chemin vers le fichier. Nous allons
-  maintenant utiliser cette classe dans n'importe quel fichier n'importe
+  <p>Nous notons que l'espace de nom suit le chemin vers le fichier. Nous allons
+  maintenant utiliser cette classe dans n'importe quel fichier, n'importe
   où :</p>
   <pre><code language="php">&amp;lt;?php
 
@@ -272,7 +273,7 @@ $first->say();
     <li><code>xcallable(<em>$object</em>)</code> ;</li>
     <li><code>xcallable(<em>function ( … ) { … }</em>)</code>.</li>
   </ul>
-  <p>Nous remarquons que beaucoup de forme sont supportées. Dans tous les cas,
+  <p>Nous remarquons que beaucoup de formes sont supportées. Dans tous les cas,
   pour effectuer un appel, nous ferons comme ceci :</p>
   <pre><code language="php">$callable = xcallable(…);
 $callable($argument1, $argument2, …);</code></pre>
@@ -284,8 +285,9 @@ $callable($argument1, $argument2, …);</code></pre>
   format PHP valide et <code>getHash</code> qui retournera un identifiant
   unique pour cet appel.</p>
   <p>Il est préférable de savoir réagir lorsque nous rencontrons le couple
-  d'arguments <code>$call</code> et <code>$able</code> dans une méthode.  Nous
-  aurons alors le réflexe de fournir des données comme présentées ci-dessus.</p>
+  d'arguments <code>$call</code> et <code>$able</code> dans une méthode. Nous
+  aurons alors le réflexe de fournir des données comme présentées ci-dessus. Un
+  exemple se trouve dans la section suivante avec les événements.</p>
 
   <h2 id="Event" for="main-toc menu-toc"><em>Event</em></h2>
 
@@ -303,7 +305,7 @@ $callable($argument1, $argument2, …);</code></pre>
     à l'utilisation et utiles pour des <strong>interactions proches</strong>
     entre un ou quelques composants.</li>
   </ul>
-  <p>Ces définitions peuvent laisser perplexes au début mais nous allons
+  <p>Ces définitions peuvent laisser perplexe au début mais nous allons
   détailler les cas d'utilisations.</p>
 
   <h3 id="Creer_et_envoyer_des_evenements" for="main-toc">Créer et envoyer des
@@ -348,13 +350,13 @@ $callable($argument1, $argument2, …);</code></pre>
 
   <h3 id="Capturer_les_evenements" for="main-toc">Capturer les événements</h3>
 
-  <p>La capture des événements se veut facilitée dans Hoa grâce à la
-  fonction <code>event</code>, alias de
-  <code>Hoa\Core\Event::getEvent</code>. Cette fonction requiert un seul
-  argument : un identifiant, et va retourner l'événement associé. Sur ce
-  dernier, nous pourrons alors attacher des actions : une fonction déclarée,
-  une fonction anonyme, une classe et une méthode, un objet et une méthode,
-  un flux etc. Ainsi, si nous voulons capturer des exceptions :</p>
+  <p>La capture des événements se veut facilitée dans Hoa grâce à la fonction
+  <code>event</code>, alias de <code>Hoa\Core\Event::getEvent</code>. Cette
+  fonction requiert un seul argument : un identifiant, et va retourner
+  l'événement associé. Sur ce dernier, nous pourrons alors attacher au moyen de
+  la méthode <code>attach</code> des actions : une fonction déclarée, une
+  fonction anonyme, une classe et une méthode, un objet et une méthode, un flux
+  etc. Ainsi, si nous voulons capturer des exceptions :</p>
   <pre><code language="php">event('hoa://Event/Exception')->attach(
     function ( Hoa\Core\Event\Bucket $bucket ) {
 
@@ -366,7 +368,7 @@ $callable($argument1, $argument2, …);</code></pre>
     }
 );</code></pre>
   <p>Même si les exceptions sont capturées, elles sont envoyées sur le canal
-  d'événement. De cette façon, nous sommes capable de journaliser toutes les
+  d'événement. De cette façon, nous sommes capables de journaliser toutes les
   exceptions en « redigirant » l'événement vers un flux, par exemple un fichier
   <code>Exception.log</code> :</p>
   <pre><code language="php">from('Hoa')
@@ -442,20 +444,19 @@ var_dump($second->doSomething('Gordon'));
   <h3 id="Plus_d-intimite_avec_les_ecouteurs" for="main-toc">Plus d'intimité
   avec les écouteurs</h3>
 
-  <p>Les écouteurs ont quelques différences par rapport aux événements. Tout
-  d'abord, une classe qui propose des écouteurs doit implémenter l'interface
+  <p>Les écouteurs ont quelques différences avec les événements. Tout d'abord,
+  une classe qui propose des écouteurs doit implémenter l'interface
   <code>Hoa\Core\Event\Listenable</code> (qui est un enfant de l'interface
   <code>Hoa\Core\Event\Source</code>). Cette nouvelle interface nous impose
-  d'écrire la méthode <code>on</code> qui va permettre d'attacher une action
-  à un écouteur. Le mécanisme d'écouteurs est basé sur la classe
-  <code>Hoa\Core\Event\Listener</code> et peut être porté par la classe ;
-  peu importe comment du moment que nous proposons la méthode
-  <code>on</code>. Le constructeur de cette classe a deux arguments : le
-  premier pour désigner le propriétaire des écouteurs, le second est un
-  tableau des écouteurs disponibles. Enfin, pour lancer un écouteur, nous
-  utiliserons la méthode <code>Hoa\Core\Event\Listener::fire</code>. Les
-  données des écouteurs sont également portées par la classe
-  <code>Hoa\Core\Event\Bucket</code>.</p>
+  d'écrire la méthode <code>on</code> qui va permettre d'attacher une action à
+  un écouteur. Le mécanisme d'écouteurs est basé sur la classe
+  <code>Hoa\Core\Event\Listener</code> et peut être porté par la classe ; peu
+  importe comment du moment que nous proposons la méthode <code>on</code>. Le
+  constructeur de cette classe a deux arguments : le premier pour désigner le
+  propriétaire des écouteurs, le second est un tableau des écouteurs
+  disponibles. Enfin, pour lancer un écouteur, nous utiliserons la méthode
+  <code>Hoa\Core\Event\Listener::fire</code>. Les données des écouteurs sont
+  également portées par la classe <code>Hoa\Core\Event\Bucket</code>.</p>
   <p>Nous créons la classe <code>Hoathis\Exercise\Core\Third</code> :</p>
   <pre><code language="php">&amp;lt;?php
 
@@ -591,9 +592,9 @@ catch ( Hoa\Core\Exception $e ) {
 
   <h3 id="Exception_non_capturee" for="main-toc">Exception non-capturée</h3>
 
-  <p>Si une exception n'est pas capturée expliclient, elle le sera par Hoa à la
-  fin de sa remontée. Un message résumant l'exception sera affiché sur le flux
-  de sortie courant de PHP. Ainsi :</p>
+  <p>Si une exception n'est pas capturée explicitement, elle le sera par Hoa à
+  la fin de sa remontée. Un message résumant l'exception sera affiché sur le
+  flux de sortie courant de PHP. Ainsi :</p>
   <pre><code language="php">++$foo;
 
 // Will output:
@@ -706,7 +707,7 @@ catch ( Hoathis\Exercise\Core\Exception $e ) {
   <p>Le protocole adopte le <strong>formalisme</strong> suivant :
   <code>hoa://<em>root</em>[/<em>component</em>][#<em>anchor</em>]</code>.
   Toutefois, ce formalisme n'est pas fermé. Il peut exister des différences et
-  des subtilités. Cela sera toujours précisé si c'est le cas.</p>
+  des subtilités. Cela sera toujours précisé lorsque ce sera le cas.</p>
   <p>Les composants qui seront présentés dans les sections suivantes sont ceux
   par défaut. Ils peuvent bien sûr être modifiés. De plus, nous avons la
   possibilité d'ajouter facilement des composants. Ainsi, nous pourrons créer
@@ -767,7 +768,7 @@ $file->writeAll('Bazqux');</code></pre>
   programme abstrait totalement la dépendance aux ressources.  Modifier le nom
   d'un dossier, voire carrément le déplacer, n'engendrera pas de modification du
   code. De la même manière, distribuer une bibliothèque (ou quelque chose de
-  plus conséquent) dépendante de ressources pourra s'effectuer sans souci : le
+  plus conséquent) dépendant de ressources pourra s'effectuer sans souci : le
   protocole sera interprété par l'application courante, avec ses propres
   configurations. La <strong>maintenance</strong> est alors considérablement
   <strong>réduite</strong>.</p>

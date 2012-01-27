@@ -152,12 +152,13 @@ echo $file->readAll();</code></pre>
   <h3 id="Les_flux" for="main-toc">Les flux</h3>
 
   <p>La majorité des langages destinés aux entreprises manipulent des flux. PHP,
-  de part sa position de langage glu, est au centre de plusieurs technologies et
-  doit donc gérer au mieux les flux.</p> <p>Dans Hoa, il existe un mécanisme de
-  gestion de flux très poussé.  Ainsi, les fichiers, les sockets, certaines
-  chaînes de caractères, le terminal etc., sont des flux. Plusieurs catégories
-  de flux existent : comme les flux primitifs, les flux composites, les flux
-  structurels, les flux d'entrées, de sorties, tampons, verrouillables etc.</p>
+  de par sa position de langage glu, est au centre de plusieurs technologies et
+  doit donc gérer au mieux les flux.</p>
+  <p>Dans Hoa, il existe un mécanisme de gestion de flux très poussé.  Ainsi,
+  les fichiers, les sockets, certaines chaînes de caractères, le terminal etc.,
+  sont des flux. Plusieurs catégories de flux existent : comme les flux
+  primitifs, les flux composites, les flux structurels, les flux d'entrées, de
+  sorties, tampons, verrouillables etc.</p>
   <p>Prenons l'interface <code>Hoa\Stream\IStream\In</code> qui permet de
   manipuler des flux en entrée (soit en lecture), on trouvera alors des méthodes
   comme <code>read</code>, <code>readInteger</code>, <code>readFloat</code>,
@@ -183,7 +184,8 @@ echo $file->readAll();</code></pre>
   lire notre flux primitif, mais les opérations de traitement qui suivent ne
   seront pas modifiées. Tout cela grâce aux nombreuses interfaces que proposent
   les flux. Ainsi, l'exemple suivant va sélectionner des éléments et lire leur
-  contenu :</p> <pre><code language="php">from('Hoa') -> import('File.Read') ->
+  contenu :</p>
+  <pre><code language="php">from('Hoa') -> import('File.Read') ->
   import('Xml.Read');
 
 $xml = new Hoa\Xml\Read(
@@ -226,7 +228,7 @@ foreach($xml->querySelectorAll('foo > bar[attr^="ibute"]') as $element)
   Vous pouvez ainsi les utiliser soit dans un programme (en les déclarant au
   même niveau que votre programme), soit dans tous vos programmes (en les
   déclarant au même niveau que les bibliothèques standards).</p>
-  <p>De part la conception de Hoa, l'utilisation de vos bibliothèques se fera de
+  <p>De par la conception de Hoa, l'utilisation de vos bibliothèques se fera de
   la même manière que pour les bibliothèques standards.  Ainsi :</p>
   <pre><code language="php">from('Hoathis')
 -> import('Test.Report.Xformat');

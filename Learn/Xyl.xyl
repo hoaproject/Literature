@@ -31,11 +31,10 @@
   une <strong>vue</strong>, l'agencer, la modifer, la mélanger aux données, puis
   en faire un rendu. Un <strong>rendu</strong> est comparable à peindre notre
   vue, <ie /> nous voulons en avoir un résultat partiel ou total. Ce résultat
-  est affiché ou stocké, ce qui est dans tous les cas comparables à l'envoyer
-  sur un flux. Enfin, un besoin annexe mais indispensable aux vues est la
-  présence d'un <strong>routeur</strong>. En effet, les vues ont besoin de
-  connaître les accès aux différentes ressources voire de localiser d'autres
-  vues.</p>
+  est affiché ou stocké, ce qui est dans tous les cas comparable à l'envoyer sur
+  un flux. Enfin, un besoin annexe mais indispensable aux vues est la présence
+  d'un <strong>routeur</strong>. En effet, les vues ont besoin de connaître les
+  accès aux différentes ressources voire de localiser d'autres vues.</p>
   <p>Les besoins en terme d'interface graphique sont <strong>nombreux</strong>
   et très <strong>variés</strong> selon les contextes d'utilisation. C'est
   pourquoi il existe plusieurs outils. Dans un souci d'ouverture et
@@ -86,8 +85,8 @@
   exemple, lors de la création d'un composant graphique, ce dernier ne connait
   pas la quantité de données qu'il va devoir produire ; il n'en connaît que la
   forme (nous détaillerons cette partie plus loin). Il ne connaît pas non plus
-  le contexte dans lequel il va être utilisé et encore moins avec quels
-  composants il sera associé.</p>
+  le contexte dans lequel il va être utilisé et encore moins à quels composants
+  il sera associé.</p>
   <p>Cette approche facilite l'<strong>écriture</strong> de composants
   graphiques, le <strong>partage</strong> de tous ces composants entre plusieurs
   projets et leur <strong>maintenance</strong>.</p>
@@ -208,7 +207,7 @@ $xyl->render();</code></pre>
 
   <p>Les <strong><em>overlays</em></strong> sont un ou plusieurs composants que
   nous voulons <strong>insérer</strong> dans un document. Par exemple, imaginons
-  une application qui présente un contenu et une colone sur le côté contenant
+  une application qui présente un contenu et une colonne sur le côté contenant
   plusieurs extensions que l'utilisateur de l'application peut installer comme
   il le souhaite. Chaque extension est définie comme un <em>overlay</em> qui ne
   sait pas comment est construit le document principal, mais il connaît
@@ -320,10 +319,10 @@ $xyl->render();</code></pre>
     l'insertion se fait à <strong>gauche</strong>) ;</li>
     <li>en dernière position : <code>last()</code> ;</li>
     <li>en avant-dernière position : <code>last() - 1</code> ;</li>
-    <li>après un composant portant l'identifiant <code>baz</code> :
-    <code>element(#baz)</code> ;</li>
     <li>avant un composant portant l'identifiant <code>baz</code> :
-    <code>element(#baz) - 1</code> ;</li>
+    <code>element(#baz)</code> ;</li>
+    <li>après un composant portant l'identifiant <code>baz</code> :
+    <code>element(#baz) + 1</code> ;</li>
     <li>de manière non-logique : <code>last() - 2 * element(#qux) mod
     3</code> ;</li>
     <li>etc.</li>
@@ -395,7 +394,7 @@ $xyl->render();</code></pre>
   d'un <em>overlay</em>, excepté que l'index dynamique
   <code>element(#<em>anId</em>)</code> n'est pas supporté. Ainsi, si nous
   souhaitons que notre feuille <code>Extension.css</code> se place en première
-  position, nous aurions :</p>
+  position, nous aurons :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-stylesheet href="Extension.css" position="0"?>
 
@@ -407,12 +406,12 @@ $xyl->render();</code></pre>
   de règles de style pour un composant graphique et que l'ajout d'un nouveau
   composant vient écraser ces règles, cela est gênant. Avec certains langages,
   comme CSS, nous trouvons l'instruction <code>!important</code> qui empêche la
-  <strong>surchage</strong> d'une règle, mais cela peut parfois aboutir sur des
-  situations incomfortables pour une surchage <strong>future</strong>. De plus,
+  <strong>surchage</strong> d'une règle, mais cela peut parfois aboutir à des
+  situations inconfortables pour une surchage <strong>future</strong>. De plus,
   il n'est pas toujours évident de connaître l'ensemble des règles
   <strong>impactées</strong> par une surcharge de style. Ainsi, pour éviter
-  toutes <strong>régressions</strong> et problématiques éventuelles, il est plus
-  souhaitable de <strong>réordonner</strong> les déclarations de feuilles de
+  toute <strong>régression</strong> et problématique éventuelle, il est
+  préférable de <strong>réordonner</strong> les déclarations de feuilles de
   style.</p>
   <p>Il est intéressant de constater que XYL ne redéfinit pas les positions des
   feuilles de style. Si nous avions déclaré la position <code>42</code> pour
@@ -461,7 +460,7 @@ $xyl->render();</code></pre>
   données</h3>
 
   <p>XYL manipule des données qui ont la forme d'<strong>arbres</strong>. Pour
-  simplifier la construction et manipulation de ces arbres (et aussi pour des
+  simplifier la construction et la manipulation de ces arbres (et aussi pour des
   raisons de performance), XYL utilise la classe <code>Hoa\Core\Data</code>.
   Cette classe est hautement dynamique : tout se déclare à la volée (attributs,
   index de tableaux etc.). Initialement, elle permet de manipuler des données
@@ -477,7 +476,7 @@ $xyl->render();</code></pre>
     <li>un auteur <code>author</code>.</li>
   </ul>
   <p>Avec une instance de <code>Hoa\Core\Data</code> que nous récupérons avec la
-  méthode <code>getData</code> de <code>Hoa\Xyl</code>, nous avons :</p>
+  méthode <code>Hoa\Xyl::getData</code>, nous avons :</p>
   <pre><code language="php">$xyl  = new Hoa\Xyl(…);
 $data = $xyl->getData();
 
@@ -867,7 +866,7 @@ $xyl->render();</code></pre>
   <code>hoa://Application/Public/<em>theme</em>/<em>type</em>/<em>resource</em></code>
   et les réécrit en lien de la forme :
   <code>@_<em>type</em>:theme=<em>theme</em>&amp;amp;resource=<em>resource</em></code>.
-  Seul la donnée <code><em>type</em></code> est mise en minuscule. Prenons un
+  Seule la donnée <code><em>type</em></code> est mise en minuscule. Prenons un
   exemple : utiliser le lien <code>hoa://Application/Public/Css/UI.css</code>
   sera strictement équivalent à utiliser le lien
   <code>@_css:theme=Classic&amp;amp;resource=UI.css</code>. Puis dans notre
@@ -887,9 +886,9 @@ $xyl->render();</code></pre>
   <p>Enfin : il est préférable d'utiliser l'abstraction qu'offre le protcole
   <code>hoa://</code> car il ajoute le thème et peut-être d'autres choses à
   l'avenir.  Pour modifier le thème, il existe la méthode <code>setTheme</code>
-  sur <code>Hoa\Xyl</code>. Nous privilégerons toujours la méthode
-  <code>resolve</code> sur <code>Hoa\Xyl</code> pour résoudre un chemin exprimé
-  avec le protocole <code>hoa://</code> dans un contexte XYL au lieu d'utiliser
+  sur <code>Hoa\Xyl</code>. Nous privilégierons toujours la méthode
+  <code>Hoa\Xyl::resolve</code> pour résoudre un chemin exprimé avec le
+  protocole <code>hoa://</code> dans un contexte XYL au lieu d'utiliser
   simplement la fonction <code>resolve</code> (aliase de
   <code>Hoa\Core\Protocol::resolve</code>) car le thème sera pris en
   considération ainsi que d'autres fonctionnalités.</p>
@@ -973,7 +972,7 @@ $xyl->render();</code></pre>
   <code>Article.xyl</code>, toujours en tant qu'<em>overlay</em>. Elle affichera
   le titre de l'article, son contenu et les commentaires associés. Nous avons
   fait le choix de définir un composant pour représenter les commentaires sous
-  le nom <code>comment</code> et définit dans le fichier
+  le nom <code>comment</code> et défini dans le fichier
   <code>Comment.xyl</code>. Ainsi :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-use href="hoa://Application/View/Blog/Comment.xyl"?>
@@ -991,7 +990,7 @@ $xyl->render();</code></pre>
     &amp;lt;comment bind="?comments" />
   &amp;lt;/article>
 &amp;lt;/overlay></code></pre>
-  <p>Les données concernant l'article se trouve dans l'arbre
+  <p>Les données concernant l'article se trouvent dans l'arbre
   <code>article</code> et les commentaires dans les arbres
   <code>comments</code>. Nous noterons le lien pour revenir à la liste des
   articles basé sur la règle <code>i</code> du routeur qui ne comporte aucune
@@ -1035,12 +1034,11 @@ $xyl->render();</code></pre>
     return;
 }</code></pre>
   <p>Nous déclarons deux données : le titre du document principal et la liste
-  des articles. Puis, nous demandons à la vue d'utiliser
-  l'<em>overlay</em> correspond à la liste des articles et d'en faire un
-  rendu. Nous remarquons que <code>Hoa\Core\Data</code> représenté par
-  l'attribut <code>data</code> comprend bien les données provenant des bases de
-  données (entre autre) : nous lui donnons <code>$list</code> sans effectuer
-  aucune opération.</p>
+  des articles. Puis, nous demandons à la vue d'utiliser l'<em>overlay</em>
+  correspond à la liste des articles et d'en faire un rendu. Nous remarquons que
+  <code>Hoa\Core\Data</code> représenté par l'attribut <code>data</code>
+  comprend bien les données provenant des bases de données (entre autres) : nous
+  lui donnons <code>$list</code> sans effectuer aucune opération.</p>
   <p>Le traitement sera similaire pour un article et ses commentaires :</p>
   <pre><code language="php">public function ArticleAction ( $id ) {
 

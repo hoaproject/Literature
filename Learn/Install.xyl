@@ -114,7 +114,7 @@ require '/usr/local/lib/hoa/Core/Core.php';
 var_dump(HOA);</code></pre>
   <p>ou directement en ligne de commande :</p>
   <pre><code language="shell">$ php -r "require '/usr/local/lib/hoa/Core/Core.php'; var_dump(HOA);"</code></pre>
-  <p>À l'exécution, nosu devons voir <code>bool(true)</code>. Si c'est le cas,
+  <p>À l'exécution, nous devons voir <code>bool(true)</code>. Si c'est le cas,
   c'est que Hoa est correctement installé.</p>
 
   <h2 id="Installer_PHP" for="main-toc menu-toc">Installer PHP</h2>

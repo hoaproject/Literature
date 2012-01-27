@@ -37,7 +37,7 @@
   (ou SQL2) et
   <a href="https://secure.wikimedia.org/wikipedia/en/wiki/SQL:1999">SQL-99</a>
   (ou SQL3) pour ne citer que les plus connues et répandues. Le langage SQL est
-  partagé en quatre objectifs :</p>
+  partagé en trois objectifs :</p>
   <ul>
     <li>DDL (pour <em>Data Definition Language</em>) permet d'ajouter, de
     modifier ou de supprimer des définitions de tables (<code>CREATE
@@ -506,7 +506,7 @@ $user->birthday = 65537; // an exception is thrown.</code></pre>
   <code>relation</code> qui est une simplification syntaxique du domaine
   réaliste <code>array</code>. Nous devons préciser à quelle entité du modèle
   est reliée notre entitée courant et sa cardinalité. Par exemple, pour dire
-  qu'« un utilisateur peut avoir zéro ou vingts mails », nous écririons :</p>
+  qu'« un utilisateur peut avoir zéro ou vingt mails », nous écririons :</p>
   <pre><code language="php">/**
  * @invariant mails: relation('Mail', boundinteger(0, 20));
  */
