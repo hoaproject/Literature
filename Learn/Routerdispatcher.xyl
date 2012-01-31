@@ -114,7 +114,7 @@ $router
 $dispatcher = new Hoa\Dispatcher\Basic();
 $dispatcher->dispatch($router);</code></pre>
   <p>Et pour tester notre routeur et notre dispatcheur, nous allons nous
-  appuyer sur Bhoa (un serveur HTTP fourni avec Hoa, réservé à du dévelopement
+  appuyer sur Bhoa (un serveur HTTP fourni avec Hoa, réservé à du développement
   seulement) et <a href="http://curl.haxx.se/">cURL</a> (pour <em>Client URL
   Request Library</em>), un client en ligne de commande permettant de
   manipuler plusieurs protocoles, dont HTTP. Tout d'abord, démarrons
