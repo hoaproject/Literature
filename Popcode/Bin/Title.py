@@ -1,4 +1,3 @@
-from math import pi
 from xml.dom.minidom import parse
 from bpy import ops as o
 from bpy import context as ctx
