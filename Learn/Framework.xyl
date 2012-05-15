@@ -36,12 +36,13 @@
   pas d'« outils <strong>boîte-noires</strong> » sur lesquelles l'utilisateur
   n'a <strong>aucun contrôle</strong>. La philosophie de Hoa est tournée vers
   les bibliothèques, <ie /> vers le fait que l'utilisateur sait et comprend
-  parfalient ce qu'il fait. Ces bibliothèques fonctionnent bien ensemble, ce qui
-  entraîne une modularité qui peut s'apparenter à des comportements rencontrés
-  dans des frameworks, mais nous saurons toujours ce que nous faisons. Le fait
-  que nous puissons créer ses propres bibliothèques et composants facilite la
-  <strong>réutilisation</strong> et le <strong>partage</strong> de son travail,
-  qui sont des aspects importants des frameworks.</p>
+  parfaitement ce qu'il fait. Ces bibliothèques fonctionnent bien ensemble, ce
+  qui entraîne une modularité qui peut s'apparenter à des comportements
+  rencontrés dans des frameworks, mais nous saurons toujours ce que nous
+  faisons. Le fait que nous puissons créer ses propres bibliothèques et
+  composants facilite la <strong>réutilisation</strong> et le
+  <strong>partage</strong> de son travail, qui sont des aspects importants des
+  frameworks.</p>
   <p>Enfin, Hoa met particulièrement l'accent sur
   l'<strong><em>hackability</em></strong> (la bidouillabilité), <ie /> que tout
   est modifiable (sans pour autant observer une régression des fonctionnalités).
