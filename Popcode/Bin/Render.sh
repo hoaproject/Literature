@@ -14,19 +14,21 @@ out=$workspace"Final.avi"
 step1=1
 step2=1
 step3=1
+threads=1
 
 function usage() {
 
     echo >&2 "Usage:\n"
     echo >&2 "    $0 -d=<description.xml> -t=<theme> [-o=<out.format>]\c"
-    echo >&2 " [-1] [-2] [-3]"
+    echo >&2 " [-T=<threads>] [-1] [-2] [-3]"
 }
 
-while getopts d:t:o:123h opt; do
+while getopts d:t:o:T123h opt; do
     case $opt in
         d)   description=$OPTARG;;
         t)   theme=$OPTARG;;
         o)   out=$OPTARG;;
+        T)   threads=$OPTARG;;
         1)   step1=0;;
         2)   step2=0;;
         3)   step3=0;;
@@ -55,12 +57,15 @@ export POPCODE_OUT=$out
 cp $description $workspace
 
 [[ 1 -eq $step1 ]] && \
-$blender --background Theme/$theme/Title.blend --python Title.py
+$blender --background Theme/$theme/Title.blend --python Title.py \
+         --threads $threads
 
 [[ 1 -eq $step2 ]] && \
-$blender --background Theme/$theme/Credits.blend --python Credits.py
+$blender --background Theme/$theme/Credits.blend --python Credits.py \
+         --threads $threads
 
 [[ 1 -eq $step3 ]] && \
-$blender --background --python Sequencer.py
+$blender --background --python Sequencer.py \
+         --threads $threads
 
 echo "\n\n---\n$workspace"
