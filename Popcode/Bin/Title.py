@@ -16,7 +16,7 @@ def getText ( nodes ):
 dom   = parse(workspace + 'Description.xml')
 title = getText(dom.getElementsByTagName('title')[0].childNodes)
 
-ctx.scene.objects.active = ctx.scene.objects.get('Text')
+ctx.scene.objects.active = ctx.scene.objects.get('Title')
 o.object.editmode_toggle()
 o.font.delete()
 o.font.text_insert(text=title)
