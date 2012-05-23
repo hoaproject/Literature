@@ -390,10 +390,10 @@ $router->get('u', '/(?&amp;lt;controller>hello|bye)');</code></pre>
   <code>/hello_(?&amp;amp;lt;nick>\w+)</code>, nous pouvons retrouver
   la valeur de la variable <code>nick</code> directement dans notre action dans
   son argument <code>$nick</code> ; de cette manière :</p>
-  <pre><code language="php">->get('x', 'hello_(?&amp;lt;nick>\w+)', function ( $nick ) {
+  <pre><code language="php">$router->get('x', 'hello_(?&amp;lt;nick>\w+)', function ( $nick ) {
 
     echo 'Welcome ', ucfirst($nick), '!', "\n";
-}</code></pre>
+});</code></pre>
   <p>L'ordre des arguments n'a aucune importance, seul le nom est important.
   Nous pouvons retrouver aussi bien les variables extraites des règles que
   celles définies par le routeur (<ie /> préfixées par le symbole
