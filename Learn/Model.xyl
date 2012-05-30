@@ -774,6 +774,16 @@ class Article extends \Hoa\Model {
     return;
 }</code></pre>
 
+  <p>Nous devons également inclure les classes des modèles que nous utilisons
+  en ajoutant, tout en haut de notre contrôleur :</p>
+  <pre><code language="php">namespace {
+
+from('Application')
+-> import('Model.Article')
+-> import('Model.Comment');
+
+}</code></pre>
+
   <h3 id="Testons" for="main-toc">Testons !</h3>
 
   <p>N'oublions pas de modifier notre fichier d'amorçage <code>index.php</code>
@@ -781,7 +791,7 @@ class Article extends \Hoa\Model {
   notre modèle (à l'aide de la méthode <code>getLastInstance</code> de
   <code>Hoa\Database\Dal</code>) ; ainsi :</p>
   <pre><code language="php">from('Hoa')
--> import('Database.Dal.~')
+-> import('Database.Dal')
 -> import('Dispatcher.Basic')
 -> import('Router.Http');
 

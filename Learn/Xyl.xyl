@@ -1035,8 +1035,8 @@ $xyl->render();</code></pre>
 }</code></pre>
   <p>Nous déclarons deux données : le titre du document principal et la liste
   des articles. Puis, nous demandons à la vue d'utiliser l'<em>overlay</em>
-  correspond à la liste des articles et d'en faire un rendu. Nous remarquons que
-  <code>Hoa\Core\Data</code> représenté par l'attribut <code>data</code>
+  correspondant à la liste des articles et d'en faire un rendu. Nous remarquons
+  que <code>Hoa\Core\Data</code> représenté par l'attribut <code>data</code>
   comprend bien les données provenant des bases de données (entre autres) : nous
   lui donnons <code>$list</code> sans effectuer aucune opération.</p>
   <p>Le traitement sera similaire pour un article et ses commentaires :</p>
@@ -1069,13 +1069,13 @@ $xyl->render();</code></pre>
   <code>index.php</code> pour préciser à notre dispatcheur en second argument
   qu'il doit utiliser <code>Hoa\Xyl</code> comme vue :</p>
   <pre><code language="php">from('Hoa')
--> import('Database.Dal.~')
+-> import('Database.Dal')
 -> import('Dispatcher.Basic')
 -> import('Router.Http')
 -> import('Xyl.~')
 -> improt('Xyl.Interpreter.Html.~')
 -> import('File.Read')
--> import('Http.Response')
+-> import('Http.Response');
 
 Hoa\Database\Dal::initializeParameters(array(
     'connection.list.default.dal' => Hoa\Database\Dal::PDO,
