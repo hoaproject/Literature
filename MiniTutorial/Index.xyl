@@ -1,70 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <overlay xmlns="http://hoa-project.net/xyl/xylophone">
-<content id="content">
+  <article id="content">
 
-<section1 id="Mini-tutoriel">
-  <title>Mini-tutoriel</title>
+  <h1 id="Mini_tutoriel">Mini-tutoriel</h1>
 
-  <p>Ce mini-tutoriel a pour objectif de permettre à l'utilisateur de se faire
-  une idée <strong>rapide</strong> de Hoa et de son aspect framework. Alors que
-  Hoa en tant qu'ensemble de bibliothèques est plus compliqué à saisir
-  rapidement, il nécessite un apprentissage plus long.</p>
+  <p>Hoa se définit avant tout comme un ensemble de bibliothèques. Toutefois,
+  pour <strong>engager</strong> le développement avec Hoa, il est nécessaire
+  de proposer des mécanismes dignes d'un framework afin de faciliter son
+  <strong>apprentissage</strong>, son <strong>utilisation</strong> et ses
+  <strong>contributions</strong>. C'est pourquoi Hoa propose un aspect
+  framework qui doit être vu comme une <strong>démonstration de
+  faisabilité</strong>, ou un <em>proof-of-concept</em>.</p>
 
-  <section2 id="Table_des_matieres" for="menu-toc">
-    <title>Table des matières</title>
+  <p>Le mini-tutorial a pour but de vous familiariser avec l'aspect framework
+  de Hoa en se plongeant dans la création d'une application de A à Z. Nous ne
+  détaillerons pas ici tous les concepts sous-jacents aux fonctionnalités d'Hoa
+  mises en oeuvre, en revanche nous vous proposerons des liens pour les
+  découvrir dans le manuel d'apprentissage.</p>
 
-    <tableofcontents id="main-toc" />
-  </section2>
+  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
 
-  <section2 id="Preparer_son_environnement" for="main-toc menu-toc">
-    <title>Préparer son environnement</title>
+  <tableofcontents id="main-toc" />
 
-    <p>On considère que l'on va installer Hoa au même niveau que notre
-    application de façon à avoir un <strong>seul paquet</strong>. Toutefois, il
-    faut savoir que Hoa peut s'installer où l'on veut et que ça n'aura aucune
-    influence sur le fonctionnement de l'application. D'une manière plus
-    générale, Hoa est conçu pour être installé une fois et être utilisé par
-    plusieurs applications.</p>
+  <h2 id="Le_projet" for="main-toc menu-toc">Le projet</h2>
 
-    <section3 id="Installer_Hoa" for="main-toc">
-      <title>Installer Hoa</title>
+  <p>Nous allons développer le <strong>blog</strong> du très célèbre
+  <a href="https://secure.wikimedia.org/wikipedia/en/wiki/Gordon_Freeman">Dr.
+  Gordon Freeman</a>. Il permettra de consulter la liste des billets du Dr.
+  ainsi que de visualiser un billet et ses commentaires.</p>
 
-      <p>On va procédé à l'installation de Hoa à travers une archive Phar (pour
-      <link href="http://php.net/phar">PHP Archive</link>). Pour une
-      installation plus détaillée, il faudra se rendre sur le
-      <link href="@ll:chapter=(!title)"
-            sref="hoa://Application/External/Literature/Learn/Install.xyl"
-            sref-title="//__current_ns:section1/@id">chapitre dédié à
-      l'installation</link>. Ce format est devenu standard depuis PHP5.3, qui
-      est la version minimum pour utiliser Hoa.</p>
-      <p>Les archives Phar fournies sont exécutables, ainsi :</p>
-      <blockcode language="shell">$ mkdir -p ~/Development/GordonsApp/Hoa/
+  <h2 id="Preparer_son_environnement" for="main-toc menu-toc">Préparer son
+  environnement</h2>
+
+  <h3 id="Installer_Hoa" for="main-toc">Installer Hoa</h3>
+
+  <p>On considère que l'on va installer Hoa au même niveau que notre
+  application de façon à avoir un <strong>seul paquet</strong>. Toutefois, il
+  faut savoir que Hoa peut s'installer où l'on veut et que ça n'aura aucune
+  influence sur le fonctionnement de l'application. D'une manière plus
+  générale, Hoa est conçu pour être installé une fois et être utilisé par
+  plusieurs applications.</p>
+
+  <p>PHP fournit son propre système d'archive : <a
+  href="http://php.net/phar">PHP Archive (Phar)</a>, afin de distribuer plus
+  uniformément ses programmes écrits en PHP (ou avec d'autres langages). Ce
+  format est devenu standard avant PHP5.3, qui est la version minimum pour
+  utiliser Hoa. Il est donc naturel de le proposer.</p>
+  <p>Ce format d'archive est disponible aux mêmes endroits que
+  <a href="#Depuis_une_archive_compressee">les archives compressées</a>,
+  toutefois, l'archive est exécutable :</p>
+  <pre><code language="shell">$ mkdir -p /usr/local/lib/hoa
 $ cd !!$
 $ wget http://download.hoa-project.net/Central/Hoa.next.phar
 $ php Hoa.next.phar
 Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
 Options :
-    -m, --metadata  : Print all metadata.
-    -t, --test      : Test if Hoa is in this Phar.
-    -s, --signature : Print signature.
-    -p, --phar      : Phar informations.
-    -e, --extract   : Extract Hoa in the current directory.
-    -h, --help      : This help.
-    -?, --help      : This help.</blockcode>
-      <p>On remarque l'option <code>-e</code> (ou <code>--extract</code>) qui
-      permet d'extraire l'archive dans le dossier contenant l'archive :</p>
-      <blockcode language="shell">$ php Hoa.next.phar --extract
-Extracted in ~/Development/GordonsApp/Hoa</blockcode>
-    </section3>
+    -m, - -metadata  : Print all metadata.
+    -t, - -test      : Test if Hoa is in this Phar.
+    -s, - -signature : Print signature.
+    -p, - -phar      : Phar informations.
+    -e, - -extract   : Extract Hoa in the current directory.
+    -h, - -help      : This help.
+    -?, - -help      : This help.</code></pre>
+  <p>Si le résultat obtenu n'est pas celui escompté, il faudra modifier le
+  paramètre <code>detect_unicode</code> dans votre fichier
+  <code>php.ini</code> pour le passer à <code>0</code>. Ou sinon,
+  directement :</p>
+  <pre><code language="shell">$ php -d detect_unicode=0 Hoa.next.phar
+Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
+Options :
+    …</code></pre>
+  <p>Il est conseillé d'extraire Hoa avec l'option <code>-e</code> ou
+  <code>--extract</code>. Cela va extraire Hoa au même niveau que
+  l'archive :</p>
+  <pre><code language="shell">$ php Hoa.next.phar --extract
+Extracted in /usr/local/lib/hoa</code></pre>
 
-    <section3 id="Installer_une_application" for="main-toc">
-      <title>Installer une application</title>
+  <h3 id="Creer_notre_application" for="main-toc">Créer notre application</h3>
 
-      <p>Maintenant que Hoa est installé, on va pouvoir installer une
-      application. Pour cela, on va de nouveau utiliser une archive Phar de
-      cette façon :</p>
-      <blockcode language="shell">$ cd ~/Development/GordonsApp/
+  <p>Maintenant que Hoa est installé, on va pouvoir installer une
+  application au moyen d'une autre archive Phar, celle de base pour l'aspect
+  framework d'Hoa :</p>
+  <pre><code language="shell">$ cd ~/Development/GordonsApp/
 $ wget http://download.hoa-project.net/Framework/Hoa_Framework.next.phar
 $ php Hoa_Framework.next.phar
 Usage   : Hoa_Framework.next.phar &amp;lt;options>
@@ -76,25 +94,26 @@ Options :
     -h, --help      : This help.
     -?, --help      : This help.
 $ php Hoa_Framework.next.phar --extract
-Extracted in ~/Development/GordonsApp</blockcode>
-      <p>Premier réflexe, on va préciser à l'application où se trouve Hoa en
-      exécutant les scripts <code>whereishoa</code> (ou
-      <code>whereishoa.bat</code>) dans le dossier <code>Data/Bin/</code>.
-      Attention, si vous n'utilisez pas une installation « standard » de PHP,
-      vous devrez retoucher la première ligne de <code>whereishoa</code> ou la
-      variable <code>PHP</code> de <code>whereishoa.bat</code>.</p>
-      <p>Ces scripts vont modifier entre autre le fichier
-      <code>Data/Core.link.php</code> qui, lorsqu'il est inclu,
-      <strong>liera</strong> notre application avec Hoa. Plusieurs avantages
-      apparaissent : peu importe où est installé Hoa, notre application va
-      toujours inclure <code>Data/Core.link.php</code> et on n'aura qu'à
-      relancer <code>Data/Bin/whereishoa</code> pour la lier à Hoa ; ce qui
-      implique que notre application pourra <strong>choisir</strong> entre
-      plusieurs versions de Hoa si plusieurs existent. On aura compris que le
-      fichier <code>Data/Core.link.php</code> agit comme un
-      <strong>routeur</strong> vers Hoa et que l'on n'aura jamais à modifier
-      notre application si on déplace ou modifie Hoa.</p>
-      <blockcode language="shell">$ chmod u+x Data/Bin/whereishoa
+Extracted in ~/Development/GordonsApp</code></pre>
+
+  <p>Premier réflexe, on va préciser à l'application où se trouve Hoa en
+  exécutant les scripts <code>whereishoa</code> (ou
+  <code>whereishoa.bat</code>) dans le dossier <code>Data/Bin/</code>.
+  Attention, si vous n'utilisez pas une installation « standard » de PHP,
+  vous devrez retoucher la première ligne de <code>whereishoa</code> ou la
+  variable <code>PHP</code> de <code>whereishoa.bat</code>.</p>
+  <p>Ces scripts vont modifier entre autre le fichier
+  <code>Data/Core.link.php</code> qui, lorsqu'il est inclu,
+  <strong>liera</strong> notre application avec Hoa. Plusieurs avantages
+  apparaissent : peu importe où est installé Hoa, notre application va
+  toujours inclure <code>Data/Core.link.php</code> et on n'aura qu'à
+  relancer <code>Data/Bin/whereishoa</code> pour la lier à Hoa ; ce qui
+  implique que notre application pourra <strong>choisir</strong> entre
+  plusieurs versions de Hoa si plusieurs existent. On aura compris que le
+  fichier <code>Data/Core.link.php</code> agit comme un
+  <strong>routeur</strong> vers Hoa et que l'on n'aura jamais à modifier
+  notre application si on déplace ou modifie Hoa.</p>
+  <pre><code language="shell">$ chmod u+x Data/Bin/whereishoa
 $ !!$
 Data/Bin/whereishoa
 ** Where is Hoa **
@@ -108,21 +127,17 @@ We need to redefine it in:
 There we go [y/n]? y
 
 A very simple question: where is Hoa so?
-> /Users/gordon/Development/GordonsApp/Hoa▋</blockcode>
-    </section3>
+> /usr/local/lib/hoa▋</code></pre>
 
-    <section3 id="Scripts_dedies" for="main-toc">
-      <title>Scripts dédiés</title>
-
-      <p>L'aspect framework fournit deux <strong>scripts</strong> qui étendent
-      les deux scripts fournis par Hoa, à savoir <code>myapp</code> et
-      <code>myapp.bat</code>, que l'on trouvera dans <code>Data/Bin/</code>. Ces
-      scripts sont <strong>dédiés</strong> à l'application en lui offrant des
-      <strong>outils</strong> bien pratiques, comme un debugger, un petit
-      serveur HTTP (Bhoa), de quoi manipuler les configurations, la
-      documentation, les tests etc.</p>
-      <p>Pour se les approprier un peu plus, on peut toujours les renommer :</p>
-      <blockcode language="shell">$ chmod u+x Data/Bin/myapp
+  <p>L'aspect framework fournit deux <strong>scripts</strong> qui étendent
+  les deux scripts fournis par Hoa, à savoir <code>myapp</code> et
+  <code>myapp.bat</code>, que l'on trouvera dans <code>Data/Bin/</code>. Ces
+  scripts sont <strong>dédiés</strong> à l'application en lui offrant des
+  <strong>outils</strong> bien pratiques, comme un debugger, un petit
+  serveur HTTP (Bhoa), de quoi manipuler les configurations, la
+  documentation, les tests etc.</p>
+  <p>Pour se les approprier un peu plus, on peut toujours les renommer :</p>
+  <pre><code language="shell">$ chmod u+x Data/Bin/myapp
 $ !!$
 Data/Bin/myapp
 // Homescreen.
@@ -130,48 +145,45 @@ $ mv !! !!:s/myapp/gordonsapp
 mv Data/Bin/myapp Data/Bin/gordonsapp
 $ !!$
 Data/Bin/gordonsapp
-// Homescreen.</blockcode>
-      <p>Pour plus de facilités, on pourra toujours placer notre dossier
-      <code>Data/Bin/</code> dans le <code>$PATH</code> afin de pouvoir accéder
-      à nos scripts depuis n'importe où sur le disque.</p>
-    </section3>
+// Homescreen.</code></pre>
+  <p>Pour plus de facilités, on pourra toujours placer notre dossier
+  <code>Data/Bin/</code> dans le <code>$PATH</code> afin de pouvoir accéder
+  à nos scripts depuis n'importe où sur le disque.</p>
 
-    <section3 id="Tester_l-application" for="main-toc">
-      <title>Tester l'application</title>
+  <h3 id="Tester_notre_nouvelle_application" for="main-toc">Tester notre nouvelle application</h3>
 
-      <p>Pour tester l'application, un fichier de test existe déjà dans
-      <code>Application/Public/</code>. On pourra l'exécuter de plusieurs
-      façons. La première, simplement avec PHP en ligne de commande :</p>
-      <blockcode language="shell">$ php Application/Public/index.php
-Hello you! I'm your first Hoa-based application \o/.</blockcode>
-    <p>Mais il faut admettre que ce n'est pas très drôle. On pourrait alors
-    s'aider de Bhoa, qui est un petit serveur HTTP embarqué réservé à du
-    test. Bhoa utilise PHP FastCGI pour exécuter PHP, on va devoir le démarrer.
-    Enfin, Hoa fournit une abstraction des chemins à travers le protocole
-    <code>hoa://</code> qui propose le chemin
-    <code>hoa://Application/Public/</code> pour accéder à notre dossier
-    public. On va utiliser ce chemin pour définir la racine du serveur ;
-    ainsi :</p>
-    <blockcode language="shell">$ php-cgi&amp;
-$ gordonsapp bhoa --root hoa://Application/Public/
+  <p>Pour tester l'application, un fichier de test existe déjà dans
+  <code>Application/Public/</code>. On pourra l'exécuter de plusieurs
+  façons. La première, simplement avec PHP en ligne de commande :</p>
+  <pre><code language="shell">$ php Application/Public/index.php
+Hello you! I'm your first Hoa-based application \o/.</code></pre>
+  <p>Mais il faut admettre que ce n'est pas très drôle. On pourrait alors
+  s'aider de Bhoa, qui est un petit serveur HTTP embarqué réservé au
+  développement (pas à la production !). Bhoa utilise PHP FastCGI
+  pour exécuter PHP, on va devoir le démarrer.
+  Enfin, Hoa fournit une abstraction des chemins à travers le protocole
+  <code>hoa://</code> qui propose le chemin
+  <code>hoa://Application/Public/</code> pour accéder à notre dossier
+  public. On va utiliser ce chemin pour définir la racine du serveur ;
+  ainsi :</p>
+  <pre><code language="shell">$ php-cgi&amp;amp;
+$ Data/Bin/gordonsapp bhoa --root hoa://Application/Public/
 Server is up, on tcp://localhost:8888!
 Root: hoa://Application/Public/.
 
-Waiting for connection… ▋</blockcode>
-    <p>En essayant de joindre la page <link
-    href="http://localhost:8888"><code>localhost:8888</code></link>, on pourra
-    lire le message de bienvenue :</p>
-    <blockcode language="shell">$ curl localhost:8888
-Hello you! I'm your first Hoa-based application \o/.</blockcode>
-    </section3>
-  </section2>
+Waiting for connection… ▋</code></pre>
 
-  <section2 id="Architecture_par_defaut" for="main-toc">
-    <title>Architecture par défaut</title>
+  <p>En essayant de joindre la page <a
+  href="http://localhost:8888"><code>localhost:8888</code></a>, on pourra
+  lire le message de bienvenue :</p>
+  <pre><code language="shell">$ curl localhost:8888
+Hello you! I'm your first Hoa-based application \o/.</code></pre>
 
-    <p>On prend quelques minutes pour étudier l'architecture que l'on a
-    déployé :</p>
-    <blockcode language="shell">$ Data/Bin/gordonsapp tree --list-directory --depth 2
+  <h3 id="Architecture_par_defaut" for="main-toc">Architecture par défaut</h3>
+
+  <p>On prend quelques minutes pour étudier l'architecture que l'on a
+  déployé :</p>
+  <pre><code language="shell">$ Data/Bin/gordonsapp tree --list-directory --depth 2
 ~/Development/GordonsApp/
 |-- Application/     — notre application
 |   |-- Public/      —   son dossier public (visible depuis l'extérieur)
@@ -181,54 +193,677 @@ Hello you! I'm your first Hoa-based application \o/.</blockcode>
 |   |-- Lost+found/  —   perdus ou trouvés (toujours vide normalement !)
 |   |-- Module/      —   bibliothèques utilisateurs réservéees à l'application
 |   |-- Temporary/   —   fichiers et dossiers temporaires
-|   |-- Variable/    —   caches, bases de données, logs, tests …
-|-- Hoa/             — Hoa
-|   |-- Bin/         —   scripts
-|   |-- Core/        —   noyau
-|   |-- Library/     —   bibliothèques standards
-|   |-- Module/      —   bibliothèques utilisateurs pour toutes les applications
-|   |-- Stub/        —   scripts pour empaqueter Hoa</blockcode>
-      <p>Une application est réellement constituée de deux dossiers :
-      <code>Application/</code> et <code>Data/</code> ; Hoa pouvant être placé
-      autre part ou n'exister qu'en une seule version.</p>
-      <p>Cette architecture est celle <strong>proposée</strong> par
-      <strong>défaut</strong> mais elle peut être complètement modifiée. Rien
-      n'est <strong>fixé</strong> car on aura pour bonne pratique d'accéder aux
-      ressources et données à travers le protocole <code>hoa://</code> qui peut
-      être vu comme une suite de liens symboliques. De ce fait, si on déplace un
-      dossier par exemple, on n'aura qu'à mettre à jour le protocole
-      <code>hoa://</code> sans avoir à modifier le code de notre
-      application.</p>
-    </section2>
+|   |-- Variable/    —   caches, bases de données, logs, tests …</code></pre>
 
-  <section2 id="Routeur_et_dispatcheur" for="main-toc">
-    <title>Routeur et dispatcheur</title>
-  </section2>
+  <p>Une application est réellement constituée de deux dossiers :
+  <code>Application/</code> et <code>Data/</code> ; Hoa pouvant être placé
+  autre part ou n'exister qu'en une seule version.</p>
+  <p>Cette architecture est celle <strong>proposée</strong> par
+  <strong>défaut</strong> mais elle peut être complètement modifiée. Rien
+  n'est <strong>fixé</strong> car on aura pour bonne pratique d'accéder aux
+  ressources et données à travers le protocole <code>hoa://</code> qui peut
+  être vu comme une suite de liens symboliques. De ce fait, si on déplace un
+  dossier par exemple, on n'aura qu'à mettre à jour le protocole
+  <code>hoa://</code> sans avoir à modifier le code de notre
+  application.</p>
 
-  <section2 id="Hello_world" for="main-toc">
-    <title><em>Hello world</em></title>
-  </section2>
+  <h2 id="Routeur_et_controleur" for="main-toc">Routeur et contrôleur</h2>
 
-  <section2 id="Un_peu_plus_loin_avec_la_vue" for="main-toc">
-    <title>Un peu plus loin avec la vue</title>
+  <p>Nous allons modifier le fichier <code>Application/Public/index.php</code>
+  pour qu'il contienne le routeur HTTP et le dispatcheur vers des contrôleurs.
+  Nous aurons deux actions possibles :</p>
+  <ul>
+    <li>afficher la liste des articles ;</li>
+    <li>afficher un article en particulier.</li>
+  </ul>
+  <p>Pour cela, nous avons besoin de deux règles dans notre routeur pour nos
+  actions respectives : disons <code>i</code> pour afficher la liste des
+  articles et <code>a</code> pour afficher un article en particulier. La règle
+  <code>i</code> sera accessible depuis le chemin de l'URI <code>/</code> et la
+  règle <code>a</code> depuis <code>/article-<em>id</em>.html</code>. Nous
+  allons avoir un contrôleur qui sera une classe avec deux méthodes, une pour
+  chaque action. Nous remplaçons le <code>echo</code> du fichier
+  <code>Application/Public/index.php</code> par le code suivant :</p>
+  <pre><code language="php">from('Hoa')
+-> import('Dispatcher.Basic')
+-> import('Router.Http');
 
-    <section3 id="Binding" for="main-toc">
-      <title><em>Binding</em></title>
-    </section3>
+$dispatcher = new Hoa\Dispatcher\Basic();
+$router     = new Hoa\Router\Http();
+$router->get('i', '/', 'blog', 'index')
+       ->get('a', '/article-(?&amp;lt;id>\d+)\.html', 'blog', 'article');
 
-    <section3 id="Creation_de_composant_graphique" for="main-toc">
-      <title>Création de composant graphique</title>
-    </section3>
+$dispatcher->dispatch($router);</code></pre>
+  <p>Par défaut le contrôleur est représenté par une classe
+  <code>Application\Controller\<em>ControllerName</em></code>. C'est
+  pourquoi nous allons écrire la classe
+  <code>Application\Controller\Blog</code>, avec deux méthodes :
+  <code>IndexAction</code> et <code>ArticleAction</code>, respectivement pour la
+  règle <code>i</code> et <code>a</code>. Ainsi :</p>
+  <pre><code language="php">namespace Application\Controller {
 
-    <section3 id="Overlay" for="main-toc">
-      <title><em>Overlay</em></title>
-    </section3>
-  </section2>
+class Blog extends \Hoa\Dispatcher\Kit {
 
-  <section2 id="Conclusion" for="main-toc">
-    <title>Conclusion</title>
-  </section2>
-</section1>
+    public function IndexAction ( ) {
 
-</content>
+        echo 'Gordon\'s blog index.', "\n";
+    }
+
+    public function ArticleAction ( $id ) {
+
+        echo 'Article n°', $id, '.', "\n";
+    }
+}
+
+}</code></pre>
+  <p>Nous allons maintenant tester notre application à l'aide de Bhoa :</p>
+  <pre><code language="shell">
+$ Data/Bin/gordonsapp bhoa --root hoa://Application/Public</code></pre>
+  <p>Puis, à l'aide de cURL ou d'un navigateur, nous allons joindre
+  <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a> :</p>
+  <pre><code language="shell">$ curl 127.0.0.1:8888/
+Gordon's blog index
+$ curl 127.0.0.1:8888/article-1.html
+Article n°1
+$ curl 127.0.0.1:8888/article-42.html
+Article n°42</code></pre>
+  <p>Tout fonctionne bien ! Mais ce ne sera pas toujours le cas. Par exemple, si
+  nous appelons une URI qui n'est pas comprise par le routeur, une erreur sera
+  levée :</p>
+  <pre><code language="shell">$ curl 127.0.0.1:8888/foobar
+Uncaught exception (Hoa\Router\Exception\NotFound):
+Hoa\Router\Http::route(): (6) Cannot found an appropriated rule to route foobar.
+in hoa://Library/Router/Http.php at line 490.</code></pre>
+  <p>Plus précisément, une exception de type
+  <code>Hoa\Router\Exception\NotFound</code> sera levée lors du dispatche.
+  D'autres exceptions peuvent apparaître (comme
+  <code>Hoa\Router\Exception</code>) mais ce ne sera pas à cause d'un problème
+  de routage dû à l'utilisateur. Nous pouvons capturer cette
+  exception et de réagir en conséquence, par exemple en indiquant qu'une erreur
+  s'est produite, en modifiant la fin du fichier
+  <code>Application/Public/index.php</code> ainsi :</p>
+  <pre><code language="php">try {
+
+    $dispatcher->dispatch($router);
+}
+catch ( Hoa\Router\Exception\NotFound $e ) {
+
+    echo 'Your page seems to be not found /o\.', "\n";
+}</code></pre>
+  <p>L'exception affichée à l'utilisateur est remplacée par notre erreur :</p>
+  <pre><code language="shell">$ curl 127.0.0.1:8888/foobar
+Your page seems to be not found /o\.</code></pre>
+
+  <h2 id="Modele_de_donnees" for="main-toc">Modèle de données</h2>
+
+  <h3 id="Schema_des_donnees" for="main-toc">Schéma des données</h3>
+
+  <p>Le blog sera constitué d'articles auxquels seront associés des
+  commentaires. Un article est caractérisé par un identifiant, un titre, une
+  date et un contenu. Un commentaire est caractérisé par d'un identifiant, un
+  auteur, une date et un contenu. Un lien existe entre les commentaires et les
+  articles à travers leurs identifiants respectifs.</p>
+  <p>Le schéma complet au format SQL peut être retrouvé dans
+  <a href="http://hg.hoa-project.net/Sandbox">le dépôt <code>Sandbox/</code></a>
+  dans le fichier <code>GordonsBlog/Data/Variable/Database/Blog.sql</code>. Nous
+  donnons ici la description des tables :</p>
+  <pre><code language="sql">CREATE TABLE article (
+    id      INTEGER,
+    title   VARCHAR(255),
+    posted  TIMESTAMP,
+    content LONGVARCHAR,
+
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE comment (
+    id      INTEGER,
+    article INTEGER,
+    author  VARCHAR(31),
+    posted  TIMESTAMP,
+    content LONGVARCHAR,
+
+    PRIMARY KEY(id)
+    FOREIGN KEY(article) REFERENCES article(id)
+);</code></pre>
+  <p>Pour créer la base de données, nous allons nous aider de
+  <code>sqlite3</code> en étant préalablement placé dans le dossier
+  <code>Data/Variable/Database/</code> :</p>
+  <pre><code language="shell">$ cd Data/Variable/Database
+$ sqlite3 -init Blog.sql -echo Blog.sqlite</code></pre>
+  <p>Notre base de données est maintenant créée. Nous allons écrire le modèle
+  correspondant.</p>
+
+  <h3 id="Modele_des_donnees" for="main-toc">Modèle des données</h3>
+
+  <p>Nous allons créer deux fichiers, un pour chaque entité de notre modèle dans
+  le dossier <code>Application/Model</code>.</p>
+  <p>Nous commençons par écrire l'entité <code>Comment</code> comme étant la
+  classe <code>Application\Model\Comment</code> en fonction de notre
+  schéma :</p>
+  <pre><code language="php">namespace {
+
+from('Hoa')
+-> import('Model.~')
+-> import('Database.Dal');
+
+}
+
+namespace Application\Model {
+
+class Comment extends \Hoa\Model {
+
+    /**
+     * @invariant id: boundinteger(0);
+     */
+    protected $_id;
+
+    /**
+     * @invariant article: relation('Application\Model\Article', 1);
+     */
+    protected $_article;
+
+    /**
+     * @invariant author: regex('[\w\d\'\- ]+', boundinteger(1, 42));
+     */
+    protected $_author;
+
+    /**
+     * @invariant posted: boundinteger(
+     *                        timestamp('1 january 1999'),
+     *                        timestamp('now')
+     *                    );
+     */
+    protected $_posted;
+
+    /**
+     * @invariant content: string(boundinteger(1, 4096));
+     */
+    protected $_content;
+
+
+
+    protected function construct ( ) {
+
+        $this->setMappingLayer(\Hoa\Database\Dal::getLastInstance());
+
+        return;
+    }
+}
+
+}</code></pre>
+  <p>Nous avons écrit les contraintes de validation pour chaque donnée et nous
+  avons défini le lien vers nos données. Maintenant voyons l'entité
+  <code>Article</code> comme étant la classe
+  <code>Application\Model\Article</code> toujours en fonction de notre
+  schéma :</p>
+  <pre><code language="php">namespace {
+
+from('Hoa')
+-> import('Model.~')
+-> import('Model.Exception')
+-> import('Database.Dal');
+
+}
+
+namespace Application\Model {
+
+class Article extends \Hoa\Model {
+
+    /**
+     * @invariant id: boundinteger(0);
+     */
+    protected $_id;
+
+    /**
+     * @invariant title: string(boundinteger(1, 255));
+     */
+    protected $_title;
+
+    /**
+     * @invariant posted: boundinteger(
+     *                        timestamp('1 january 1999'),
+     *                        timestamp('now')
+     *                    );
+     */
+    protected $_posted;
+
+    /**
+     * @invariant content: string(boundinteger(1));
+     */
+    protected $_content;
+
+    /**
+     * @invariant comments: relation('Application\Model\Comment', boundinteger(0));
+     */
+    protected $_comments;
+
+
+
+    protected function construct ( ) {
+
+        $this->setMappingLayer(\Hoa\Database\Dal::getLastInstance());
+
+        return;
+    }
+
+    public function open ( Array $constraints = array() ) {
+
+        $constraints = array_merge($this->getConstraints(), $constraints);
+
+        if(!isset($constraints['id']))
+            throw new \Hoa\Model\Exception('The constraint “id” is needed.', 0);
+
+        $data = $this->getMappingLayer()
+                     ->prepare(
+                         'SELECT id, title, content ' .
+                         'FROM   article ' .
+                         'WHERE  id = :id'
+                     )
+                     ->execute($constraints)
+                     ->fetchAll();
+        $this->map($data[0]);
+        $this->comments->map(
+            $this->getMappingLayer()
+                 ->prepare(
+                     'SELECT id, posted, author, content ' .
+                     'FROM   comment '.
+                     'WHERE  article = :article'
+                 )
+                 ->execute(array('article' => $constraints['id']))
+                 ->fetchAll()
+        );
+
+        return;
+    }
+
+    public function getShortList ( ) {
+
+        return $this->getMappingLayer()->query(
+            'SELECT id, title, posted FROM article ORDER BY id DESC'
+        )->fetchAll();
+    }
+}
+
+}</code></pre>
+  <p>À nouveau, nous avons écrit les contraintes de validation pour chaque
+  donnée et nous avons défini le lien vers nos données. En plus, nous avons
+  écrit le comportement de la méthode <code>open</code> avec la gestion des
+  contraintes et des relations (à travers l'attribut <code>comments</code>).
+  Enfin, nous avons la méthode <code>getShortList</code> qui exploite l'entité
+  sans la modifier.</p>
+  <p>Nous allons maintenant exploiter notre modèle dans notre contrôleur.</p>
+
+  <h3 id="Depuis_un_controleur" for="main-toc">Depuis un contrôleur</h3>
+
+  <p>Notre contrôleur <code>Application\Controller\Blog</code> comporte déjà
+  deux actions sous la forme de méthodes : <code>IndexAction</code> et
+  <code>ArticleAction</code>. Nous allons les enrichir pour utiliser le modèle
+  et afficher les données brutes.</p>
+  <p>Pour la méthode <code>IndexAction</code>, nous allons afficher la liste des
+  articles présents sur le blog. Pour cela, nous allons nous aider de la méthode
+  <code>getShortList</code> sur <code>Application\Model\Article</code> :</p>
+  <pre><code language="php">public function IndexAction ( ) {
+
+    $article = new \Application\Model\Article();
+    $list    = $article->getShortList();
+
+    echo "\n", str_repeat(' ', 31) . '★ Gordon\'s blog ★', "\n\n",
+         'Here is the list of all articles I have written:', "\n";
+
+    foreach($list as $l) {
+
+        echo '    #' .  $l['id'], ' ', date('d/m/Y', $l['posted']), ' — ',
+             wordwrap($l['title'], 59, "\n" . str_repeat(' ', 20), true),
+             "\n";
+    }
+
+    echo "\n";
+
+    return;
+}</code></pre>
+  <p>Pour la méthode <code>ArticleAction</code>, nous allons afficher un article
+  avec ses commentaires en fonction de l'identifiant de l'article demandé :</p>
+  <pre><code language="php">public function ArticleAction ( $id ) {
+
+    $article = new \Application\Model\Article();
+    $article->open(array('id' => $id));
+
+    echo "\n", str_repeat(' ', 31) . '★ Gordon\'s blog ★', "\n\n",
+         $article->title, "\n\n",
+         wordwrap($article->content, 80, "\n", true), "\n\n",
+         str_repeat(' ', 34), str_repeat('-', 10), "\n\n";
+
+    foreach($article->comments as $comment)
+        echo $comment->author, ' • ', date('d/m/Y', $comment->posted), "\n",
+             wordwrap($comment->content, 70, "\n", true), "\n\n";
+
+    echo "\n";
+
+    return;
+}</code></pre>
+
+  <p>Nous devons également inclure les classes des modèles que nous utilisons
+  en ajoutant, tout en haut de notre contrôleur :</p>
+  <pre><code language="php">namespace {
+
+from('Application')
+-> import('Model.Article')
+-> import('Model.Comment');
+
+}</code></pre>
+
+  <h3 id="Testons" for="main-toc">Testons !</h3>
+
+  <p>N'oublions pas de modifier notre fichier d'amorçage <code>index.php</code>
+  pour lui ajouter la connexion à notre base de données qui sera exploitée par
+  notre modèle (à l'aide de la méthode <code>getLastInstance</code> de
+  <code>Hoa\Database\Dal</code>) ; ainsi :</p>
+  <pre><code language="php">from('Hoa')
+-> import('Database.Dal')
+-> import('Dispatcher.Basic')
+-> import('Router.Http');
+
+Hoa\Database\Dal::initializeParameters(array(
+    'connection.list.default.dal' => Hoa\Database\Dal::PDO,
+    'connection.list.default.dsn' => 'sqlite:hoa://Data/Variable/Database/Blog.sqlite',
+    'connection.autoload'         => 'default'
+));
+
+$dispatcher = new Hoa\Dispatcher\Basic();
+$router     = new Hoa\Router\Http();
+$router->get('i', '/', 'blog', 'index')
+       ->get('a', '/article-(?&amp;lt;id>\d+)\.html', 'blog', 'article');
+
+try {
+
+    $dispatcher->dispatch($router);
+}
+catch ( Hoa\Router\Exception\NotFound $e ) {
+
+    echo 'Your page seems to be not found /o\.', "\n";
+}</code></pre>
+  <p>Enfin, nous allons tester notre application un peu plus enrichie ! Nous
+  commençons par démarrer Bhoa :</p>
+  <pre><code language="shell">
+$ Data/Bin/gordonsapp bhoa --root hoa://Application/Public</code></pre>
+  <p>À l'aide de cURL, nous allons afficher le résultat de notre index et d'un
+  article :</p>
+  <pre><code language="shell">$ curl 127.0.0.1:8888/
+
+                               ★ Gordon's blog ★
+
+Here is the list of all articles I have written:
+    #5 07/01/2001 — G-Man or the hard deal
+    #4 03/01/2001 — ping -f Nihilanth
+    #3 16/12/2000 — I think I have made a blunder at Black Mesa
+    #2 15/12/2000 — Great party in the Anomalous Materials department with
+                    collegues!
+    #1 05/05/2000 — Dr. Isaac Kleiner, my mentor, has hired me at Black Mesa
+                    Research Facility
+    #0 18/11/1999 — Call me Ph.D!
+
+$ curl 127.0.0.1:8888/article-0.html
+
+                               ★ Gordon's blog ★
+
+Call me Ph.D!
+
+My thesis was accepted. What a long labor! Well, it is finally over. The harder
+part was to resume the title. You know, in Theoretical Physics, thesis have
+always very short and concise titles. Mine is quite simple; here it is:
+Observation of Einstein-Podolsky-Rosen Entanglement on Supraquantum Structures
+by Induction Through Nonlinear Transuranic Crystal of Extremely Long Wavelength
+(ELW) Pulse from Mode-Locked Source Array. I can gladly send you a copy if you
+want.
+
+                                  ----------
+
+Isaac Kleiner • 19/12/1999
+Nice work Gordon. Hope we will work together in a near future!
+
+Mummy • 19/12/1999
+I really donnot understand what you do but I am very proud of my
+little Gordy :-). xoxo, your Mummy.</code></pre>
+  <p>Notre application exploite plusieurs <strong>couches</strong>. Nous avons
+  les <strong>données</strong> qui sont stockées dans une base de données. Notre
+  <strong>abstraction</strong> avec <code>Hoa\Database\Dal</code> et une
+  utilisation <strong>standard</strong> du langage SQL nous permettent de
+  changer de gestionnaire de bases de données <strong>sans modifier</strong> le
+  code de notre application. De plus, les données sont manipulées par notre
+  application à travers un <strong>modèle</strong> les réprésentant (à l'aide de
+  <code>Hoa\Model</code>). Si les données viennent à changer d'emplacement ou de
+  <code>format</code>, mettre à jour le modèle sera la seule tâche à faire.
+  Elle peut nécessiter une quantité de travail non négligeable mais la tâche est
+  <strong>isolée</strong> : seul le modèle sera à modifier, pas le reste de
+  l'application. Enfin, <code>Hoa\Model</code> peut servir à l'élaboration
+  d'outils de gestion de données plus complexes de part sa conception.</p>
+
+  <h2 id="Les_vues" for="main-toc">Les vues</h2>
+
+  <p>Nous allons donner au <em>Gordon's blog</em> une meilleure interface
+  graphique afin de pouvoir l'afficher dans un navigateur. Nous allons commencer
+  par déclarer les vues puis les attacher à nos données à travers notre
+  contrôleur pour enfin tester le tout.</p>
+
+  <h3 id="Document_principal" for="main-toc">Document principal</h3>
+
+  <p>Notre document principal sera <code>Application/View/Main.xyl</code> et
+  accueillera nos différentes pages. Chaque page sera un <em>overlay</em> par
+  rapport à ce document principal, il faudra donc préciser un identifiant.
+  Ainsi :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>&amp;lt;value bind="?title" /> — Gordon's blog&amp;lt;/title>
+
+  &amp;lt;header>
+    &amp;lt;h1>Gordon's blog&amp;lt;/h1>
+  &amp;lt;/header>
+
+  &amp;lt;article id="main" />
+
+  &amp;lt;footer>
+    &amp;lt;p>Author: Gordon Freeman © 1999-2001. This blog is powered by
+    &amp;lt;a href="http://hoa-project.net/">Hoa&amp;lt;/a> and
+    &amp;lt;a href="http://php.net/">PHP&amp;lt;/a>.&amp;lt;/p>
+  &amp;lt;/footer>
+&amp;lt;/document></code></pre>
+  <p>C'est un document très simple. Le titre est variable et nos pages
+  s'ajouteront dans le composant portant l'identifiant <code>main</code>.</p>
+
+  <h3 id="Liste_des_articles" for="main-toc">Liste des articles</h3>
+
+  <p>Nous proposons de ranger les vues du blog dans le dossier
+  <code>Application/View/Blog/</code>. Ainsi, la liste des articles sera
+  représentée par le fichier <code>Index.xyl</code> et va définir un
+  <em>overlay</em> pour l'identifiant <code>main</code> :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;article id="main">
+    &amp;lt;p>Here is the list of all articles I have written:&amp;lt;/p>
+    &amp;lt;ul>
+      &amp;lt;li bind="?articles">
+        &amp;lt;value bind="?posted" /> — &amp;lt;a href="@a:id=(?id)" bind="?title" />
+      &amp;lt;/li>
+    &amp;lt;/ul>
+  &amp;lt;/article>
+&amp;lt;/overlay></code></pre>
+  <p>Nous avons une liste qui va s'accrocher sur les arbres
+  <code>articles</code> et les feuilles de ces arbres vont servir à afficher la
+  date, le lien et le titre des articles. Pour écrire le lien, nous utilisons la
+  règle <code>a</code> définit dans notre routeur pour accéder à un article.</p>
+
+  <h3 id="Un_article_avec_ses_commentaires" for="main-toc">Un article avec ses
+    commentaires</h3>
+
+  <p>Maintenant, nous allons écrire la vue d'un article dans le fichier
+  <code>Article.xyl</code>, toujours en tant qu'<em>overlay</em>. Elle affichera
+  le titre de l'article, son contenu et les commentaires associés. Nous avons
+  fait le choix de définir un composant pour représenter les commentaires sous
+  le nom <code>comment</code> et défini dans le fichier
+  <code>Comment.xyl</code>. Ainsi :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+&amp;lt;?xyl-use href="hoa://Application/View/Blog/Comment.xyl"?>
+
+&amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;article id="main">
+    &amp;lt;p>&amp;lt;a href="@i">☜ Back to list&amp;lt;/a>&amp;lt;/p>
+
+    &amp;lt;yield bind="?article">
+      &amp;lt;h2 bind="?title" />
+      &amp;lt;p bind="?content" />
+    &amp;lt;/yield>
+
+    &amp;lt;h2>Comments&amp;lt;/h2>
+    &amp;lt;comment bind="?comments" />
+  &amp;lt;/article>
+&amp;lt;/overlay></code></pre>
+  <p>Les données concernant l'article se trouvent dans l'arbre
+  <code>article</code> et les commentaires dans les arbres
+  <code>comments</code>. Nous noterons le lien pour revenir à la liste des
+  articles basé sur la règle <code>i</code> du routeur qui ne comporte aucune
+  variable d'où sa grande simplicité.</p>
+  <p>Et la déclaration de notre composant <code>comment</code> se fait de la
+  manière suivante :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;definition xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;yield name="comment">
+    &amp;lt;div class="comment">
+      &amp;lt;ul>
+        &amp;lt;li>
+          &amp;lt;span bind="?posted" /> • &amp;lt;span bind="?author" />
+          &amp;lt;p bind="?content" />
+        &amp;lt;/li>
+      &amp;lt;/ul>
+    &amp;lt;/div>
+  &amp;lt;/yield>
+&amp;lt;/definition></code></pre>
+  <p>Une fois de plus, les données nécessaires se devinent rapidement.</p>
+
+  <h3 id="Depuis_notre_controleur" for="main-toc">Depuis notre contrôleur</h3>
+
+  <p>Nous allons modifier nos deux méthodes de notre contrôleur
+  <code>Application\Controller\Blog</code>, respectivement
+  <code>IndexAction</code> pour la liste des articles et
+  <code>ArticleAction</code> pour un seul article. Les données sont déjà
+  extraites, nous allons les donner à XYL. Commençons par
+  <code>IndexAction</code> :</p>
+  <pre><code language="php">public function IndexAction ( ) {
+
+    $article              = new \Application\Model\Article();
+    $list                 = $article->getShortList();
+    $this->data->title    = 'All articles';
+    $this->data->articles = $list;
+
+    $this->view->addOverlay('hoa://Application/View/Blog/Index.xyl');
+    $this->view->render();
+
+    return;
+}</code></pre>
+  <p>Nous déclarons deux données : le titre du document principal et la liste
+  des articles. Puis, nous demandons à la vue d'utiliser l'<em>overlay</em>
+  correspondant à la liste des articles et d'en faire un rendu. Nous remarquons que
+  <code>Hoa\Core\Data</code> représenté par l'attribut <code>data</code>
+  comprend bien les données provenant des bases de données (entre autres) : nous
+  lui donnons <code>$list</code> sans effectuer aucune opération.</p>
+  <p>Le traitement sera similaire pour un article et ses commentaires :</p>
+  <pre><code language="php">public function ArticleAction ( $id ) {
+
+    $article              = new \Application\Model\Article();
+    $article->id          = $id;
+    $article->open();
+    $this->data->title    = $article->title;
+    $this->data->article  = $article;
+    $this->data->comments = $article->comments;
+
+    $this->view->addOverlay('hoa://Application/View/Blog/Article.xyl');
+    $this->view->render();
+
+    return;
+}</code></pre>
+  <p>Encore une fois, en plus de <code>Hoa\Database\Dal</code>,
+  <code>Hoa\Core\Data</code> comprend bien les données provenant de
+  <code>Hoa\Model</code>. En réalité, <code>Hoa\Core\Data</code> ne connaît pas
+  <code>Hoa\Model</code> et ne s'y adapte pas, mais c'est <code>Hoa\Model</code>
+  qui s'y adapte et comme <code>Hoa\Xyl</code> utilise
+  <code>Hoa\Core\Data</code>, le lien se fait par transitivité. Cette couche du
+  noyau est très utile pour ce genre de manipulation de données et offre
+  d'excellents résultats en plus d'excellentes performances.</p>
+
+  <h3 id="Testons" for="main-toc">Testons !</h3>
+
+  <p>Avant de tester, nous devons modifier notre fichier d'amorçage
+  <code>index.php</code> pour préciser à notre dispatcheur en second argument
+  qu'il doit utiliser <code>Hoa\Xyl</code> comme vue :</p>
+  <pre><code language="php">from('Hoa')
+-> import('Database.Dal')
+-> import('Dispatcher.Basic')
+-> import('Router.Http')
+-> import('Xyl.~')
+-> improt('Xyl.Interpreter.Html.~')
+-> import('File.Read')
+-> import('Http.Response');
+
+Hoa\Database\Dal::initializeParameters(array(
+    'connection.list.default.dal' => Hoa\Database\Dal::PDO,
+    'connection.list.default.dsn' => 'sqlite:hoa://Data/Variable/Database/Blog.sqlite',
+    'connection.autoload'         => 'default'
+));
+
+$dispatcher = new Hoa\Dispatcher\Basic();
+$router     = new Hoa\Router\Http();
+$router->get('i', '/', 'blog', 'index')
+       ->get('a', '/article-(?&amp;lt;id>\d+)\.html', 'blog', 'article');
+
+try {
+
+    $dispatcher->dispatch(
+        $router,
+        new Hoa\Xyl(
+            new Hoa\File\Read('hoa://Application/View/Main.xyl'),
+            new Hoa\Http\Response(),
+            new Hoa\Xyl\Interpreter\Html(),
+            $router
+        )
+    );
+}
+catch ( Hoa\Router\Exception\NotFound $e ) {
+
+    echo 'Your page seems to be not found /o\.', "\n";
+}</code></pre>
+  <p>Maintenant, utilisons Bhoa pour exécuter notre application :</p>
+  <pre><code language="shell">
+$ Data/Bin/gordonsapp bhoa --root hoa://Application/Public</code></pre>
+  <p>Puis, depuis un navigateur en allant sur
+  <a href="http://127.0.0.1:8888/"><code>127.0.0.1:8888</code></a>, nous verrons
+  notre document rendu en HTML et plus précisément la liste des articles
+  présents sur le blog. De même en allant sur
+  <a href="http://127.0.0.1:8888/article-0.html"><code>127.0.0.1:8888/article-0.html</code></a>
+  nous verrons le premier article du blog.</p>
+  <p>Notons que les dates s'affichent toujours en format timestamp. Nous verrons
+  comment résoudre ce problème sans passer par le contrôleur mais avec XYL
+  uniquement.</p>
+
+  <h3 id="Avec_des_ressources">Avec des ressources</h3>
+
+  <p>Quelques styles, images, polices etc. sont disponibles sur
+  <a href="http://hg.hoa-project.net/Sandbox">le dépôt <code>Sandbox/</code></a>
+  dans le dossier <code>GordonsBlog/Application/Public/Classic/</code>. Nous
+  pouvons les copier dans notre même dossier
+  <code>Application/Public/Classic/</code>. Pour les utiliser, nous allons
+  ajouter la feuille de style <code>Css/UI.css</code> à notre document
+  principal :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+&amp;lt;?xyl-stylesheet href="hoa://Application/Public/Css/UI.css"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>&amp;lt;value bind="?title" /> — Gordon's blog&amp;lt;/title>
+  …</code></pre>
+  <p>Si nous retournons sur notre application, nous verrons que les styles sont
+  appliqués !</p>
+
+  </article>
 </overlay>
