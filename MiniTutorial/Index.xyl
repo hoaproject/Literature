@@ -160,20 +160,21 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
   <p>Mais il faut admettre que ce n'est pas très drôle. On pourrait alors
   s'aider de Bhoa, qui est un petit serveur HTTP embarqué réservé au
   développement (pas à la production !). Bhoa utilise PHP FastCGI
-  pour exécuter PHP, on va devoir le démarrer.
-  Enfin, Hoa fournit une abstraction des chemins à travers le protocole
+  pour exécuter PHP, on va devoir le démarrer sur le port standard (9000) :</p>
+  <pre><code language="shell">$ php-cgi&amp;amp;</code></pre>
+  <p>Enfin, Hoa fournit une abstraction des chemins à travers le protocole
   <code>hoa://</code> qui propose le chemin
   <code>hoa://Application/Public/</code> pour accéder à notre dossier
   public. On va utiliser ce chemin pour définir la racine du serveur ;
   ainsi :</p>
-  <pre><code language="shell">$ php-cgi&amp;amp;
-$ Data/Bin/gordonsapp bhoa --root hoa://Application/Public/
+  <pre><code language="shell">$ Data/Bin/gordonsapp bhoa --root hoa://Application/Public/
 Server is up, on tcp://localhost:8888!
 Root: hoa://Application/Public/.
 
 Waiting for connection… ▋</code></pre>
 
-  <p>En essayant de joindre la page <a
+  <p>Par défaut Bhoa écoute le port 8888. Il faut des droits <code>root</code>
+  pour écouter le port 80. En essayant de joindre la page <a
   href="http://localhost:8888"><code>localhost:8888</code></a>, on pourra
   lire le message de bienvenue :</p>
   <pre><code language="shell">$ curl localhost:8888
@@ -257,8 +258,7 @@ class Blog extends \Hoa\Dispatcher\Kit {
 
 }</code></pre>
   <p>Nous allons maintenant tester notre application à l'aide de Bhoa :</p>
-  <pre><code language="shell">
-$ Data/Bin/gordonsapp bhoa --root hoa://Application/Public</code></pre>
+  <pre><code language="shell">$ Data/Bin/gordonsapp bhoa --root hoa://Application/Public</code></pre>
   <p>Puis, à l'aide de cURL ou d'un navigateur, nous allons joindre
   <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a> :</p>
   <pre><code language="shell">$ curl 127.0.0.1:8888/
@@ -585,8 +585,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
 }</code></pre>
   <p>Enfin, nous allons tester notre application un peu plus enrichie ! Nous
   commençons par démarrer Bhoa :</p>
-  <pre><code language="shell">
-$ Data/Bin/gordonsapp bhoa --root hoa://Application/Public</code></pre>
+  <pre><code language="shell">$ Data/Bin/gordonsapp bhoa --root hoa://Application/Public</code></pre>
   <p>À l'aide de cURL, nous allons afficher le résultat de notre index et d'un
   article :</p>
   <pre><code language="shell">$ curl 127.0.0.1:8888/
@@ -835,8 +834,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
     echo 'Your page seems to be not found /o\.', "\n";
 }</code></pre>
   <p>Maintenant, utilisons Bhoa pour exécuter notre application :</p>
-  <pre><code language="shell">
-$ Data/Bin/gordonsapp bhoa --root hoa://Application/Public</code></pre>
+  <pre><code language="shell">$ Data/Bin/gordonsapp bhoa --root hoa://Application/Public</code></pre>
   <p>Puis, depuis un navigateur en allant sur
   <a href="http://127.0.0.1:8888/"><code>127.0.0.1:8888</code></a>, nous verrons
   notre document rendu en HTML et plus précisément la liste des articles
