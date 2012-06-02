@@ -35,13 +35,12 @@
 
   <h3 id="Installer_Hoa" for="main-toc">Installer Hoa</h3>
 
-  <p>On considère que l'on va installer Hoa au même niveau que notre
-  application de façon à avoir un <strong>seul paquet</strong>. Toutefois, il
-  faut savoir que Hoa peut s'installer où l'on veut et que ça n'aura aucune
-  influence sur le fonctionnement de l'application. D'une manière plus
-  générale, Hoa est conçu pour être installé une fois et être utilisé par
-  plusieurs applications.</p>
-
+  <p>L'emplacement où est installé Hoa n'a aucune influence sur le
+  fonctionnement de l'application. D'une manière plus générale, Hoa est conçu
+  pour être installé une fois et être utilisé par plusieurs applications. Nous
+  conseillons donc de l'installer dans le répertoire <code>/usr/local/lib/
+  </code> qui est le répertoire habituel des librairies utilisateur sous
+  Unix.</p>
   <p>PHP fournit son propre système d'archive : <a
   href="http://php.net/phar">PHP Archive (Phar)</a>, afin de distribuer plus
   uniformément ses programmes écrits en PHP (ou avec d'autres langages). Ce
