@@ -46,9 +46,8 @@
   uniformément ses programmes écrits en PHP (ou avec d'autres langages). Ce
   format est devenu standard avant PHP5.3, qui est la version minimum pour
   utiliser Hoa. Il est donc naturel de le proposer.</p>
-  <p>Ce format d'archive est disponible aux mêmes endroits que
-  <a href="#Depuis_une_archive_compressee">les archives compressées</a>,
-  toutefois, l'archive est exécutable :</p>
+  <p>Ce format d'archive est disponible aux mêmes endroits que les archives
+  compressées, toutefois, l'archive est exécutable :</p>
   <pre><code language="shell">$ mkdir -p /usr/local/lib/hoa
 $ cd !!$
 $ wget http://download.hoa-project.net/Central/Hoa.next.phar
@@ -293,6 +292,10 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
   <pre><code language="shell">$ curl 127.0.0.1:8888/foobar
 Your page seems to be not found /o\.</code></pre>
 
+  <p>Le chapitre <a href="@ll:chapter=Routerdispatcher">Router + Dispatcher = ♥
+  </a> du manuel d'apprentissage vous permettra de comprendre en détail ces
+  deux outils.</p>
+
   <h2 id="Modele_de_donnees" for="main-toc">Modèle de données</h2>
 
   <h3 id="Schema_des_donnees" for="main-toc">Schéma des données</h3>
@@ -491,7 +494,9 @@ class Article extends \Hoa\Model {
   contraintes et des relations (à travers l'attribut <code>comments</code>).
   Enfin, nous avons la méthode <code>getShortList</code> qui exploite l'entité
   sans la modifier.</p>
-  <p>Nous allons maintenant exploiter notre modèle dans notre contrôleur.</p>
+  <p>Le chapitre <a href="@ll:chapter=Model">Modèle</a> du manuel
+  d'apprentissage vous permettra d'aller plus loin avec le modèle. En attendant
+  nous allons exploiter notre modèle dans notre contrôleur.</p>
 
   <h3 id="Depuis_un_controleur" for="main-toc">Depuis un contrôleur</h3>
 
@@ -647,9 +652,12 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   <h3 id="Document_principal" for="main-toc">Document principal</h3>
 
   <p>Notre document principal sera <code>Application/View/Main.xyl</code> et
-  accueillera nos différentes pages. Chaque page sera un <em>overlay</em> par
-  rapport à ce document principal, il faudra donc préciser un identifiant.
-  Ainsi :</p>
+  accueillera nos différentes pages. Nous utilisons pour celà les
+  <a href="@ll:chapter=Xyl#Overlay">overlays</a>.</p>
+
+  <p>Chaque page sera un <em>overlay</em> par rapport au document principal,
+  nous y préciserons donc un identifiant auquel ceux-ci pourront venir
+  s'attacher. Ainsi le document principal s'écrira :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
@@ -690,8 +698,10 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
 &amp;lt;/overlay></code></pre>
   <p>Nous avons une liste qui va s'accrocher sur les arbres
   <code>articles</code> et les feuilles de ces arbres vont servir à afficher la
-  date, le lien et le titre des articles. Pour écrire le lien, nous utilisons la
-  règle <code>a</code> définit dans notre routeur pour accéder à un article.</p>
+  date, le lien et le titre des articles. Ce mécanisme est appelé le
+  <a href="@ll:chapter=Xyl#Binding_et_yielding">binding</a>. Pour écrire le
+  lien, nous utilisons la règle <code>a</code> définit dans notre routeur pour
+  accéder à un article.</p>
 
   <h3 id="Un_article_avec_ses_commentaires" for="main-toc">Un article avec ses
     commentaires</h3>
@@ -860,7 +870,21 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
   &amp;lt;title>&amp;lt;value bind="?title" /> — Gordon's blog&amp;lt;/title>
   …</code></pre>
   <p>Si nous retournons sur notre application, nous verrons que les styles sont
-  appliqués !</p>
+  appliqués ! Vous trouverez plus de détails sur l'utilisation des ressources
+  dans le <a href="@ll:chapter=Xyl#Ressources_de_l-application_et_theme">
+  chapitre Xyl du manuel d'apprentissage.</a></p>
+
+  <h2 id="Conclusion" for="main-toc menu-toc">Conclusion</h2>
+
+  <p>Ce mini-tutorial touche à sa fin sur une application certe basique mais
+  fonctionnelle et qui illustre les concepts de base de Hoa et son aspect
+  framework.</p>
+
+  <p>Le détail du fonctionnement et l'esprit des bibliothèques mises en oeuvre
+  ici sont présentés dans le <a href="@l#Manuel_d-apprentissage">
+  manuel d'apprentissage</a> avec des exemples détaillés. Le Gordon's Blog est
+  l'exemple fil rouge du manuel d'apprentissage.
+  </p>
 
   </article>
 </overlay>
