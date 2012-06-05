@@ -167,16 +167,16 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
   public. On va utiliser ce chemin pour définir la racine du serveur ;
   ainsi :</p>
   <pre><code language="shell">$ Data/Bin/gordonsapp bhoa --root hoa://Application/Public/
-Server is up, on tcp://localhost:8888!
+Server is up, on tcp://127.0.0.1:8888!
 Root: hoa://Application/Public/.
 
 Waiting for connection… ▋</code></pre>
 
   <p>Par défaut Bhoa écoute le port 8888. Il faut des droits <code>root</code>
   pour écouter le port 80. En essayant de joindre la page <a
-  href="http://localhost:8888"><code>localhost:8888</code></a>, on pourra
+  href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a>, on pourra
   lire le message de bienvenue :</p>
-  <pre><code language="shell">$ curl localhost:8888
+  <pre><code language="shell">$ curl 127.0.0.1:8888
 Hello you! I'm your first Hoa-based application \o/.</code></pre>
 
   <h3 id="Architecture_par_defaut" for="main-toc">Architecture par défaut</h3>
