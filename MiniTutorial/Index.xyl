@@ -217,12 +217,12 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
 
   <h2 id="Routeur_et_controleur" for="main-toc">Routeur et contrôleur</h2>
 
-  TODO
   <p>Une application peut se découper en plusieurs parties, ou plus précisément
-  en trois couches, respectivement modèle, vue et contrôleur. Un contrôleur sert
-  à …, un modèle sert à …, une vue sert à …. Quand notre application reçoit une
-  requête, elle va utiliser un routeur pour extraire des données qui seront ensuite
-  transmises à un dispatcheur pour appeler le contrôleur qui traitera la requête.</p>
+  en trois couches, respectivement modèle, vue et contrôleur (MVC). Le modèle
+  sert à manipuler les données, la vue à les afficher et le contrôleur à faire
+  le lien entre les deux. Quand notre application reçoit une requête, elle va
+  utiliser un routeur pour extraire des données qui seront ensuite transmises à
+  un dispatcheur pour appeler le contrôleur qui traitera la requête.</p>
 
   <p>Nous allons modifier le fichier <code>Application/Public/index.php</code>
   pour qu'il contienne le routeur HTTP et le dispatcheur vers des contrôleurs.
