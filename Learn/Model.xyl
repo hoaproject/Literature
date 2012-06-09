@@ -742,12 +742,11 @@ class Article extends \Hoa\Model {
     echo "\n", str_repeat(' ', 31) . '★ Gordon\'s blog ★', "\n\n",
          'Here is the list of all articles I have written:', "\n";
 
-    foreach($list as $l) {
+    foreach($list as $l)
 
         echo '    #' .  $l['id'], ' ', date('d/m/Y', $l['posted']), ' — ',
              wordwrap($l['title'], 59, "\n" . str_repeat(' ', 20), true),
              "\n";
-    }
 
     echo "\n";
 
@@ -863,7 +862,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   code de notre application. De plus, les données sont manipulées par notre
   application à travers un <strong>modèle</strong> les réprésentant (à l'aide de
   <code>Hoa\Model</code>). Si les données viennent à changer d'emplacement ou de
-  <code>format</code>, mettre à jour le modèle sera la seule tâche à faire.
+  <strong>format</strong>, mettre à jour le modèle sera la seule tâche à faire.
   Elle peut nécessiter une quantité de travail non négligeable mais la tâche est
   <strong>isolée</strong> : seul le modèle sera à modifier, pas le reste de
   l'application. Enfin, <code>Hoa\Model</code> peut servir à l'élaboration

@@ -72,7 +72,7 @@ $ hg update</code></pre>
   <p>PHP fournit son propre système d'archive : <a
   href="http://php.net/phar">PHP Archive (Phar)</a>, afin de distribuer plus
   uniformément ses programmes écrits en PHP (ou avec d'autres langages). Ce
-  format est devenu standard avant PHP5.3, qui est la version minimum pour
+  format est devenu standard avant PHP 5.3.3, qui est la version minimum pour
   utiliser Hoa. Il est donc naturel de le proposer.</p>
   <p>Ce format d'archive est disponible aux mêmes endroits que
   <a href="#Depuis_une_archive_compressee">les archives compressées</a>,
@@ -180,7 +180,7 @@ hoa://
 $ hoa
 // Homescreen.</code></pre>
   <p>Pour Windows, il faudra consulter
-  <a href="http://social.technet.microsoft.com/Search/en-US?query=path&amp;ac=8"><em>Microsoft
+  <a href="http://social.technet.microsoft.com/Search/en-US?query=path"><em>Microsoft
   TechNet</em></a> car la manipulation est moins triviale.</p>
 
   <ul class="prev_next">
