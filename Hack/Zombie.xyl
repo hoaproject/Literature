@@ -4,7 +4,7 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
-  <h1 id="Core"><em lang="en">Hack book</em><title_break />Zombie</h1>
+  <h1 id="Core"><em lang="en">Hack book</em><title_break /><code>Zombie</code></h1>
 
   <p>Un zombie est un processus qui n'est ni actif, ni terminé : il est entre la
   <strong>vie</strong> et la <strong>mort</strong>. <code>Hoa\Zombie</code>
@@ -19,21 +19,23 @@
   <p>Placer un processus entre la vie et la mort est en général à éviter car
   cela est souvent synonyme de <strong>dysfonctionnement</strong>. Toutefois, il
   peut arriver que ce soit astucieux de le faire, notamment dans le cas de
-  <strong>démons</strong> (voir <a href="@lh:chapter=Worker">le chapitre
-  <code>Hoa\Worker</code></a>).  Il est à noter qu'un zombie est également
-  <strong>muet</strong> : il ne peut plus écrire sur la sortie standard
-  puisqu'il n'est théoriquement plus attaché à aucun processus parent.</p>
+  <strong>démons</strong> (voir
+  <a href="@lh:chapter=Worker"><code>Hoa\Worker</code></a>). Il est à noter
+  qu'un zombie est également <strong>muet</strong> : il ne peut plus écrire sur
+  la sortie standard puisqu'il n'est théoriquement plus attaché à aucun
+  processus parent.</p>
   <p>Actuellement, <code>Hoa\Zombie</code> ne permet de créer des zombies que
   s'il est utilisé derrière
-  <a href="http://php.net/install.fpm">PHP-FPM</a>. Rappelons-nous du
+  <a href="http://php.net/install.fpm">PHP FPM</a>. Rappelons-nous du
   fonctionnement de PHP : un serveur <a href="http://fastcgi.com/">FastCGI</a>
-  (comme PHP FastCGI ou PHP-FPM) va démarrer un processus PHP quand une
+  (comme PHP FastCGI ou PHP FPM) va démarrer un processus PHP quand une
   <strong>requête</strong> arrive et la terminer quand la
   <strong>réponse</strong> est envoyée. D'une certaine manière, le processus PHP
   est <strong>synchronisé</strong> sur le protocole FastCGI. Heureusement, quand
-  nous utilisons PHP-FPM, nous pouvons <strong>désynchroniser</strong> ce
-  protocole, et ainsi créer des zombies tout en <strong>délégant</strong> la
-  gestion des processus à PHP-FPM !</p>
+  nous utilisons PHP FPM, nous pouvons <strong>désynchroniser</strong> ce
+  protocole, et ainsi créer des zombies tout en <strong>délégant</strong>
+  <a href="http://php.net/install.fpm.configuration">la gestion des processus à
+  PHP FPM</a> !</p>
 
   <h2 id="Manipuler_des_zombies" for="main-toc menu-toc">Manipuler des
   zombies</h2>
@@ -118,7 +120,7 @@ echo $fastcgi->send(array(
     'SCRIPT_FILENAME'   => __DIR__ . DS . 'Zombie.php'
 ));</code></pre>
   <p>Et enfin, nous testons :</p>
-  <pre><code language="shell">$ php-fpm
+  <pre><code language="shell">$ php-fpm -d listen=127.0.0.1:9000
 $ php Run.php
 I guess I am sick…
 $ ▋</code></pre>
