@@ -147,7 +147,7 @@ $worker->postMessage('mail gordon@freeman.hl Hello Gordon!');</code></pre>
   commandes dédiées</h2>
 
   <p>Pour exécuter un <em lang="en">worker</em>, il faut avant tout démarrer
-  <a href="http://php.net/install.fpm">PHP-FPM</a> :</p>
+  <a href="http://php.net/install.fpm">PHP FPM</a> :</p>
   <pre><code language="shell">$ php-fpm -d listen=127.0.0.1:9000</code></pre>
   <p>Ensuite, pour <strong>démarrer</strong> notre <em lang="en">worker</em>,
   nous allons utiliser
@@ -155,7 +155,7 @@ $worker->postMessage('mail gordon@freeman.hl Hello Gordon!');</code></pre>
   commande</a>, et plus particulièrement la commande <code>worker:start</code>.
   Elle n'est qu'un alias pratique vers
   <code>Hoa\Worker\Backend\Shared::start</code> qui nécessite l'adresse de
-  PHP-FPM (par défaut <code>127.0.0.1:9000</code>) et le chemin vers le fichier
+  PHP FPM (par défaut <code>127.0.0.1:9000</code>) et le chemin vers le fichier
   qui contient notre <em lang="en">worker</em> :</p>
   <pre><code language="shell">$ hoa worker:start /path/to/your/worker.php</code></pre>
   <p>Pour vérifier que notre <em lang="en">worker</em> a été créé, nous pouvons
