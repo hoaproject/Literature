@@ -75,11 +75,11 @@ Hoa\Zombie::decapitate();
 
   <h2 id="Test" for="main-toc menu-toc">Test</h2>
 
-  <p>Pour créer un zombie, nous avons dit qu'il fallait utiliser PHP-FPM.
+  <p>Pour créer un zombie, nous avons dit qu'il fallait utiliser PHP FPM.
   Ensuite, nous avons plusieurs possibilités pour exécuter notre programme PHP
   qui sera notre futur zombie : soit à travers HTTP (qui fera automatiquement
-  une requête FastCGI vers PHP-FPM) ou alors directement en
-  <strong>émettant</strong> une requête FastCGI vers PHP-FPM. C'est ce dernier
+  une requête FastCGI vers PHP FPM) ou alors directement en
+  <strong>émettant</strong> une requête FastCGI vers PHP FPM. C'est ce dernier
   choix que nous allons retenir.</p>
   <p>Nous commençons avec le fichier <code>Zombie.php</code> :</p>
   <pre><code language="php">&amp;lt;?php
@@ -131,5 +131,13 @@ $ ▋</code></pre>
   comme nous le voulons. Si la fin du programme est atteinte, le zombie se tuera
   de <strong>lui-même</strong>. Nous anticiperons qu'un démon n'est finalement
   rien d'autre qu'une zombie qui démarre un serveur.</p>
+
+  <h2 id="Conclusion" for="main-toc menu-toc">Conclusion</h2>
+
+  <p><code>Hoa\Zombie</code> permet de transformer un processus en
+  <strong>zombie</strong> uniquement lorsqu'il est utilisé avec PHP FPM. Nous
+  vous invitons à regarder
+  <a href="@lh:chapter=Worker"><code>Hoa\Worker</code></a> pour un exemple
+  d'utilisation plus <strong>complet</strong>.</p>
 </yield>
 </definition>
