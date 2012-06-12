@@ -21,7 +21,7 @@
   <p>Il est conseillé de lire le chapitre sur
   <a href="@lh:chapter=Zombie"><code>Hoa\Zombie</code></a> dans lequel nous
   apprennons comment transformer un processus en <strong>zombie</strong>. C'est
-  l'idée qu'exploite <code>Hoa\Worker</code> pour, qu'une fois le zombie créé,
+  l'idée qu'exploite <code>Hoa\Worker</code> pour, une fois le zombie créé,
   mettre en place un <strong>serveur</strong> qui va recevoir des
   <strong>messages</strong>. À chaque message reçu, un
   <strong>événement</strong> va être émis que nous pourrons intercepter pour
@@ -35,7 +35,7 @@
   <p>Même si le protocole établi permet une certaine <strong>intégrité</strong>
   et <strong>sûreté</strong> des messages, il est préférables que les
   communications se déroulent de <strong>serveur à serveur</strong> et non pas
-  transiter par le client.</p>
+  transitées par le client.</p>
   <p><code>Hoa\Worker</code> se présente en deux parties :</p>
   <ul>
     <li><code>Hoa\Worker\Backend\Shared</code> qui permet de
