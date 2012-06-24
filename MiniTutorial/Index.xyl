@@ -16,7 +16,7 @@
   <p>Le mini-tutorial a pour but de vous familiariser avec l'aspect framework
   de Hoa en se plongeant dans la création d'une application de A à Z. Nous ne
   détaillerons pas ici tous les concepts sous-jacents aux fonctionnalités d'Hoa
-  mises en oeuvre, en revanche nous vous proposerons des liens pour les
+  mises en œuvre, en revanche nous vous proposerons des liens pour les
   découvrir dans le manuel d'apprentissage.</p>
 
   <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
@@ -56,7 +56,7 @@
   <a href="@ll:chapter=Install#Installer_Hoa">parmi d'autres</a>, par ailleurs,
   l'archive est exécutable :</p>
   <pre><code language="shell">$ mkdir -p /usr/local/lib/hoa
-$ cd !!$
+$ cd /usr/local/lib/hoa
 $ wget http://download.hoa-project.net/Central/Hoa.next.phar
 $ php Hoa.next.phar
 Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
@@ -109,8 +109,8 @@ Extracted in ~/Development/GordonsApp</code></pre>
   variable <code>PHP</code> de <code>whereishoa.bat</code>.</p>
   <p>Ces scripts vont modifier entre autre le fichier
   <code>Data/Core.link.php</code> qui, lorsqu'il est inclu,
-  <strong>liera</strong> notre application avec Hoa. Plusieurs avantages
-  apparaissent : peu importe où est installé Hoa, notre application va
+  <strong>liera</strong> notre application avec Hoa. Cette approche présente
+  plusieurs avantages : peu importe où est installé Hoa, notre application va
   toujours inclure <code>Data/Core.link.php</code> et nous n'aurons qu'à
   relancer <code>Data/Bin/whereishoa</code> pour la lier à Hoa ; ce qui
   implique que notre application pourra <strong>choisir</strong> entre
@@ -119,8 +119,7 @@ Extracted in ~/Development/GordonsApp</code></pre>
   Hoa ce qui nous évitera de devoir modifier notre application si nous déplaçons
   ou modifions Hoa.</p>
   <pre><code language="shell">$ chmod u+x Data/Bin/whereishoa
-$ !!$
-Data/Bin/whereishoa
+$ Data/Bin/whereishoa
 ** Where is Hoa **
 
 Ready to redefine the path to Hoa?
@@ -143,13 +142,10 @@ A very simple question: where is Hoa so?
   documentation, les tests etc.</p>
   <p>Pour se les approprier un peu plus, nous pouvons les renommer :</p>
   <pre><code language="shell">$ chmod u+x Data/Bin/myapp
-$ !!$
-Data/Bin/myapp
+$ Data/Bin/myapp
 // Homescreen.
-$ mv !! !!:s/myapp/gordonsapp
-mv Data/Bin/myapp Data/Bin/gordonsapp
-$ !!$
-Data/Bin/gordonsapp
+$ mv Data/Bin/myapp Data/Bin/gordonsapp
+$ Data/Bin/gordonsapp
 // Homescreen.</code></pre>
   <p>Pour plus de facilités, nous pouvons placer notre dossier
   <code>Data/Bin/</code> dans le <code>$PATH</code> afin de pouvoir accéder
@@ -166,8 +162,10 @@ Data/Bin/gordonsapp
 Hello you! I'm your first Hoa-based application \o/.</code></pre>
   <p>Mais il faut admettre que ce n'est pas très drôle. Nous pourrions alors
   nous aider de Bhoa, qui est un petit serveur HTTP embarqué réservé au
-  développement (pas à la production !). Bhoa utilise PHP FastCGI pour exécuter
-  PHP, nous allons devoir le démarrer sur le port standard (9000) :</p>
+  développement (pas à la production !). Bhoa jouant le rôle de serveur HTTP,
+  il a besoin de communiquer avec PHP qui lui se charge interpréter les pages.
+  Bhoa utilise PHP FastCGI pour exécuter PHP, nous allons donc devoir le
+  démarrer sur le port standard (9000) :</p>
   <pre><code language="shell">$ php-cgi -b 127.0.0.1:9000&amp;amp;</code></pre>
   <p>Enfin, Hoa fournit une abstraction des chemins à travers le protocole
   <code>hoa://</code> qui propose le chemin
@@ -186,6 +184,10 @@ Waiting for connection… ▋</code></pre>
   lire le message de bienvenue :</p>
   <pre><code language="shell">$ curl 127.0.0.1:8888
 Hello you! I'm your first Hoa-based application \o/.</code></pre>
+  <p>Note: par commodité nous utilisons <a href="http://curl.haxx.se/">cURL</a>
+  pour voir le code source des pages générées. Il est bien sûr possible
+  d'utiliser un navigateur web pour afficher ces même pages, comme nous
+  le ferons plus loin dans ce tutoriel.</p>
 
   <h3 id="Architecture_par_defaut" for="main-toc">Architecture par défaut</h3>
 
@@ -204,8 +206,9 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
 |   |-- Variable/    —   caches, bases de données, logs, tests …</code></pre>
 
   <p>Une application est réellement constituée de deux dossiers :
-  <code>Application/</code> et <code>Data/</code> ; Hoa pouvant être placé
-  autre part ou n'exister qu'en une seule version.</p>
+  <code>Application/</code> et <code>Data/</code> ; Hoa étant la plupart du
+  temps, comme nous l'avons vu précédemment, placé autre part et référencé au
+  moyen du script <code>whereishoa</code>.</p>
   <p>Cette architecture est celle <strong>proposée</strong> par
   <strong>défaut</strong> mais elle peut être complètement modifiée. Rien
   n'est <strong>fixé</strong> car nous aurons pour bonne pratique d'accéder aux
@@ -221,23 +224,27 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
   en trois couches, respectivement modèle, vue et contrôleur (MVC). Le modèle
   sert à manipuler les données, la vue à les afficher et le contrôleur à faire
   le lien entre les deux. Quand notre application reçoit une requête, elle va
-  utiliser un routeur pour extraire des données qui seront ensuite transmises à
-  un dispatcheur pour appeler le contrôleur qui traitera la requête.</p>
+  utiliser un routeur pour extraire des données. Ces données seront ensuite
+  transmises à un dispatcheur. Enfin, le dispatcheur appellera le contrôleur
+  qui traitera la requête.</p>
 
-  <p>Nous allons modifier le fichier <code>Application/Public/index.php</code>
-  pour qu'il contienne le routeur HTTP et le dispatcheur vers des contrôleurs.
-  Nous aurons deux actions possibles :</p>
+  <p>Dans notre blog, nous voulons disposer de 2 actions :</p>
   <ul>
     <li>afficher la liste des articles ;</li>
     <li>afficher un article en particulier.</li>
   </ul>
-  <p>Pour cela, nous avons besoin de deux règles dans notre routeur pour nos
-  actions respectives : disons <code>i</code> pour afficher la liste des
-  articles et <code>a</code> pour afficher un article en particulier. La règle
-  <code>i</code> sera accessible depuis le chemin de l'URI <code>/</code> et la
-  règle <code>a</code> depuis <code>/article-<em>id</em>.html</code>. Nous
-  allons avoir un contrôleur qui sera une classe avec deux méthodes, une pour
-  chaque action. Nous remplaçons le <code>echo</code> du fichier
+  <p>Puisque c'est le routeur qui fera l'aiguillage, nous devons créer 2 routes
+  dans le fichier <code>Application/Public/index.php</code>.
+  Ainsi, ce fichier contiendra le routeur HTTP et le dispatcheur vers des
+  contrôleurs, ainsi que les 2 routes suivantes :</p>
+  <ul>
+    <li><code>i</code> pour afficher la liste des articles</li>
+    <li><code>a</code> pour afficher un article en particulier.</li>
+  </ul>
+  <p>La règle <code>i</code> sera accessible depuis le chemin de l'URI <code>/
+  </code> et la règle <code>a</code> depuis <code>/article-<em>id</em>.html</code>.
+  Nous allons avoir un contrôleur qui sera une classe avec deux méthodes, une
+  pour chaque action. Nous remplaçons le <code>echo</code> du fichier
   <code>Application/Public/index.php</code> par le code suivant :</p>
   <pre><code language="php">from('Hoa')
 -> import('Dispatcher.Basic')
@@ -251,10 +258,10 @@ $router->get('i', '/', 'blog', 'index')
 $dispatcher->dispatch($router);</code></pre>
   <p>Par défaut le contrôleur est représenté par une classe
   <code>Application\Controller\<em>ControllerName</em></code>. Nous voulons
-  utiliser le contrôleur <code>blog</code>, c'est pourquoi nous allons écrire la
-  classe <code>Application\Controller\Blog</code>, avec deux méthodes :
-  <code>IndexAction</code> et <code>ArticleAction</code>, respectivement pour la
-  règle <code>i</code> et <code>a</code>. Ainsi :</p>
+  appeler notre contrôleur <code>blog</code>, c'est pourquoi nous allons écrire
+  la classe <code>Application\Controller\Blog</code>, avec deux méthodes :
+  <code>IndexAction</code> et <code>ArticleAction</code>, respectivement pour
+  les règles <code>i</code> et <code>a</code>. Ainsi :</p>
   <pre><code language="php">namespace Application\Controller {
 
 class Blog extends \Hoa\Dispatcher\Kit {
@@ -293,7 +300,7 @@ Hoa\Router\Http::route(): (6) Cannot found an appropriated rule to route foobar.
 in hoa://Library/Router/Http.php at line 490.</code></pre>
   <p>Plus précisément, une exception de type
   <code>Hoa\Router\Exception\NotFound</code> sera levée lors du dispatche. Nous
-  pouvons capturer cette exception et de réagir en conséquence, par exemple en
+  pouvons capturer cette exception et réagir en conséquence, par exemple en
   indiquant qu'une erreur s'est produite, en modifiant la fin du fichier
   <code>Application/Public/index.php</code> ainsi :</p>
   <pre><code language="php">try {
@@ -323,7 +330,7 @@ Your page seems to be not found /o\.</code></pre>
 
   <p>Le blog sera constitué d'articles auxquels seront associés des
   commentaires. Un article est caractérisé par un identifiant, un titre, une
-  date et un contenu. Un commentaire est caractérisé par d'un identifiant, un
+  date et un contenu. Un commentaire est caractérisé par un identifiant, un
   auteur, une date et un contenu. Un lien existe entre les commentaires et les
   articles à travers leurs identifiants respectifs.</p>
   <p>Le schéma complet au format SQL peut être retrouvé dans
@@ -349,7 +356,7 @@ CREATE TABLE comment (
     PRIMARY KEY(id)
     FOREIGN KEY(article) REFERENCES article(id)
 );</code></pre>
-  <p>Pour créer la base de données, nous allons nous utiliser le moteur
+  <p>Pour créer la base de données, nous allons utiliser le moteur
   <a href="http://sqlite.org/">SQLite</a> et sa commande <code>sqlite3</code> en
   étant préalablement placé dans le dossier
   <code>Data/Variable/Database/</code> :</p>
@@ -417,7 +424,7 @@ class Comment extends \Hoa\Model {
 
 }</code></pre>
   <p>Nous avons écrit les contraintes de validation à travers Praspel, un
-  langage d'annotation (nous pouvons compléter ou remplacé Praspel avec les
+  langage d'annotation (nous pouvons compléter ou remplacer Praspel avec les
   méthodes <code>validate<em>Name</em></code>). Nous avons également défini le
   lien vers nos données avec la méthode <code>Hoa\Model::setMappingLayer</code>.
   Maintenant voyons l'entité <code>Article</code> comme étant la classe
@@ -530,7 +537,7 @@ class Article extends \Hoa\Model {
   et afficher les données brutes.</p>
   <p>Pour la méthode <code>IndexAction</code>, nous allons afficher la liste des
   articles présents sur le blog. Pour cela, nous allons nous aider de la méthode
-  <code>getShortList</code> sur <code>Application\Model\Article</code> :</p>
+  <code>getShortList</code> de <code>Application\Model\Article</code> :</p>
   <pre><code language="php">public function IndexAction ( ) {
 
     $article = new \Application\Model\Article();
@@ -663,7 +670,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   Elle peut nécessiter une quantité de travail non négligeable mais la tâche est
   <strong>isolée</strong> : seul le modèle sera à modifier, pas le reste de
   l'application. Enfin, <code>Hoa\Model</code> peut servir à l'élaboration
-  d'outils de gestion de données plus complexes de part sa conception.</p>
+  d'outils de gestion de données plus complexes de par sa conception.</p>
 
   <h2 id="Les_vues" for="main-toc">Les vues</h2>
 
@@ -679,7 +686,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   <p>Notre document principal sera <code>Application/View/Main.xyl</code> et
   accueillera nos différentes pages. Nous utilisons pour celà les
   <em>overlays</em>. Les <a href="@ll:chapter=Xyl#Overlay"><em>overlays</em></a>
-  sont un ou plusieurs composants que nous voulons insérer dans un document.</p>
+  sont des composants que nous pouvons insérer dans un document.</p>
 
   <p>Chaque page sera un <em>overlay</em> par rapport au document principal,
   nous y préciserons donc un identifiant auquel ceux-ci pourront venir
@@ -693,7 +700,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
     &amp;lt;h1>Gordon's blog&amp;lt;/h1>
   &amp;lt;/header>
 
-  &amp;lt;article id="main" />
+  &amp;lt;div id="main" />
 
   &amp;lt;footer>
     &amp;lt;p>Author: Gordon Freeman © 1999-2001. This blog is powered by
@@ -713,14 +720,14 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
-  &amp;lt;article id="main">
+  &amp;lt;div id="main">
     &amp;lt;p>Here is the list of all articles I have written:&amp;lt;/p>
     &amp;lt;ul>
       &amp;lt;li bind="?articles">
         &amp;lt;value bind="?posted" /> — &amp;lt;a href="@a:id=(?id)" bind="?title" />
       &amp;lt;/li>
     &amp;lt;/ul>
-  &amp;lt;/article>
+  &amp;lt;/div>
 &amp;lt;/overlay></code></pre>
   <p>Nous avons une liste qui va s'accrocher sur les arbres
   <code>articles</code> et les feuilles de ces arbres vont servir à afficher la
@@ -742,7 +749,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
 &amp;lt;?xyl-use href="hoa://Application/View/Blog/Comment.xyl"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
-  &amp;lt;article id="main">
+  &amp;lt;div id="main">
     &amp;lt;p>&amp;lt;a href="@i">☜ Back to list&amp;lt;/a>&amp;lt;/p>
 
     &amp;lt;yield bind="?article">
@@ -752,7 +759,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
 
     &amp;lt;h2>Comments&amp;lt;/h2>
     &amp;lt;comment bind="?comments" />
-  &amp;lt;/article>
+  &amp;lt;/div>
 &amp;lt;/overlay></code></pre>
   <p>Les données concernant l'article se trouvent dans l'arbre
   <code>article</code> et les commentaires dans les arbres
@@ -779,7 +786,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
 
   <h3 id="Depuis_notre_controleur" for="main-toc">Depuis notre contrôleur</h3>
 
-  <p>Nous allons modifier nos deux méthodes de notre contrôleur
+  <p>Nous allons modifier les deux méthodes de notre contrôleur
   <code>Application\Controller\Blog</code>, respectivement
   <code>IndexAction</code> pour la liste des articles et
   <code>ArticleAction</code> pour un seul article. Les données sont déjà
@@ -894,11 +901,11 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
 
   <h2 id="Conclusion" for="main-toc menu-toc">Conclusion</h2>
 
-  <p>Ce mini-tutorial touche à sa fin sur une application certe basique mais
+  <p>Ce mini-tutorial touche à sa fin sur une application certes basique mais
   fonctionnelle et qui illustre les concepts de base de Hoa et son aspect
   framework.</p>
 
-  <p>Le détail du fonctionnement et l'esprit des bibliothèques mises en oeuvre
+  <p>Le détail du fonctionnement et l'esprit des bibliothèques mises en œuvre
   ici sont présentés dans le <a href="@l#Manuel_d-apprentissage">
   manuel d'apprentissage</a> avec des exemples détaillés. Le
   <em>Gordon's blog</em> est l'exemple fil rouge du manuel d'apprentissage.</p>
