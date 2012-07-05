@@ -251,7 +251,7 @@ $router->addRule(array('put', 'delete', 'get'), …);
   allons lui demander de <strong>déterminer</strong> <em>la</em> règle qui
   correspond à notre requête. Chaque routeur a une méthode <code>route</code> où
   tous ses arguments doivent avoir une valeur par défaut. Dans le cas du routeur
-  HTTP, les arguments sont l'URI et la base (comprendre, le préfixe) de notre
+  HTTP, les arguments sont l'URI et le préfixe (comprendre, la base) de notre
   URI. Ses valeurs par défaut sont automatiques déduites à partir des données
   provenant du serveur. Une fois le routage terminé, nous utilisons la méthode
   <code>getTheRule</code> pour obtenir <em>la</em> règle qui a servi à extraire
@@ -259,7 +259,7 @@ $router->addRule(array('put', 'delete', 'get'), …);
   <code>Hoa\Router::RULE_<em>*</em></code> existent pour manipuler le
   <em>t</em>-uplet représentant une règle. Ainsi, à partir de notre
   exemple :</p>
-  <pre><code language="php">$router->route('root/hello_gordon', 'root/');
+  <pre><code language="php">$router->route('root/hello_gordon', 'root');
 print_r($router->getTheRule());
 
 /**
@@ -292,8 +292,9 @@ print_r($router->getTheRule());
  *
  *      )
  */</code></pre>
-  <p>Pour éviter de préciser la base à chaque fois, nous pouvons utiliser la
-  méthode <code>setBase</code> dont le seul argument est la base.</p>
+  <p>Pour éviter de préciser le préfixe du chemin à chaque fois, nous pouvons
+  utiliser la méthode <code>setPrefix</code> dont le seul argument est le
+  préfixe à considérer.</p>
   <p><em>À l'instar</em> de la méthode <code>route</code>, chaque routeur
   définit la méthode <code>unroute</code> qui permet <strong>d'écrire</strong>
   une requête correspond à une règle. Pour cela, nous devons préciser deux
