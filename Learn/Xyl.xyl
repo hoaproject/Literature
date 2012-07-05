@@ -931,7 +931,7 @@ $xyl->render();</code></pre>
     &amp;lt;h1>Gordon's blog&amp;lt;/h1>
   &amp;lt;/header>
 
-  &amp;lt;article id="main" />
+  &amp;lt;div id="main" />
 
   &amp;lt;footer>
     &amp;lt;p>Author: Gordon Freeman © 1999-2001. This blog is powered by
@@ -951,14 +951,14 @@ $xyl->render();</code></pre>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
-  &amp;lt;article id="main">
+  &amp;lt;div id="main">
     &amp;lt;p>Here is the list of all articles I have written:&amp;lt;/p>
     &amp;lt;ul>
       &amp;lt;li bind="?articles">
         &amp;lt;value bind="?posted" /> — &amp;lt;a href="@a:id=(?id)" bind="?title" />
       &amp;lt;/li>
     &amp;lt;/ul>
-  &amp;lt;/article>
+  &amp;lt;/div>
 &amp;lt;/overlay></code></pre>
   <p>Nous avons une liste qui va s'accrocher sur les arbres
   <code>articles</code> et les feuilles de ces arbres vont servir à afficher la
@@ -978,7 +978,7 @@ $xyl->render();</code></pre>
 &amp;lt;?xyl-use href="hoa://Application/View/Blog/Comment.xyl"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
-  &amp;lt;article id="main">
+  &amp;lt;div id="main">
     &amp;lt;p>&amp;lt;a href="@i">☜ Back to list&amp;lt;/a>&amp;lt;/p>
 
     &amp;lt;yield bind="?article">
@@ -988,7 +988,7 @@ $xyl->render();</code></pre>
 
     &amp;lt;h2>Comments&amp;lt;/h2>
     &amp;lt;comment bind="?comments" />
-  &amp;lt;/article>
+  &amp;lt;/div>
 &amp;lt;/overlay></code></pre>
   <p>Les données concernant l'article se trouvent dans l'arbre
   <code>article</code> et les commentaires dans les arbres

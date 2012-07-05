@@ -81,10 +81,10 @@ if(false === Hoa\Worker\Run::widExists('demorker'))
 
 $file   = new Hoa\File\Write(__DIR__ . DS . 'Log');
 $worker = new Hoa\Worker\Backend\Shared('demorker', 'iamapassword');
-$worker->on('message', function ( Hoa\Core\Event\Bucket $bucket ) use ( $log ) {
+$worker->on('message', function ( Hoa\Core\Event\Bucket $bucket ) use ( $file ) {
 
     // compute messages from $bucket->getData().
-    $log->writeAll($bucket->getData() . "\n");
+    $file->writeAll($bucket->getData() . "\n");
 });
 $worker->run();
 </code></pre>
