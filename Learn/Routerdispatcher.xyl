@@ -36,14 +36,110 @@
 
   <h2 id="Un_peu_d-histoire" for="main-toc menu-toc">Un peu d'histoire</h2>
 
-  <p>Contrairement à des applications de bureaux, les applications Web ne
+  <checkpoint class="sticky" style="padding-top: 190px">
+  <div id="overview" class="verbatim schema"><div></div></div>
+  <script>
+  var paper = null;
+  document.onreadystatechange = function ( ) {
+
+      if('complete' !== document.readyState)
+          return;
+
+      paper      = Hoa.Graph(Hoa.$('#overview div'), 800, 150);
+      var grid   = paper.grid(0, 0, 800, 150, 4, 1);
+      var client = grid.push(paper.rect(0, 0, 90, 130, 3, 'client'));
+      var server = grid.push(paper.rect(0, 0, 90, 130, 3, 'serveur'));
+      var phpcgi = grid.push(paper.rect(0, 0, 90, 130, 3, 'php-cgi'));
+      var php    = grid.push(paper.rect(0, 0, 90, 130, 3, 'PHP'));
+
+      paper.link.between(client, server, 'HTTP');
+      paper.link.between(server, phpcgi, 'FastCGI');
+      paper.link.between(phpcgi, php);
+
+      /*
+      paper.step.declare([
+          {
+              scope: [client, client.getLink(0)]
+          },
+          {
+              scope: [server, server.getLink(0)]
+          },
+          {
+              scope: [phpcgi, phpcgi.getLink(0)]
+          },
+          {
+              scope: [php]
+          },
+      ]);
+      */
+
+      return;
+  };
+
+  window.addEventListener('scroll', function ( ) {
+
+      if(undefined === checkpoints)
+          var checkpoints = Hoa.Checkpoint.getCheckpoints();
+
+      for(var i = 0, max = checkpoints.length; i &lt; max; ++i) {
+
+          var checkpoint = checkpoints[i];
+
+          if(false === checkpoint.hoa.isVisible())
+              continue;
+
+          var scoped = null;
+
+          if(true === checkpoint.classList.contains('sticky')) {
+
+              var schema = Hoa.$('.schema', checkpoint);
+
+              if(null === schema)
+                  continue;
+
+              if(true === checkpoint.hoa.isVisible('top')) {
+
+                  checkpoint.classList.remove('floatting');
+                  checkpoint.classList.remove('border');
+              }
+              else if(checkpoint.getBoundingClientRect().bottom
+                        > schema.getBoundingClientRect().height) {
+
+                  checkpoint.classList.remove('border');
+                  checkpoint.classList.add('floatting');
+              }
+              else {
+
+                  checkpoint.classList.remove('floatting');
+                  checkpoint.classList.add('border');
+              }
+          }
+          else if(null !== (scoped = checkpoint.hoa.getScoped())) {
+
+              var d = -checkpoint.hoa.distance('top').to(scoped);
+
+              if(0 > d)
+                  continue;
+
+              /*
+              if(100 > d)
+                  paper.step.select(checkpoint.getAttribute('data-step'));
+              */
+          }
+      }
+  });
+  </script>
+
+  <p><checkpoint for="overview" data-step="0" />
+  Contrairement à des applications de bureaux, les applications Web ne
   restent pas en exécution durant toute leur utilisation (même s'il existe
   quelques exceptions, nous préfèrons rester dans les généralités). PHP ne
   déroge pas à la règle. En effet, quand nous effectuons une demande auprès de
   l'application (par exemple : « je veux telle page »), PHP reçoit la demande,
   exécute la tâche associée à la demande, fournit une réponse et s'arrête.  Ceci
   est le fonctionnement schématique type de PHP.</p>
-  <p>Nous ne parlons pas réellement de demande mais plutôt de
+  <p><checkpoint for="overview" data-step="1" />
+  Nous ne parlons pas réellement de demande mais plutôt de
   <strong>requête</strong>. La majorité des requêtes sur le Web sont exprimées
   sous le format <strong>HTTP</strong> (pour <em>HyperText Transfer
   Protocol</em>). Seulement trois versions d'HTTP ont été écrites :
@@ -67,7 +163,8 @@
   grandissants de requêtes sur les serveurs. C'est pourquoi, <a
   href="http://fastcgi.com/">FastCGI</a> (pour <em>Fast Common Gateway
   Interface</em>) a été créé.</p>
-  <p>PHP fonctionne derrière FastCGI pour recevoir les communications du serveur
+  <p><checkpoint for="overview" data-step="2" />
+  PHP fonctionne derrière FastCGI pour recevoir les communications du serveur
   HTTP. La requête HTTP reçue fournit toutes les informations nécessaires pour
   que PHP exécute une tâche sans problème.</p>
   <p>Une requête HTTP est principalement caractérisée par une
@@ -82,6 +179,7 @@
   suivant est une requête qui exprime « je souhaite obtenir la ressource
   <code>/path/to/resource</code> » :</p>
   <pre><code>GET /path/to/resource</code></pre>
+  </checkpoint>
 
   <h2 id="Apercu" for="main-toc menu-toc">Aperçu</h2>
 
@@ -259,7 +357,7 @@ $router->addRule(array('put', 'delete', 'get'), …);
   <code>Hoa\Router::RULE_<em>*</em></code> existent pour manipuler le
   <em>t</em>-uplet représentant une règle. Ainsi, à partir de notre
   exemple :</p>
-  <pre><code language="php">$router->route('root/hello_gordon', 'root');
+  <pre><code language="php">$router->route('/root/hello_gordon', '/root');
 print_r($router->getTheRule());
 
 /**
