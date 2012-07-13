@@ -1073,7 +1073,7 @@ $xyl->render();</code></pre>
 -> import('Dispatcher.Basic')
 -> import('Router.Http')
 -> import('Xyl.~')
--> improt('Xyl.Interpreter.Html.~')
+-> import('Xyl.Interpreter.Html.~')
 -> import('File.Read')
 -> import('Http.Response');
 
