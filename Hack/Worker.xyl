@@ -198,5 +198,6 @@ Password: ▋</code></pre>
   <code>worker:<em>*</em></code> permettent d'<strong>administrer</strong> ces
   <em lang="en">workers</em> à moindre efforts. Rien ne vous empêche de bâtir
   votre <strong>propre</strong> solution à partir des concepts évoqués ici !</p>
+
 </yield>
 </definition>
