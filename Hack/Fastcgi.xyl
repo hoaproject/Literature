@@ -91,13 +91,12 @@
   <p>La bibliothèque <code>Hoa\FastCgi</code> permet d'une certaine façon de
   jouer le <strong>rôle</strong> du serveur HTTP : elle permet d'envoyer des
   requêtes HTTP sur un serveur CGI et de récupérer une réponse. Ainsi, nous
-  n'aurons pas besoin de serveur HTTP, mais uniquement des outils de PHP ; nous
-  utiliserons <code>php-cgi</code>.</p>
+  n'aurons pas besoin de serveur HTTP, mais uniquement des outils de PHP.</p>
 
   <h3 id="Envoyer_une_requête" for="main-toc">Envoyer une requête</h3>
 
   <p>Pour envoyer une requête, nous devons <strong>ouvrir une connexion</strong>
-  sur l'adresse du serveur CGI, et la donner au constructeur de
+  vers le serveur CGI, et la donner au constructeur de
   <code>Hoa\FastCgi\Responder</code>. Ainsi, nous avons le fichier
   <code>Responder.php</code> :</p>
   <pre><code language="php">from('Hoa')
