@@ -8,9 +8,9 @@
 
   <p>Le DNS, ou <em lang="en">Domain Name System</em>, est un système permettant
   de <strong>traduire</strong> des <strong>noms de domaines</strong> en
-  <strong>adresse IP</strong>. Les noms sont <strong>classifiés</strong> en
+  <strong>adresses IP</strong>. Les noms sont <strong>classifiés</strong> en
   plusieurs <strong>types</strong> selon les services. <code>Hoa\Dns</code>
-  permet de <strong>résoudre</strong> des noms de domaines en fonction de leur
+  permet de <strong>résoudre</strong> des noms de domaines en fonction de leurs
   types.</p>
 
   <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
@@ -37,10 +37,10 @@
   domaines, comme <code>hoa-project</code>, <code>wikipedia</code>,
   <code>php</code> etc. Et encore en dessous, nous trouvons d'autres domaines,
   comme <code>hg</code> pour <code>hoa-project</code>. Nous disons que le
-  domaine <code>hoa-project.net</code> est <strong>sous-domaine</strong> de
-  <code>net</code>, tout comme <code>hg.hoa-project.net</code> est sous-domaine
-  de <code>hoa-project.net</code> : la notion de hiérarchie est bien
-  présente.</p>
+  domaine <code>hoa-project.net</code> est un <strong>sous-domaine</strong> de
+  <code>net</code>, tout comme <code>hg.hoa-project.net</code> est un
+  sous-domaine de <code>hoa-project.net</code> : la notion de hiérarchie est
+  bien présente.</p>
   <p>Mais ce système de noms est également <strong>distribué</strong>. Quand
   nous cherchons à résoudre un nom de domaine, nous commençons par trouver le ou
   les <strong>hôtes</strong> capables de résoudre son TLD, puis son sous-domaine

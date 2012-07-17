@@ -48,12 +48,12 @@
   <strong>modèle</strong> « une nouvelle exécution par requête ». En général,
   chaque exécution, ou <strong>processus</strong>, vit le temps de calculer une
   <strong>réponse</strong> à la requête pour ensuite mourir. Toutefois, la
-  charge des serveurs HTTP grandissante, CGI a commencé à montrer ses
+  charge des serveurs HTTP grandissant, CGI a commencé à montrer ses
   <strong>limites</strong>, notamment en terme de vitesse : trop de messages
-  transitaient sur le réseau et la gestion des processus n'étaient plus
-  efficaces. C'est pourquoi, le <a href="http://fastcgi.com/">protocole
+  transitaient sur le réseau et la gestion des processus n'était plus
+  efficace. C'est pourquoi, le <a href="http://fastcgi.com/">protocole
   FastCGI</a> a été proposé afin de résoudre tous ces problèmes. Historiquement,
-  malgré que nous utilisons CGI ou FastCGI, ces serveurs sont toujours appelés
+  bien que nous utilisons CGI ou FastCGI, ces serveurs sont toujours appelés
   serveurs CGI.</p>
   <p>Le serveur HTTP reçoit des requêtes. Grâce aux en-têtes HTTP, il détecte
   quel programme externe est <strong>concerné</strong> par cette requête. Il
@@ -157,14 +157,14 @@ var_dump($fastcgi->getResponseContent());
   <h3 id="Erreurs_possibles" for="main-toc">Erreurs possibles</h3>
 
   <p>Le protocole FastCGI peut lever <strong>trois erreurs</strong> possibles en
-  plus de celles ajouter par <code>Hoa\FastCgi\Responder</code> :</p>
+  plus de celles ajoutées par <code>Hoa\FastCgi\Responder</code> :</p>
   <ul>
     <li><code>Hoa\FastCgi\Responder\Exception\CannotMultiplex</code> quand le
     programme externe ne supporte pas le <strong>multiplexage</strong> :
     plusieurs requêtes à travers une seule connexion ;</li>
     <li><code>Hoa\FastCgi\Responder\Exception\Overloaded</code> quand le
-    programme externe est trop <strong>occupé</strong> et à
-    <strong>rejeter</strong> la requête ;</li>
+    programme externe est trop <strong>occupé</strong> et a
+    <strong>rejeté</strong> la requête ;</li>
     <li><code>Hoa\FastCgi\Responder\Exception\UnknownRole</code> quand un rôle
     (un paquet du protocole) <strong>n'est pas reconnu</strong> par le programme
     externe ;</li>
