@@ -37,7 +37,7 @@
   domaines, comme <code>hoa-project</code>, <code>wikipedia</code>,
   <code>php</code> etc. Et encore en dessous, nous trouvons d'autres domaines,
   comme <code>hg</code> pour <code>hoa-project</code>. Nous disons que le
-  domaine <code>hoa-project.net</code> et <strong>sous-domaine</strong> de
+  domaine <code>hoa-project.net</code> est <strong>sous-domaine</strong> de
   <code>net</code>, tout comme <code>hg.hoa-project.net</code> est sous-domaine
   de <code>hoa-project.net</code> : la notion de hiérarchie est bien
   présente.</p>
@@ -69,7 +69,7 @@
   l'adresse IP correspondante, ou sinon il cherchera un autre résolveur. Une
   fois l'adresse IP trouvée, les requêtes pourront être acheminées
   correctement.</p>
-  <p>Enfin, DNS fonctionne en UDP, selon la
+  <p>Enfin, le protocole DNS fonctionne en UDP sur le port 53, selon la
   <a href="https://tools.ietf.org/html/rfc768">RFC768</a>.</p>
 
   <h2 id="Resoudre_ses_propres_noms_de_domaines" for="main-toc menu-toc">Résoudre
@@ -83,10 +83,11 @@
   <h3 id="Specifier_un_serveur_de_resolution" for="main-toc">Spécifier un
   serveur de résolution</h3>
 
-  <p>Il existe plusieurs programmes selon les systèmes. Notre object est de
-  <strong>spécifier</strong> un <strong>serveur de résolution</strong> pour les
-  domaines <code>*.hoa</code>. Notre serveur écoutera le port 57055 (<ie />
-  <code>0xDEAD</code>) sur l'adresse <code>127.0.0.1</code>.</p>
+  <p>Il existe plusieurs programmes de résolution selon les systèmes. Notre
+  objectif est de <strong>spécifier</strong> un <strong>serveur de
+  résolution</strong> pour les domaines <code>*.hoa</code>. Notre serveur
+  écoutera le port 57055 (<ie /> <code>0xDEAD</code>) sur l'adresse
+  <code>127.0.0.1</code>.</p>
   <p>Sous Mac OS X, il suffit de créer un fichier
   <code>/etc/resolver/<em>tld</em></code> (attention à avoir les droits
   <em lang="en">root</em>, et le dossier <code>/etc/resolver</code> n'existe pas
