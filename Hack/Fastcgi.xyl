@@ -29,10 +29,10 @@
 
       paper    = Hoa.Graph(Hoa.$('#overview div'), 800, 300);
       var grid = paper.grid(0, 0, 800, 300, 3, 3);
-      var http = grid.push(paper.rect(0, 0, 170, 90, 3, 'serveur HTTP'), 1, 0);
+      var http = grid.push(paper.rect(0, 0, 170, 90, 3, 'serveur HTTP'), 0, 1);
       var fcgi = grid.push(paper.rect(0, 0, 170, 90, 3, 'serveur CGI'), 1, 1);
-      var p1   = grid.push(paper.rect(0, 0, 170, 90, 3, 'processus 1'), 0, 2);
-      var p2   = grid.push(paper.rect(0, 0, 170, 90, 3, 'processus 2'), 1, 2);
+      var p1   = grid.push(paper.rect(0, 0, 170, 90, 3, 'processus 1'), 2, 0);
+      var p2   = grid.push(paper.rect(0, 0, 170, 90, 3, 'processus 2'), 2, 1);
       var p3   = grid.push(paper.rect(0, 0, 170, 90, 3, 'processus 3'), 2, 2);
 
       paper.link.between(http, fcgi, 'CGI');
