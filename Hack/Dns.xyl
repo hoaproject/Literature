@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xyl-use href="../Definitions.xyl"?>
+
+<definition xmlns="http://hoa-project.net/xyl/xylophone">
+<yield name="chapter">
+
+  <h1 id="Core"><em lang="en">Hack book</em><title_break /><code>Dns</code></h1>
+
+  <p>Le DNS, ou <em lang="en">Domain Name System</em>, est un système permettant
+  de <strong>traduire</strong> des <strong>noms de domaines</strong> en
+  <strong>adresse IP</strong>. Les noms sont <strong>classifiés</strong> en
+  plusieurs <strong>types</strong> selon les services. <code>Hoa\Dns</code>
+  permet de <strong>résoudre</strong> des noms de domaines en fonction de leur
+  types.</p>
+
+  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+
+  <tableofcontents id="main-toc" />
+
+  <h2 id="Introduction" for="main-toc menu-toc">Introduction</h2>
+
+  <p>Toutes les machines connectées à un <strong>réseau</strong> portent une
+  adresse IP (pour <em lang="en">Internet Protocol</em>). Il existe plusieurs
+  versions de ce protocole : la version IPv4, standardisée à l'origine dans la
+  <a href="https://tools.ietf.org/html/rfc791">RFC791</a>, et la version IPv6,
+  standardisée à l'origine dans la
+  <a href="https://tools.ietf.org/html/rfc2460">RFC2460</a>. Ces adresses sont
+  <strong>numériques</strong> et il n'est pas toujours évident de toutes les
+  retenir. C'est pourquoi le DNS permet d'<strong>associer</strong> des noms à
+  ces adresses. Nous parlons de noms de domaines, et de traduction, de
+  résolution ou encore d'association.</p>
+  <p>Ce système de noms est <strong>hiérarchique</strong> et à la forme d'un
+  <strong>arbre</strong>. Sous la racine de cette arbre, nous trouvons les
+  domaines de <strong>premier niveau</strong>, aussi appelés TLD pour
+  <em lang="en">Top Level Domain</em> ; par exemple : <code>net</code>,
+  <code>org</code>, <code>com</code> etc. En dessous, nous trouvons d'autres
+  domaines, comme <code>hoa-project</code>, <code>wikipedia</code>,
+  <code>php</code> etc. Et encore en dessous, nous trouvons d'autres domaines,
+  comme <code>hg</code> pour <code>hoa-project</code>. Nous disons que le
+  domaine <code>hoa-project.net</code> et <strong>sous-domaine</strong> de
+  <code>net</code>, tout comme <code>hg.hoa-project.net</code> est sous-domaine
+  de <code>hoa-project.net</code> : la notion de hiérarchie est bien
+  présente.</p>
+  <p>Mais ce système de noms est également <strong>distribué</strong>. Quand
+  nous cherchons à résoudre un nom de domaine, nous commençons par trouver le ou
+  les <strong>hôtes</strong> capables de résoudre son TLD, puis son sous-domaine
+  et ainsi de suite. Chaque machine comporte un programme qui s'appelle un
+  <strong>résolveur local</strong> de noms de domaines, capable de trouver des
+  hôtes appropriés pour résoudre les noms de domaine. Nous pouvons modifier ces
+  résolveurs pour utiliser nos propres serveurs de résolution.
+  <code>Hoa\Dns</code> permet de créer un tel serveur. Si aucun serveur n'est
+  spécifié, le résolveur local va interroger des services tiers : la notion de
+  distribué est bien présente.</p>
+  <p>De plus, les noms de domaines sont <strong>classifiés</strong> selon des
+  <strong>types</strong>, comme :</p>
+  <ul>
+    <li><code>A</code> pour un nom d'hôte en IPv4 ;</li>
+    <li><code>AAAA</code> pour un nom d'hôte en IPv6 ;</li>
+    <li><code>MX</code> pour un serveur mail ;</li>
+    <li>etc.</li>
+  </ul>
+  <p>La <a href="http://www.iana.org/assignments/dns-parameters">liste complète
+  des types de domaines</a> est maintenue par
+  l'<a href="http://iana.org">IANA</a>, qui est l'organisme responsable de la
+  gestion de l'espace d'adressage IP et autres protocoles. L'ensemble du
+  protocole DNS est spécifié dans la
+  <a href="https://tools.ietf.org/html/rfc6195">RFC6195</a>.</p>
+  <p>Grâce au nom de domaine et à son type, le résolveur pourra trouver
+  l'adresse IP correspondante, ou sinon il cherchera un autre résolveur. Une
+  fois l'adresse IP trouvée, les requêtes pourront être acheminées
+  correctement.</p>
+  <p>Enfin, DNS fonctionne en UDP, selon la
+  <a href="https://tools.ietf.org/html/rfc768">RFC768</a>.</p>
+
+  <h2 id="Resoudre_ses_propres_noms_de_domaines" for="main-toc menu-toc">Résoudre
+  ses propres noms de domaines</h2>
+
+  <p>Notre objectif va être de <strong>résoudre</strong> des noms de domaines de
+  la forme <code>*.hoa</code>. Pour cela nous allons commencer par modifier
+  notre résolveur local pour lui ajouter un hôte de résolution que nous ferons
+  avec <code>Hoa\Dns</code>.</p>
+
+  <h3 id="Specifier_un_serveur_de_resolution" for="main-toc">Spécifier un
+  serveur de résolution</h3>
+
+  <p>Il existe plusieurs programmes selon les systèmes. Notre object est de
+  <strong>spécifier</strong> un <strong>serveur de résolution</strong> pour les
+  domaines <code>*.hoa</code>. Notre serveur écoutera le port 57055 (<ie />
+  <code>0xDEAD</code>) sur l'adresse <code>127.0.0.1</code>.</p>
+  <p>Sous Mac OS X, il suffit de créer un fichier
+  <code>/etc/resolver/<em>tld</em></code> (attention à avoir les droits
+  <em lang="en">root</em>, et le dossier <code>/etc/resolver</code> n'existe pas
+  toujours, il ne faut pas hésiter à le créer). Ainsi, nous allons éditer le
+  fichier <code>/etc/resolver/hoa</code> :</p>
+  <pre><code>nameserver 127.0.0.1
+port       57005</code></pre>
+  <p>Sous Linux, …</p>
+  <p>Sous Windows, …</p>
+
+  <h3 id="Creer_son_serveur_de_resolution" for="main-toc">Créer son serveur de
+  résolution</h3>
+
+  <p>Nous allons <strong>créer</strong> un serveur qui écoute l'adresse
+  <code>127.0.0.1:57005</code> et en UDP. Ce serveur sera donné à
+  <code>Hoa\Dns</code>, et le tout sera dans le fichier
+  <code>Resolver.php</code> :</p>
+  <pre><code language="php">from('Hoa')
+-> import('Socket.Server')
+-> import('Dns.~');
+
+$dns = new Hoa\Dns(
+    new Hoa\Socket\Server('udp://127.0.0.1:57005')
+);</code></pre>
+  <p><code>Hoa\Dns</code> émet un seul évènement : <code>query</code>, et envoie
+  en donnée un tableau contenant <code>type</code>, le type du domaine, et
+  <code>domain</code>, le domaine. Nous allons <strong>associer</strong> à tous
+  les domaines <code>*.hoa</code> l'adresse IP <code>127.0.0.1</code>, nous
+  n'allons pas considérer les sous-domaines de <code>hoa</code> dans le cadre de
+  cet exercice.</p>
+  <pre><code language="php">$dns->on('query', function ( Hoa\Core\Event\Bucket $bucket ) {
+
+    $data = $bucket->getData();
+    echo 'Resolving domain ', $data['domain'],
+         ' of type ', $data['type'], "\n";
+
+    return '127.0.0.1';
+});</code></pre>
+  <p>C'est aussi <strong>simple</strong> que ça ! Notons que nous n'avons pas
+  tenu compte du type du domaine (qui devrait être <code>A</code> ou
+  <code>AAAA</code>).</p>
+
+  <h2 id="Test" for="main-toc menu-toc">Test</h2>
+
+  <p>Pour tester, nous allons <strong>créer</strong> un fichier <code>/tmp/index.html</code>
+  contenant :</p>
+  <pre><code language="xml">&amp;lt;body&amp;gt;
+  yeah \o/
+&amp;lt;/body&amp;gt;</code></pre>
+  <p>Pour atteindre ce fichier, nous allons démarrer un <strong>serveur
+  HTTP</strong>, par exemple Bhoa, sur l'adresse <code>127.0.0.1:8888</code>. Si
+  ce serveur reçoit une requête depuis un domaine <code>*.hoa</code> c'est que
+  notre serveur de résolution à fonctionner. Le fichier
+  <code>/tmp/index.html</code> n'est présent que pour avoir un exemple complet.
+  Démarrons donc Bhoa :</p>
+  <pre><code language="shell">$ hoa bhoa --root /tmp --listen 127.0.0.1:8888</code></pre>
+  <p>Nous démarrons aussi notre serveur de résolution :</p>
+  <pre><code language="shell">$ php Resolver.php</code></pre>
+  <p>Enfin, nous pouvons tester l'ensemble, par exemple avec
+  <a href="http://curl.haxx.se/">cURL</a> :</p>
+  <pre><code language="shell">$ curl foo.hoa:8888 --verbose
+* About to connect() to foo.hoa port 8888 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to foo.hoa (127.0.0.1) port 8888 (#0)
+> GET / HTTP/1.1
+> User-Agent: curl/a.b.c (…) libcurl/d.e.f
+> OpenSSL/g.h.i zlib/j.k.l
+> Host: foo.hoa:8888
+> Accept: */*
+>
+&amp;lt; HTTP/1.1 200 OK
+&amp;lt; Date: …
+&amp;lt; Server: Hoa+Bhoa/x.y
+&amp;lt; Content-Type: text/html
+&amp;lt; Content-Length: 26
+&amp;lt;
+yeah \o/
+* Connection #0 to host foo.hoa left intact
+* Closing connection #0</code></pre>
+  <p>Nous voyons que <code>foo.hoa</code> est bien <strong>résolu</strong> en
+  <code>127.0.0.1</code>. La requête <code>foo.hoa:8888</code> est capturée
+  par notre serveur HTTP qui va nous répondre le contenu de
+  <code>/tmp/index.html</code>.</p>
+
+  <h2 id="Conclusion" for="main-toc menu-toc">Conclusion</h2>
+
+  <p>La bibliothèque <code>Hoa\Dns</code> permet de créer un <strong>serveur de
+  résolution</strong> de <strong>noms de domaines</strong>. Sa
+  <strong>facilité</strong> d'utilisation permet par exemple de
+  <strong>créer</strong> rapidement des environnements de développement (avec
+  des domaines <code>*.dev</code> par exemple) ou de mettre en place des
+  <strong>services</strong> (en filtrant les types) sur des réseaux locaux ou
+  plus larges.</p>
+
+</yield>
+</definition>
