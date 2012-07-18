@@ -86,16 +86,36 @@
   <p>Il existe plusieurs programmes de résolution selon les systèmes. Notre
   objectif est de <strong>spécifier</strong> un <strong>serveur de
   résolution</strong> pour les domaines <code>*.hoa</code>. Notre serveur
-  écoutera le port 57055 (<ie /> <code>0xDEAD</code>) sur l'adresse
+  écoutera le port 57055 (<ie /> <code>0xDEAD</code>, pour ne pas devoir
+  exécuter notre serveur avec les droits <em lang="en">root</em>) sur l'adresse
   <code>127.0.0.1</code>.</p>
+
+  <h4 id="Sous_Mac_OS_X" for="main-toc">Sous Mac OS X</h4>
+
   <p>Sous Mac OS X, il suffit de créer un fichier
   <code>/etc/resolver/<em>tld</em></code> (attention à avoir les droits
   <em lang="en">root</em>, et le dossier <code>/etc/resolver</code> n'existe pas
   toujours, il ne faut pas hésiter à le créer). Ainsi, nous allons éditer le
   fichier <code>/etc/resolver/hoa</code> :</p>
   <pre><code>nameserver 127.0.0.1
-port       57005</code></pre>
-  <p>Sous Linux, …</p>
+port 57005</code></pre>
+  <p>Il ne faut pas hésiter à attendre quelques secondes que le cache du serveur
+  local s'invalide avant de passer à la suite.</p>
+
+  <h4 id="Sous_Linux" for="main-toc">Sous Linux</h4>
+
+  <p>Sous Linux, nous allons utiliser
+  <a href="http://thekelleys.org.uk/dnsmasq/doc.html">DNSMasq</a>, très souvent
+  installé par défaut. Après l'avoir installé, nous allons modifier le fichier
+  <code>/etc/dnsmasq.conf</code> pour lui dire de déléguer la résolution des
+  domaines <code>*.hoa</code> vers notre propre serveur :</p>
+  <pre><code>server=/hoa/127.0.0.1#57005</code></pre>
+  <p>Il ne faut pas oublier de redémarrer DNSMasq :</p>
+  <pre><code language="shell">$ sudo /etc/init.d/dnsmasq restart
+ * Restarting DNS forwarder and DHCP server dnsmasq                         [OK]</code></pre>
+
+  <h4 id="Sous_Windows" for="main-toc">Sous Windows</h4>
+
   <p>Sous Windows, …</p>
 
   <h3 id="Creer_son_serveur_de_resolution" for="main-toc">Créer son serveur de
@@ -125,7 +145,8 @@ $dns = new Hoa\Dns(
          ' of type ', $data['type'], "\n";
 
     return '127.0.0.1';
-});</code></pre>
+});
+$dns->run();</code></pre>
   <p>C'est aussi <strong>simple</strong> que ça ! Notons que nous n'avons pas
   tenu compte du type du domaine (qui devrait être <code>A</code> ou
   <code>AAAA</code>).</p>
@@ -158,8 +179,8 @@ $dns = new Hoa\Dns(
       paper.link.between(http, index);
   };
   </script>
-  <p>Pour tester, nous allons <strong>créer</strong> un fichier <code>/tmp/index.html</code>
-  contenant :</p>
+  <p>Pour tester et s'amuser, nous allons <strong>créer</strong> un fichier
+  <code>/tmp/index.html</code> contenant :</p>
   <pre><code language="xml">&amp;lt;body&amp;gt;
   yeah \o/
 &amp;lt;/body&amp;gt;</code></pre>
