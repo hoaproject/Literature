@@ -132,6 +132,32 @@ $dns = new Hoa\Dns(
 
   <h2 id="Test" for="main-toc menu-toc">Test</h2>
 
+  <checkpoint class="sticky" style="padding-top: 340px">
+  <div id="overview" class="verbatim schema"><div></div></div>
+  <script>
+  var paper = null;
+  document.onreadystatechange = function ( ) {
+
+      if('complete' !== document.readyState)
+          return;
+
+      paper        = Hoa.Graph(Hoa.$('#overview div'), 800, 300);
+      var grid     = paper.grid(0, 0, 800, 300, 3, 3);
+      var client   = grid.push(paper.rect(0, 0, 120, 290, 3, 'client'),       0, 1);
+      var resolver = grid.push(paper.rect(0, 0, 170,  90, 3, 'résolveur'),    1, 0);
+      var http     = grid.push(paper.rect(0, 0, 170,  90, 3, 'serveur HTTP'), 1, 2);
+      var index    = grid.push(paper.rect(0, 0, 170,  90, 3, 'index.html'),   2, 2);
+
+      var l1       = paper.link.between(client, resolver, 'foo.hoa');
+      l1.element.move('+0', '-30');
+      l1.text.move('-13', '-13');
+      var l2       = paper.link.between(resolver, client, '127.0.0.1');
+      l2.text.move('+15', '+15');
+      var l3       = paper.link.between(client, http, '127.0.0.1:8888');
+      l3.text.move('+20', '+0');
+      paper.link.between(http, index);
+  };
+  </script>
   <p>Pour tester, nous allons <strong>créer</strong> un fichier <code>/tmp/index.html</code>
   contenant :</p>
   <pre><code language="xml">&amp;lt;body&amp;gt;
@@ -171,6 +197,7 @@ yeah \o/
   <code>127.0.0.1</code>. La requête <code>foo.hoa:8888</code> est capturée
   par notre serveur HTTP qui va nous répondre le contenu de
   <code>/tmp/index.html</code>.</p>
+  </checkpoint>
 
   <h2 id="Conclusion" for="main-toc menu-toc">Conclusion</h2>
 
