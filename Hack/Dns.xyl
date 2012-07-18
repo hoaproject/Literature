@@ -106,7 +106,7 @@ port 57005</code></pre>
 
   <p>Sous Linux, nous allons utiliser
   <a href="http://thekelleys.org.uk/dnsmasq/doc.html">DNSMasq</a>, très souvent
-  installé par défaut. Après l'avoir installé, nous allons modifier le fichier
+  installé par défaut. Ensuite, nous allons modifier le fichier
   <code>/etc/dnsmasq.conf</code> pour lui dire de déléguer la résolution des
   domaines <code>*.hoa</code> vers notre propre serveur :</p>
   <pre><code>server=/hoa/127.0.0.1#57005</code></pre>
