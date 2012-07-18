@@ -100,7 +100,8 @@ file_put_contents(
 );
 </code></pre>
   <p>Ensuite, nous continuons avec le fichier <code>Run.php</code> qui va
-  exécuter <code>Zombie.php</code> :</p>
+  exécuter <code>Zombie.php</code> grâce à
+  <a href="@lh:chapter=Fastcgi"><code>Hoa\FastCgi</code></a> :</p>
   <pre><code language="php">&amp;lt;?php
 
 require '/usr/local/lib/hoa/Core/Core.php';
