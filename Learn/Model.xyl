@@ -743,7 +743,6 @@ class Article extends \Hoa\Model {
          'Here is the list of all articles I have written:', "\n";
 
     foreach($list as $l)
-
         echo '    #' .  $l['id'], ' ', date('d/m/Y', $l['posted']), ' — ',
              wordwrap($l['title'], 59, "\n" . str_repeat(' ', 20), true),
              "\n";
