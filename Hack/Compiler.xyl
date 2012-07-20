@@ -4,10 +4,10 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
-  <h1 id="Core"><em lang="en">Hack book</em><title_break />Compiler</h1>
+  <h1 id="Core"><em lang="en">Hack book</em><title_break /><code>Compiler</code></h1>
 
   <p>Les <strong>compilateurs</strong> permettent d'<strong>analyser</strong> et
-  <strong>manipuler</strong>des données <strong>textuelles</strong>.  Leurs
+  <strong>manipuler</strong> des données <strong>textuelles</strong>.  Leurs
   applications sont très nombreuses. <code>Hoa\Compiler</code> propose de
   manipuler plusieurs compilateurs selon les besoins.</p>
 
@@ -68,14 +68,17 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
   <pre><code>…
 → ( chiffre nombre | chiffre ) + exp
 → chiffre + exp
+→ ( 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 ) + exp
 → 7 + exp
 → 7 + ( exp + exp | nombre )
 → 7 + nombre
 → 7 + ( chiffre nombre | chiffre )
 → 7 + chiffre nombre
+→ 7 + ( 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 ) nombre
 → 7 + 3 nombre
 → 7 + 3 ( chiffre nombre | chiffre )
 → 7 + 3 chiffre
+→ 7 + 3 ( 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 )
 → 7 + 3 5</code></pre>
   <p>Avec cette dérivation, nous obtenons le mot <code>7 + 35</code>.</p>
   <p>Un ensemble de règle est appelé une <strong>grammaire</strong>. Et donc,
@@ -129,7 +132,7 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
   propose que des analyseurs syntaxiques LL, pour <em lang="en">Left-to-right
   Leftmost derivation</em>, <ie /> de la plus haute règle vers la plus profonde,
   et les règles sont dérivées de la gauche vers la droite. Là encore, il existe
-  des sous-catégories, dont deux que traitent <code>Hoa\Compiler</code> : LL(1)
+  des sous-catégories, dont deux que traite <code>Hoa\Compiler</code> : LL(1)
   et LL(*). D'une manière générale, on parle d'analyseurs syntaxiques
   LL(<em>k</em>) : si un lexème ne permet pas de dériver une règle comme il
   faut, alors l'analyseur peut <strong>revenir</strong> jusqu'à <em>k</em>
@@ -152,7 +155,181 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
   <h2 id="Compilateur_de_compilateur_LLk" for="main-toc menu-toc">Compilateur de
   compilateur LL(k)</h2>
 
+  <p>Écrire des compilateurs est une tâche laborieuse. Ce n'est pas forcément
+  toujours difficile mais souvent répétitif et long. C'est pourquoi il existe
+  des compilateurs de compilateurs, ou autrement dit, des générateurs de
+  compilateurs. La plupart du temps, ces compilateurs de compilateurs
+  utilisent un langage intermédiaire pour écrire une grammaire, comme un langage
+  de programmation d'une certaine manière.</p>
+  <p>La bibliothèque <code>Hoa\Compiler</code> propose la classe
+  <code>Hoa\Compiler\Llk</code> qui permet l'écriture de compilateurs de
+  compilateurs à travers un langage dédié.</p>
+
   <h3 id="Langage_PP" for="main-toc">Langage PP</h3>
+
+  <p>Le langage PP, pour <em lang="en">PHP Parser</em>, permet d'exprimer des
+  grammaires algébriques. Il s'écrit dans des fichiers <code>*.pp</code>.</p>
+  <p>Une grammaire est constituée de lexèmes et de règles. La déclaration d'un
+  lexème se fait de la manière suivante : <code>%token
+  <em>namespace_in</em>:<em>name</em> <em>value</em> ->
+  <em>namespace_out</em></code>, où <code><em>name</em></code> représente le nom
+  du lexème, <code><em>value</em></code> représente sa valeur, au format
+  <a href="http://pcre.org/">PCRE</a>, et <code><em>namespace_in</em></code> et
+  <code><em>namespace_out</em></code> représentent les noms des espaces de noms
+  et sont optionels (vaut <code>default</code> par défaut). Par exemple
+  <code>number</code> qui représente un nombre composé de chiffres de
+  <code>0</code> à <code>9</code> :</p>
+  <pre><code language="pp">%token number \d+</code></pre>
+  <p>Les espaces de noms représentent des sous-ensembles disjoints de lexèmes,
+  utilisés pour faciliter les analyses. Une déclaration <code>%skip</code> est
+  similaire à <code>%token</code> exceptée qu'elle représente un lexème à
+  sauter, c'est à dire à ne pas considérer. Un exemple courant de lexèmes
+  <code>%skip</code> est les espaces :</p>
+  <pre><code language="pp">%skip space \s</code></pre>
+  <p>Pour expliquer les règles, nous allons utiliser comme exemple la grammaire
+  <code>Json.pp</code>, grammaire légèrement simplifiée du
+  <a href="http://json.org/">langage JSON</a> (voir la
+  <a href="https://tools.ietf.org/html/rfc4627">RFC4627</a>) :</p>
+  <pre><code language="pp">%skip   space          \s
+%token  true           true
+%token  false          false
+%token  null           null
+
+%token  quote_         "        -> string
+%token  string:string  [^"]+
+%token  string:_quote  "        -> default
+
+%token  brace_         {
+%token _brace          }
+%token  bracket_       \[
+%token _bracket        \]
+%token  colon          :
+%token  comma          ,
+%token  number         \d+
+
+value:
+    &amp;lt;true> | &amp;lt;false> | &amp;lt;null> | string() | object() | array() | number()
+
+string:
+    ::quote_:: &amp;lt;string> ::_quote::
+
+number:
+    &amp;lt;number>
+
+#object:
+    ::brace_:: pair() ( ::comma:: pair() )* ::_brace::
+
+#pair:
+    string() ::colon:: value()
+
+#array:
+    ::bracket_:: value() ( ::comma:: value() )* ::_bracket::</code></pre>
+  <p>Nous remarquons que nous avons deux espaces de noms pour les lexèmes :
+  <code>default</code> et <code>string</code> (cela permet de ne pas confondre
+  les lexèmes <code>quote_</code> et <code>string:_quote</code> qui ont la même
+  valeur). Nous remarquons ensuite la règle <code>value</code> qui est une
+  disjonction de plusieurs lexèmes et règles. Les constructions du langage PP
+  sont les suivantes :</p>
+  <ul>
+    <li><code><em>rule</em>()</code> pour appeler une règle ;</li>
+    <li><code>&amp;lt;<em>token</em>></code> et <code>::<em>token</em>::</code>
+    pour déclarer un lexème (les espaces de noms n'apparaissent pas ici) ;</li>
+    <li><code>|</code> pour une disjonction (un choix) ;</li>
+    <li><code>(<em>…</em>)</code> pour grouper ;</li>
+    <li><code><em>e</em>?</code> pour dire que <code><em>e</em></code> est
+    optionel ;</li>
+    <li><code><em>e</em>+</code> pour dire que <code><em>e</em></code> peut
+    apparaître 1 ou plusieurs fois ;</li>
+    <li><code><em>e</em>*</code> pour dire que <code><em>e</em></code> peut
+    apparaître 0 ou plusieurs fois ;</li>
+    <li><code>#<em>node</em></code> pour créer un nœud
+    <code><em>node</em></code> dans l'arbre (détaillé plus tard) ;</li>
+    <li><code><em>token</em>[<em>i</em>]</code> pour unifier des lexèmes entre
+    eux (détaillé plus tard).</li>
+  </ul>
+  <p>Peu de constructions mais amplement suffisantes.</p>
+
+  <h3 id="Processus_de_compilation" for="main-toc">Processus de compilation</h3>
+
+  <p>Le processus de compilation qu'utilise <code>Hoa\Compiler\Llk</code> est
+  classique. Il commence par analyser lexicalement la donnée textuelle, <ie /> à
+  transformer notre donnée en une séquence de lexèmes. L'ordre de déclarations
+  des lexèmes est primordial car l'analyseur lexical va les prendre les uns
+  après les autres. Ensuite, c'est l'analyseur syntaxique qui entre en jeu. Il
+  va compiler les règles écritent dans le langage PP en objet capable de
+  supporter les caractéristiques LL(*) : retours en arrière, gestion des points
+  de choix, gestion des erreurs etc.</p>
+  <p>Si l'analyse lexicale est un succès, nous obtenons une trace. Cette trace
+  peut être transformée en AST, pour <em lang="en">Abstract Syntax Tree</em>.
+  Cet arbre représente notre donnée textuelle après analyses. Il a l'avantage de
+  pouvoir être visiter (nous détaillerons plus loin), ce qui permet par exemple
+  d'ajouter de nouvelles contraintes qui ne peuvent exprimer dans la grammaire,
+  comme une vérification de type.</p>
+  <p>Manipulons un peu <code>Hoa\Compiler\Llk</code>. Cette classe est un
+  assistant pour lire une grammaire au format PP facilement. Elle prend en seule
+  argument un flux en lecture vers la grammaire et retourne un compilateur
+  <code>Hoa\Compiler\Llk\Parser</code> prêt à l'emploi. Sur ce compilateur, nous
+  allons appeler la méthode <code>Hoa\Compiler\Llk\Parser::parse</code> pour
+  analyser une donnée JSON. Si la donnée est correcte, nous aurons en retour un
+  AST, sinon une exception sera levée. Enfin, nous allons utiliser le visiteur
+  <code>Hoa\Compiler\Visitor\Dump</code> pour afficher notre AST :</p>
+  <pre><code language="php">from('Hoa')
+-> import('File.Read')
+-> import('Compiler.Llk.~')
+-> import('Compiler.Visitor.Dump');
+
+// 1. Load grammar.
+$compiler = Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp'));
+
+// 2. Parse a data.
+$ast      = $compiler->parse('{"foo": true, "bar": [null, 42]}');
+
+// 3. Dump the AST.
+$dump     = new Hoa\Compiler\Visitor\Dump();
+echo $dump->visit($ast);
+
+/**
+ * Will output:
+ *     >  #object
+ *     >  >  #pair
+ *     >  >  >  token(string, foo)
+ *     >  >  >  token(true, true)
+ *     >  >  #pair
+ *     >  >  >  token(string, bar)
+ *     >  >  >  #array
+ *     >  >  >  >  token(null, null)
+ *     >  >  >  >  token(number, 42)
+ */</code></pre>
+  <p>Quand nous écrivons une grammaire, nous allons répéter ces trois tâches
+  très régulièrement. C'est pourquoi, le script <code>hoa</code> (ou
+  <code>hoa.bat</code>) propose la commande <code>pp</code>. Cette commande
+  propose d'analyser une donnée par rapport à une donnée et d'appliquer un
+  visiteur si besoin sur l'AST résultant. Notons que la lecture de la donnée peut
+  se faire à travers un
+  <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)"><em lang="en">pipe</em></a> :</p>
+  <pre><code language="shell">$ echo '[1, [1, [2, 3], 5], 8]' | hoa pp Json.pp 0 --visitor dump
+>  #array
+>  >  token(number, 1)
+>  >  #array
+>  >  >  token(number, 1)
+>  >  >  #array
+>  >  >  >  token(number, 2)
+>  >  >  >  token(number, 3)
+>  >  >  token(number, 5)
+>  >  token(number, 8)</code></pre>
+  <p>C'est un moyen pratique pour tester rapidement des données par rapport à
+  notre grammaire. Il ne faut pas hésiter à regarder l'aide de la commande
+  <code>pp</code> pour plus de détails !</p>
+
+  <h4>Nœuds</h4>
+
+  <h4>Unification</h4>
+
+
+  <!--
+  hoa://Library/Compiler/Llk/Llk.pp
+  vim plugins
+  -->
 
   <h3 id="Traces" for="main-toc">Traces</h3>
 
