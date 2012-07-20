@@ -191,18 +191,21 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
   <a href="http://json.org/">langage JSON</a> (voir la
   <a href="https://tools.ietf.org/html/rfc4627">RFC4627</a>) :</p>
   <pre><code language="pp">%skip   space          \s
+// Scalars.
 %token  true           true
 %token  false          false
 %token  null           null
-
+// Strings.
 %token  quote_         "        -> string
 %token  string:string  [^"]+
 %token  string:_quote  "        -> default
-
+// Objects.
 %token  brace_         {
 %token _brace          }
+// Arrays.
 %token  bracket_       \[
 %token _bracket        \]
+// Rest.
 %token  colon          :
 %token  comma          ,
 %token  number         \d+
@@ -242,6 +245,9 @@ number:
     apparaître 1 ou plusieurs fois ;</li>
     <li><code><em>e</em>*</code> pour dire que <code><em>e</em></code> peut
     apparaître 0 ou plusieurs fois ;</li>
+    <li><code><em>e</em>{<em>x</em>,<em>y</em>}</code> pour dire que <em>e</em>
+    peut apparaître entre <code><em>x</em></code> et <code><em>y</em></code>
+    fois ;</li>
     <li><code>#<em>node</em></code> pour créer un nœud
     <code><em>node</em></code> dans l'arbre (détaillé plus tard) ;</li>
     <li><code><em>token</em>[<em>i</em>]</code> pour unifier des lexèmes entre
@@ -321,10 +327,90 @@ echo $dump->visit($ast);
   notre grammaire. Il ne faut pas hésiter à regarder l'aide de la commande
   <code>pp</code> pour plus de détails !</p>
 
-  <h4>Nœuds</h4>
+  <h4 id="Erreurs" for="main-toc">Erreurs</h4>
 
-  <h4>Unification</h4>
+  <p>Les erreurs de compilation sont remontées à travers des exceptions,
+  ainsi :</p>
+  <pre><code language="shell">$ echo '{"foo" true}' | hoa pp Json.pp 0 --visitor dump
+Uncaught exception (Hoa\Compiler\Exception\UnexpectedToken):
+Hoa\Compiler\Llk\Parser::parse(): (0) Unexpected token "true" (true) at line 1
+and column 8:
+{"foo" true}
+       ↑
+in hoa://Library/Compiler/Llk/Parser.php at line 1</code></pre>
+  <p>Plusieurs exceptions peuvent remonter selon le contexte :</p>
+  <ul>
+    <li>durant l'analyse lexicale,
+    <code>Hoa\Compiler\Exception\UnrecognizedToken</code> quand un lexème n'est
+    pas reconnu, <ie /> quand la donnée textuelle ne peut plus être découpée en
+    une séquence de lexèmes ;</li>
+    <li>durant l'analyse syntaxique,
+    <code>Hoa\Compiler\Exception\UnexpectedToken</code> quand un lexème
+    n'est pas attendu, <ie /> qu'il ne permet plus de dériver les règles de la
+    grammaire.</li>
+  </ul>
+  <p>L'exception parente est <code>Hoa\Compiler\Exception</code>.</p>
 
+  <h4 id="Nœuds" for="main-toc">Nœuds</h4>
+
+  <p>Le processus de compilation aboutit très souvent par la production d'un
+  AST. Il est important de contrôler sa forme, sa taille, les données qui
+  contient etc. C'est pourquoi il est nécessaire de comprendre la notation
+  <code>#<em>node</em></code> car elle permet de créer des nœuds dans l'AST.
+  Une précision tout d'abord, les lexèmes déclarés avec la syntaxe
+  <code>&amp;lt;<em>token</em>></code> apparaîtront dans l'arbre, alors que les
+  autres lexèmes, déclarés avec la syntaxe <code>::<em>token</em>::</code>, n'y
+  apparaîtront pas. En effet, dans notre dernier exemple, les lexèmes
+  <code>quote_</code>, <code>brace_</code>, <code>colon</code>,
+  <code>comma</code> etc. n'apparaissent pas. Ensuite, il est important de noter
+  que les déclarations de nœuds se surchargent les unes par rapport aux autres
+  au sein d'une même règle. Par exemple, un nom de règle peut être précédé par
+  <code>#</code>, comme pour la règle <code>#array</code>, ceci définit un nœud
+  par défaut, mais il peut être surchargé. Par exemple, si nous écrivons :</p>
+  <pre><code language="pp">#array:
+    ::bracket_:: value() ( ::comma:: value() #bigarray )* ::_bracket::</code></pre>
+  <p>Si le tableau ne contient qu'une seule valeur, le nœud s'appelera
+  <code>#array</code>, sinon il s'appelera <code>#bigarray</code>, voyons
+  plutôt :</p>
+  <pre><code language="shell">$ echo '[42]' | hoa pp Json.pp 0 --visitor dump
+  >  #array
+  >  >  token(number, 42)
+$ echo '[4, 2]' | hoa pp Json.pp 0 --visitor dump
+>  #bigarray
+>  >  token(number, 4)
+>  >  token(number, 2)</code></pre>
+  <p>Bien sûr, il peut arriver qu'un nœud soit crée ou pas selon le chemin
+  emprunté dans la règle (selon la dérivation). Le mécanisme est normalement
+  assez intuitif.</p>
+
+  <h4 id="Unification" for="main-toc">Unification</h4>
+
+  <p>Une caractéristique qu'apporte le langage PP par rapport à d'autres
+  langages de grammaires connus est la capacité d'exprimer une unification de
+  lexèmes. Imagineons la grammaire suivante :</p>
+  <pre><code language="pp">%token  quote   '|"
+%token  string  \w+
+
+rule:
+    ::quote:: &amp;lt;string> ::quote::</code></pre>
+  <p>Les guillemets qui entourent la chaîne de caractère peuvent être de deux
+  sortes : simple, avec le symbole « <code>'</code> », ou double, avec le
+  symbole « <code>"</code> ». Ainsi, toutes les données <code>"foo"</code> et
+  <code>'foo'</code> sont valides, mais également <code>"foo'</code> et
+  <code>'foo"</code> !</p>
+  <p>L'unification des lexèmes permet d'ajouter une contrainte
+  supplémentaire sur la valeur des lexèmes à l'exécution. La syntaxe est la
+  suivante : <code><em>token</em>[<em>i</em>]</code>. La valeur de
+  <code><em>i</em></code> indique quels lexèmes vont devoir porter la même
+  valeur. Et enfin, l'unification est local à une instance d'une règle,
+  c'est à dire qu'il n'y a pas d'unifications entre les lexèmes de plusieurs
+  règles et que cela s'applique sur la règle appelée uniquement. Ainsi,
+  l'exemple devient :</p>
+  <pre><code language="pp">rule:
+    ::quote[0]:: &amp;lt;string> ::quote[0]::</code></pre>
+  <p>L'unification trouve de nombreuses applications, comme par exemple unifier
+  les noms des balises ouvrantes et fermantes du
+  <a href="http://w3.org/TR/xml11/">langage XML</a>.</p>
 
   <!--
   hoa://Library/Compiler/Llk/Llk.pp
