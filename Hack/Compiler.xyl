@@ -155,41 +155,46 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
   <h2 id="Compilateur_de_compilateur_LLk" for="main-toc menu-toc">Compilateur de
   compilateur LL(k)</h2>
 
-  <p>Écrire des compilateurs est une tâche laborieuse. Ce n'est pas forcément
-  toujours difficile mais souvent répétitif et long. C'est pourquoi il existe
-  des compilateurs de compilateurs, ou autrement dit, des générateurs de
-  compilateurs. La plupart du temps, ces compilateurs de compilateurs
-  utilisent un langage intermédiaire pour écrire une grammaire, comme un langage
-  de programmation d'une certaine manière.</p>
-  <p>La bibliothèque <code>Hoa\Compiler</code> propose la classe
-  <code>Hoa\Compiler\Llk</code> qui permet l'écriture de compilateurs de
-  compilateurs à travers un langage dédié.</p>
+  <p>Écrire des compilateurs est une tâche <strong>laborieuse</strong>. Ce n'est
+  pas forcément toujours difficile mais souvent répétitif et long. C'est
+  pourquoi il existe des <strong>compilateurs de compilateurs</strong>, ou
+  autrement dit, des générateurs de compilateurs. La plupart du temps, ces
+  compilateurs de compilateurs utilisent un langage
+  <strong>intermédiaire</strong> pour écrire une grammair. La bibliothèque
+  <code>Hoa\Compiler</code> propose la classe <code>Hoa\Compiler\Llk</code> qui
+  permet l'écriture de compilateurs de compilateurs à travers un langage
+  <strong>dédié</strong>.</p>
 
   <h3 id="Langage_PP" for="main-toc">Langage PP</h3>
 
   <p>Le langage PP, pour <em lang="en">PHP Parser</em>, permet d'exprimer des
-  grammaires algébriques. Il s'écrit dans des fichiers <code>*.pp</code>.</p>
-  <p>Une grammaire est constituée de lexèmes et de règles. La déclaration d'un
-  lexème se fait de la manière suivante : <code>%token
-  <em>namespace_in</em>:<em>name</em> <em>value</em> ->
-  <em>namespace_out</em></code>, où <code><em>name</em></code> représente le nom
-  du lexème, <code><em>value</em></code> représente sa valeur, au format
-  <a href="http://pcre.org/">PCRE</a>, et <code><em>namespace_in</em></code> et
-  <code><em>namespace_out</em></code> représentent les noms des espaces de noms
-  et sont optionels (vaut <code>default</code> par défaut). Par exemple
-  <code>number</code> qui représente un nombre composé de chiffres de
-  <code>0</code> à <code>9</code> :</p>
+  <strong>grammaires algébriques</strong>. Il s'écrit dans des fichiers portant
+  l'extension <code>.pp</code>.</p>
+  <p>Une grammaire est constituée de <strong>lexèmes</strong> et de
+  <strong>règles</strong>. La déclaration d'un lexème se fait de la manière
+  suivante : <code>%token <em>namespace_in</em>:<em>name</em> <em>value</em> ->
+  <em>namespace_out</em></code>, où <code><em>name</em></code> représente le
+  <strong>nom</strong> du lexème, <code><em>value</em></code> représente sa
+  <strong>valeur</strong>, au format <a href="http://pcre.org/">PCRE</a>, et
+  <code><em>namespace_in</em></code> et <code><em>namespace_out</em></code>
+  représentent les noms des <strong>espaces de noms</strong> et sont optionels
+  (vaut <code>default</code> par défaut). Par exemple <code>number</code> qui
+  représente un nombre composé de chiffres de <code>0</code> à
+  <code>9</code> :</p>
   <pre><code language="pp">%token number \d+</code></pre>
-  <p>Les espaces de noms représentent des sous-ensembles disjoints de lexèmes,
-  utilisés pour faciliter les analyses. Une déclaration <code>%skip</code> est
-  similaire à <code>%token</code> exceptée qu'elle représente un lexème à
-  sauter, c'est à dire à ne pas considérer. Un exemple courant de lexèmes
-  <code>%skip</code> est les espaces :</p>
+  <p>Les espaces de noms représentent des <strong>sous-ensembles</strong>
+  disjoints de lexèmes, utilisés pour <strong>faciliter</strong> les analyses.
+  Une déclaration <code>%skip</code> est similaire à <code>%token</code>
+  exceptée qu'elle représente un lexème à <strong>sauter</strong>, c'est à dire
+  à ne pas considérer. Un exemple courant de lexèmes <code>%skip</code> est les
+  espaces :</p>
   <pre><code language="pp">%skip space \s</code></pre>
   <p>Pour expliquer les règles, nous allons utiliser comme exemple la grammaire
-  <code>Json.pp</code>, grammaire légèrement simplifiée du
+  <code>Json.pp</code>, grammaire légèrement <strong>simplifiée</strong> du
   <a href="http://json.org/">langage JSON</a> (voir la
-  <a href="https://tools.ietf.org/html/rfc4627">RFC4627</a>) :</p>
+  <a href="https://tools.ietf.org/html/rfc4627">RFC4627</a>). La grammaire
+  <strong>complète</strong> se situe dans le fichier
+  <code>hoa://Library/Json/Grammar.pp</code>. Ainsi :</p>
   <pre><code language="pp">%skip   space          \s
 // Scalars.
 %token  true           true
@@ -228,32 +233,38 @@ number:
 #array:
     ::bracket_:: value() ( ::comma:: value() )* ::_bracket::</code></pre>
   <p>Nous remarquons que nous avons deux espaces de noms pour les lexèmes :
-  <code>default</code> et <code>string</code> (cela permet de ne pas confondre
-  les lexèmes <code>quote_</code> et <code>string:_quote</code> qui ont la même
-  valeur). Nous remarquons ensuite la règle <code>value</code> qui est une
-  disjonction de plusieurs lexèmes et règles. Les constructions du langage PP
-  sont les suivantes :</p>
+  <code>default</code> et <code>string</code> (cela permet de ne pas
+  <strong>confondre</strong> les lexèmes <code>quote_</code> et
+  <code>string:_quote</code> qui ont la même valeur). Nous remarquons ensuite la
+  règle <code>value</code> qui est une <strong>disjonction</strong> de plusieurs
+  lexèmes et règles. Les <strong>constructions</strong> du langage PP sont les
+  suivantes :</p>
   <ul>
-    <li><code><em>rule</em>()</code> pour appeler une règle ;</li>
+    <li><code><em>rule</em>()</code> pour <strong>appeler</strong> une
+    règle ;</li>
     <li><code>&amp;lt;<em>token</em>></code> et <code>::<em>token</em>::</code>
-    pour déclarer un lexème (les espaces de noms n'apparaissent pas ici) ;</li>
-    <li><code>|</code> pour une disjonction (un choix) ;</li>
+    pour <strong>déclarer</strong> un lexème (les espaces de noms n'apparaissent
+    pas ici) ;</li>
+    <li><code>|</code> pour une <strong>disjonction</strong> (un choix) ;</li>
     <li><code>(<em>…</em>)</code> pour grouper ;</li>
     <li><code><em>e</em>?</code> pour dire que <code><em>e</em></code> est
-    optionel ;</li>
+    <strong>optionel</strong> ;</li>
     <li><code><em>e</em>+</code> pour dire que <code><em>e</em></code> peut
-    apparaître 1 ou plusieurs fois ;</li>
+    apparaître <strong>1 ou plusieurs</strong> fois ;</li>
     <li><code><em>e</em>*</code> pour dire que <code><em>e</em></code> peut
-    apparaître 0 ou plusieurs fois ;</li>
+    apparaître <strong>0 ou plusieurs</strong> fois ;</li>
     <li><code><em>e</em>{<em>x</em>,<em>y</em>}</code> pour dire que <em>e</em>
     peut apparaître entre <code><em>x</em></code> et <code><em>y</em></code>
     fois ;</li>
-    <li><code>#<em>node</em></code> pour créer un nœud
-    <code><em>node</em></code> dans l'arbre (détaillé plus tard) ;</li>
-    <li><code><em>token</em>[<em>i</em>]</code> pour unifier des lexèmes entre
-    eux (détaillé plus tard).</li>
+    <li><code>#<em>node</em></code> pour créer un <strong>nœud</strong>
+    <code><em>node</em></code> dans l'arbre ;</li>
+    <li><code><em>token</em>[<em>i</em>]</code> pour <strong>unifier</strong>
+    des lexèmes entre eux.</li>
   </ul>
   <p>Peu de constructions mais amplement suffisantes.</p>
+  <p>Enfin, la grammaire du langage PP est écrite … dans le langage PP ! Vous
+  pourrez la trouver dans le fichier
+  <code>hoa://Library/Compiler/Llk/Llk.pp</code>.</p>
 
   <h3 id="Processus_de_compilation" for="main-toc">Processus de compilation</h3>
 
@@ -412,15 +423,28 @@ rule:
   les noms des balises ouvrantes et fermantes du
   <a href="http://w3.org/TR/xml11/">langage XML</a>.</p>
 
-  <!--
-  hoa://Library/Compiler/Llk/Llk.pp
-  vim plugins
-  -->
+  <h3 id="Abstract_Syntax_Tree" for="main-toc"><em lang="en">Abstract Syntax
+  Tree</em></h3>
 
   <h3 id="Traces" for="main-toc">Traces</h3>
 
-  <h3 id="Abstract_Syntax_Tree" for="main-toc"><em lang="en">Abstract Syntax
-  Tree</em></h3>
+  <h3 id="Integration_avec_des_outils" for="main-toc">Intégration avec des
+  outils</h3>
+
+  <h4 id="Vim">Vim</h4>
+
+  <p>Le langage PP a été intégré à l'<a href="http://vim.org/">éditeur Vim</a>.
+  Nous trouverons tout ce qui est nécessaire dans le
+  <a href="http://hg.hoa-project.net/Util">dépôt <code>/Util</code></a> de Hoa.
+  Deux fichiers sont intéressants :</p>
+  <ul>
+    <li><code>.vim/syntax/pp.vim</code> pour le support de la syntaxe ;</li>
+    <li><code>.vim/colors/pp.vim</code> pour la colorisation syntaxique.</li>
+  </ul>
+
+  <h4 id="PHPStorm">PHPStorm</h4>
+
+  <p>À venir.</p>
 
   <h2 id="Compilateur_de_compilateur_LL1" for="main-toc menu-toc">Compilateur de
   compilateur LL(1)</h2>
