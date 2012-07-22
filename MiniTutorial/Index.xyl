@@ -55,7 +55,14 @@
   <p>Ce format d'archive est disponible
   <a href="@ll:chapter=Install#Installer_Hoa">parmi d'autres</a>, par ailleurs,
   l'archive est exécutable :</p>
-  <pre><code language="shell">$ mkdir -p /usr/local/lib/hoa
+  <tabs>
+    <tablist>
+      <tab for="tunix_execute_phar" selected="true">Unix</tab>
+      <tab for="twindows_execute_phar">Windows</tab>
+    </tablist>
+
+    <tabpanel id="tunix_execute_phar">
+      <pre><code language="shell">$ mkdir -p /usr/local/lib/hoa
 $ cd /usr/local/lib/hoa
 $ wget http://download.hoa-project.net/Central/Hoa.next.phar
 $ php Hoa.next.phar
@@ -68,6 +75,12 @@ Options :
     -e, - -extract   : Extract Hoa in the current directory.
     -h, - -help      : This help.
     -?, - -help      : This help.</code></pre>
+    </tabpanel>
+
+    <tabpanel id="twindows_execute_phar">
+      <pre><code language="shell">todo</code></pre>
+    </tabpanel>
+  </tabs>
   <p>Si le résultat obtenu n'est pas celui escompté, il faudra modifier le
   paramètre <code>detect_unicode</code> dans votre fichier
   <code>php.ini</code> pour le passer à <code>0</code>. Ou sinon,
@@ -79,15 +92,35 @@ Options :
   <p>Il est conseillé d'extraire Hoa avec l'option <code>-e</code> ou
   <code>--extract</code>. Cela va extraire Hoa au même niveau que
   l'archive :</p>
-  <pre><code language="shell">$ php Hoa.next.phar --extract
+  <tabs>
+    <tablist>
+      <tab for="tunix_extract_hoa" selected="true">Unix</tab>
+      <tab for="twindows_extract_hoa">Windows</tab>
+    </tablist>
+
+    <tabpanel id="tunix_extract_hoa">
+      <pre><code language="shell">$ php Hoa.next.phar --extract
 Extracted in /usr/local/lib/hoa</code></pre>
+    </tabpanel>
+
+    <tabpanel id="twindows_extract_hoa">
+      <pre><code language="shell">todo</code></pre>
+    </tabpanel>
+  </tabs>
 
   <h3 id="Creer_notre_application" for="main-toc">Créer notre application</h3>
 
   <p>Maintenant que Hoa est installé, nous allons pouvoir installer une
   application au moyen d'une autre archive Phar, celle de base pour l'aspect
   framework d'Hoa :</p>
-  <pre><code language="shell">$ cd ~/Development/GordonsApp/
+  <tabs>
+    <tablist>
+      <tab for="tunix_install_framework" selected="true">Unix</tab>
+      <tab for="twindows_install_framework">Windows</tab>
+    </tablist>
+
+    <tabpanel id="tunix_install_framework">
+      <pre><code language="shell">$ cd ~/Development/GordonsApp/
 $ wget http://download.hoa-project.net/Framework/Hoa_Framework.next.phar
 $ php Hoa_Framework.next.phar
 Usage   : Hoa_Framework.next.phar &amp;lt;options>
@@ -100,6 +133,12 @@ Options :
     -?, --help      : This help.
 $ php Hoa_Framework.next.phar --extract
 Extracted in ~/Development/GordonsApp</code></pre>
+    </tabpanel>
+
+    <tabpanel id="twindows_install_framework">
+      <pre><code language="shell">todo</code></pre>
+    </tabpanel>
+  </tabs>
 
   <p>Premier réflexe, nous allons préciser à l'application où se trouve Hoa en
   exécutant le scripts <code>whereishoa</code> (ou <code>whereishoa.bat</code>
@@ -118,7 +157,14 @@ Extracted in ~/Development/GordonsApp</code></pre>
   <code>Data/Core.link.php</code> agit comme un <strong>routeur</strong> vers
   Hoa ce qui nous évitera de devoir modifier notre application si nous déplaçons
   ou modifions Hoa.</p>
-  <pre><code language="shell">$ chmod u+x Data/Bin/whereishoa
+  <tabs>
+    <tablist>
+      <tab for="tunix_where_is_hoa" selected="true">Unix</tab>
+      <tab for="twindows_where_is_hoa">Windows</tab>
+    </tablist>
+
+    <tabpanel id="tunix_where_is_hoa">
+      <pre><code language="shell">$ chmod u+x Data/Bin/whereishoa
 $ Data/Bin/whereishoa
 ** Where is Hoa **
 
@@ -132,6 +178,12 @@ There we go [y/n]? y
 
 A very simple question: where is Hoa so?
 > /usr/local/lib/hoa▋</code></pre>
+    </tabpanel>
+
+    <tabpanel id="twindows_where_is_hoa">
+      <pre><code language="shell">todo</code></pre>
+    </tabpanel>
+  </tabs>
 
   <p>L'aspect framework fournit deux <strong>scripts</strong> qui étendent
   les deux scripts fournis par Hoa, à savoir <code>myapp</code> et
@@ -141,12 +193,26 @@ A very simple question: where is Hoa so?
   serveur HTTP (Bhoa), de quoi manipuler les configurations, la
   documentation, les tests etc.</p>
   <p>Pour se les approprier un peu plus, nous pouvons les renommer :</p>
-  <pre><code language="shell">$ chmod u+x Data/Bin/myapp
+  <tabs>
+    <tablist>
+      <tab for="tunix_rename_script" selected="true">Unix</tab>
+      <tab for="twindows_rename_script">Windows</tab>
+    </tablist>
+
+    <tabpanel id="tunix_rename_script">
+      <pre><code language="shell">$ chmod u+x Data/Bin/myapp
 $ Data/Bin/myapp
 // Homescreen.
 $ mv Data/Bin/myapp Data/Bin/gordonsapp
 $ Data/Bin/gordonsapp
 // Homescreen.</code></pre>
+    </tabpanel>
+
+    <tabpanel id="twindows_rename_script">
+      <pre><code language="shell">todo</code></pre>
+    </tabpanel>
+  </tabs>
+
   <p>Pour plus de facilités, nous pouvons placer notre dossier
   <code>Data/Bin/</code> dans le <code>$PATH</code> afin de pouvoir accéder
   à nos scripts depuis n'importe où sur le disque. Nous admettrons que
