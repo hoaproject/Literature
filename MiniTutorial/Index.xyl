@@ -46,7 +46,7 @@
   pour être installé une fois et être utilisé par plusieurs applications. Nous
   conseillons donc de l'installer dans le répertoire <code>/usr/local/lib/
   </code> qui est le répertoire habituel des bibliothèques utilisateur sous
-  Unix, ou son équivalent <code>C:\Program Files\Hoa\</code> sous Windows.</p>
+  Unix, ou son équivalent <code>C:\Program Files\</code> sous Windows.</p>
   <p>PHP fournit son propre système d'archive : <a
   href="http://php.net/phar">PHP Archive (Phar)</a>, afin de distribuer plus
   uniformément ses programmes écrits en PHP (ou avec d'autres langages). Ce
@@ -78,7 +78,20 @@ Options :
     </tabpanel>
 
     <tabpanel id="twindows_execute_phar">
-      <pre><code language="shell">todo</code></pre>
+      <pre><code language="shell">// dans une invite de commande démarrée en tant qu'Administrateur
+C:\> mkdir "Program Files\Hoa"
+C:\> cd "Program Files\Hoa"
+// télécharger le fichier http://download.hoa-project.net/Central/Hoa.next.phar dans le dossier courant
+C:\Program Files\Hoa> php Hoa.next.phar
+Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
+Options :
+    -m, - -metadata  : Print all metadata.
+    -t, - -test      : Test if Hoa is in this Phar.
+    -s, - -signature : Print signature.
+    -p, - -phar      : Phar informations.
+    -e, - -extract   : Extract Hoa in the current directory.
+    -h, - -help      : This help.
+    -?, - -help      : This help.</code></pre>
     </tabpanel>
   </tabs>
   <p>Si le résultat obtenu n'est pas celui escompté, il faudra modifier le
@@ -104,7 +117,8 @@ Extracted in /usr/local/lib/hoa</code></pre>
     </tabpanel>
 
     <tabpanel id="twindows_extract_hoa">
-      <pre><code language="shell">todo</code></pre>
+      <pre><code language="shell">C:\Program Files\Hoa> php Hoa.next.phar --extract
+Extracted in C:\Program Files\Hoa</code></pre>
     </tabpanel>
   </tabs>
 
@@ -136,7 +150,19 @@ Extracted in ~/Development/GordonsApp</code></pre>
     </tabpanel>
 
     <tabpanel id="twindows_install_framework">
-      <pre><code language="shell">todo</code></pre>
+      <pre><code language="shell">C:\> cd %UserProfile%\Development\GordonsApp\
+// télécharger le fichier http://download.hoa-project.net/Framework/Hoa_Framework.next.phar dans le dossier courant
+C:\Users\MyUser\Development\GordonsApp> Hoa_Framework.next.phar
+Usage   : Hoa_Framework.next.phar &amp;lt;options>
+Options :
+    -m, --metadata  : Print all metadata.
+    -s, --signature : Print signature.
+    -p, --phar      : Phar informations.
+    -e, --extract   : Extract application in the current directory.
+    -h, --help      : This help.
+    -?, --help      : This help.
+C:\Users\MyUser\Development\GordonsApp> php Hoa_Framework.next.phar --extract
+Extracted in C:\Users\MyUser\Development\GordonsApp</code></pre>
     </tabpanel>
   </tabs>
 
@@ -181,7 +207,19 @@ A very simple question: where is Hoa so?
     </tabpanel>
 
     <tabpanel id="twindows_where_is_hoa">
-      <pre><code language="shell">todo</code></pre>
+      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> .\Data\Bin\whereishoat.bat
+** Where is Hoa **
+
+Ready to redefine the path to Hoa?
+We need to redefine it in:
+  • the Core.link.php file;
+  • the configuration file;
+  • the configuration cache file.
+
+There we go [y/n]? y
+
+A very simple question: where is Hoa so?
+C:\Program Files\Hoa▋</code></pre>
     </tabpanel>
   </tabs>
 
@@ -209,14 +247,18 @@ $ Data/Bin/gordonsapp
     </tabpanel>
 
     <tabpanel id="twindows_rename_script">
-      <pre><code language="shell">todo</code></pre>
+      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> .\Data\Bin\myapp.bat
+// Homescreen.
+C:\Users\MyUser\Development\GordonsApp> move Data/Bin/myapp.bat Data/Bin/gordonsapp.bat
+C:\Users\MyUser\Development\GordonsApp> .\Data\Bin\gordonsapp.bat
+// Homescreen.</code></pre>
     </tabpanel>
   </tabs>
 
   <p>Pour plus de facilités, nous pouvons placer notre dossier
-  <code>Data/Bin/</code> dans le <code>$PATH</code> afin de pouvoir accéder
+  <code>Data/Bin/</code> dans le <code>PATH</code> afin de pouvoir accéder
   à nos scripts depuis n'importe où sur le disque. Nous admettrons que
-  <code>gordonsapp</code> est placé dans le <code>$PATH</code> pour les exemples
+  <code>gordonsapp</code> est placé dans le <code>PATH</code> pour les exemples
   de code suivants.</p>
 
   <h3 id="Tester_notre_nouvelle_application" for="main-toc">Tester notre nouvelle application</h3>
@@ -224,26 +266,64 @@ $ Data/Bin/gordonsapp
   <p>Pour tester l'application, un fichier de test existe déjà dans
   <code>Application/Public/</code>. Nous pourrons l'exécuter de plusieurs
   façons. La première, simplement avec PHP en ligne de commande :</p>
-  <pre><code language="shell">$ php Application/Public/index.php
+  <tabs>
+    <tablist>
+      <tab for="tunix_test_new_app" selected="true">Unix</tab>
+      <tab for="twindows_test_new_app">Windows</tab>
+    </tablist>
+    <tabpanel id="tunix_test_new_app">
+      <pre><code language="shell">$ php Application/Public/index.php
 Hello you! I'm your first Hoa-based application \o/.</code></pre>
+    </tabpanel>
+    <tabpanel id="twindows_test_new_app">
+      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> php Application\Public\index.php
+Hello you! I'm your first Hoa-based application \o/.</code></pre>
+    </tabpanel>
+  </tabs>
   <p>Mais il faut admettre que ce n'est pas très drôle. Nous pourrions alors
   nous aider de Bhoa, qui est un petit serveur HTTP embarqué réservé au
   développement (pas à la production !). Bhoa jouant le rôle de serveur HTTP,
   il a besoin de communiquer avec PHP qui lui se charge interpréter les pages.
   Bhoa utilise PHP FastCGI pour exécuter PHP, nous allons donc devoir le
   démarrer sur le port standard (9000) :</p>
-  <pre><code language="shell">$ php-cgi -b 127.0.0.1:9000&amp;amp;</code></pre>
+  <tabs>
+    <tablist>
+      <tab for="tunix_start_phpcgi" selected="true">Unix</tab>
+      <tab for="twindows_start_phpcgi">Windows</tab>
+    </tablist>
+    <tabpanel id="tunix_start_phpcgi">
+      <pre><code language="shell">$ php-cgi -b 127.0.0.1:9000&amp;amp;</code></pre>
+    </tabpanel>
+    <tabpanel id="twindows_start_phpcgi">
+      <pre><code language="shell">// dans une nouvelle invite de commande
+C:\> php-cgi -b 127.0.0.1:9000</code></pre>
+    </tabpanel>
+  </tabs>
   <p>Enfin, Hoa fournit une abstraction des chemins à travers le protocole
   <code>hoa://</code> qui propose le chemin
   <code>hoa://Application/Public/</code> pour accéder à notre dossier
   public. Nous allons utiliser ce chemin pour définir la racine du serveur ;
   ainsi :</p>
-  <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public/
+  <tabs>
+    <tablist>
+      <tab for="tunix_start_bhoa" selected="true">Unix</tab>
+      <tab for="twindows_start_bhoa">Windows</tab>
+    </tablist>
+    <tabpanel id="tunix_start_bhoa">
+      <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public/
 Server is up, on tcp://127.0.0.1:8888!
 Root: hoa://Application/Public/.
 
 Waiting for connection… ▋</code></pre>
+    </tabpanel>
+    <tabpanel id="twindows_start_bhoa">
+      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> gordonsapp bhoa --root hoa://Application/Public/
+Server is up, on tcp://127.0.0.1:8888!
+Root: hoa://Application/Public/.
 
+Waiting for connection… ▋</code></pre>
+    </tabpanel>
+  </tabs>
   <p>Par défaut Bhoa écoute le port 8888. Il faut des droits <code>root</code>
   pour écouter le port 80. En essayant de joindre la page <a
   href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a>, nous pourrons
@@ -259,7 +339,13 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
 
   <p>Prenons quelques minutes pour étudier l'architecture que l'on a
   déployé :</p>
-  <pre><code language="shell">$ gordonsapp tree --list-directory --depth 2
+  <tabs>
+    <tablist>
+      <tab for="tunix_tree" selected="true">Unix</tab>
+      <tab for="twindows_tree">Windows</tab>
+    </tablist>
+    <tabpanel id="tunix_tree">
+      <pre><code language="shell">$ gordonsapp tree --list-directory --depth 2
 ~/Development/GordonsApp/
 |-- Application/     — notre application
 |   |-- Public/      —   son dossier public (visible depuis l'extérieur)
@@ -270,7 +356,21 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
 |   |-- Module/      —   bibliothèques utilisateurs réservéees à l'application
 |   |-- Temporary/   —   fichiers et dossiers temporaires
 |   |-- Variable/    —   caches, bases de données, logs, tests …</code></pre>
-
+    </tabpanel>
+    <tabpanel id="twindows_tree">
+      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> gordonsapp tree --list-directory --depth 2
+~/Development/GordonsApp/
+|-- Application/     — notre application
+|   |-- Public/      —   son dossier public (visible depuis l'extérieur)
+|-- Data/            — données de l'application
+|   |-- Bin/         —   scripts (étend Hoa/Bin/)
+|   |-- Etc/         —   configurations, locales …
+|   |-- Lost+found/  —   perdus ou trouvés (toujours vide normalement !)
+|   |-- Module/      —   bibliothèques utilisateurs réservéees à l'application
+|   |-- Temporary/   —   fichiers et dossiers temporaires
+|   |-- Variable/    —   caches, bases de données, logs, tests …</code></pre>
+    </tabpanel>
+  </tabs>
   <p>Une application est réellement constituée de deux dossiers :
   <code>Application/</code> et <code>Data/</code> ; Hoa étant la plupart du
   temps, comme nous l'avons vu précédemment, placé autre part et référencé au
@@ -348,7 +448,18 @@ class Blog extends \Hoa\Dispatcher\Kit {
   routeur. Ainsi le paramètre <code>$id</code> est extrait grâce à la règle
   <code>(?&amp;amp;lt;id&amp;amp;gt;\d+)</code> de la route <code>a</code>.</p>
   <p>Nous allons maintenant tester notre application à l'aide de Bhoa :</p>
-  <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public</code></pre>
+  <tabs>
+    <tablist>
+      <tab for="tunix_start_bhoa_to_test_router" selected="true">Unix</tab>
+      <tab for="twindows_start_bhoa_to_test_router">Windows</tab>
+    </tablist>
+    <tabpanel id="tunix_start_bhoa_to_test_router">
+      <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public/</code></pre>
+    </tabpanel>
+    <tabpanel id="twindows_start_bhoa_to_test_router">
+      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> gordonsapp bhoa --root hoa://Application/Public/</code></pre>
+    </tabpanel>
+  </tabs>
   <p>Puis, à l'aide de cURL ou d'un navigateur, nous allons joindre
   <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a> :</p>
   <pre><code language="shell">$ curl 127.0.0.1:8888/
@@ -426,8 +537,19 @@ CREATE TABLE comment (
   <a href="http://sqlite.org/">SQLite</a> et sa commande <code>sqlite3</code> en
   étant préalablement placé dans le dossier
   <code>Data/Variable/Database/</code> :</p>
-  <pre><code language="shell">$ cd Data/Variable/Database
+  <tabs>
+    <tablist>
+      <tab for="tunix_init_database" selected="true">Unix</tab>
+      <tab for="twindows_init_database">Windows</tab>
+    </tablist>
+    <tabpanel id="tunix_init_database">
+      <pre><code language="shell">$ cd Data/Variable/Database
 $ sqlite3 -init Blog.sql -echo Blog.sqlite</code></pre>
+    </tabpanel>
+    <tabpanel id="twindows_init_database">
+      <pre><code language="shell">todo</code></pre>
+    </tabpanel>
+  </tabs>
   <p>Notre base de données est maintenant créée. Nous allons écrire le modèle
   correspondant.</p>
 
@@ -685,7 +807,18 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
 }</code></pre>
   <p>Enfin, nous allons tester notre application un peu plus enrichie ! Nous
   commençons par démarrer Bhoa :</p>
-  <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public</code></pre>
+  <tabs>
+    <tablist>
+      <tab for="tunix_start_bhoa_to_test_dispatcher" selected="true">Unix</tab>
+      <tab for="twindows_start_bhoa_to_test_dispatcher">Windows</tab>
+    </tablist>
+    <tabpanel id="tunix_start_bhoa_to_test_dispatcher">
+      <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public/</code></pre>
+    </tabpanel>
+    <tabpanel id="twindows_start_bhoa_to_test_dispatcher">
+      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> gordonsapp bhoa --root hoa://Application/Public/</code></pre>
+    </tabpanel>
+  </tabs>
   <p>À l'aide de cURL, nous allons afficher le résultat de notre index et d'un
   article :</p>
   <pre><code language="shell">$ curl 127.0.0.1:8888/
@@ -934,7 +1067,18 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
     echo 'Your page seems to be not found /o\.', "\n";
 }</code></pre>
   <p>Maintenant, utilisons Bhoa pour exécuter notre application :</p>
-  <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public</code></pre>
+  <tabs>
+    <tablist>
+      <tab for="tunix_start_bhoa_and_enjoy" selected="true">Unix</tab>
+      <tab for="twindows_start_bhoa_and_enjoy">Windows</tab>
+    </tablist>
+    <tabpanel id="tunix_start_bhoa_and_enjoy">
+      <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public/</code></pre>
+    </tabpanel>
+    <tabpanel id="twindows_start_bhoa_and_enjoy">
+      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> gordonsapp bhoa --root hoa://Application/Public/</code></pre>
+    </tabpanel>
+  </tabs>
   <p>Puis, depuis un navigateur en allant sur
   <a href="http://127.0.0.1:8888/"><code>127.0.0.1:8888</code></a>, nous verrons
   notre document rendu en HTML et plus précisément la liste des articles
