@@ -55,7 +55,7 @@
   <p>Ce format d'archive est disponible
   <a href="@ll:chapter=Install#Installer_Hoa">parmi d'autres</a>, par ailleurs,
   l'archive est exécutable :</p>
-  <tabs>
+  <tabs class="plain">
     <tablist>
       <tab for="tunix_execute_phar" selected="true">Unix</tab>
       <tab for="twindows_execute_phar">Windows</tab>
@@ -105,7 +105,7 @@ Options :
   <p>Il est conseillé d'extraire Hoa avec l'option <code>-e</code> ou
   <code>--extract</code>. Cela va extraire Hoa au même niveau que
   l'archive :</p>
-  <tabs>
+  <tabs class="plain">
     <tablist>
       <tab for="tunix_extract_hoa" selected="true">Unix</tab>
       <tab for="twindows_extract_hoa">Windows</tab>
@@ -127,7 +127,7 @@ Extracted in C:\Program Files\Hoa</code></pre>
   <p>Maintenant que Hoa est installé, nous allons pouvoir installer une
   application au moyen d'une autre archive Phar, celle de base pour l'aspect
   framework d'Hoa :</p>
-  <tabs>
+  <tabs class="plain">
     <tablist>
       <tab for="tunix_install_framework" selected="true">Unix</tab>
       <tab for="twindows_install_framework">Windows</tab>
@@ -183,7 +183,7 @@ Extracted in C:\Users\MyUser\Development\GordonsApp</code></pre>
   <code>Data/Core.link.php</code> agit comme un <strong>routeur</strong> vers
   Hoa ce qui nous évitera de devoir modifier notre application si nous déplaçons
   ou modifions Hoa.</p>
-  <tabs>
+  <tabs class="plain">
     <tablist>
       <tab for="tunix_where_is_hoa" selected="true">Unix</tab>
       <tab for="twindows_where_is_hoa">Windows</tab>
@@ -231,7 +231,7 @@ C:\Program Files\Hoa▋</code></pre>
   serveur HTTP (Bhoa), de quoi manipuler les configurations, la
   documentation, les tests etc.</p>
   <p>Pour se les approprier un peu plus, nous pouvons les renommer :</p>
-  <tabs>
+  <tabs class="plain">
     <tablist>
       <tab for="tunix_rename_script" selected="true">Unix</tab>
       <tab for="twindows_rename_script">Windows</tab>
@@ -266,7 +266,7 @@ C:\Users\MyUser\Development\GordonsApp> .\Data\Bin\gordonsapp.bat
   <p>Pour tester l'application, un fichier de test existe déjà dans
   <code>Application/Public/</code>. Nous pourrons l'exécuter de plusieurs
   façons. La première, simplement avec PHP en ligne de commande :</p>
-  <tabs>
+  <tabs class="plain">
     <tablist>
       <tab for="tunix_test_new_app" selected="true">Unix</tab>
       <tab for="twindows_test_new_app">Windows</tab>
@@ -286,7 +286,7 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
   il a besoin de communiquer avec PHP qui lui se charge interpréter les pages.
   Bhoa utilise PHP FastCGI pour exécuter PHP, nous allons donc devoir le
   démarrer sur le port standard (9000) :</p>
-  <tabs>
+  <tabs class="plain">
     <tablist>
       <tab for="tunix_start_phpcgi" selected="true">Unix</tab>
       <tab for="twindows_start_phpcgi">Windows</tab>
@@ -304,7 +304,7 @@ C:\> php-cgi -b 127.0.0.1:9000</code></pre>
   <code>hoa://Application/Public/</code> pour accéder à notre dossier
   public. Nous allons utiliser ce chemin pour définir la racine du serveur ;
   ainsi :</p>
-  <tabs>
+  <tabs class="plain">
     <tablist>
       <tab for="tunix_start_bhoa" selected="true">Unix</tab>
       <tab for="twindows_start_bhoa">Windows</tab>
@@ -339,7 +339,7 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
 
   <p>Prenons quelques minutes pour étudier l'architecture que l'on a
   déployé :</p>
-  <tabs>
+  <tabs class="plain">
     <tablist>
       <tab for="tunix_tree" selected="true">Unix</tab>
       <tab for="twindows_tree">Windows</tab>
@@ -448,7 +448,7 @@ class Blog extends \Hoa\Dispatcher\Kit {
   routeur. Ainsi le paramètre <code>$id</code> est extrait grâce à la règle
   <code>(?&amp;amp;lt;id&amp;amp;gt;\d+)</code> de la route <code>a</code>.</p>
   <p>Nous allons maintenant tester notre application à l'aide de Bhoa :</p>
-  <tabs>
+  <tabs class="plain">
     <tablist>
       <tab for="tunix_start_bhoa_to_test_router" selected="true">Unix</tab>
       <tab for="twindows_start_bhoa_to_test_router">Windows</tab>
@@ -537,7 +537,7 @@ CREATE TABLE comment (
   <a href="http://sqlite.org/">SQLite</a> et sa commande <code>sqlite3</code> en
   étant préalablement placé dans le dossier
   <code>Data/Variable/Database/</code> :</p>
-  <tabs>
+  <tabs class="plain">
     <tablist>
       <tab for="tunix_init_database" selected="true">Unix</tab>
       <tab for="twindows_init_database">Windows</tab>
@@ -807,7 +807,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
 }</code></pre>
   <p>Enfin, nous allons tester notre application un peu plus enrichie ! Nous
   commençons par démarrer Bhoa :</p>
-  <tabs>
+  <tabs class="plain">
     <tablist>
       <tab for="tunix_start_bhoa_to_test_dispatcher" selected="true">Unix</tab>
       <tab for="twindows_start_bhoa_to_test_dispatcher">Windows</tab>
@@ -1067,7 +1067,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
     echo 'Your page seems to be not found /o\.', "\n";
 }</code></pre>
   <p>Maintenant, utilisons Bhoa pour exécuter notre application :</p>
-  <tabs>
+  <tabs class="plain">
     <tablist>
       <tab for="tunix_start_bhoa_and_enjoy" selected="true">Unix</tab>
       <tab for="twindows_start_bhoa_and_enjoy">Windows</tab>
