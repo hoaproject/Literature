@@ -98,10 +98,25 @@ Options :
   paramètre <code>detect_unicode</code> dans votre fichier
   <code>php.ini</code> pour le passer à <code>0</code>. Ou sinon,
   directement :</p>
-  <pre><code language="shell">$ php -d detect_unicode=0 Hoa.next.phar
+  <tabs class="plain">
+    <tablist>
+      <tab for="tunix_detect_unicode" selected="true">Unix</tab>
+      <tab for="twindows_detect_unicode">Windows</tab>
+    </tablist>
+
+    <tabpanel id="tunix_detect_unicode">
+      <pre><code language="shell">$ php -d detect_unicode=0 Hoa.next.phar
 Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
 Options :
     …</code></pre>
+    </tabpanel>
+    <tabpanel id="twindows_detect_unicode">
+      <pre><code language="shell">> php -d detect_unicode=0 Hoa.next.phar
+Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
+Options :
+    …</code></pre>
+    </tabpanel>
+  </tabs>
   <p>Il est conseillé d'extraire Hoa avec l'option <code>-e</code> ou
   <code>--extract</code>. Cela va extraire Hoa au même niveau que
   l'archive :</p>
@@ -325,11 +340,25 @@ Waiting for connection… ▋</code></pre>
     </tabpanel>
   </tabs>
   <p>Par défaut Bhoa écoute le port 8888. Il faut des droits <code>root</code>
-  pour écouter le port 80. En essayant de joindre la page <a
-  href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a>, nous pourrons
+  pour écouter le port 80. Nous allons laisser Bhoa fonctionner durant tout le
+  développement en gardant la console qui l'exécute ouverte et en ouvrant une
+  nouvelle console pour la suite. En essayant de joindre la page
+  <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a>, nous pourrons
   lire le message de bienvenue :</p>
-  <pre><code language="shell">$ curl 127.0.0.1:8888
+  <tabs class="plain">
+    <tablist>
+      <tab for="tunix_curl_test" selected="true">Unix</tab>
+      <tab for="twindows_curl_test">Windows</tab>
+    </tablist>
+    <tabpanel id="tunix_curl_test">
+      <pre><code language="shell">$ curl 127.0.0.1:8888
 Hello you! I'm your first Hoa-based application \o/.</code></pre>
+    </tabpanel>
+    <tabpanel id="twindows_curl_test">
+      <pre><code language="shell">> curl 127.0.0.1:8888
+Hello you! I'm your first Hoa-based application \o/.</code></pre>
+    </tabpanel>
+  </tabs>
   <p>Note: par commodité nous utilisons <a href="http://curl.haxx.se/">cURL</a>
   pour voir le code source des pages générées. Il est bien sûr possible
   d'utiliser un navigateur web pour afficher ces même pages, comme nous
@@ -447,34 +476,51 @@ class Blog extends \Hoa\Dispatcher\Kit {
   <p>Nous voyons que nos actions reçoivent en argument les données extraites du
   routeur. Ainsi le paramètre <code>$id</code> est extrait grâce à la règle
   <code>(?&amp;amp;lt;id&amp;amp;gt;\d+)</code> de la route <code>a</code>.</p>
-  <p>Nous allons maintenant tester notre application à l'aide de Bhoa :</p>
+  <p>A l'aide de cURL ou d'un navigateur, nous allons joindre
+  <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a> :</p>
   <tabs class="plain">
     <tablist>
-      <tab for="tunix_start_bhoa_to_test_router" selected="true">Unix</tab>
-      <tab for="twindows_start_bhoa_to_test_router">Windows</tab>
+      <tab for="tunix_curl_article" selected="true">Unix</tab>
+      <tab for="twindows_curl_basic">Windows</tab>
     </tablist>
-    <tabpanel id="tunix_start_bhoa_to_test_router">
-      <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public/</code></pre>
-    </tabpanel>
-    <tabpanel id="twindows_start_bhoa_to_test_router">
-      <pre><code language="shell">> gordonsapp bhoa --root hoa://Application/Public/</code></pre>
-    </tabpanel>
-  </tabs>
-  <p>Puis, à l'aide de cURL ou d'un navigateur, nous allons joindre
-  <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a> :</p>
-  <pre><code language="shell">$ curl 127.0.0.1:8888/
+    <tabpanel id="tunix_curl_article">
+      <pre><code language="shell">$ curl 127.0.0.1:8888/
 Gordon's blog index
 $ curl 127.0.0.1:8888/article-1.html
 Article n°1
 $ curl 127.0.0.1:8888/article-42.html
 Article n°42</code></pre>
+    </tabpanel>
+    <tabpanel id="twindows_curl_basic">
+      <pre><code language="shell">> curl 127.0.0.1:8888/
+Gordon's blog index
+> curl 127.0.0.1:8888/article-1.html
+Article n°1
+> curl 127.0.0.1:8888/article-42.html
+Article n°42</code></pre>
+    </tabpanel>
+  </tabs>
   <p>Tout fonctionne bien ! Mais ce ne sera pas toujours le cas. Par exemple, si
   nous appelons une URI qui n'est pas comprise par le routeur, une erreur sera
   levée :</p>
-  <pre><code language="shell">$ curl 127.0.0.1:8888/foobar
+  <tabs class="plain">
+    <tablist>
+      <tab for="tunix_curl_wrong_uri" selected="true">Unix</tab>
+      <tab for="twindows_curl_wrong_uri">Windows</tab>
+    </tablist>
+    <tabpanel id="tunix_curl_wrong_uri">
+      <pre><code language="shell">$ curl 127.0.0.1:8888/foobar
 Uncaught exception (Hoa\Router\Exception\NotFound):
 Hoa\Router\Http::route(): (6) Cannot found an appropriated rule to route foobar.
 in hoa://Library/Router/Http.php at line 490.</code></pre>
+    </tabpanel>
+    <tabpanel id="twindows_curl_wrong_uri">
+      <pre><code language="shell">> curl 127.0.0.1:8888/foobar
+Uncaught exception (Hoa\Router\Exception\NotFound):
+Hoa\Router\Http::route(): (6) Cannot found an appropriated rule to route foobar.
+in hoa://Library/Router/Http.php at line 490.</code></pre>
+    </tabpanel>
+  </tabs>
   <p>Plus précisément, une exception de type
   <code>Hoa\Router\Exception\NotFound</code> sera levée lors du dispatche. Nous
   pouvons capturer cette exception et réagir en conséquence, par exemple en
@@ -489,9 +535,20 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
     echo 'Your page seems to be not found /o\.', "\n";
 }</code></pre>
   <p>L'exception affichée à l'utilisateur est remplacée par notre erreur :</p>
-  <pre><code language="shell">$ curl 127.0.0.1:8888/foobar
+  <tabs class="plain">
+    <tablist>
+      <tab for="tunix_curl_not_found" selected="true">Unix</tab>
+      <tab for="twindows_curl_not_found">Windows</tab>
+    </tablist>
+    <tabpanel id="tunix_curl_not_found">
+      <pre><code language="shell">$ curl 127.0.0.1:8888/foobar
 Your page seems to be not found /o\.</code></pre>
-
+    </tabpanel>
+    <tabpanel id="twindows_curl_not_found">
+      <pre><code language="shell">> curl 127.0.0.1:8888/foobar
+Your page seems to be not found /o\.</code></pre>
+    </tabpanel>
+  </tabs>
   <p>Le <a href="@ll:chapter=Routerdispatcher">chapitre Router + Dispatcher = ♥
   </a> du manuel d'apprentissage vous permettra de comprendre en détail ces
   deux outils.</p>
@@ -806,23 +863,16 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
 
     echo 'Your page seems to be not found /o\.', "\n";
 }</code></pre>
-  <p>Enfin, nous allons tester notre application un peu plus enrichie ! Nous
-  commençons par démarrer Bhoa :</p>
+  <p>Enfin, nous allons tester notre application un peu plus enrichie ! À l'aide
+  de cURL, nous allons afficher le résultat de notre index et d'un
+  article :</p>
   <tabs class="plain">
     <tablist>
-      <tab for="tunix_start_bhoa_to_test_dispatcher" selected="true">Unix</tab>
-      <tab for="twindows_start_bhoa_to_test_dispatcher">Windows</tab>
+      <tab for="tunix_curl_rich" selected="true">Unix</tab>
+      <tab for="twindows_curl_rich">Windows</tab>
     </tablist>
-    <tabpanel id="tunix_start_bhoa_to_test_dispatcher">
-      <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public/</code></pre>
-    </tabpanel>
-    <tabpanel id="twindows_start_bhoa_to_test_dispatcher">
-      <pre><code language="shell">> gordonsapp bhoa --root hoa://Application/Public/</code></pre>
-    </tabpanel>
-  </tabs>
-  <p>À l'aide de cURL, nous allons afficher le résultat de notre index et d'un
-  article :</p>
-  <pre><code language="shell">$ curl 127.0.0.1:8888/
+    <tabpanel id="tunix_curl_rich">
+      <pre><code language="shell">$ curl 127.0.0.1:8888/
 
                                ★ Gordon's blog ★
 
@@ -858,6 +908,46 @@ Nice work Gordon. Hope we will work together in a near future!
 Mummy • 19/12/1999
 I really donnot understand what you do but I am very proud of my
 little Gordy :-). xoxo, your Mummy.</code></pre>
+    </tabpanel>
+    <tabpanel id="twindows_curl_rich">
+      <pre><code language="shell">> curl 127.0.0.1:8888/
+
+                               ★ Gordon's blog ★
+
+Here is the list of all articles I have written:
+    #5 07/01/2001 — G-Man or the hard deal
+    #4 03/01/2001 — ping -f Nihilanth
+    #3 16/12/2000 — I think I have made a blunder at Black Mesa
+    #2 15/12/2000 — Great party in the Anomalous Materials department with
+                    collegues!
+    #1 05/05/2000 — Dr. Isaac Kleiner, my mentor, has hired me at Black Mesa
+                    Research Facility
+    #0 18/11/1999 — Call me Ph.D!
+
+> curl 127.0.0.1:8888/article-0.html
+
+                               ★ Gordon's blog ★
+
+Call me Ph.D!
+
+My thesis was accepted. What a long labor! Well, it is finally over. The harder
+part was to resume the title. You know, in Theoretical Physics, thesis have
+always very short and concise titles. Mine is quite simple; here it is:
+Observation of Einstein-Podolsky-Rosen Entanglement on Supraquantum Structures
+by Induction Through Nonlinear Transuranic Crystal of Extremely Long Wavelength
+(ELW) Pulse from Mode-Locked Source Array. I can gladly send you a copy if you
+want.
+
+                                  ----------
+
+Isaac Kleiner • 19/12/1999
+Nice work Gordon. Hope we will work together in a near future!
+
+Mummy • 19/12/1999
+I really donnot understand what you do but I am very proud of my
+little Gordy :-). xoxo, your Mummy.</code></pre>
+    </tabpanel>
+  </tabs>
   <p>Notre application exploite plusieurs <strong>couches</strong>. Nous avons
   les <strong>données</strong> qui sont stockées dans une base de données. Notre
   <strong>abstraction</strong> avec <code>Hoa\Database\Dal</code> et une
@@ -1067,20 +1157,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
 
     echo 'Your page seems to be not found /o\.', "\n";
 }</code></pre>
-  <p>Maintenant, utilisons Bhoa pour exécuter notre application :</p>
-  <tabs class="plain">
-    <tablist>
-      <tab for="tunix_start_bhoa_and_enjoy" selected="true">Unix</tab>
-      <tab for="twindows_start_bhoa_and_enjoy">Windows</tab>
-    </tablist>
-    <tabpanel id="tunix_start_bhoa_and_enjoy">
-      <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public/</code></pre>
-    </tabpanel>
-    <tabpanel id="twindows_start_bhoa_and_enjoy">
-      <pre><code language="shell">> gordonsapp bhoa --root hoa://Application/Public/</code></pre>
-    </tabpanel>
-  </tabs>
-  <p>Puis, depuis un navigateur en allant sur
+  <p>Depuis un navigateur en allant sur
   <a href="http://127.0.0.1:8888/"><code>127.0.0.1:8888</code></a>, nous verrons
   notre document rendu en HTML et plus précisément la liste des articles
   présents sur le blog. De même en allant sur
