@@ -79,10 +79,10 @@ Options :
 
     <tabpanel id="twindows_execute_phar">
       <pre><code language="shell">// dans une invite de commande démarrée en tant qu'Administrateur
-C:\> mkdir "Program Files\Hoa"
-C:\> cd "Program Files\Hoa"
-// télécharger le fichier http://download.hoa-project.net/Central/Hoa.next.phar dans le dossier courant
-C:\Program Files\Hoa> php Hoa.next.phar
+> mkdir "Program Files\Hoa"
+> cd "Program Files\Hoa"
+// télécharger http://download.hoa-project.net/Central/Hoa.next.phar
+> php Hoa.next.phar
 Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
 Options :
     -m, - -metadata  : Print all metadata.
@@ -117,7 +117,7 @@ Extracted in /usr/local/lib/hoa</code></pre>
     </tabpanel>
 
     <tabpanel id="twindows_extract_hoa">
-      <pre><code language="shell">C:\Program Files\Hoa> php Hoa.next.phar --extract
+      <pre><code language="shell">> php Hoa.next.phar --extract
 Extracted in C:\Program Files\Hoa</code></pre>
     </tabpanel>
   </tabs>
@@ -150,9 +150,9 @@ Extracted in ~/Development/GordonsApp</code></pre>
     </tabpanel>
 
     <tabpanel id="twindows_install_framework">
-      <pre><code language="shell">C:\> cd %UserProfile%\Development\GordonsApp\
-// télécharger le fichier http://download.hoa-project.net/Framework/Hoa_Framework.next.phar dans le dossier courant
-C:\Users\MyUser\Development\GordonsApp> Hoa_Framework.next.phar
+      <pre><code language="shell">> cd %UserProfile%\Development\GordonsApp\
+// télécharger http://download.hoa-project.net/Framework/Hoa_Framework.next.phar
+> php Hoa_Framework.next.phar
 Usage   : Hoa_Framework.next.phar &amp;lt;options>
 Options :
     -m, --metadata  : Print all metadata.
@@ -161,7 +161,7 @@ Options :
     -e, --extract   : Extract application in the current directory.
     -h, --help      : This help.
     -?, --help      : This help.
-C:\Users\MyUser\Development\GordonsApp> php Hoa_Framework.next.phar --extract
+> php Hoa_Framework.next.phar --extract
 Extracted in C:\Users\MyUser\Development\GordonsApp</code></pre>
     </tabpanel>
   </tabs>
@@ -207,7 +207,7 @@ A very simple question: where is Hoa so?
     </tabpanel>
 
     <tabpanel id="twindows_where_is_hoa">
-      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> .\Data\Bin\whereishoat.bat
+      <pre><code language="shell">> .\Data\Bin\whereishoa.bat
 ** Where is Hoa **
 
 Ready to redefine the path to Hoa?
@@ -247,10 +247,10 @@ $ Data/Bin/gordonsapp
     </tabpanel>
 
     <tabpanel id="twindows_rename_script">
-      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> .\Data\Bin\myapp.bat
+      <pre><code language="shell">> .\Data\Bin\myapp.bat
 // Homescreen.
-C:\Users\MyUser\Development\GordonsApp> move Data/Bin/myapp.bat Data/Bin/gordonsapp.bat
-C:\Users\MyUser\Development\GordonsApp> .\Data\Bin\gordonsapp.bat
+> move Data/Bin/myapp.bat Data/Bin/gordonsapp.bat
+> .\Data\Bin\gordonsapp.bat
 // Homescreen.</code></pre>
     </tabpanel>
   </tabs>
@@ -276,7 +276,7 @@ C:\Users\MyUser\Development\GordonsApp> .\Data\Bin\gordonsapp.bat
 Hello you! I'm your first Hoa-based application \o/.</code></pre>
     </tabpanel>
     <tabpanel id="twindows_test_new_app">
-      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> php Application\Public\index.php
+      <pre><code language="shell">> php Application\Public\index.php
 Hello you! I'm your first Hoa-based application \o/.</code></pre>
     </tabpanel>
   </tabs>
@@ -296,7 +296,7 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
     </tabpanel>
     <tabpanel id="twindows_start_phpcgi">
       <pre><code language="shell">// dans une nouvelle invite de commande
-C:\> php-cgi -b 127.0.0.1:9000</code></pre>
+> php-cgi -b 127.0.0.1:9000</code></pre>
     </tabpanel>
   </tabs>
   <p>Enfin, Hoa fournit une abstraction des chemins à travers le protocole
@@ -317,7 +317,7 @@ Root: hoa://Application/Public/.
 Waiting for connection… ▋</code></pre>
     </tabpanel>
     <tabpanel id="twindows_start_bhoa">
-      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> gordonsapp bhoa --root hoa://Application/Public/
+      <pre><code language="shell">> gordonsapp bhoa --root hoa://Application/Public/
 Server is up, on tcp://127.0.0.1:8888!
 Root: hoa://Application/Public/.
 
@@ -358,7 +358,7 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
 |   |-- Variable/    —   caches, bases de données, logs, tests …</code></pre>
     </tabpanel>
     <tabpanel id="twindows_tree">
-      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> gordonsapp tree --list-directory --depth 2
+      <pre><code language="shell">> gordonsapp tree --list-directory --depth 2
 ~/Development/GordonsApp/
 |-- Application/     — notre application
 |   |-- Public/      —   son dossier public (visible depuis l'extérieur)
@@ -457,7 +457,7 @@ class Blog extends \Hoa\Dispatcher\Kit {
       <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public/</code></pre>
     </tabpanel>
     <tabpanel id="twindows_start_bhoa_to_test_router">
-      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> gordonsapp bhoa --root hoa://Application/Public/</code></pre>
+      <pre><code language="shell">> gordonsapp bhoa --root hoa://Application/Public/</code></pre>
     </tabpanel>
   </tabs>
   <p>Puis, à l'aide de cURL ou d'un navigateur, nous allons joindre
@@ -547,7 +547,8 @@ CREATE TABLE comment (
 $ sqlite3 -init Blog.sql -echo Blog.sqlite</code></pre>
     </tabpanel>
     <tabpanel id="twindows_init_database">
-      <pre><code language="shell">todo</code></pre>
+      <pre><code language="shell">> cd Data\Variable\Database
+> sqlite3 -init Blog.sql -echo Blog.sqlite</code></pre>
     </tabpanel>
   </tabs>
   <p>Notre base de données est maintenant créée. Nous allons écrire le modèle
@@ -816,7 +817,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
       <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public/</code></pre>
     </tabpanel>
     <tabpanel id="twindows_start_bhoa_to_test_dispatcher">
-      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> gordonsapp bhoa --root hoa://Application/Public/</code></pre>
+      <pre><code language="shell">> gordonsapp bhoa --root hoa://Application/Public/</code></pre>
     </tabpanel>
   </tabs>
   <p>À l'aide de cURL, nous allons afficher le résultat de notre index et d'un
@@ -1076,7 +1077,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
       <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public/</code></pre>
     </tabpanel>
     <tabpanel id="twindows_start_bhoa_and_enjoy">
-      <pre><code language="shell">C:\Users\MyUser\Development\GordonsApp> gordonsapp bhoa --root hoa://Application/Public/</code></pre>
+      <pre><code language="shell">> gordonsapp bhoa --root hoa://Application/Public/</code></pre>
     </tabpanel>
   </tabs>
   <p>Puis, depuis un navigateur en allant sur
