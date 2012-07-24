@@ -156,13 +156,9 @@ $dns->run();</code></pre>
   <checkpoint class="sticky" style="padding-top: 340px">
   <div id="overview" class="verbatim schema"><div></div></div>
   <script>
-  var paper = null;
-  document.onreadystatechange = function ( ) {
+  Hoa.Document.onReady(function ( ) {
 
-      if('complete' !== document.readyState)
-          return;
-
-      paper        = Hoa.Graph(Hoa.$('#overview div'), 800, 300);
+      var paper    = Hoa.Graph(Hoa.$('#overview div'), 800, 300);
       var grid     = paper.grid(0, 0, 800, 300, 3, 3);
       var client   = grid.push(paper.rect(0, 0, 120, 290, 3, 'client'),       0, 1);
       var resolver = grid.push(paper.rect(0, 0, 170,  90, 3, 'résolveur'),    1, 0);
@@ -177,7 +173,7 @@ $dns->run();</code></pre>
       var l3       = paper.link.between(client, http, '127.0.0.1:8888');
       l3.text.move('+20', '+0');
       paper.link.between(http, index);
-  };
+  });
   </script>
   <p>Pour tester et s'amuser, nous allons <strong>créer</strong> un fichier
   <code>/tmp/index.html</code> contenant :</p>
