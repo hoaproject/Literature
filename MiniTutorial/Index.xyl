@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <overlay xmlns="http://hoa-project.net/xyl/xylophone">
-  <article id="content">
+<yield id="yContent">
 
   <h1 id="Mini_tutoriel">Mini-tutoriel</h1>
 
@@ -1198,5 +1198,5 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
   manuel d'apprentissage</a> avec des exemples détaillés. Le
   <em>Gordon's blog</em> est l'exemple fil rouge du manuel d'apprentissage.</p>
 
-  </article>
+</yield>
 </overlay>
