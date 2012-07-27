@@ -69,8 +69,10 @@
   l'adresse IP correspondante, ou sinon il cherchera un autre résolveur. Une
   fois l'adresse IP trouvée, les requêtes pourront être acheminées
   correctement.</p>
-  <p>Enfin, le protocole DNS fonctionne en UDP ou TCP sur le port 53, selon la
-  <a href="https://tools.ietf.org/html/rfc768">RFC768</a>.</p>
+  <p>Enfin, le protocole DNS fonctionne en UDP ou TCP sur le port 53,
+  respectivement selon la
+  <a href="https://tools.ietf.org/html/rfc768">RFC768</a> et
+  <a href="https://tools.ietf.org/html/rfc793">RFC793</a>.</p>
 
   <h2 id="Resoudre_ses_propres_noms_de_domaines" for="main-toc menu-toc">Résoudre
   ses propres noms de domaines</h2>
