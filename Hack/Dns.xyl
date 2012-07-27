@@ -60,7 +60,7 @@
     <li>etc.</li>
   </ul>
   <p>La <a href="http://www.iana.org/assignments/dns-parameters">liste complète
-  des types de domaines</a> est maintenue par
+  des types d'enregistrement</a> est maintenue par
   l'<a href="http://iana.org">IANA</a>, qui est l'organisme responsable de la
   gestion de l'espace d'adressage IP et autres protocoles. L'ensemble du
   protocole DNS est spécifié dans la
@@ -69,7 +69,7 @@
   l'adresse IP correspondante, ou sinon il cherchera un autre résolveur. Une
   fois l'adresse IP trouvée, les requêtes pourront être acheminées
   correctement.</p>
-  <p>Enfin, le protocole DNS fonctionne en UDP sur le port 53, selon la
+  <p>Enfin, le protocole DNS fonctionne en UDP ou TCP sur le port 53, selon la
   <a href="https://tools.ietf.org/html/rfc768">RFC768</a>.</p>
 
   <h2 id="Resoudre_ses_propres_noms_de_domaines" for="main-toc menu-toc">Résoudre
