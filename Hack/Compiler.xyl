@@ -153,7 +153,7 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
   <pre><code></code></pre>
 
   <h2 id="Compilateur_de_compilateur_LLk" for="main-toc">Compilateur de
-  compilateur LL(k)</h2>
+  compilateur LL(<em>k</em>)</h2>
 
   <p>Écrire des compilateurs est une tâche <strong>laborieuse</strong>. Ce n'est
   pas forcément toujours difficile mais souvent répétitif et long. C'est
@@ -426,7 +426,336 @@ rule:
   <h3 id="Abstract_Syntax_Tree" for="main-toc"><em lang="en">Abstract Syntax
   Tree</em></h3>
 
+  <p>Chaque nœud de l'arbre syntaxique abstrait est représenté par la classe
+  <code>Hoa\Compiler\Llk\TreeNode</code>. Parmis les méthodes utiles, nous
+  trouvons :</p>
+  <ul>
+    <li><code>getId</code> pour obtenir l'identifiant du nœud ;</li>
+    <li><code>getValueToken</code> pour obtenir le nom du lexème ;</li>
+    <li><code>getValueValue</code> pour obtenir la valeur du lexème ;</li>
+    <li><code>isToken</code> si le nœud représente un lexème ;</li>
+    <li><code>getChild(<em>$i</em>)</code> pour obtenir le
+    <code><em>$i</em></code>-ème enfant d'un nœud ;</li>
+    <li><code>getChildren</code> pour obtenir tous les nœuds ;</li>
+    <li><code>getChildrenNumber</code> pour connaître le nombre d'enfants ;</li>
+    <li><code>getData</code> pour obtenir une référence vers un tableau de
+    données ;</li>
+    <li><code>accept</code> pour appliquer un visiteur.</li>
+  </ul>
+  <p>Les visiteurs sont le moyen le plus pratique pour parcourir un AST. En
+  guise d'exemple, nous allons écrire le visiteur <code>PrettyPrinter</code> qui
+  va réécrire une donnée JSON avec notre propre convention (espacements, retours
+  à la ligne etc.). Un visiteur doit étendre l'interface
+  <code>Hoa\Visitor\Visit</code> et n'aura qu'une seule méthode à implémenter :
+  <code>visit</code> qui prend trois arguments : l'élément et deux arguments
+  accessoires (en copie et en référence). Voyons plutôt :</p>
+  <pre><code language="php">class PrettyPrinter implements Hoa\Visitor\Visit {
+
+    public function visit ( Hoa\Visitor\Element $element,
+                            &amp;amp;$handle = null, $eldnah = null ) {
+
+        static $i      = 0;
+        static $indent = '    ';
+
+        // One behaviour per node in the AST.
+        $nodeId = $element->getId();
+
+        switch($nodeId) {
+
+            // Object: { … }.
+            case '#object':
+                echo '{', "\n";
+                ++$i;
+
+                foreach($element->getChildren() as $e => $child) {
+
+                    if(0 &amp;lt; $e)
+                        echo ',', "\n";
+
+                    echo str_repeat($indent, $i);
+                    $child->accept($this, $handle, $eldnah);
+                }
+
+                echo "\n", str_repeat($indent, --$i), '}';
+              break;
+
+            // Array: [ … ].
+            case '#array':
+                echo '[', "\n";
+                ++$i;
+
+                foreach($element->getChildren() as $e => $child) {
+
+                    if(0 &amp;lt; $e)
+                        echo ',', "\n";
+
+                    echo str_repeat($indent, $i);
+                    $child->accept($this, $handle, $eldnah);
+                }
+
+                echo "\n", str_repeat($indent, --$i), ']';
+              break;
+
+            // Pair: "…": ….
+            case '#pair':
+                echo $element->getChild(0)->accept($this, $handle, $eldnah),
+                     ': ',
+                     $element->getChild(1)->accept($this, $handle, $eldnah);
+              break;
+
+            // Many tokens.
+            case 'token':
+                switch($element->getValueToken()) {
+
+                    // String: "…".
+                    case 'string':
+                        echo '"', $element->getValueValue(), '"';
+                      break;
+
+                    // Booleans.
+                    case 'true':
+                    case 'false':
+
+                    // Null.
+                    case 'null':
+
+                    // Number.
+                    case 'number':
+                        echo $element->getValueValue();
+                      break;
+                }
+              break;
+        }
+    }
+}</code></pre>
+  <p>Nous allons voir tout de suite un exemple d'utilisation :</p>
+  <pre><code language="php">$compiler    = Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp'));
+$ast         = $compiler->parse('{"foo": true, "bar": [null, 42]}');
+$prettyPrint = new PrettyPrinter();
+echo $prettyPrint->visit($ast);
+
+/**
+ * Will output:
+ *     {
+ *         "foo": true,
+ *         "bar": [
+ *             null,
+ *             42
+ *         ]
+ *     }
+ */</code></pre>
+  <p>La méthode <code>getData</code> est très pratique pour stocker des données
+  susceptibles d'être réutiliser : par exemple d'un visiteur à l'autre. Cette
+  méthode retourne une référence sur un tableau ; ainsi :</p>
+  <pre><code language="php">$data = $element->getData();
+
+if(!isset($data['previousComputing']))
+    throw new Exception('Need a previous computing.', 0);
+
+$previous = $data['previousComputing'];</code></pre>
+  <p>Il est courant d'utiliser un visiteur par contrainte : vérifiation des
+  symboles, vérification de types etc. Certains peuvent laisser des données
+  nécessaires pour le suivant. La méthode <code>getData</code> n'impose aucune
+  structuration des données, elle propose uniquement un accès à un tableau. Ce
+  sera à vous de faire le reste.</p>
+  <p>Utiliser la classe <code>Hoa\Compiler\Llk\TreeNode</code> est vraiment
+  trivial et nous l'utiliserons à la plupart du temps à travers un visiteur.</p>
+
   <h3 id="Traces" for="main-toc">Traces</h3>
+
+  <p>Le compilateur LL(<em>k</em>) que propose Hoa est clairement découpé en
+  plusieurs couches. Chaque couche est exploitable pour permettre une modularité
+  maximum. Quand la grammaire est traduite en « règles machines » et que les
+  analyseur lexical et syntaxique ont validé une donnée, il en résulte une
+  trace. Cette trace est un tableau composé de trois classes seulement :</p>
+  <ul>
+    <li><code>Hoa\Compiler\Llk\Rule\Entry</code> quand l'analyseur syntaxique
+    est rentré dans une règle ;</li>
+    <li><code>Hoa\Compiler\Llk\Rule\Ekzit</code> quand l'analyseur syntaxique
+    est sortie d'une règle ;</li>
+    <li><code>Hoa\Compiler\Llk\Rule\Token</code> quand l'analyseur syntaxique a
+    rencontré un lexème.</li>
+  </ul>
+  <p>Pour bien comprendre cette trace, nous allons commencer par un
+  exemple :</p>
+  <pre><code language="php">$compiler = Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp'));
+$ast      = $compiler->parse('{"foo": true, "bar": [null, 42]}');
+$i        = 0;
+
+foreach($compiler->getTrace() as $trace)
+    if($trace instanceof Hoa\Compiler\Llk\Rule\Entry)
+        echo str_repeat('>   ', $i++), 'enter ', $trace->getRule(), "\n";
+
+    elseif($trace instanceof Hoa\Compiler\Llk\Rule\Token)
+        echo str_repeat('    ', $i), 'token ', $trace->getTokenName(),
+             ', consumed ', $trace->getValue(), "\n";
+
+    else
+        echo str_repeat('&amp;lt;   ', --$i), 'ekzit ', $trace->getRule(), "\n";
+
+/**
+ * Will output:
+ *     enter value
+ *     >   enter object
+ *             token brace_, consumed {
+ *     >   >   enter pair
+ *     >   >   >   enter string
+ *                     token quote_, consumed "
+ *                     token string, consumed foo
+ *                     token _quote, consumed "
+ *     &amp;lt;   &amp;lt;   &amp;lt;   ekzit string
+ *                 token colon, consumed :
+ *     >   >   >   enter value
+ *                     token true, consumed true
+ *     &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
+ *     &amp;lt;   &amp;lt;   ekzit pair
+ *     >   >   enter 13
+ *     >   >   >   enter 12
+ *                     token comma, consumed ,
+ *     >   >   >   >   enter pair
+ *     >   >   >   >   >   enter string
+ *                             token quote_, consumed "
+ *                             token string, consumed bar
+ *                             token _quote, consumed "
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit string
+ *                         token colon, consumed :
+ *     >   >   >   >   >   enter value
+ *     >   >   >   >   >   >   enter array
+ *                                 token bracket_, consumed [
+ *     >   >   >   >   >   >   >   enter value
+ *                                     token null, consumed null
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
+ *     >   >   >   >   >   >   >   enter 21
+ *     >   >   >   >   >   >   >   >   enter 20
+ *                                         token comma, consumed ,
+ *     >   >   >   >   >   >   >   >   >   enter value
+ *                                             token number, consumed 42
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit 20
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit 21
+ *                                 token _bracket, consumed ]
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit array
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit pair
+ *     &amp;lt;   &amp;lt;   &amp;lt;   ekzit 12
+ *     &amp;lt;   &amp;lt;   ekzit 13
+ *             token _brace, consumed }
+ *     &amp;lt;   ekzit object
+ *     ekzit value
+ */</code></pre>
+  <p>Cet exemple nous rélève plusieurs choses. Tout d'abord, les informations
+  que nous donnes la trace peuvent utiles : si nous sommes sur une règle, nous
+  avons son nom (avec la méthode <code>getRule</code>), et si nous sommes sur un
+  lexème, nous avons son nom (avec la méthode <code>getTokenName</code>), sa
+  représentation (sous la forme d'une PCRE, avec la méthode
+  <code>getRepresentation</code>), sa valeur (avec la méthode
+  <code>getValue</code>), si c'est un nœud à conserver dans l'AST (avec la
+  méthode <code>isKept</code> et son index d'unification s'il existe (avec la
+  méthode <code>getUnificationIndex</code>. Bien sûr, tout ceci est modifiable,
+  ce qui peut influencer la construction de l'AST qui est le processus
+  (optionnel) suivant.</p>
+  <p>Ensuite, nous remarquons que parfois nous entrons dans une règle qui existe
+  dans la grammaire, comme <code>object</code>, <code>pair</code>,
+  <code>value</code> etc., et parfois nous entrons dans une règle numérique,
+  comme <code>13</code>, <code>12</code>, <code>21</code>, <code>20</code>
+  etc. Quand la grammaire est interprétée pour être transformée en « règles
+  machines », chacune de ses règles est décomposée en opération unaire ou
+  binaire selon les opérateurs du langage PP :</p>
+  <ul>
+    <li><code>Hoa\Compiler\Llk\Rule\Choice</code> pour une disjonction ;</li>
+    <li><code>Hoa\Compiler\Llk\Rule\Concatenation</code> pour une
+    concaténation ;</li>
+    <li><code>Hoa\Compiler\Llk\Rule\Repetition</code> pour une répétition ;</li>
+    <li><code>Hoa\Compiler\Llk\Rule\Token</code> pour un lexème (déjà vu
+    précédemment).</li>
+  </ul>
+  <p>Toutes les règles sous ce format sont accessibles à travers la méthode
+  <code>Hoa\Compiler\Llk\Parser::getRules</code> sous la forme d'un
+  tableau :</p>
+  <pre><code language="php">$compiler = Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp'));
+$ast      = $compiler->parse('{"foo": true, "bar": [null, 42]}');
+$rules    = $compiler->getRules();
+$stack    = array($compiler->getRootRule() => true);
+reset($stack);
+
+while(false !== current($stack)) {
+
+    $rule = key($stack);
+    next($stack);
+    echo "\n", '"', $rule, '" is a ',
+         strtolower(substr(get_class($rules[$rule]), 22));
+
+    $subrules = $rules[$rule]->getContent();
+
+    if(null === $subrules)
+        continue;
+
+    echo ' of rules: ';
+
+    foreach((array) $rules[$rule]->getContent() as $subrule) {
+
+        if(!array_key_exists($subrule, $stack))
+            $stack[$subrule] = true;
+
+        echo $subrule, ' ';
+    }
+}
+
+/**
+ * Will output:
+ *     "value" is a choice of rules: 1 2 3 string object array number 
+ *     "1" is a token
+ *     "2" is a token
+ *     "3" is a token
+ *     "string" is a concatenation of rules: 5 6 7 
+ *     "object" is a concatenation of rules: 10 pair 13 14 
+ *     "array" is a concatenation of rules: 18 value 21 22 
+ *     "number" is a token
+ *     "5" is a token
+ *     "6" is a token
+ *     "7" is a token
+ *     "10" is a token
+ *     "pair" is a concatenation of rules: string 16 value 
+ *     "13" is a repetition of rules: 12 
+ *     "14" is a token
+ *     "18" is a token
+ *     "21" is a repetition of rules: 20 
+ *     "22" is a token
+ *     "16" is a token
+ *     "12" is a concatenation of rules: 11 pair 
+ *     "20" is a concatenation of rules: 19 value 
+ *     "11" is a token
+ *     "19" is a token
+ */</code></pre>
+  <p>Si nous lisons la règle <code>object</code>, nous savons que c'est la
+  concaténation des règles <code>10</code>, <code>pair</code>, <code>13</code>
+  et <code>14</code>. <code>10</code> est un lexème, <code>pair</code> est la
+  concaténation des règles <code>string</code>, <code>16</code> et
+  <code>value</code>, et ainsi de suite. La grammaire initiale est transformée
+  pour être sous sa forme la plus réduite possible. Ceci permet de raisonner
+  beaucoup plus facilement et rapidement sur les règles.</p>
+  <p>En effet, les traitements sur la grammaire ne sont pas réservées au AST. À
+  l'étape précédente, avec la trace, nous pouvons faire des traitements, comme
+  par exemple la génération de données.</p>
+
+  <h3 id="Validation_et_generation" for="main-toc">Validation et génération</h3>
+
+  <p>Une grammaire peut être utile pour deux objectifs : valider une donnée
+  (si nous la voyons comme un automate) ou générer des données. Jusqu'à présent,
+  nous avons vu comment valider une donnée à travers plusieurs processus :
+  préparation de notre compilateur, exécution des analyseurs lexical et
+  syntaxique résultant sur une trace, transformation de la trace vers un AST
+  pour enfin visiter cet arbre. Mais nous pouvons nous arrêter à la première
+  étape, la préparation de notre compilateur, pour exploiter les règles afin de
+  générer une donnée qui sera valide par rapport à notre grammaire.</p>
+  <p><code>Hoa\Compiler\Llk\Sampler</code> propose trois algorithmes de
+  générations de données :</p>
+  <ul>
+    <li>génération aléatoire ;</li>
+    <li>génération exhaustive bornée ;</li>
+    <li>génération basée sur la couverture.</li>
+  </ul>
+  <p>Blabla</p>
 
   <h3 id="Integration_avec_des_outils" for="main-toc">Intégration avec des
   outils</h3>
@@ -448,6 +777,13 @@ rule:
 
   <h2 id="Compilateur_de_compilateur_LL1" for="main-toc">Compilateur de
   compilateur LL(1)</h2>
+
+  <p>La documentation pour le compilateur LL(1), à travers la classe
+  <code>Hoa\Compiler\Ll1</code> n'est pas encore documentée.  L'objectif est
+  différent de <code>Hoa\Compiler\Llk</code> : il n'existe pas de langage
+  intermédiaire, les automates sont codés en dur avec des tableaux et ce type de
+  compilateurs est orienté haute performance. C'est pourquoi son comportement
+  est monolothique.</p>
 
   <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
