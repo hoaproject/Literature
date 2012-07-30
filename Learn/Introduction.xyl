@@ -4,7 +4,7 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
-<h1 id="Introduction">Manuel d'apprentissage<title_break />Introduction</h1>
+  <h1 id="Introduction">Manuel d'apprentissage<title_break />Introduction</h1>
 
   <ul class="prev_next">
     <li><a href="@l"><previous_chapter /> Sommaire</a></li>
@@ -27,11 +27,11 @@
   <strong>sécurisées</strong>, <strong>innovantes</strong> et respectueuses des
   <strong>standards</strong>.</p>
 
-  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+  <h2 id="Table_des_matieres">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Contributions" for="main-toc menu-toc">Contributions</h2>
+  <h2 id="Contributions" for="main-toc">Contributions</h2>
 
   <p>Un projet comme Hoa peut s'aborder de plusieurs façons. Un excellent point
   de départ est le manuel d'apprentissage, qui permet de faire connaissance
@@ -44,7 +44,7 @@
   tutoriels ou d'exercices, afin de mieux guider la lectrice ou le lecteur dans
   sa découverte de Hoa.</p>
 
-  <h2 id="Modus_operandi" for="main-toc menu-toc"><em>Modus operandi</em></h2>
+  <h2 id="Modus_operandi" for="main-toc"><em>Modus operandi</em></h2>
 
   <p>Le manuel d'apprentissage est organisé en chapitre. Chaque chapitre
   représente un concept que Hoa introduit dans PHP ou que Hoa propose. Il est
@@ -58,7 +58,7 @@
     <li><a href="@l"><previous_chapter /> Sommaire</a></li>
     <li><a href="@ll:chapter=Discover">À la découverte de Hoa
         <next_chapter /></a></li>
-</ul>
+  </ul>
 
 </yield>
 </definition>

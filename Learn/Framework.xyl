@@ -17,11 +17,11 @@
   application</strong> basée sur Hoa, en ré-utilisant tous les outils et
   automatismes à notre disposition.</p>
 
-  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+  <h2 id="Table_des_matieres">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Aspect_framework_un_proof-of-concept" for="main-toc menu-toc">Aspect
+  <h2 id="Aspect_framework_un_proof-of-concept" for="main-toc">Aspect
   framework, un <em>proof-of-concept</em></h2>
 
   <p>Hoa se définit avant tout comme un ensemble de bibliothèques. Toutefois,
@@ -50,7 +50,7 @@
   <strong>spécificités</strong>, <strong>mécanismes</strong>,
   <strong>outils</strong> et <strong>fonctionnements</strong>.</p>
 
-  <h2 id="Creer_une_application" for="main-toc menu-toc">Créer une
+  <h2 id="Creer_une_application" for="main-toc">Créer une
   application</h2>
 
   <p>Créer une application est très simple. Hoa propose deux mécanismes : le
@@ -192,7 +192,7 @@ hoa://Data is equivalent to:
   bibliothèques réservées à notre application et non pas à Hoa (donc à toutes
   nos applications).</p>
 
-  <h2 id="Tester_l-application" for="main-toc menu-toc">Tester
+  <h2 id="Tester_l-application" for="main-toc">Tester
   l'application</h2>
 
   <p>L'application contient déjà un dossier <code>Application/Public/</code>

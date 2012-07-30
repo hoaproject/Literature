@@ -12,11 +12,11 @@
   bibliothèque <code>Hoa\Worker</code> permet de créer et de manipuler des <em
   lang="en">workers</em> à moindre effort.</p>
 
-  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+  <h2 id="Table_des_matieres">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Introduction" for="main-toc menu-toc">Introduction</h2>
+  <h2 id="Introduction" for="main-toc">Introduction</h2>
 
   <p>Il est conseillé de lire le chapitre sur
   <a href="@lh:chapter=Zombie"><code>Hoa\Zombie</code></a> dans lequel nous
@@ -45,7 +45,7 @@
     messages vers le <em lang="en">worker</em>.</li>
   </ul>
 
-  <h2 id="Worker_partage" for="main-toc menu-toc"><em lang="en">Worker</em>
+  <h2 id="Worker_partage" for="main-toc"><em lang="en">Worker</em>
   partagé</h2>
 
   <p>Un <em lang="en">worker</em> est avant tout <strong>identifié</strong> par
@@ -116,7 +116,7 @@ var_dump(resolve('hoa://Data/Variable/Run/'));
   les cas, il ne sera <strong>pas nécessaire</strong> de modifier le code mais
   uniquement le protocole <code>hoa://</code>.</p>
 
-  <h2 id="Communiquer_avec_un_worker" for="main-toc menu-toc">Communiquer avec
+  <h2 id="Communiquer_avec_un_worker" for="main-toc">Communiquer avec
   un <em lang="en">worker</em></h2>
 
   <p>Un <em lang="en">worker</em> représente un serveur, nous allons donc
@@ -143,7 +143,7 @@ $worker->postMessage('mail gordon@freeman.hl Hello Gordon!');</code></pre>
   <strong>maximum</strong> d'informations à chaque fois (par exemple à travers
   un tableau, les données seront sérialisées dans tous les cas).</p>
 
-  <h2 id="Utiliser_les_commandes_dediees" for="main-toc menu-toc">Utiliser les
+  <h2 id="Utiliser_les_commandes_dediees" for="main-toc">Utiliser les
   commandes dédiées</h2>
 
   <p>Pour exécuter un <em lang="en">worker</em>, il faut avant tout démarrer
@@ -188,7 +188,7 @@ Password: ▋</code></pre>
   le client ne pourra plus communiquer avec lui et lèvera une exception
   <code>Hoa\Worker\Exception</code>.</p>
 
-  <h2 id="Conclusion" for="main-toc menu-toc">Conclusion</h2>
+  <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
   <p><code>Hoa\Worker</code> est une démonstration de ce qu'il est possible de
   faire avec <a href="@lh:chapter=Zombie"><code>Hoa\Zombie</code></a> mais pas

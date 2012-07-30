@@ -20,11 +20,11 @@
   la bibliothèque <code>Hoa\View</code> et la bibliothèque
   <code>Hoa\Xyl</code>.</p>
 
-  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+  <h2 id="Table_des_matieres">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Introduction" for="main-toc menu-toc">Introduction</h2>
+  <h2 id="Introduction" for="main-toc">Introduction</h2>
 
   <p>D'une manière générale, le mécanisme d'un système de vue est le suivant : à
   partir de <strong>données</strong> sous différentes formes, nous allons créer
@@ -102,7 +102,7 @@
   etc.), nous allons choisir un interpréteur et l'exécuter sur nos documents
   XYL. Le résultat sera normalement celui attendu.</p>
 
-  <h2 id="Document" for="main-toc menu-toc">Document</h2>
+  <h2 id="Document" for="main-toc">Document</h2>
 
   <p>Pour introduire XYL, nous allons commencer par créer un document à l'aide
   du <strong>composant racine</strong> <code>document</code> dans un fichier que
@@ -203,7 +203,7 @@ $xyl->render();</code></pre>
 $xyl->addStylesheet('UI.css');
 $xyl->render();</code></pre>
 
-  <h2 id="Overlay" for="main-toc menu-toc"><em>Overlay</em></h2>
+  <h2 id="Overlay" for="main-toc"><em>Overlay</em></h2>
 
   <p>Les <strong><em>overlays</em></strong> sont un ou plusieurs composants que
   nous voulons <strong>insérer</strong> dans un document. Par exemple, imaginons
@@ -448,7 +448,7 @@ $xyl->render();</code></pre>
   de style seront ajoutées aux existantes, alors que pour d'autres attributs, la
   valeur sera peut-être simplement remplacée.</p>
 
-  <h2 id="Binding_et_yielding" for="main-toc menu-toc"><em>Binding</em> et
+  <h2 id="Binding_et_yielding" for="main-toc"><em>Binding</em> et
   <em>yielding</em></h2>
 
   <p>Le mécanisme de <strong>liage</strong> (ou
@@ -756,7 +756,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   puissant. L'<strong>abstraction</strong> des données par leur caractère
   symbolique empêche des regressions.</p>
 
-  <h2 id="Acces_ressources" for="main-toc menu-toc">Accès aux ressources</h2>
+  <h2 id="Acces_ressources" for="main-toc">Accès aux ressources</h2>
 
   <p>Un système d'interface graphique doit faciliter l'accès aux
   <strong>ressources</strong> manipulées par une vue : des feuilles de style,
@@ -908,7 +908,7 @@ $xyl->render();</code></pre>
   <p>Actuellement, XYL ne propose que très peu de ressources et elles ne sont
   pas encore finalisées. Cette section sera mise à jour en temps voulu.</p>
 
-  <h2 id="Application_Gordon-s_blog" for="main-toc menu-toc">Application :
+  <h2 id="Application_Gordon-s_blog" for="main-toc">Application :
   <em>Gordon's blog</em></h2>
 
   <p>Nous allons donner au <em>Gordon's blog</em> une meilleure interface

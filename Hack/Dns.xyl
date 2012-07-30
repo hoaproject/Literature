@@ -13,11 +13,11 @@
   permet de <strong>résoudre</strong> des noms de domaines en fonction de leurs
   types.</p>
 
-  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+  <h2 id="Table_des_matieres">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Introduction" for="main-toc menu-toc">Introduction</h2>
+  <h2 id="Introduction" for="main-toc">Introduction</h2>
 
   <p>Toutes les machines connectées à un <strong>réseau</strong> portent une
   adresse IP (pour <em lang="en">Internet Protocol</em>). Il existe plusieurs
@@ -74,7 +74,7 @@
   <a href="https://tools.ietf.org/html/rfc768">RFC768</a> et
   <a href="https://tools.ietf.org/html/rfc793">RFC793</a>.</p>
 
-  <h2 id="Resoudre_ses_propres_noms_de_domaines" for="main-toc menu-toc">Résoudre
+  <h2 id="Resoudre_ses_propres_noms_de_domaines" for="main-toc">Résoudre
   ses propres noms de domaines</h2>
 
   <p>Notre objectif va être de <strong>résoudre</strong> des noms de domaines de
@@ -153,7 +153,7 @@ $dns->run();</code></pre>
   tenu compte du type du domaine (qui devrait être <code>A</code> ou
   <code>AAAA</code>).</p>
 
-  <h2 id="Test" for="main-toc menu-toc">Test</h2>
+  <h2 id="Test" for="main-toc">Test</h2>
 
   <checkpoint class="sticky" style="padding-top: 340px">
   <div id="overview" class="verbatim schema"><div></div></div>
@@ -218,7 +218,7 @@ yeah \o/
   <code>/tmp/index.html</code>.</p>
   </checkpoint>
 
-  <h2 id="Conclusion" for="main-toc menu-toc">Conclusion</h2>
+  <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
   <p>La bibliothèque <code>Hoa\Dns</code> permet de créer un <strong>serveur de
   résolution</strong> de <strong>noms de domaines</strong>. Sa

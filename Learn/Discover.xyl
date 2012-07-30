@@ -14,11 +14,11 @@
 
   <p>Cette section dévoile quelques atouts de Hoa.</p>
 
-  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+  <h2 id="Table_des_matieres">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Trois_principes_fondamentaux" for="main-toc menu-toc">Trois principes
+  <h2 id="Trois_principes_fondamentaux" for="main-toc">Trois principes
   fondamentaux</h2>
 
   <p>En tout premier lieu, Hoa se définit comme un <strong>ensemble de
@@ -73,7 +73,7 @@
   bibliothèques</strong> et vous assurer d'une certaine pérennité et d'une forte
   intégration dans tous les projets utilisant Hoa.</p>
 
-  <h2 id="Les_points_forts_de_Hoa" for="main-toc menu-toc">Les points forts de
+  <h2 id="Les_points_forts_de_Hoa" for="main-toc">Les points forts de
   Hoa</h2>
 
   <p>Cette section décrit ce que l'on estime être les points forts de Hoa.</p>
@@ -306,7 +306,7 @@ event('hoa://Event/Log/Test/Praspel')->attach(
   assurés quelles seront compréhensibles et exploitables par d'autres
   programmes.</p>
 
-  <h2 id="Ensemble_de_bibliotheques_ou_framework" for="main-toc menu-toc">Ensemble
+  <h2 id="Ensemble_de_bibliotheques_ou_framework" for="main-toc">Ensemble
   de bibliothèques ou framework ?</h2>
 
   <p>Avoir un ensemble de bibliothèques est pratique et utile pour développer

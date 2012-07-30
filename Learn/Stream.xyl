@@ -15,7 +15,7 @@
 
   <p>Abstract</p>
 
-  <section2 id="Table_des_matieres" for="menu-toc">
+  <section2 id="Table_des_matieres">
     <title>Table des matières</title>
 
     <tableofcontents id="main-toc" />

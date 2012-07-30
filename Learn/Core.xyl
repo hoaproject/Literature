@@ -16,11 +16,11 @@
   la compatibilité entre les versions de PHP et de Hoa à travers des mécanismes
   très simples.</p>
 
-  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+  <h2 id="Table_des_matieres">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Introduction" for="main-toc menu-toc">Introduction</h2>
+  <h2 id="Introduction" for="main-toc">Introduction</h2>
 
   <p>Le noyau est la seule partie de Hoa qui est <strong>indispensable</strong>,
   <ie /> nécessaire dans toutes les situations. En effet, c'est le noyau qui
@@ -42,7 +42,7 @@ require '/usr/local/lib/hoa/Core/Core.php';</code></pre>
   <code>Hoa\Core</code> n'ont pas à être importées manuellement, elles sont
   toujours présentes.</p>
 
-  <h2 id="Carte_du_noyau" for="main-toc menu-toc">Carte du noyau</h2>
+  <h2 id="Carte_du_noyau" for="main-toc">Carte du noyau</h2>
 
   <p>Le noyau est constitué de plusieurs couches :</p>
   <ul>
@@ -67,7 +67,7 @@ require '/usr/local/lib/hoa/Core/Core.php';</code></pre>
   restantes seront présentées dans les chapitres suivants, cela dans un but
   pédagogique.</p>
 
-  <h2 id="Consistency" for="main-toc menu-toc"><em>Consistency</em></h2>
+  <h2 id="Consistency" for="main-toc"><em>Consistency</em></h2>
 
   <p>La classe <code>Hoa\Core\Consistency</code> porte le mécanisme
   d'<strong>importation</strong> et de <strong>chargement</strong> des classes.
@@ -289,7 +289,7 @@ $callable($argument1, $argument2, …);</code></pre>
   aurons alors le réflexe de fournir des données comme présentées ci-dessus. Un
   exemple se trouve dans la section suivante avec les événements.</p>
 
-  <h2 id="Event" for="main-toc menu-toc"><em>Event</em></h2>
+  <h2 id="Event" for="main-toc"><em>Event</em></h2>
 
   <p>Une des fonctionnalités que Hoa ajoute à PHP est la gestion des
   <strong>événements</strong>. Les événements sont très pratiques pour faire
@@ -516,7 +516,7 @@ var_dump($third->doSomething('Gordon'));
   une proximité pour pouvoir interagir avec ce composant, d'où le fait que ça ne
   concerne que quelques composants.</p>
 
-  <h2 id="Exception" for="main-toc menu-toc"><em>Exception</em></h2>
+  <h2 id="Exception" for="main-toc"><em>Exception</em></h2>
 
   <p>Dans Hoa, il existe trois catégories d'exceptions (dans l'ordre de
   parenté) :</p>
@@ -696,7 +696,7 @@ catch ( Hoathis\Exercise\Core\Exception $e ) {
 //     ** Exception **
 //     Bazinga!</code></pre>
 
-  <h2 id="Protocol" for="main-toc menu-toc"><em>Protocol</em></h2>
+  <h2 id="Protocol" for="main-toc"><em>Protocol</em></h2>
 
   <p>Le protocole <code>hoa://</code> permet d'<strong>abstraire l'accès à des
   ressources</strong>. Il existe trois racines principales que nous pouvons

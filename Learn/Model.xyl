@@ -17,11 +17,11 @@
   chapitre, nous allons présenter la bibliothèque <code>Hoa\Database</code>
   ainsi que la bibliothèque <code>Hoa\Model</code>.</p>
 
-  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+  <h2 id="Table_des_matieres">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Base_de_donnees" for="main-toc menu-toc">Base de données</h2>
+  <h2 id="Base_de_donnees" for="main-toc">Base de données</h2>
 
   <p>Les bases de données sont des outils permettant de stocker et d'extraire
   des données de différentes formes et de différentes tailles.  Nous parlons
@@ -264,7 +264,7 @@ $statement->execute();</code></pre>
   identifiants, d'autres sur la sécurité, les erreurs etc. Nous n'allons pas
   tout détailler ici.</p>
 
-  <h2 id="Modeliser_des_donnees" for="main-toc menu-toc">Modéliser des
+  <h2 id="Modeliser_des_donnees" for="main-toc">Modéliser des
   données</h2>
 
   <p>L'Informatique est la science de l'information. Le meilleur moyen de se
@@ -518,7 +518,7 @@ public $mails;</code></pre>
   <p>Nous ne détaillons pas toutes les possibilités de <code>Hoa\Model</code>,
   juste suffisamment pour démarrer.</p>
 
-  <h2 id="Application_Gordon-s_blog" for="main-toc menu-toc">Application :
+  <h2 id="Application_Gordon-s_blog" for="main-toc">Application :
   <em>Gordon's blog</em></h2>
 
   <p>Nous allons ajouter des données au <em>Gordon's blog</em>. Pour cela, nous

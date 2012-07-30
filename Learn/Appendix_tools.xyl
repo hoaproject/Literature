@@ -17,13 +17,13 @@
   bibliothèque</strong> que pour <strong>développer une
   application</strong>.</p>
 
-  <section2 id="Table_des_matieres" for="menu-toc">
+  <section2 id="Table_des_matieres">
     <title>Table des matières</title>
 
     <tableofcontents id="main-toc" />
   </section2>
 
-  <section2 id="Introduction" for="main-toc menu-toc">
+  <section2 id="Introduction" for="main-toc">
     <title>Introduction</title>
 
     <p>Hoa propose des outils qui sont utilisables directement.  Ces outils sont
@@ -36,7 +36,7 @@
     <code>hoa.bat</code>.</p>
   </section2>
 
-  <section2 id="Premiers_pas_avec_les_outils" for="main-toc menu-toc">
+  <section2 id="Premiers_pas_avec_les_outils" for="main-toc">
     <title>Premiers pas avec les outils</title>
 
     <p>Lorsqu'on exécute le script <code>hoa</code> (ou
@@ -80,7 +80,7 @@ $ hoa
     moins triviale.</p>
   </section2>
 
-  <section2 id="Quelques_outils_pratiques" for="main-toc menu-toc">
+  <section2 id="Quelques_outils_pratiques" for="main-toc">
     <title>Quelques outils pratiques</title>
 
     <p>On ne présentera que deux outils qui peuvent se montrer très utiles à
@@ -225,7 +225,7 @@ Hello world!</blockcode>
     </section3>
   </section2>
 
-  <section2 id="Outils_annexes" for="main-toc menu-toc">
+  <section2 id="Outils_annexes" for="main-toc">
     <title>Outils annexes</title>
 
     <p>Cette section n'est pas une étape obligatoire mais elle montre comment

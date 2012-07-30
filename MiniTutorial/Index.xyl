@@ -19,11 +19,11 @@
   mises en œuvre, en revanche nous vous proposerons des liens pour les
   découvrir dans le manuel d'apprentissage.</p>
 
-  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+  <h2 id="Table_des_matieres">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Le_projet" for="main-toc menu-toc">Le projet</h2>
+  <h2 id="Le_projet" for="main-toc">Le projet</h2>
 
   <p>Nous allons développer le <strong>blog</strong> du très célèbre
   <a href="https://secure.wikimedia.org/wikipedia/en/wiki/Gordon_Freeman">
@@ -32,7 +32,7 @@
   utilisés sur différentes pages (liste des billets, page d'un billet avec ses
   commentaires).</p>
 
-  <h2 id="Preparer_son_environnement" for="main-toc menu-toc">Préparer son
+  <h2 id="Preparer_son_environnement" for="main-toc">Préparer son
   environnement</h2>
 
   <p>Hoa est suffisamment souple pour ne pas vous imposer d'environnement. Nous
@@ -1187,7 +1187,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
   dans le <a href="@ll:chapter=Xyl#Ressources_de_l-application_et_theme">
   chapitre XYL</a> du manuel d'apprentissage.</p>
 
-  <h2 id="Conclusion" for="main-toc menu-toc">Conclusion</h2>
+  <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
   <p>Ce mini-tutorial touche à sa fin sur une application certes basique mais
   fonctionnelle et qui illustre les concepts de base de Hoa et son aspect

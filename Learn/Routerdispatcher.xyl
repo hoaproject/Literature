@@ -19,11 +19,11 @@
   <code>Hoa\Router</code> et <code>Hoa\Dispatcher</code> afin de construire
   notre première application.</p>
 
-  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+  <h2 id="Table_des_matieres">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Introduction" for="main-toc menu-toc">Introduction</h2>
+  <h2 id="Introduction" for="main-toc">Introduction</h2>
 
   <p>Maintenant que nous connaissons un peu le fonctionnement de Hoa et que nous
   avons fait connaissance avec quelques aspects framework, nous allons entamer
@@ -34,7 +34,7 @@
   quelques règles. Puis nous expliquerons le fonctionnement du routeur et du
   dispatcheur utilisés dans l'aperçu. Et enfin, nous commencerons un blog.</p>
 
-  <h2 id="Un_peu_d-histoire" for="main-toc menu-toc">Un peu d'histoire</h2>
+  <h2 id="Un_peu_d-histoire" for="main-toc">Un peu d'histoire</h2>
 
   <checkpoint class="sticky" style="padding-top: 190px">
   <div id="overview" class="verbatim schema"><div></div></div>
@@ -104,7 +104,7 @@
   <pre><code>GET /path/to/resource</code></pre>
   </checkpoint>
 
-  <h2 id="Apercu" for="main-toc menu-toc">Aperçu</h2>
+  <h2 id="Apercu" for="main-toc">Aperçu</h2>
 
   <p>Un aperçu est ici utile pour faire quelques essais avant de détailler le
   fonctionnement. Nous écrivons l'exemple suivant dans le fichier
@@ -166,7 +166,7 @@ Welcome Alyx!</code></pre>
   allons, dans un premier temps, détailler le fonctionnement du routeur, puis,
   dans un second temps, celui du dispatcheur.</p>
 
-  <h2 id="Routeur_HTTP" for="main-toc menu-toc">Routeur HTTP</h2>
+  <h2 id="Routeur_HTTP" for="main-toc">Routeur HTTP</h2>
 
   <p>Nous allons nous concentrer sur les explications relatives au routeur HTTP,
   à savoir la classe <code>Hoa\Router\Http</code>.</p>
@@ -332,7 +332,7 @@ print_r($router->getTheRule());
   <p>Le mécanisme de routage peut être effectué <strong>automatiquement</strong>
   par les dispatcheurs, comme nous allons le voir.</p>
 
-  <h2 id="Dispatcheur" for="main-toc menu-toc">Dispatcheur</h2>
+  <h2 id="Dispatcheur" for="main-toc">Dispatcheur</h2>
 
   <p>Un dispatcheur est souvent couplé à un routeur mais pas nécessairement.
   Selon la terminologie des dispatcheurs, son rôle est d'être capable de
@@ -512,7 +512,7 @@ Array
   peuvent être utilisées dans une autre optique que le MVC grâce à un assemblage
   totalement différent.</p>
 
-  <h2 id="Application_Gordon-s_blog" for="main-toc menu-toc">Application :
+  <h2 id="Application_Gordon-s_blog" for="main-toc">Application :
   <em>Gordon's blog</em></h2>
 
   <p>Nous allons maintenant mettre <strong>en pratique</strong> ce que nous

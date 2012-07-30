@@ -11,11 +11,11 @@
   applications sont très nombreuses. <code>Hoa\Compiler</code> propose de
   manipuler plusieurs compilateurs selon les besoins.</p>
 
-  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+  <h2 id="Table_des_matieres">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Introduction" for="main-toc menu-toc">Introduction</h2>
+  <h2 id="Introduction" for="main-toc">Introduction</h2>
 
   <blockquote cite="https://secure.wikimedia.org/wikipedia/fr/wiki/Nicolas_Boileau">Ce
   qui se conçoit bien s'énonce clairement, et les mots pour le dire viennent
@@ -152,7 +152,7 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
   <p>Et cet exemple illustre une grammaire non-déterministe :</p>
   <pre><code></code></pre>
 
-  <h2 id="Compilateur_de_compilateur_LLk" for="main-toc menu-toc">Compilateur de
+  <h2 id="Compilateur_de_compilateur_LLk" for="main-toc">Compilateur de
   compilateur LL(k)</h2>
 
   <p>Écrire des compilateurs est une tâche <strong>laborieuse</strong>. Ce n'est
@@ -446,10 +446,10 @@ rule:
 
   <p>À venir.</p>
 
-  <h2 id="Compilateur_de_compilateur_LL1" for="main-toc menu-toc">Compilateur de
+  <h2 id="Compilateur_de_compilateur_LL1" for="main-toc">Compilateur de
   compilateur LL(1)</h2>
 
-  <h2 id="Conclusion" for="main-toc menu-toc">Conclusion</h2>
+  <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
 </yield>
 </definition>

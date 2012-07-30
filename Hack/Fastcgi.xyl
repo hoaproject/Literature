@@ -12,11 +12,11 @@
   CGI</strong>, la bibliothèque <code>Hoa\FastCgi</code> va nous permettre de
   créer des exécutions de PHP.</p>
 
-  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+  <h2 id="Table_des_matieres">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Introduction" for="main-toc menu-toc">Introduction</h2>
+  <h2 id="Introduction" for="main-toc">Introduction</h2>
 
   <checkpoint class="sticky" style="padding-top: 340px">
   <div id="overview" class="verbatim schema"><div></div></div>
@@ -82,7 +82,7 @@
   serveur CGI, comme c'est le cas avec le <code>mod_php</code> pour <a
   href="http://httpd.apache.org/">Apache</a>.</p>
 
-  <h2 id="Executer_PHP" for="main-toc menu-toc">Exécuter PHP</h2>
+  <h2 id="Executer_PHP" for="main-toc">Exécuter PHP</h2>
 
   <p>La bibliothèque <code>Hoa\FastCgi</code> permet d'une certaine façon de
   jouer le <strong>rôle</strong> du serveur HTTP : elle permet d'envoyer des
@@ -189,7 +189,7 @@ catch ( Hoa\FastCgi\Responder\Exception $e ) {
   <strong>concaténé</strong> par <code>Hoa\FastCgi\Responder</code> au flux
   sortant.</p>
 
-  <h2 id="Conclusion" for="main-toc menu-toc">Conclusion</h2>
+  <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
   <p><code>Hoa\FastCgi</code> permet d'<strong>exécuter des programmes
   PHP</strong> (ou d'autres programmes externes) en toute

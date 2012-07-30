@@ -17,11 +17,11 @@
   l'installation de PHP (normalement pas nécessaire sur tout système digne de ce
   nom).</p>
 
-  <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
+  <h2 id="Table_des_matieres">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Installer_Hoa" for="main-toc menu-toc">Installer Hoa</h2>
+  <h2 id="Installer_Hoa" for="main-toc">Installer Hoa</h2>
 
   <p>Nous nous intéressons à l'installation de Hoa à travers de multiples
   mécanismes.</p>
@@ -104,7 +104,7 @@ Options :
   <pre><code language="shell">$ php Hoa.next.phar --extract
 Extracted in /usr/local/lib/hoa</code></pre>
 
-  <h2 id="Tester_l-installation" for="main-toc menu-toc">Tester
+  <h2 id="Tester_l-installation" for="main-toc">Tester
   l'installation</h2>
 
   <p>Pour tester l'installation de Hoa, rien de plus simple :</p>
@@ -117,13 +117,13 @@ var_dump(HOA);</code></pre>
   <p>À l'exécution, nous devons voir <code>bool(true)</code>. Si c'est le cas,
   c'est que Hoa est correctement installé.</p>
 
-  <h2 id="Installer_PHP" for="main-toc menu-toc">Installer PHP</h2>
+  <h2 id="Installer_PHP" for="main-toc">Installer PHP</h2>
 
   <p>Toutes les informations sont présentes dans le manuel de PHP :
   <a href="http://php.net/install"><em>Installation and
   Configuration</em></a>.</p>
 
-  <h2 id="Architecture_de_Hoa" for="main-toc menu-toc">Architecture de Hoa</h2>
+  <h2 id="Architecture_de_Hoa" for="main-toc">Architecture de Hoa</h2>
 
   <p>L'architecture de Hoa est très simple :</p>
   <ul>
@@ -141,7 +141,7 @@ var_dump(HOA);</code></pre>
   <p>Nous allons ainsi commencer par explorer un peu les fonctionnalités du
   noyau avant d'installer notre première application.</p>
 
-  <h2 id="Hoa_en_ligne_de_commande" for="main-toc menu-toc">Hoa en ligne de
+  <h2 id="Hoa_en_ligne_de_commande" for="main-toc">Hoa en ligne de
   commande</h2>
 
   <p>Lorsque nous exécutons le script <code>hoa</code> (ou
