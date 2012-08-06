@@ -295,10 +295,15 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
 Hello you! I'm your first Hoa-based application \o/.</code></pre>
     </tabpanel>
   </tabs>
-  <p>Mais il faut admettre que ce n'est pas très drôle. Nous pourrions alors
-  nous aider de Bhoa, qui est un petit serveur HTTP embarqué réservé au
-  développement (pas à la production !). Bhoa jouant le rôle de serveur HTTP,
-  il a besoin de communiquer avec PHP qui lui se charge interpréter les pages.
+  <p>Mais il faut admettre que ce n'est pas très drôle. Nous pouvons utiliser un
+  serveur HTTP avec PHP pour accéder à notre application via un navigateur
+  Internet. Si vous possédez déjà un serveur HTTP avec PHP vous pouvez vous
+  référer à l'annexe <a href="@ll:chapter=Appendix_http_servers">Configuration
+  des serveurs HTTP </a> pour découvrir la configuration nécessaire à Hoa. Pour
+  le développement nous vous conseillons d'utiliser Bhoa, qui est un petit
+  serveur HTTP embarqué réservé au développement (pas à la production !) et qui
+  ne nécessite aucune configuration. Bhoa jouant le rôle de serveur HTTP, il a
+  besoin de communiquer avec PHP qui lui se charge interpréter les pages.
   Bhoa utilise PHP FastCGI pour exécuter PHP, nous allons donc devoir le
   démarrer sur le port standard (9000) :</p>
   <tabs class="plain">
