@@ -7,9 +7,10 @@
   <h1 id="Appendix_HTTP_servers">Manuel d'apprentissage<title_break />Annexe,
   Configuration des serveurs HTTP</h1>
 
-  <p>Nous proposons dans ce guide de découvrir comment configurer un hôte
-  virtuel ainsi que la réécriture d'URL pour les serveurs HTTP les plus courants
-  afin de profiter de toutes les fonctionnalités d'Hoa.</p>
+  <p>Nous proposons dans ce guide de découvrir comment configurer un
+  <strong>hôte virtuel</strong> ainsi que la <strong>réécriture d'URL</strong>
+  pour les serveurs HTTP les plus courants afin de profiter de toutes les
+  fonctionnalités d'Hoa.</p>
 
   <p>Les hôtes virtuels permettent de maintenir plusieurs sites Internet sur un
   même serveur tout en leur associant un nom ainsi que des paramètres
@@ -28,13 +29,14 @@
   <p>Apache est le serveur HTTP le plus utilisé au monde. Il est installé par
   défaut sur Mac OS X, disponible via votre gestionnaire de paquet sur la
   plupart des distributions Linux ou installable en quelques clics sous Windows.
-  Vous pouvez également retrouver toutes les versions sur la page
-  http://httpd.apache.org/</p>
+  Les sources et les exécutables sont disponibles sur le
+  <a href="http://httpd.apache.org/">site officiel</a>.</p>
 
   <h3 id="Apache_Hote_virtuel" for="main-toc">Hôte virtuel</h3>
 
   <p>Pour ajouter un hôte virtuel à Apache il faut modifier le fichier
-  httpd.conf afin d'y ajouter la déclaration de notre nouvel hôte :</p>
+  <code>httpd.conf</code> afin d'y ajouter la déclaration de notre nouvel
+  hôte :</p>
 
   <pre><code language="conf">&amp;lt;VirtualHost *:80>
   ServerName www.foo.com
@@ -43,60 +45,59 @@
 &amp;lt;/VirtualHost></code></pre>
 
   <p>Cet hôte virtuel minimal permet de faire fonctionner Hoa grâce au
-  DocumentRoot qui pointe sur le dossier /Application/Public/. Le ServerName le
-  plus courant pour le développement est localhost car il est résolu sur l'IP
-  locale (127.0.0.1). Si vous utilisez un autre nom,
-  celui-ci doit figurer dans votre fichier Host (/etc/hosts sous Unix, ... sous
-  Windows) où être résolu par votre serveur DNS comme étant sur votre IP locale.
-  </p>
+  <code>DocumentRoot</code> qui pointe sur le dossier
+  <code>/Application/Public/</code>. Le <code>ServerName</code> le
+  plus courant pour le développement est <code>localhost</code> car il est
+  résolu sur l'adresse IP locale (127.0.0.1). Si vous utilisez un autre nom,
+  celui-ci doit figurer dans votre fichier Host (<code>/etc/hosts</code> sous
+  Unix, ... sous Windows) où être résolu par votre serveur DNS comme étant sur
+  votre adresse IP locale.</p>
 
-  <p>La documentation des <a href="http://httpd.apache.org/docs/2.4/vhosts/">
-  hôtes virtuels</a> ...</p>
+  <p>La <a href="http://httpd.apache.org/docs/">documentation</a> permet de
+  découvrir toutes les directives disponibles pour la configuration d'Apache.</p>
 
   <h3 id="Apache_Reecriture_d_URL" for="main-toc">Réécriture d'URL</h3>
 
   <p>La réécriture d'URL pour Apache peut être spécifiée dans la déclaration de
-  l'hôte virtuel en précisant les paramètres pour un dossier (Directory) :</p>
+  l'hôte virtuel en précisant les paramètres pour un dossier
+  (<code>Directory</code>) :</p>
 
   <pre><code language="conf">
 &amp;lt;Directory "/path/to/my/hoa/app/Application/Public">
-  Options All
-  AllowOverride All
-  Order allow,deny
-  Allow from all
-
   RewriteEngine on
-  # redirect www to non-www
-  RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-  RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
-  # handle directory style parameters
   RewriteCond %{SCRIPT_FILENAME} !-f
   RewriteCond %{SCRIPT_FILENAME} !-d
   RewriteRule ^(.*)$ index.php?$1
 &amp;lt;/Directory></code></pre>
 
-  <p>ou dans un fichier .htaccess à placer dans le répertoire
-  /Application/Public de votre application Hoa :</p>
+  <p>ou dans un fichier <code>.htaccess</code> à placer dans le répertoire
+  <code>/Application/Public</code> de votre application Hoa :</p>
 
   <pre><code language="conf">RewriteEngine On
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?$1</code></pre>
 
-  <p>todo expliquer les règles</p>
+  <p>La première ligne active la réécriture d'URL. Les lignes suivantes ajoutent
+  des conditions (<code>RewriteCond</code>) qui empêchent de réécrire l'URL si
+  le fichier (<code>-f</code>) ou le dossier (<code>-d</code>) demandé existe
+  sur le disque. Enfin, si nous atteignons la règle de réécriture
+  (<code>RewriteRule</code>) alors le chemin demandé est passé en paramètre au
+  fichier index.php.</p>
 
   <h2 id="Nginx" for="main-toc menu-toc">Nginx</h2>
 
   <p>Nginx est un serveur HTTP développé pour les sites à fort traffic. Il a
   acquis sa réputation grâce à sa faible utilisation des ressources. Nginx est
-  disponible sur toutes les plateformes depuis la page http://nginx.org/</p>
+  disponible sur toutes les plateformes sur <a href="http://nginx.org/">le site
+  officiel</a>.</p>
 
   <h3 id="Nginx_Hote_virtuel" for="main-toc">Hôte virtuel</h3>
 
-  <p>Les hôtes virtuels, appelés ServerBlock pour Nginx, sont décris dans le
-  fichier nginx.conf. Pour ajouter un hôte virtuel pour votre développement avec
-  Hoa vous pouvez ajouter les lignes suivantes en toute fin de votre fichier
-  nginx.conf :</p>
+  <p>Les hôtes virtuels, appelés <code>ServerBlock</code> pour Nginx, sont
+  décris dans le fichier <code>nginx.conf</code>. Pour ajouter un hôte virtuel
+  pour votre développement avec Hoa vous pouvez ajouter les lignes suivantes en
+  toute fin de votre fichier <code>nginx.conf</code> :</p>
 
   <pre><code language="conf">server {
   server_name localhost;
@@ -116,23 +117,24 @@ RewriteRule ^(.*)$ index.php?$1</code></pre>
 }
   </code></pre>
 
-  <p>Le bloc server permet de décrire le nom du serveur. Le bloc location permet
-  de préciser le chemin par défaut ainsi que la page d'index par défaut.</p>
-
-  <p>todo préciser la doc</p>
+  <p>Le bloc <code>server</code> permet de décrire le nom du serveur. Le bloc
+  <code>location</code> permet de préciser le chemin par défaut ainsi que la
+  page d'index par défaut. La
+  <a href="http://nginx.org/en/docs/">documentation</a> permet de configurer
+  précisemment Nginx.</p>
 
   <h3 id="Nginx_Reecriture_d_URL" for="main-toc">Réécriture d'URL</h3>
 
-  <p>La réécriture d'URL pour Nginx doit être décrite dans le bloc location en
-  y ajoutant les lignes suivantes :</p>
+  <p>La réécriture d'URL pour Nginx doit être décrite dans le bloc
+  <code>location</code> en y ajoutant les lignes suivantes :</p>
 
   <pre><code language="conf">try_files $uri $uri/ /index.php?$args;</code></pre>
 
-  <p>L'instruction try_files vérifie l'existance de fichiers dans l'ordre des
-  paramètres. Ainsi avec l'instruction précédente Nginx va chercher le fichier
-  demandé, puis un dossier avec le même nom (avec le slash final) et si rien de
-  tel n'est trouvé sur le disque dur, alors il transformera la requête pour la
-  passer à index.php.</p>
+  <p>L'instruction <code>try_files</code> vérifie l'existance de fichiers dans
+  l'ordre des paramètres. Ainsi avec l'instruction précédente Nginx va chercher
+  le fichier demandé, puis un dossier avec le même nom (avec le slash final) et
+  si rien de tel n'est trouvé sur le disque, alors il transformera la requête
+  pour la passer au fichier <code>index.php</code>.</p>
 
   <h2 id="Bhoa" for="main-toc menu-toc">Bhoa</h2>
 
