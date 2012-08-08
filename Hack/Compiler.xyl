@@ -117,6 +117,24 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
 
   <h3 id="Reconnaissance_de_mots" for="main-toc">Reconnaissance de mots</h3>
 
+  <checkpoint class="sticky" style="padding-top: 220px">
+  <div id="parsers" class="verbatim schema"><div></div></div>
+  <script>
+  Hoa.Document.onReady(function ( ) {
+
+      var paper    = Hoa.Graph(Hoa.$('#parsers div'), 800, 180);
+      var grid     = paper.grid(0, 0, 800, 180, 5, 2);
+      var word     = grid.push(paper.rect(0, 0, 140, 80, 3, 'mot'), 0, 0);
+      var sequence = grid.push(paper.rect(0, 0, 140, 80, 3, 'séquence'), 2, 0);
+      var trace    = grid.push(paper.rect(0, 0, 140, 80, 3, 'résultat'), 4, 0);
+      grid.push(paper.rect(0, 0, 140, 50, 3, 'abcdef'), 0, 1);
+      grid.push(paper.rect(0, 0, 380, 50, 3, '[[a ⟼ …], [bc ⟼ …], [d ⟼ …], [ef ⟼ …]]'), 2, 1);
+      grid.push(paper.rect(0, 0, 140, 50, 3, 'valide/invalide'), 4, 1);
+
+      paper.link.between(word, sequence, 'analyseur lexical');
+      paper.link.between(sequence, trace, 'analyseur syntaxique');
+  });
+  </script>
   <p>En général, le processus de compilation débute par deux
   <strong>analyses</strong> : <strong>lexicale</strong> et
   <strong>syntaxique</strong>. Une analyse lexicale consiste à
@@ -168,6 +186,7 @@ rule4 ::= e f</code></pre>
   <p>La règle <code>rule2</code> est ambiguë, ce qui peut entraîner une mauvaise
   dérivation et donc un retour en arrière, un
   <em lang="en">backtracking</em>.</p>
+  </checkpoint>
 
   <h2 id="Compilateur_de_compilateurs_LLk" for="main-toc">Compilateur de
   compilateurs LL(<em>k</em>)</h2>
@@ -286,6 +305,25 @@ number:
 
   <h3 id="Processus_de_compilation" for="main-toc">Processus de compilation</h3>
 
+  <checkpoint class="sticky" style="padding-top: 400px">
+  <div id="overview" class="verbatim schema"><div></div></div>
+  <script>
+  Hoa.Document.onReady(function ( ) {
+
+      var paper = Hoa.Graph(Hoa.$('#overview div'), 800, 360);
+      var flow  = paper.grid(0, 0, 800, 360, 1, 4);
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'analyseur lexical'));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'analyseur syntaxique'));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'trace'));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'AST'));
+
+      var annot = paper.grid(180, 0, 80, 360, 1, 4);
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '1'));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '2'));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '3'));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '4'));
+  });
+  </script>
   <p>Le processus de compilation qu'utilise <code>Hoa\Compiler\Llk</code> est
   classique. Il commence par analyser <strong>lexicalement</strong> la donnée
   textuelle, le mot, <ie /> à transformer notre donnée en une séquence de
@@ -371,6 +409,7 @@ var_dump($valid);
  * Will output:
  *     bool(true)
  */</code></pre>
+  </checkpoint>
 
   <h4 id="Erreurs" for="main-toc">Erreurs</h4>
 
@@ -465,6 +504,25 @@ rule:
   <h3 id="Abstract_Syntax_Tree" for="main-toc"><em lang="en">Abstract Syntax
   Tree</em></h3>
 
+  <checkpoint class="sticky" style="padding-top: 400px">
+  <div id="overview_ast" class="verbatim schema"><div></div></div>
+  <script>
+  Hoa.Document.onReady(function ( ) {
+
+      var paper = Hoa.Graph(Hoa.$('#overview_ast div'), 800, 360);
+      var flow  = paper.grid(0, 0, 800, 360, 1, 4);
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'analyseur lexical').attr({opacity: .3}));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'analyseur syntaxique').attr({opacity: .3}));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'trace').attr({opacity: .3}));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'AST'));
+
+      var annot = paper.grid(180, 0, 80, 360, 1, 4);
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '1').attr({opacity: .3}));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '2').attr({opacity: .3}));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '3').attr({opacity: .3}));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '4'));
+  });
+  </script>
   <p>Un arbre <strong>syntaxique abstrait</strong> représente la donnée
   textuelle sous forme <strong>structurelle</strong>. Chaque
   <strong>nœud</strong> de cet arbre est représenté par la classe
@@ -602,9 +660,29 @@ $previous = $data['previousComputing'];</code></pre>
   <p>Utiliser la classe <code>Hoa\Compiler\Llk\TreeNode</code> est vraiment
   <strong>triviale</strong> et nous l'utiliserons la plupart du temps avec un
   visiteur.</p>
+  </checkpoint>
 
   <h3 id="Traces" for="main-toc">Traces</h3>
 
+  <checkpoint class="sticky" style="padding-top: 400px">
+  <div id="overview_trace" class="verbatim schema"><div></div></div>
+  <script>
+  Hoa.Document.onReady(function ( ) {
+
+      var paper = Hoa.Graph(Hoa.$('#overview_trace div'), 800, 360);
+      var flow  = paper.grid(0, 0, 800, 360, 1, 4);
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'analyseur lexical').attr({opacity: .3}));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'analyseur syntaxique').attr({opacity: .3}));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'trace'));
+      flow.push(paper.rect(0, 0, 200, 70, 3, 'AST').attr({opacity: .3}));
+
+      var annot = paper.grid(180, 0, 80, 360, 1, 4);
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '1').attr({opacity: .3}));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '2').attr({opacity: .3}));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '3'));
+      annot.push(paper.rect(0, 0, 45, 45, 22.5, '4').attr({opacity: .3}));
+  });
+  </script>
   <p>Le compilateur LL(<em>k</em>) que propose Hoa est clairement découpé en
   plusieurs <strong>couches</strong>. Chaque couche est exploitable pour
   permettre une modularité maximum. Quand la grammaire est traduite en « règles
@@ -787,6 +865,7 @@ while(false !== current($stack)) {
   <strong>rapidement</strong> sur les règles. En effet, les traitements sur la
   grammaire ne sont pas réservées aux AST. À l'étape précédente, avec la trace,
   nous pouvons déjà effectuer des traitements.</p>
+  </checkpoint>
 
   <h3 id="Generation" for="main-toc">Génération</h3>
 
@@ -1076,5 +1155,6 @@ foreach($sampler as $i => $data)
   <em lang="en">hackable</em>. Enfin, différents algorithmes permettent de
   <strong>générer</strong> des données à partir d'une grammaire selon le
   contexte d'utilisation.</p>
+
 </yield>
 </definition>
