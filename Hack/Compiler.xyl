@@ -24,16 +24,16 @@
   <strong>formuler</strong> une <strong>solution</strong> à un
   <strong>problème</strong>. Et des problèmes, il en existe beaucoup. Nous
   lisons et écrivons dans plusieurs langages au quotidien, et certains de ces
-  langages sont <strong>interprétés</strong> par des <strong>machines</strong>.
+  langages sont <strong>compris</strong> par des <strong>machines</strong>.
   Cette opération est possible grâce aux <strong>compilateurs</strong>.</p>
-  <p>La
-  <a href="https://secure.wikimedia.org/wikipedia/fr/wiki/Théorie_des_langages">théorie
+  <p>La <a
+  href="https://secure.wikimedia.org/wikipedia/fr/wiki/Théorie_des_langages">théorie
   des langages</a> étudie entre autre l'<strong>analyse automatique</strong> de
-  ses langages à travers des outils comme des <strong>automates</strong> ou des
+  ces langages à travers des outils comme des <strong>automates</strong> ou des
   <strong>grammaires</strong>. Il est nécessaire d'avoir un cours détaillé pour
   bien comprendre tous ces concepts.  Toutefois, nous allons essayer de
-  <strong>vulgariser</strong> un minimum pour permettre une utilisation correcte
-  de <code>Hoa\Compiler</code>.</p>
+  vulgariser un minimum pour permettre une utilisation correcte de
+  <code>Hoa\Compiler</code>.</p>
 
   <h3 id="Langage_et_grammaire" for="main-toc">Langage et grammaire</h3>
 
@@ -41,20 +41,23 @@
   Chaque mot est une <strong>séquence</strong> de <strong>symboles</strong>
   appartenant à un <strong>alphabet</strong>. Un symbole représente la plus
   petite <strong>unité lexicale</strong> d'un langage, il est atomique et nous
-  l'appellons <strong>lexème</strong> (ou <em lang="en">tokens</em> en anglais).
+  l'appellons <strong>lexème</strong> (ou <em lang="en">token</em> en anglais).
   Les séquences de lexèmes représentant les mots sont construites avec des
-  <strong>règles</strong>. À partir d'une règle racine, nous pouvons
-  <strong>dériver</strong> ses sous-règles, jusqu'à construire un mot. Selon la
-  <strong>dérivation</strong> que nous faisons des règles, nous allons obtenir
-  différents mots. Par exemple, si nous considérons les règles suivantes :</p>
+  <strong>règles</strong>. À partir d'un mot et d'une règle racine, nous allons
+  essayer de <strong>dériver</strong> ses sous-règles. Si une dérivation existe,
+  alors le mot est considérer comme <strong>valide</strong>, sinon il est
+  considérer comme <strong>invalide</strong>. Nous parlons aussi de
+  <strong>reconnaissance</strong> de mots. Par exemple, si nous considérons les
+  règles suivantes :</p>
   <pre><code>    exp ::= exp + exp
           | nombre
  nombre ::= chiffre nombre
           | chiffre
 chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
-  <p>La règle racine est <code><em>exp</em></code>. Si nous la dérivons (de
-  gauche ) droite et de haut en bas, ou <em lang="en">left-to-right</em> et
-  <em lang="en">top-to-bottom</em> en anglais), nous pouvons avoir
+  <p>Le mot que nous voulons reconnaître est <code>7 + 35</code>. La règle
+  racine est <code><em>exp</em></code>. Si nous la dérivons (de gauche à droite
+  et de haut en bas, ou <em lang="en">left-to-right</em> et <em
+  lang="en">top-to-bottom</em> en anglais), nous pouvons avoir
   <code><em>exp</em> + <em>exp</em></code> ou <code><em>nombre</em></code> (la
   <strong>disjonction</strong>, <ie /> le « ou », est représenté par le symbole
   « <code>|</code> ») :</p>
@@ -80,19 +83,16 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
 → 7 + 3 chiffre
 → 7 + 3 ( 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 )
 → 7 + 3 5</code></pre>
-  <p>Avec cette dérivation, nous obtenons le mot <code>7 + 35</code>.</p>
+  <p>Une dériviation existe bel et bien pour reconnaître le mot <code>7 +
+  35</code>, c'est donc un mot valide pour ces règles.</p>
   <p>Un ensemble de règle est appelé une <strong>grammaire</strong>. Et donc,
   une grammaire représente un <strong>langage</strong> !</p>
-  <p>Toutefois, nous nous apercevons qu'il existe <strong>plusieurs</strong>
-  façon de dériver les règles. En effet, nous avons choisi
-  <strong>arbitrairement</strong> une règle lorsqu'une disjonction était
-  rencontrée. Si nous voulons vérifier qu'un mot appartient à un langage, cela
-  revient à <strong>trouver</strong> une dérivation permettant de construire un
-  <strong>mot équivalent</strong>.</p>
-  <p>C'est en 1956 qu'a été formulée la
+  <p>Toutefois, il existe plusieurs catégories de grammaires. C'est en 1956 qu'a
+  été formulée la
   <a href="https://secure.wikimedia.org/wikipedia/fr/wiki/Hiérarchie_de_Chomsky">hiérarchie
-  de Chomsky</a>, classant les grammaires en quatre <strong>niveaux</strong> :</p>
-  <ol start="0">
+  de Chomsky</a>, classant les grammaires en quatre
+  <strong>niveaux</strong> :</p>
+  <ol>
     <li>grammaires <strong>générales</strong>, ou <em lang="en">unrestricted
     grammars</em>, reconnaissants les langages dits de Turing, aucune
     restriction n'est imposée aux règles ;</li>
@@ -100,13 +100,13 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
     <em lang="en">context-sensitive grammars</em>, reconnaisants les langages
     contextuels ;</li>
     <li>grammaires <strong>algébriques</strong>, ou <em lang="en">context-free
-    grammars</em>, reconnaissants les langages algébriques, basés sur automates
-    à pile ;</li>
+    grammars</em>, reconnaissants les langages algébriques, basés sur les
+    automates à pile ;</li>
     <li>grammaires <strong>régulières</strong>, ou <em lang="en">regular
     grammars</em>, reconnaissants les langages réguliers.</li>
   </ol>
   <p>Chaque niveau reconnait le niveau suivant. <code>Hoa\Compiler</code> ne
-  traite que les langages définis par les grammaires de niveau 2 et 3. Pour
+  traite que les langages définis par les grammaires de niveau 3 et 4. Pour
   donner rapidement une idée, les grammaires régulières peuvent s'apparenter aux
   <a href="https://secure.wikimedia.org/wikipedia/fr/wiki/Expression_régulière">expressions
   régulières</a> (comme les <a href="http://pcre.org/">PCRE</a>), bien connues
@@ -124,36 +124,53 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
   Cette séquence sera ensuite utilisée par l'analyseur syntaxique afin de
   vérifier que le mot <strong>appartient</strong> au langage.</p>
   <p>Selon la grammaire, la reconnaissance ne sera fera pas de la même manière,
-  mais le principe reste le même : prendre les lexèmes les uns après les autres
-  dans la séquence et vérifier qu'ils permettent d'<strong>avancer</strong> dans
-  la <strong>dérivation</strong> des règles de notre grammaire.</p>
+  mais le principe reste identique : prendre les lexèmes les uns après les
+  autres dans la séquence et vérifier qu'ils permettent
+  d'<strong>avancer</strong> dans la <strong>dérivation</strong> des règles de
+  notre grammaire.</p>
   <p>Les analyses syntaxiques sont aussi classées en
   <strong>catégories</strong> : LL, LR, LALR etc. <code>Hoa\Compiler</code> ne
   propose que des analyseurs syntaxiques LL, pour <em lang="en">Left-to-right
   Leftmost derivation</em>, <ie /> de la plus haute règle vers la plus profonde,
   et les règles sont dérivées de la gauche vers la droite. Là encore, il existe
-  des sous-catégories, dont deux que traite <code>Hoa\Compiler</code> : LL(1)
-  et LL(*). D'une manière générale, on parle d'analyseurs syntaxiques
+  des sous-catégories, dont deux que traite <code>Hoa\Compiler</code> : LL(1) et
+  LL(*). D'une manière générale, on parle d'analyseurs syntaxiques
   LL(<em>k</em>) : si un lexème ne permet pas de dériver une règle comme il
   faut, alors l'analyseur peut <strong>revenir</strong> jusqu'à <em>k</em>
   étapes en arrière ; nous parlons aussi de <em lang="en">backtrack</em>.
-  Autrement dit, les règles peuvent être <strong>non-déterministes</strong> : à
-  chaque fois que nous dérivons une règle de la grammaire, nous avons plusieurs
-  choix possibles et l'analyseur peut se tromper, c'est pourquoi il doit parfois
+  Autrement dit, les règles peuvent être <strong>ambiguës</strong> : à chaque
+  fois que nous dérivons une règle de la grammaire, nous avons plusieurs choix
+  possibles et l'analyseur peut se tromper, c'est pourquoi il doit parfois
   revenir en arrière. La variable <em>k</em> permet de définir le
-  <strong>niveau</strong> de non-déterminisme. Si une grammaire peut être
-  analysée par un analyseur syntaxique LL(1), elle est dite
-  <strong>déterministe</strong> : à chaque lexème utilisé pour dériver nos
-  règles, il n'y a qu'un seul choix possible. Et si nous avons un analyseur
-  syntaxique LL(*), cela signifie que la variable <em>k</em> est
-  <strong>indéfinie</strong>. L'exemple suivant illustre une grammaire
-  déterministe :</p>
-  <pre><code></code></pre>
-  <p>Et cet exemple illustre une grammaire non-déterministe :</p>
-  <pre><code></code></pre>
+  <strong>niveau</strong> d'ambiguïté. Si une grammaire peut être analysée par
+  un analyseur syntaxique LL(1), elle est dite <strong>non-ambiguë</strong> : à
+  chaque lexème utilisé pour dériver nos règles, il n'y a qu'un seul choix
+  possible. Et si nous avons un analyseur syntaxique LL(*), cela signifie que la
+  variable <em>k</em> est <strong>indéfinie</strong>. L'exemple suivant illustre
+  une grammaire non-ambiguë :</p>
+  <pre><code>rule ::= a b c | d e f</code></pre>
+  <p>Et cet exemple illustre une grammaire ambiguë :</p>
+  <pre><code>rule1 ::= a rule2
+rule2 ::= b rule3 | b rule4
+rule3 ::= c d
+rule4 ::= e f</code></pre>
+  <p>Voyons quand nous essayons de trouver une dérivation pour le mot
+  <code>abef</code> à partir de la règle racine <code>rule1</code> :</p>
+  <pre><code>rule1
+→ a rule2                   <em>   a  bef ✔</em>
+  → a (b rule3 | b rule4)   <em>   a  bef</em>
+    → a b rule3             <em>  ab  ef  ✔</em>
+      → a b c d             <em> abe  f   ✖</em>
+    ← a b rule3             <em>  ab  ef  ✖</em>
+  ← a (b rule3 | b rule4)   <em>   a  bef</em>
+    → a b rule4             <em>  ab  ef  ✔</em>
+      → a b e f             <em>abef      ✔</em></code></pre>
+  <p>La règle <code>rule2</code> est ambiguë, ce qui peut entraîner une mauvaise
+  dérivation et donc un retour en arrière, un
+  <em lang="en">backtracking</em>.</p>
 
-  <h2 id="Compilateur_de_compilateur_LLk" for="main-toc">Compilateur de
-  compilateur LL(<em>k</em>)</h2>
+  <h2 id="Compilateur_de_compilateurs_LLk" for="main-toc">Compilateur de
+  compilateurs LL(<em>k</em>)</h2>
 
   <p>Écrire des compilateurs est une tâche <strong>laborieuse</strong>. Ce n'est
   pas forcément toujours difficile mais souvent répétitif et long. C'est
@@ -169,7 +186,8 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
 
   <p>Le langage PP, pour <em lang="en">PHP Parser</em>, permet d'exprimer des
   <strong>grammaires algébriques</strong>. Il s'écrit dans des fichiers portant
-  l'extension <code>.pp</code>.</p>
+  l'extension <code>.pp</code> (voir le fichier
+  <code>hoa://Library/Compiler/.Mime</code>).</p>
   <p>Une grammaire est constituée de <strong>lexèmes</strong> et de
   <strong>règles</strong>. La déclaration d'un lexème se fait de la manière
   suivante : <code>%token <em>namespace_in</em>:<em>name</em> <em>value</em> ->
@@ -235,10 +253,10 @@ number:
   <p>Nous remarquons que nous avons deux espaces de noms pour les lexèmes :
   <code>default</code> et <code>string</code> (cela permet de ne pas
   <strong>confondre</strong> les lexèmes <code>quote_</code> et
-  <code>string:_quote</code> qui ont la même valeur). Nous remarquons ensuite la
-  règle <code>value</code> qui est une <strong>disjonction</strong> de plusieurs
-  lexèmes et règles. Les <strong>constructions</strong> du langage PP sont les
-  suivantes :</p>
+  <code>string:_quote</code> qui ont la même représentation). Nous remarquons
+  ensuite la règle <code>value</code> qui est une <strong>disjonction</strong>
+  de plusieurs lexèmes et règles. Les <strong>constructions</strong> du langage
+  PP sont les suivantes :</p>
   <ul>
     <li><code><em>rule</em>()</code> pour <strong>appeler</strong> une
     règle ;</li>
@@ -269,26 +287,27 @@ number:
   <h3 id="Processus_de_compilation" for="main-toc">Processus de compilation</h3>
 
   <p>Le processus de compilation qu'utilise <code>Hoa\Compiler\Llk</code> est
-  classique. Il commence par analyser lexicalement la donnée textuelle, <ie /> à
-  transformer notre donnée en une séquence de lexèmes. L'ordre de déclarations
-  des lexèmes est primordial car l'analyseur lexical va les prendre les uns
-  après les autres. Ensuite, c'est l'analyseur syntaxique qui entre en jeu. Il
-  va compiler les règles écritent dans le langage PP en objet capable de
-  supporter les caractéristiques LL(*) : retours en arrière, gestion des points
-  de choix, gestion des erreurs etc.</p>
-  <p>Si l'analyse lexicale est un succès, nous obtenons une trace. Cette trace
-  peut être transformée en AST, pour <em lang="en">Abstract Syntax Tree</em>.
-  Cet arbre représente notre donnée textuelle après analyses. Il a l'avantage de
-  pouvoir être visiter (nous détaillerons plus loin), ce qui permet par exemple
-  d'ajouter de nouvelles contraintes qui ne peuvent exprimer dans la grammaire,
-  comme une vérification de type.</p>
+  classique. Il commence par analyser <strong>lexicalement</strong> la donnée
+  textuelle, le mot, <ie /> à transformer notre donnée en une séquence de
+  lexèmes. L'<strong>ordre</strong> de déclarations des lexèmes est primordial
+  car l'analyseur lexical va les prendre les uns après les autres. Ensuite,
+  c'est l'analyseur <strong>syntaxique</strong> qui entre en jeu afin de
+  <strong>reconnaître</strong> notre donnée.</p>
+  <p>Si l'analyse lexicale est un succès, nous obtenons une
+  <strong>trace</strong>. Cette trace peut être transformée en AST, pour
+  <em lang="en">Abstract Syntax Tree</em>. Cet arbre représente notre donnée
+  textuelle après analyses. Il a l'avantage de pouvoir être visiter (nous
+  détaillerons plus loin), ce qui permet par exemple d'ajouter de nouvelles
+  <strong>contraintes</strong> qui ne peuvent pas être exprimées dans la
+  grammaire, comme une vérification de type.</p>
   <p>Manipulons un peu <code>Hoa\Compiler\Llk</code>. Cette classe est un
-  assistant pour lire une grammaire au format PP facilement. Elle prend en seule
-  argument un flux en lecture vers la grammaire et retourne un compilateur
-  <code>Hoa\Compiler\Llk\Parser</code> prêt à l'emploi. Sur ce compilateur, nous
-  allons appeler la méthode <code>Hoa\Compiler\Llk\Parser::parse</code> pour
-  analyser une donnée JSON. Si la donnée est correcte, nous aurons en retour un
-  AST, sinon une exception sera levée. Enfin, nous allons utiliser le visiteur
+  <strong>assistant</strong> pour lire une grammaire au format PP facilement.
+  Elle prend en seule argument un flux en lecture vers la grammaire et retourne
+  un compilateur <code>Hoa\Compiler\Llk\Parser</code> prêt à l'emploi. Sur ce
+  compilateur, nous allons appeler la méthode
+  <code>Hoa\Compiler\Llk\Parser::parse</code> pour analyser une donnée JSON. Si
+  la donnée est correcte, nous aurons en retour un AST, sinon une exception sera
+  levée. Enfin, nous allons utiliser le visiteur
   <code>Hoa\Compiler\Visitor\Dump</code> pour afficher notre AST :</p>
   <pre><code language="php">from('Hoa')
 -> import('File.Read')
@@ -317,12 +336,12 @@ echo $dump->visit($ast);
  *     >  >  >  >  token(null, null)
  *     >  >  >  >  token(number, 42)
  */</code></pre>
-  <p>Quand nous écrivons une grammaire, nous allons répéter ces trois tâches
-  très régulièrement. C'est pourquoi, le script <code>hoa</code> (ou
-  <code>hoa.bat</code>) propose la commande <code>pp</code>. Cette commande
-  propose d'analyser une donnée par rapport à une donnée et d'appliquer un
-  visiteur si besoin sur l'AST résultant. Notons que la lecture de la donnée peut
-  se faire à travers un
+  <p>Quand nous écrivons et testons une grammaire, nous allons répéter ces trois
+  tâches très <strong>régulièrement</strong>. C'est pourquoi, le script
+  <code>hoa</code> (ou <code>hoa.bat</code>) propose la commande
+  <code>pp</code>. Cette commande propose d'analyser une donnée par rapport à
+  une grammaire et d'appliquer un visiteur si besoin sur l'AST résultant. Notons
+  que la lecture de la donnée peut se faire à travers un
   <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)"><em lang="en">pipe</em></a> :</p>
   <pre><code language="shell">$ echo '[1, [1, [2, 3], 5], 8]' | hoa pp Json.pp 0 --visitor dump
 >  #array
@@ -334,9 +353,24 @@ echo $dump->visit($ast);
 >  >  >  >  token(number, 3)
 >  >  >  token(number, 5)
 >  >  token(number, 8)</code></pre>
-  <p>C'est un moyen pratique pour tester rapidement des données par rapport à
-  notre grammaire. Il ne faut pas hésiter à regarder l'aide de la commande
-  <code>pp</code> pour plus de détails !</p>
+  <p>C'est un moyen pratique pour tester <strong>rapidement</strong> des données
+  par rapport à notre grammaire. Il ne faut pas hésiter à regarder l'aide de la
+  commande <code>pp</code> pour plus de détails !</p>
+  <p>Les analyses s'effectuent sur la règle <strong>racine</strong> mais nous
+  pouvons préciser une <strong>autre règle</strong> à l'aide du deuxième
+  argument de la méthode <code>Hoa\Compiler\Llk\Parser::parse</code> :</p>
+  <pre><code language="php">$compiler->parse('{"foo": true, "bar": [null, 42]}', 'object');</code></pre>
+  <p>Pour utiliser la règle racine, il suffit de passer <code>null</code>.</p>
+  <p>Et enfin, pour ne pas générer l'AST mais uniquement savoir si la donnée est
+  valide ou pas, nous pouvons utiliser le dernier argument de notre méthode en
+  lui passant <code>false</code> :</p>
+  <pre><code language="php">$valid = $compiler->parse('{"foo": true, "bar": [null, 42]}', null, false);
+var_dump($valid);
+
+/**
+ * Will output:
+ *     bool(true)
+ */</code></pre>
 
   <h4 id="Erreurs" for="main-toc">Erreurs</h4>
 
@@ -347,15 +381,15 @@ Uncaught exception (Hoa\Compiler\Exception\UnexpectedToken):
 Hoa\Compiler\Llk\Parser::parse(): (0) Unexpected token "true" (true) at line 1
 and column 8:
 {"foo" true}
-       ↑
+       ↑
 in hoa://Library/Compiler/Llk/Parser.php at line 1</code></pre>
   <p>Plusieurs exceptions peuvent remonter selon le contexte :</p>
   <ul>
-    <li>durant l'analyse lexicale,
+    <li>durant l'analyse <strong>lexicale</strong>,
     <code>Hoa\Compiler\Exception\UnrecognizedToken</code> quand un lexème n'est
     pas reconnu, <ie /> quand la donnée textuelle ne peut plus être découpée en
     une séquence de lexèmes ;</li>
-    <li>durant l'analyse syntaxique,
+    <li>durant l'analyse <strong>syntaxique</strong>,
     <code>Hoa\Compiler\Exception\UnexpectedToken</code> quand un lexème
     n'est pas attendu, <ie /> qu'il ne permet plus de dériver les règles de la
     grammaire.</li>
@@ -364,24 +398,27 @@ in hoa://Library/Compiler/Llk/Parser.php at line 1</code></pre>
 
   <h4 id="Nœuds" for="main-toc">Nœuds</h4>
 
-  <p>Le processus de compilation aboutit très souvent par la production d'un
-  AST. Il est important de contrôler sa forme, sa taille, les données qui
-  contient etc. C'est pourquoi il est nécessaire de comprendre la notation
-  <code>#<em>node</em></code> car elle permet de créer des nœuds dans l'AST.
-  Une précision tout d'abord, les lexèmes déclarés avec la syntaxe
-  <code>&amp;lt;<em>token</em>></code> apparaîtront dans l'arbre, alors que les
-  autres lexèmes, déclarés avec la syntaxe <code>::<em>token</em>::</code>, n'y
-  apparaîtront pas. En effet, dans notre dernier exemple, les lexèmes
-  <code>quote_</code>, <code>brace_</code>, <code>colon</code>,
-  <code>comma</code> etc. n'apparaissent pas. Ensuite, il est important de noter
-  que les déclarations de nœuds se surchargent les unes par rapport aux autres
-  au sein d'une même règle. Par exemple, un nom de règle peut être précédé par
-  <code>#</code>, comme pour la règle <code>#array</code>, ceci définit un nœud
-  par défaut, mais il peut être surchargé. Par exemple, si nous écrivons :</p>
+  <p>Le processus de compilation aboutit très souvent par la
+  <strong>production</strong> d'un AST. Il est important de contrôler sa
+  <strong>forme</strong>, sa <strong>taille</strong>, les données qui
+  <strong>contient</strong> etc. C'est pourquoi il est nécessaire de comprendre
+  la notation <code>#<em>node</em></code> car elle permet de créer des
+  <strong>nœuds</strong> dans l'AST. Une précision tout d'abord, les lexèmes
+  déclarés avec la syntaxe <code>&amp;lt;<em>token</em>></code> apparaîtront
+  dans l'arbre, alors que les autres lexèmes, déclarés avec la syntaxe
+  <code>::<em>token</em>::</code>, n'y apparaîtront pas. En effet, dans notre
+  dernier exemple, les lexèmes <code>quote_</code>, <code>brace_</code>,
+  <code>colon</code>, <code>comma</code> etc. n'apparaissent pas. Ensuite, il
+  est important de noter que les déclarations de nœuds se
+  <strong>surchargent</strong> les unes par rapport aux autres au sein d'une
+  <strong>même règle</strong>. Enfin, un nom de règle peut être précédé par
+  <code>#</code>, comme pour la règle <code>#array</code>, qui permet de définir
+  un nœud par <strong>défaut</strong>, mais il peut être surchargé. Par exemple,
+  si nous remplaçons la règle <code>array</code> par :</p>
   <pre><code language="pp">#array:
     ::bracket_:: value() ( ::comma:: value() #bigarray )* ::_bracket::</code></pre>
   <p>Si le tableau ne contient qu'une seule valeur, le nœud s'appelera
-  <code>#array</code>, sinon il s'appelera <code>#bigarray</code>, voyons
+  <code>#array</code>, sinon il s'appelera <code>#bigarray</code> ; voyons
   plutôt :</p>
   <pre><code language="shell">$ echo '[42]' | hoa pp Json.pp 0 --visitor dump
   >  #array
@@ -390,15 +427,16 @@ $ echo '[4, 2]' | hoa pp Json.pp 0 --visitor dump
 >  #bigarray
 >  >  token(number, 4)
 >  >  token(number, 2)</code></pre>
-  <p>Bien sûr, il peut arriver qu'un nœud soit crée ou pas selon le chemin
-  emprunté dans la règle (selon la dérivation). Le mécanisme est normalement
-  assez intuitif.</p>
+  <p>Bien sûr, il peut arriver qu'un nœud soit crée ou pas selon le dérivation
+  <strong>empruntée</strong> dans la règle (selon la dérivation). Le mécanisme
+  est normalement assez <strong>intuitif</strong>.</p>
 
   <h4 id="Unification" for="main-toc">Unification</h4>
 
   <p>Une caractéristique qu'apporte le langage PP par rapport à d'autres
-  langages de grammaires connus est la capacité d'exprimer une unification de
-  lexèmes. Imagineons la grammaire suivante :</p>
+  langages de grammaires connus est la capacité d'exprimer une
+  <strong>unification</strong> de lexèmes. Imagineons la grammaire
+  suivante :</p>
   <pre><code language="pp">%token  quote   '|"
 %token  string  \w+
 
@@ -406,19 +444,20 @@ rule:
     ::quote:: &amp;lt;string> ::quote::</code></pre>
   <p>Les guillemets qui entourent la chaîne de caractère peuvent être de deux
   sortes : simple, avec le symbole « <code>'</code> », ou double, avec le
-  symbole « <code>"</code> ». Ainsi, toutes les données <code>"foo"</code> et
-  <code>'foo'</code> sont valides, mais également <code>"foo'</code> et
-  <code>'foo"</code> !</p>
-  <p>L'unification des lexèmes permet d'ajouter une contrainte
-  supplémentaire sur la valeur des lexèmes à l'exécution. La syntaxe est la
-  suivante : <code><em>token</em>[<em>i</em>]</code>. La valeur de
-  <code><em>i</em></code> indique quels lexèmes vont devoir porter la même
-  valeur. Et enfin, l'unification est local à une instance d'une règle,
-  c'est à dire qu'il n'y a pas d'unifications entre les lexèmes de plusieurs
-  règles et que cela s'applique sur la règle appelée uniquement. Ainsi,
-  l'exemple devient :</p>
+  symbole « <code>"</code> ». Ainsi, les données <code>"foo"</code> et
+  <code>'foo'</code> sont valides, mais <strong>également</strong>
+  <code>"foo'</code> et <code>'foo"</code> !</p>
+  <p>L'unification des lexèmes permet d'ajouter une <strong>contraine</strong>
+  supplémentaire sur la <strong>valeur</strong> des lexèmes à l'exécution. La
+  syntaxe est la suivante : <code><em>token</em>[<em>i</em>]</code>. La valeur
+  de <code><em>i</em></code> indique quels lexèmes vont devoir porter la même
+  valeur. Et enfin, l'unification est <strong>locale</strong> à une instance
+  d'une règle, c'est à dire qu'il n'y a pas d'unification entre les lexèmes de
+  plusieurs règles et que cela s'applique sur la règle <strong>appelée</strong>
+  uniquement.  Ainsi, l'exemple devient :</p>
   <pre><code language="pp">rule:
     ::quote[0]:: &amp;lt;string> ::quote[0]::</code></pre>
+  <p>Ce qui invalide les données <code>"foo'</code> et <code>'foo"</code>.</p>
   <p>L'unification trouve de nombreuses applications, comme par exemple unifier
   les noms des balises ouvrantes et fermantes du
   <a href="http://w3.org/TR/xml11/">langage XML</a>.</p>
@@ -426,7 +465,9 @@ rule:
   <h3 id="Abstract_Syntax_Tree" for="main-toc"><em lang="en">Abstract Syntax
   Tree</em></h3>
 
-  <p>Chaque nœud de l'arbre syntaxique abstrait est représenté par la classe
+  <p>Un arbre <strong>syntaxique abstrait</strong> représente la donnée
+  textuelle sous forme <strong>structurelle</strong>. Chaque
+  <strong>nœud</strong> de cet arbre est représenté par la classe
   <code>Hoa\Compiler\Llk\TreeNode</code>. Parmis les méthodes utiles, nous
   trouvons :</p>
   <ul>
@@ -442,13 +483,14 @@ rule:
     données ;</li>
     <li><code>accept</code> pour appliquer un visiteur.</li>
   </ul>
-  <p>Les visiteurs sont le moyen le plus pratique pour parcourir un AST. En
-  guise d'exemple, nous allons écrire le visiteur <code>PrettyPrinter</code> qui
-  va réécrire une donnée JSON avec notre propre convention (espacements, retours
-  à la ligne etc.). Un visiteur doit étendre l'interface
-  <code>Hoa\Visitor\Visit</code> et n'aura qu'une seule méthode à implémenter :
-  <code>visit</code> qui prend trois arguments : l'élément et deux arguments
-  accessoires (en copie et en référence). Voyons plutôt :</p>
+  <p>Les visiteurs sont le moyen le plus pratique pour
+  <strong>parcourir</strong> un AST. En guise d'exemple, nous allons écrire le
+  visiteur <code>PrettyPrinter</code> qui va réécrire une donnée JSON avec notre
+  propre convention (espacements, retours à la ligne etc.). Un visiteur doit
+  implémenter l'interface <code>Hoa\Visitor\Visit</code> et n'aura qu'une seule
+  méthode à écrire : <code>visit</code> qui prend trois arguments :
+  l'élément et deux arguments accessoires (en copie et en référence). Voyons
+  plutôt :</p>
   <pre><code language="php">class PrettyPrinter implements Hoa\Visitor\Visit {
 
     public function visit ( Hoa\Visitor\Element $element,
@@ -458,9 +500,7 @@ rule:
         static $indent = '    ';
 
         // One behaviour per node in the AST.
-        $nodeId = $element->getId();
-
-        switch($nodeId) {
+        switch($element->getId()) {
 
             // Object: { … }.
             case '#object':
@@ -544,30 +584,33 @@ echo $prettyPrint->visit($ast);
  *         ]
  *     }
  */</code></pre>
-  <p>La méthode <code>getData</code> est très pratique pour stocker des données
-  susceptibles d'être réutiliser : par exemple d'un visiteur à l'autre. Cette
-  méthode retourne une référence sur un tableau ; ainsi :</p>
+  <p>La méthode <code>getData</code> est très pratique pour
+  <strong>stocker</strong> des données susceptibles d'être
+  <strong>réutiliser</strong>, par exemple d'un visiteur à l'autre. Cette
+  méthode retourne une <strong>référence</strong> sur un tableau ; ainsi :</p>
   <pre><code language="php">$data = $element->getData();
 
 if(!isset($data['previousComputing']))
     throw new Exception('Need a previous computing.', 0);
 
 $previous = $data['previousComputing'];</code></pre>
-  <p>Il est courant d'utiliser un visiteur par contrainte : vérifiation des
-  symboles, vérification de types etc. Certains peuvent laisser des données
-  nécessaires pour le suivant. La méthode <code>getData</code> n'impose aucune
-  structuration des données, elle propose uniquement un accès à un tableau. Ce
-  sera à vous de faire le reste.</p>
+  <p>Il est courant d'utiliser un visiteur par <strong>contrainte</strong> :
+  vérifiation des symboles, vérification de types etc. Certains peuvent laisser
+  des données nécessaires pour le suivant. La méthode <code>getData</code>
+  n'impose aucune structuration des données, elle propose uniquement un accès à
+  un tableau. Ce sera à vous de faire le reste.</p>
   <p>Utiliser la classe <code>Hoa\Compiler\Llk\TreeNode</code> est vraiment
-  trivial et nous l'utiliserons à la plupart du temps à travers un visiteur.</p>
+  <strong>triviale</strong> et nous l'utiliserons la plupart du temps avec un
+  visiteur.</p>
 
   <h3 id="Traces" for="main-toc">Traces</h3>
 
   <p>Le compilateur LL(<em>k</em>) que propose Hoa est clairement découpé en
-  plusieurs couches. Chaque couche est exploitable pour permettre une modularité
-  maximum. Quand la grammaire est traduite en « règles machines » et que les
-  analyseur lexical et syntaxique ont validé une donnée, il en résulte une
-  trace. Cette trace est un tableau composé de trois classes seulement :</p>
+  plusieurs <strong>couches</strong>. Chaque couche est exploitable pour
+  permettre une modularité maximum. Quand la grammaire est traduite en « règles
+  machines » et que les analyseur lexical et syntaxique ont validé une donnée,
+  il en résulte une <strong>trace</strong>. Cette trace est un tableau composé
+  de trois classes seulement :</p>
   <ul>
     <li><code>Hoa\Compiler\Llk\Rule\Entry</code> quand l'analyseur syntaxique
     est rentré dans une règle ;</li>
@@ -576,91 +619,91 @@ $previous = $data['previousComputing'];</code></pre>
     <li><code>Hoa\Compiler\Llk\Rule\Token</code> quand l'analyseur syntaxique a
     rencontré un lexème.</li>
   </ul>
-  <p>Pour bien comprendre cette trace, nous allons commencer par un
-  exemple :</p>
+  <p>Nous pouvons l'obtenir grâce à la méthode
+  <code>Hoa\Compiler\Llk\Parser::getTrace</code>. Pour bien comprendre cette
+  trace, nous allons commencer par un exemple :</p>
   <pre><code language="php">$compiler = Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp'));
 $ast      = $compiler->parse('{"foo": true, "bar": [null, 42]}');
 $i        = 0;
 
-foreach($compiler->getTrace() as $trace)
-    if($trace instanceof Hoa\Compiler\Llk\Rule\Entry)
-        echo str_repeat('>   ', $i++), 'enter ', $trace->getRule(), "\n";
-
-    elseif($trace instanceof Hoa\Compiler\Llk\Rule\Token)
-        echo str_repeat('    ', $i), 'token ', $trace->getTokenName(),
-             ', consumed ', $trace->getValue(), "\n";
-
+foreach($compiler->getTrace() as $element)
+    if($element instanceof Hoa\Compiler\Llk\Rule\Entry)
+        echo str_repeat('>   ', ++$i), 'enter ', $element->getRule(), "\n";
+    elseif($element instanceof Hoa\Compiler\Llk\Rule\Token)
+        echo str_repeat('    ', $i + 1), 'token ', $element->getTokenName(),
+             ', consumed ', $element->getValue(), "\n";
     else
-        echo str_repeat('&amp;lt;   ', --$i), 'ekzit ', $trace->getRule(), "\n";
+        echo str_repeat('&amp;lt;   ', $i--), 'ekzit ', $element->getRule(), "\n";
 
 /**
  * Will output:
- *     enter value
- *     >   enter object
- *             token brace_, consumed {
- *     >   >   enter pair
- *     >   >   >   enter string
- *                     token quote_, consumed "
- *                     token string, consumed foo
- *                     token _quote, consumed "
- *     &amp;lt;   &amp;lt;   &amp;lt;   ekzit string
- *                 token colon, consumed :
- *     >   >   >   enter value
- *                     token true, consumed true
- *     &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
- *     &amp;lt;   &amp;lt;   ekzit pair
- *     >   >   enter 13
- *     >   >   >   enter 12
- *                     token comma, consumed ,
- *     >   >   >   >   enter pair
- *     >   >   >   >   >   enter string
- *                             token quote_, consumed "
- *                             token string, consumed bar
- *                             token _quote, consumed "
- *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit string
- *                         token colon, consumed :
- *     >   >   >   >   >   enter value
- *     >   >   >   >   >   >   enter array
- *                                 token bracket_, consumed [
- *     >   >   >   >   >   >   >   enter value
- *                                     token null, consumed null
- *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
- *     >   >   >   >   >   >   >   enter 21
- *     >   >   >   >   >   >   >   >   enter 20
- *                                         token comma, consumed ,
- *     >   >   >   >   >   >   >   >   >   enter value
- *                                             token number, consumed 42
- *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
- *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit 20
- *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit 21
- *                                 token _bracket, consumed ]
- *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit array
- *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
- *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit pair
- *     &amp;lt;   &amp;lt;   &amp;lt;   ekzit 12
- *     &amp;lt;   &amp;lt;   ekzit 13
- *             token _brace, consumed }
- *     &amp;lt;   ekzit object
- *     ekzit value
+ *     >   enter value
+ *     >   >   enter object
+ *                 token brace_, consumed {
+ *     >   >   >   enter pair
+ *     >   >   >   >   enter string
+ *                         token quote_, consumed "
+ *                         token string, consumed foo
+ *                         token _quote, consumed "
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit string
+ *                     token colon, consumed :
+ *     >   >   >   >   enter value
+ *                         token true, consumed true
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
+ *     &amp;lt;   &amp;lt;   &amp;lt;   ekzit pair
+ *     >   >   >   enter 13
+ *     >   >   >   >   enter 12
+ *                         token comma, consumed ,
+ *     >   >   >   >   >   enter pair
+ *     >   >   >   >   >   >   enter string
+ *                                 token quote_, consumed "
+ *                                 token string, consumed bar
+ *                                 token _quote, consumed "
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit string
+ *                             token colon, consumed :
+ *     >   >   >   >   >   >   enter value
+ *     >   >   >   >   >   >   >   enter array
+ *                                     token bracket_, consumed [
+ *     >   >   >   >   >   >   >   >   enter value
+ *                                         token null, consumed null
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
+ *     >   >   >   >   >   >   >   >   enter 21
+ *     >   >   >   >   >   >   >   >   >   enter 20
+ *                                             token comma, consumed ,
+ *     >   >   >   >   >   >   >   >   >   >   enter value
+ *                                                 token number, consumed 42
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit 20
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit 21
+ *                                     token _bracket, consumed ]
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit array
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit value
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit pair
+ *     &amp;lt;   &amp;lt;   &amp;lt;   &amp;lt;   ekzit 12
+ *     &amp;lt;   &amp;lt;   &amp;lt;   ekzit 13
+ *                 token _brace, consumed }
+ *     &amp;lt;   &amp;lt;   ekzit object
+ *     &amp;lt;   ekzit value
  */</code></pre>
   <p>Cet exemple nous rélève plusieurs choses. Tout d'abord, les informations
-  que nous donnes la trace peuvent utiles : si nous sommes sur une règle, nous
-  avons son nom (avec la méthode <code>getRule</code>), et si nous sommes sur un
-  lexème, nous avons son nom (avec la méthode <code>getTokenName</code>), sa
-  représentation (sous la forme d'une PCRE, avec la méthode
-  <code>getRepresentation</code>), sa valeur (avec la méthode
-  <code>getValue</code>), si c'est un nœud à conserver dans l'AST (avec la
-  méthode <code>isKept</code> et son index d'unification s'il existe (avec la
-  méthode <code>getUnificationIndex</code>. Bien sûr, tout ceci est modifiable,
-  ce qui peut influencer la construction de l'AST qui est le processus
-  (optionnel) suivant.</p>
+  que nous donnes la trace peuvent être utiles : si nous sommes sur une règle,
+  nous avons son <strong>nom</strong> (avec la méthode <code>getRule</code>), et
+  si nous sommes sur un lexème, nous avons son <strong>nom</strong> (avec la
+  méthode <code>getTokenName</code>), sa <strong>représentation</strong> (sous
+  la forme d'une PCRE, avec la méthode <code>getRepresentation</code>), sa
+  <strong>valeur</strong> (avec la méthode <code>getValue</code>), si c'est un
+  nœud à <strong>conserver</strong> dans l'AST (avec la méthode
+  <code>isKept</code> et son index d'<strong>unification</strong> s'il existe
+  (avec la méthode <code>getUnificationIndex</code>. Bien sûr, tout ceci est
+  modifiable, ce qui peut influencer la construction de l'AST qui est le
+  processus (optionnel) suivant.</p>
   <p>Ensuite, nous remarquons que parfois nous entrons dans une règle qui existe
   dans la grammaire, comme <code>object</code>, <code>pair</code>,
-  <code>value</code> etc., et parfois nous entrons dans une règle numérique,
-  comme <code>13</code>, <code>12</code>, <code>21</code>, <code>20</code>
-  etc. Quand la grammaire est interprétée pour être transformée en « règles
-  machines », chacune de ses règles est décomposée en opération unaire ou
-  binaire selon les opérateurs du langage PP :</p>
+  <code>value</code> etc., et parfois nous entrons dans une règle
+  <strong>numérique</strong>, comme <code>13</code>, <code>12</code>,
+  <code>21</code>, <code>20</code> etc. Quand la grammaire est interprétée pour
+  être transformée en « règles machines », chacune de ses règles est
+  <strong>linéarisée</strong> selon les opérateurs du langage PP :</p>
   <ul>
     <li><code>Hoa\Compiler\Llk\Rule\Choice</code> pour une disjonction ;</li>
     <li><code>Hoa\Compiler\Llk\Rule\Concatenation</code> pour une
@@ -670,13 +713,17 @@ foreach($compiler->getTrace() as $trace)
     précédemment).</li>
   </ul>
   <p>Toutes les règles sous ce format sont accessibles à travers la méthode
-  <code>Hoa\Compiler\Llk\Parser::getRules</code> sous la forme d'un
-  tableau :</p>
+  <code>Hoa\Compiler\Llk\Parser::getRules</code> sous la forme d'un tableau.
+  Nous allons afficher toutes les règles <strong>accessibles</strong> depuis la
+  règle racine pour mieux comprendre :</p>
   <pre><code language="php">$compiler = Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp'));
 $ast      = $compiler->parse('{"foo": true, "bar": [null, 42]}');
+
+// 1. Get all rules.
 $rules    = $compiler->getRules();
+
+// 2. Start with the root rule.
 $stack    = array($compiler->getRootRule() => true);
-reset($stack);
 
 while(false !== current($stack)) {
 
@@ -687,14 +734,17 @@ while(false !== current($stack)) {
 
     $subrules = $rules[$rule]->getContent();
 
+    // 3a. Token.
     if(null === $subrules)
         continue;
 
     echo ' of rules: ';
 
+    // 3b. Other rules.
     foreach((array) $rules[$rule]->getContent() as $subrule) {
 
         if(!array_key_exists($subrule, $stack))
+            // 4. Unshift new rules to print.
             $stack[$subrule] = true;
 
         echo $subrule, ' ';
@@ -703,27 +753,27 @@ while(false !== current($stack)) {
 
 /**
  * Will output:
- *     "value" is a choice of rules: 1 2 3 string object array number 
+ *     "value" is a choice of rules: 1 2 3 string object array number
  *     "1" is a token
  *     "2" is a token
  *     "3" is a token
- *     "string" is a concatenation of rules: 5 6 7 
- *     "object" is a concatenation of rules: 10 pair 13 14 
- *     "array" is a concatenation of rules: 18 value 21 22 
+ *     "string" is a concatenation of rules: 5 6 7
+ *     "object" is a concatenation of rules: 10 pair 13 14
+ *     "array" is a concatenation of rules: 18 value 21 22
  *     "number" is a token
  *     "5" is a token
  *     "6" is a token
  *     "7" is a token
  *     "10" is a token
- *     "pair" is a concatenation of rules: string 16 value 
- *     "13" is a repetition of rules: 12 
+ *     "pair" is a concatenation of rules: string 16 value
+ *     "13" is a repetition of rules: 12
  *     "14" is a token
  *     "18" is a token
- *     "21" is a repetition of rules: 20 
+ *     "21" is a repetition of rules: 20
  *     "22" is a token
  *     "16" is a token
- *     "12" is a concatenation of rules: 11 pair 
- *     "20" is a concatenation of rules: 19 value 
+ *     "12" is a concatenation of rules: 11 pair
+ *     "20" is a concatenation of rules: 19 value
  *     "11" is a token
  *     "19" is a token
  */</code></pre>
@@ -732,35 +782,264 @@ while(false !== current($stack)) {
   et <code>14</code>. <code>10</code> est un lexème, <code>pair</code> est la
   concaténation des règles <code>string</code>, <code>16</code> et
   <code>value</code>, et ainsi de suite. La grammaire initiale est transformée
-  pour être sous sa forme la plus réduite possible. Ceci permet de raisonner
-  beaucoup plus facilement et rapidement sur les règles.</p>
-  <p>En effet, les traitements sur la grammaire ne sont pas réservées au AST. À
-  l'étape précédente, avec la trace, nous pouvons faire des traitements, comme
-  par exemple la génération de données.</p>
+  pour être sous sa forme la plus <strong>réduite</strong> possible. Ceci permet
+  de <strong>raisonner</strong> beaucoup plus <strong>facilement</strong> et
+  <strong>rapidement</strong> sur les règles. En effet, les traitements sur la
+  grammaire ne sont pas réservées aux AST. À l'étape précédente, avec la trace,
+  nous pouvons déjà effectuer des traitements.</p>
 
-  <h3 id="Validation_et_generation" for="main-toc">Validation et génération</h3>
+  <h3 id="Generation" for="main-toc">Génération</h3>
 
-  <p>Une grammaire peut être utile pour deux objectifs : valider une donnée
-  (si nous la voyons comme un automate) ou générer des données. Jusqu'à présent,
-  nous avons vu comment valider une donnée à travers plusieurs processus :
-  préparation de notre compilateur, exécution des analyseurs lexical et
-  syntaxique résultant sur une trace, transformation de la trace vers un AST
-  pour enfin visiter cet arbre. Mais nous pouvons nous arrêter à la première
-  étape, la préparation de notre compilateur, pour exploiter les règles afin de
-  générer une donnée qui sera valide par rapport à notre grammaire.</p>
+  <p>Une grammaire peut être utile pour deux objectifs :
+  <strong>valider</strong> une donnée (si nous la voyons comme un automate) ou
+  <strong>générer</strong> des données. Jusqu'à présent, nous avons vu comment
+  valider une donnée à travers plusieurs processus :
+  <strong>préparation</strong> de notre compilateur, exécution des
+  <strong>analyseurs</strong> lexical et syntaxique résultant sur une
+  <strong>trace</strong>, transformation de la trace vers un
+  <strong>AST</strong> pour enfin <strong>visiter</strong> cet arbre.  Mais nous
+  pouvons nous arrêter à la première étape, la préparation de notre compilateur,
+  pour exploiter les règles afin de générer une donnée qui sera valide par
+  rapport à notre grammaire.</p>
   <p><code>Hoa\Compiler\Llk\Sampler</code> propose trois algorithmes de
-  générations de données :</p>
+  <strong>générations</strong> de données :</p>
   <ul>
-    <li>génération aléatoire ;</li>
+    <li>génération aléatoire et uniforme ;</li>
     <li>génération exhaustive bornée ;</li>
     <li>génération basée sur la couverture.</li>
   </ul>
-  <p>Blabla</p>
+  <p>Pourquoi proposer trois algorithmes ? Parce qu'il est illusoire de penser
+  qu'un seul algorithme peut suffir aux <strong>nombreux</strong> contextes
+  d'utilisations.  Chacun répond à des besoins différents, nous l'expliquerons
+  plus loin.</p>
+  <p>Générer une donnée à partir d'une grammaire se fait en <strong>deux
+  étapes</strong> :</p>
+  <ol>
+    <li>générer des valeurs pour les <strong>lexèmes</strong> afin d'avoir des données
+    brutes ;</li>
+    <li>générer un <strong>chemin</strong> dans les règles de la grammaire.</li>
+  </ol>
+  <p>Un chemin est équivalent à une dérivation, le vocabulaire est différent
+  selon notre objectif : validation ou génération.</p>
+
+  <h4 id="Generation_isotropique_de_lexemes" for="main-toc">Génération
+  isotropique de lexèmes</h4>
+
+  <p>Pour générer les valeurs des lexèmes, peu importe l'algorithme utilisé, il
+  doit être <strong>rapide</strong>. Nous allons utiliser un parcours dit
+  <strong>isotrope</strong>. Nous partons d'une règle et nous avançons
+  uniquement à partir de choix <strong>aléatoire</strong> et <strong>uniforme
+  localement</strong> (uniquement pour ce choix). Par exemple si nous avons une
+  disjonction entre trois sous-règles, nous allons tirer aléatoirement et
+  uniformément entre 1 et 3. Si nous avons une concaténation, nous allons juste
+  concaténer chaque partie. Et enfin, une répétition n'est rien d'autre qu'une
+  disjonction de concaténation : en effet, <code><em>e</em>{1,3</code>} est
+  strictement équivalent à <code><em>e</em> | <em>ee</em> | <em>eee</em></code>.
+  Illustrons plutôt :</p>
+  <pre><code>([ae]+|[x-z]!){1,3}              <em>repeat <em>[ae]+|[x-z]!</em> 2 times</em>
+→ ([ae]+|[x-z]!)([ae]+|[x-z]!)  <em>choose between <em>[ae]+</em> and <em>[x-y]!</em></em>
+→ ([ae]+)([ae]+|[x-z]!)         <em>repeat <code>ae</code> 2 times</em>
+→ [ae][ae]([ae]+|[x-z]!)        <em>choose between <em>a</em> and <em>e</em></em>
+→ e[ae]([ae]+|[x-z]!)           <em>again</em>
+→ ea([ae]+|[x-z]!)              <em>choose between <em>[ae]+</em> and <em>[x-y]!</em></em>
+→ ea([x-z]!)                    <em>choose between <em>x</em>, <em>y</em> and <em>z</em></em>
+→ eay!</code></pre>
+  <p>Cette génération est <strong>naïve</strong> mais ce n'est pas important. Ce
+  qui est vraiment important est la génération des chemins dans les règles, ou
+  autrement dit, la génération des <strong>séquences de lexèmes</strong>.</p>
+
+  <h4 id="Generation_aleatoire_et_uniforme" for="main-toc">Génération aléatoire
+  et uniforme</h4>
+
+  <p>Le premier algorithme est celui de la génération <strong>aléatoire</strong>
+  et <strong>uniforme</strong>. Cet algorithme est utile si nous voulons générer
+  des séquences de lexèmes de <strong>taille <em>n</em> fixe</strong> et avec
+  une <strong>uniformité</strong> non pas locale (comme avec un parcours
+  isotrope) mais sur l'<strong>ensemble</strong> de toutes les séquences
+  possibles.  Succintement, l'algorithme travaille en deux étapes :
+  <strong>pré-calcul</strong> (une seule fois par taille) puis
+  <strong>génération</strong>. Le pré-calcul est une étape
+  <strong>automatique</strong> et calcule le <strong></strong> de séquences et
+  sous-séquences possibles de taille <em>n</em>. Cette étape aide au calcul de
+  <strong>fonctions de distributions</strong> pour <strong>guider</strong> la
+  génération des séquences de lexèmes finales.</p>
+  <p>Nous allons générer 10 données aléatoires de taille 7, c'est à dire
+  composées de 7 lexèmes. Pour cela, nous allons utiliser la classe
+  <code>Hoa\Compiler\Llk\Sampler\Uniform</code> qui prend en premier argument
+  notre grammaire, en deuxième le générateur de valeurs de lexèmes (ici
+  <code>Hoa\Regex\Visitor\Isototropic</code>) et enfin la taille :</p>
+  <pre><code language="php">from('Hoa')
+-> import('File.Read')
+-> import('Compiler.Llk.~')
+-> import('Compiler.Llk.Sampler.Uniform')
+-> import('Test.Sampler.Random')
+-> import('Regex.Visitor.Isotropic');
+
+$sampler = new Hoa\Compiler\Llk\Sampler\Uniform(
+    // Grammar.
+    Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp')),
+    // Token sampler.
+    new Hoa\Regex\Visitor\Isotropic(new Hoa\Test\Sampler\Random()),
+    // Length.
+    7
+);
+
+for($i = 0; $i &amp;lt; 10; ++$i)
+    echo $i, ' => ', $sampler->uniform(), "\n";
+
+/**
+ * Will output:
+ *     0 => [ false , null , null ]
+ *     1 => [ " l " , null ]
+ *     2 => [ [ true ] , true ]
+ *     3 => [ [ [ 4435 ] ] ]
+ *     4 => [ [ [ 9366 ] ] ]
+ *     5 => [ true , false , null ]
+ *     6 => { " |h&amp;lt;# " : false }
+ *     7 => [ [ [ false ] ] ]
+ *     8 => [ false , true , 7 ]
+ *     9 => [ false , 5 , 79 ]
+ */</code></pre>
+  <p>Nous pouvons redéfinir la taille avec la méthode
+  <code>Hoa\Compiler\Llk\Sampler\Uniform::setLength</code>. Nous aurons
+  peut-être remarqué que certains opérateurs de répétition non pas de bornes
+  supérieures, comme <code>+</code> ou <code>*</code> ; dans ce cas, nous la
+  définissons à <em>n</em>.</p>
+
+  <h4 id="Generation_exhaustive_bornee" for="main-toc">Génération exhaustive
+  bornée</h4>
+
+  <p>Le deuxième algorithme est celui de la génération <strong>exhaustive
+  bornée</strong>. Cet algorithme génère <strong>toutes</strong> les séquences
+  (c'est le côté exhaustif) de lexèmes de taille 1 <strong>jusqu'à</strong>
+  <em>n</em> (c'est le caractère bornée). Un aspect très intéressant de cet
+  algorithme est que l'exhaustivité est une forme de <strong>preuve</strong> !
+  L'algorithme fonctionne comme un itérateur et est très simple à utiliser :</p>
+  <pre><code language="php">from('Hoa')
+-> import('Compiler.Llk.Sampler.BoundedExhaustive');
+
+$sampler = new Hoa\Compiler\Llk\Sampler\BoundedExhaustive(
+    // Grammar.
+    Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp')),
+    // Token sampler.
+    new Hoa\Regex\Visitor\Isotropic(new Hoa\Test\Sampler\Random()),
+    // Length.
+    7
+);
+
+foreach($sampler as $i => $data)
+    echo $i, ' => ', $data, "\n";
+
+/**
+ * Will output:
+ *     0 => true
+ *     1 => false
+ *     2 => null
+ *     3 => " 8u2 "
+ *     4 => { " ,M@aj{ " : true }
+ *     5 => { " x`|V " : false }
+ *     6 => { " NttB " : null }
+ *     7 => { " eJWwA " : 0 }
+ *     8 => [ true ]
+ *     9 => [ true , true ]
+ *     10 => [ true , true , true ]
+ *     11 => [ true , true , false ]
+ *     12 => [ true , true , null ]
+ *     13 => [ true , true , 32 ]
+ *     14 => [ true , false ]
+ *     15 => [ true , false , true ]
+ *     16 => [ true , false , false ]
+ *     17 => [ true , false , null ]
+ *     18 => [ true , false , 729 ]
+ *     19 => [ true , null ]
+ *     20 => [ true , null , true ]
+ *     21 => [ true , null , false ]
+ *     …
+ *     157 => [ 780 , 01559 , 32 ]
+ *     158 => 344
+ */</code></pre>
+  <p><em>A l'instar</em> de l'algorithme précédent, nous pouvons redéfinir la
+  borne maximum avec la méthode
+  <code>Hoa\Compiler\Llk\Sampler\BoundedExhaustive::setLength</code>. Et les
+  opérateurs de répétition sans borne supérieure utilisent <em>n</em>.</p>
+
+  <h4 id="Generation_basee_sur_la_couverture" for="main-toc">Génération basée
+  sur la couverture</h4>
+
+  <p>Le dernier algorithme est celui de la génération <strong>basée sur la
+  couverture</strong>. Cet algorithme réduit l'<strong>explosion
+  combinatoire</strong> rencontrée avec l'algorithme précédent mais l'objectif
+  est tout autre : il va générer des séquences de lexèmes qui vont
+  « <strong>activer</strong> » toutes les <strong>branches</strong> des règles
+  de la grammaire. Une règle est dite couverte si et seulement si ses
+  sous-règles sont toutes couvertes, et un lexème est dit couvert s'il a été
+  utilisé dans une séquence. Pour assurer une <strong>diversité</strong> dans
+  les séquences produites, les points de choix entre des sous-règles non
+  couvertes sont résolus par tirages <strong>aléatoires</strong>. L'algorithme
+  fonctionne également comme un itérateur :</p>
+  <pre><code language="php">from('Hoa')
+-> import('Compiler.Llk.Sampler.Coverage');
+
+$sampler = new Hoa\Compiler\Llk\Sampler\Coverage(
+    // Grammar.
+    Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp')),
+    // Token sampler.
+    new Hoa\Regex\Visitor\Isotropic(new Hoa\Test\Sampler\Random())
+);
+
+foreach($sampler as $i => $data)
+    echo $i, ' => ', $data, "\n";
+
+/**
+ * Will output:
+ *     0 => true
+ *     1 => { " )o?bz " : null , " %3W) " : [ false , 130 , " 6 " ] }
+ *     2 => [ { " ny  " : true } ]
+ *     3 => { " Ne;[3 " : [ true , true ] , " th: " : true , " C[8} " : true }
+ */</code></pre>
+  <p>Pour éviter l'explosion combinatoire et assurer la
+  <strong>termination</strong> de l'algorithme, nous utilisons
+  l'<strong>heuristique</strong> suivante sur les opérateurs de
+  <strong>répétition</strong> : <code>*</code> répétera <code>0</code>,
+  <code>1</code> et <code>2</code> fois, <code>+</code> répétera <code>1</code>
+  et <code>2</code> fois, et enfin <code>{<em>x</em>,<em>y</em>}, </code>
+  répétera <code><em>x</em></code>, <code><em>x</em> + 1</code>,
+  <code><em>y</em> - 1</code> et <code><em>y</em></code> fois. Cette heuristique
+  trouve ses origines dans le test aux <strong>limites</strong>.</p>
+  <p>Nous remarquons dans notre exemple que 4 données sont générées et suffisent
+  à <strong>couvrir</strong> l'ensemble de notre grammaire !</p>
+
+  <h4 id="Comparaison_entre_les_algorithmes" for="main-toc">Comparaison entre
+  les algorithmes</h4>
+
+  <p>Voici quelques <strong>indices</strong> pour savoir quand utiliser tel ou
+  tel autre algorithme.</p>
+  <dl>
+    <dt>Génération aléatoire et uniforme :</dt>
+    <dd><ul>
+      <li data-item="+">rapide pour des petites données, grande diversité dans
+      les données et taille fixe ;</li>
+      <li data-item="-">la phase de pré-calcul est exponentielle et donc
+      longue malgré que, ensuite, la génération soit très rapide.</li>
+    </ul></dd>
+    <dt>Génération exhaustive bornée :</dt>
+    <dd><ul>
+      <li data-item="+">rapide pour des petites données et l'exhaustivité est
+      efficace ;</li>
+      <li data-item="-">nombre exponentielle de données.</li>
+    </ul></dd>
+    <dt>Génération basée sur la couverture :</dt>
+    <dd><ul>
+      <li data-item="+">rapide pour des données de taille moyenne ou grande,
+      et diversité des données ;</li>
+      <li data-item="-">ne considère pas de taille.</li>
+    </ul></dd>
+  </dl>
 
   <h3 id="Integration_avec_des_outils" for="main-toc">Intégration avec des
   outils</h3>
 
-  <h4 id="Vim">Vim</h4>
+  <h4 id="Vim" for="main-toc">Vim</h4>
 
   <p>Le langage PP a été intégré à l'<a href="http://vim.org/">éditeur Vim</a>.
   Nous trouverons tout ce qui est nécessaire dans le
@@ -771,21 +1050,31 @@ while(false !== current($stack)) {
     <li><code>.vim/colors/pp.vim</code> pour la colorisation syntaxique.</li>
   </ul>
 
-  <h4 id="PHPStorm">PHPStorm</h4>
+  <h4 id="PHPStorm" for="main-toc">PHPStorm</h4>
 
   <p>À venir.</p>
 
-  <h2 id="Compilateur_de_compilateur_LL1" for="main-toc">Compilateur de
-  compilateur LL(1)</h2>
+  <h2 id="Compilateur_de_compilateurs_LL1" for="main-toc">Compilateur de
+  compilateurs LL(1)</h2>
 
   <p>La documentation pour le compilateur LL(1), à travers la classe
-  <code>Hoa\Compiler\Ll1</code> n'est pas encore documentée.  L'objectif est
+  <code>Hoa\Compiler\Ll1</code> n'est pas encore écrite  L'objectif est
   différent de <code>Hoa\Compiler\Llk</code> : il n'existe pas de langage
   intermédiaire, les automates sont codés en dur avec des tableaux et ce type de
   compilateurs est orienté haute performance. C'est pourquoi son comportement
-  est monolothique.</p>
+  est <strong>monolothique</strong>.</p>
 
   <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
+  <p><code>Hoa\Compiler</code> propose deux <strong>compilateurs de
+  compilateurs</strong> : <code>Hoa\Compiler\Llk</code> et
+  <code>Hoa\Compiler\Ll1</code>, afin de <strong>valider</strong> des données.
+  Le <strong>langage PP</strong> permet d'écrire des <strong>grammaires
+  algébriques</strong> de manière <strong>simple</strong> et
+  <strong>naturel</strong>. Le compilateur de compilateurs LL(<em>k</em>) est
+  découpé en <strong>processus distincts</strong> ce qui le rend très
+  <em lang="en">hackable</em>. Enfin, différents algorithmes permettent de
+  <strong>générer</strong> des données à partir d'une grammaire selon le
+  contexte d'utilisation.</p>
 </yield>
 </definition>
