@@ -82,11 +82,7 @@ Hoa\Zombie::decapitate();
   <strong>émettant</strong> une requête FastCGI vers PHP FPM. C'est ce dernier
   choix que nous allons retenir.</p>
   <p>Nous commençons avec le fichier <code>Zombie.php</code> :</p>
-  <pre><code language="php">&amp;lt;?php
-
-require '/usr/local/lib/hoa/Core/Core.php';
-
-from('Hoa')
+  <pre><code language="php">from('Hoa')
 -> import('Zombie.~');
 
 echo 'I guess I am sick…', "\n";
@@ -102,11 +98,7 @@ file_put_contents(
   <p>Ensuite, nous continuons avec le fichier <code>Run.php</code> qui va
   exécuter <code>Zombie.php</code> grâce à
   <a href="@lh:chapter=Fastcgi"><code>Hoa\FastCgi</code></a> :</p>
-  <pre><code language="php">&amp;lt;?php
-
-require '/usr/local/lib/hoa/Core/Core.php';
-
-from('Hoa')
+  <pre><code language="php">from('Hoa')
 -> import('Socket.Client')
 -> import('FastCgi.Responder');
 
