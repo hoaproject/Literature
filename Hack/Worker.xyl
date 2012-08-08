@@ -7,7 +7,7 @@
   <h1 id="Core"><em lang="en">Hack
   book</em><title_break /><code>Worker</code></h1>
 
-  <p>Les <em lang="en">worker</em> permettent de décharger une application de
+  <p>Les <em lang="en">workers</em> permettent de décharger une application de
   tâches <strong>lourdes</strong> ou <strong>bloquantes</strong>. La
   bibliothèque <code>Hoa\Worker</code> permet de créer et de manipuler des <em
   lang="en">workers</em> à moindre effort.</p>
