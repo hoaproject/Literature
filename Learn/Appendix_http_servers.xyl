@@ -35,42 +35,68 @@
   <h3 id="Apache_Hote_virtuel" for="main-toc">Hôte virtuel</h3>
 
   <p>Pour ajouter un hôte virtuel à Apache il faut modifier le fichier
-  <code>httpd.conf</code> afin d'y ajouter la déclaration de notre nouvel
-  hôte :</p>
+  <code>httpd.conf</code> afin d'y ajouter à la fin la déclaration de notre
+  nouvel hôte :</p>
 
-  <pre><code language="conf">&amp;lt;VirtualHost *:80>
-  ServerName www.foo.com
+  <tabs class="plain">
+    <tablist>
+      <tab for="tunix_httpd" selected="true">Unix</tab>
+      <tab for="twindows_httpd">Windows</tab>
+    </tablist>
+
+    <tabpanel id="tunix_httpd">
+      <pre><code language="conf">&amp;lt;VirtualHost *:80>
+  ServerName localhost
 
   DocumentRoot /path/to/my/hoa/app/Application/Public
-&amp;lt;/VirtualHost></code></pre>
 
-  <p>Cet hôte virtuel minimal permet de faire fonctionner Hoa grâce au
-  <code>DocumentRoot</code> qui pointe sur le dossier
-  <code>/Application/Public/</code>. Le <code>ServerName</code> le
-  plus courant pour le développement est <code>localhost</code> car il est
-  résolu sur l'adresse IP locale (127.0.0.1). Si vous utilisez un autre nom,
-  celui-ci doit figurer dans votre fichier Host (<code>/etc/hosts</code> sous
-  Unix, ... sous Windows) où être résolu par votre serveur DNS comme étant sur
-  votre adresse IP locale.</p>
+  &amp;lt;Directory /path/to/my/hoa/app/Application/Public>
+    Options All
+    AllowOverride All
+  &amp;lt;/Directory>
+
+&amp;lt;/VirtualHost></code></pre>
+    </tabpanel>
+    <tabpanel id="twindows_httpd">
+      <pre><code language="conf">&amp;lt;VirtualHost *:80>
+  ServerName localhost
+
+  DocumentRoot C:\path\to\my\hoa\app\Application\Public
+
+  &amp;lt;Directory C:\path\to\my\hoa\app\Application\Public>
+    Options All
+    AllowOverride All
+  &amp;lt;/Directory>
+
+&amp;lt;/VirtualHost></code></pre>
+    </tabpanel>
+  </tabs>
+
+  <p>Cet hôte virtuel (<code>VirtualHost</code>) minimal permet de faire
+  fonctionner Hoa grâce au <code>DocumentRoot</code> qui pointe sur le
+  sous-dossier <code>/Application/Public/</code> du dossier de l'application
+  Hoa. Le  <code>ServerName</code> le plus courant pour le développement est
+  <code>localhost</code> car il est résolu sur l'adresse IP locale (127.0.0.1).
+  Si vous utilisez un autre nom, celui-ci doit figurer dans votre fichier Host
+  (<code>/etc/hosts</code> sous Unix,
+  <code>%SystemRoot%\system32\drivers\etc\hosts</code> sous Windows) où être
+  résolu par votre serveur DNS comme pointant sur votre adresse IP locale.</p>
+
+  <p>La directive <code>Directory</code> permet de préciser des fonctionnalitées
+  pour un dossier en particulier. Dans notre cas nous souhaitons pouvoir
+  utiliser toutes les fonctionnalités, nous activons donc
+  <code>Options All</code>. Nous souhaitons pouvoir configurer ces
+  fonctionnalitées grâce à un fichier <code>.htaccess</code>
+  que nous placerons dans le répertoire, nous activons cette possibilité avec
+  la directive <code>AllowOverride All</code>.</p>
 
   <p>La <a href="http://httpd.apache.org/docs/">documentation</a> permet de
   découvrir toutes les directives disponibles pour la configuration d'Apache.</p>
 
   <h3 id="Apache_Reecriture_d_URL" for="main-toc">Réécriture d'URL</h3>
 
-  <p>La réécriture d'URL pour Apache peut être spécifiée dans la déclaration de
-  l'hôte virtuel en précisant les paramètres pour un dossier
-  (<code>Directory</code>) :</p>
-
-  <pre><code language="conf">
-&amp;lt;Directory "/path/to/my/hoa/app/Application/Public">
-  RewriteEngine on
-  RewriteCond %{SCRIPT_FILENAME} !-f
-  RewriteCond %{SCRIPT_FILENAME} !-d
-  RewriteRule ^(.*)$ index.php?$1
-&amp;lt;/Directory></code></pre>
-
-  <p>ou dans un fichier <code>.htaccess</code> à placer dans le répertoire
+  <p>La réécriture d'URL pour Apache peut être spécifiée dans un fichier
+  <code>.htaccess</code> à placer dans le répertoire
   <code>/Application/Public</code> de votre application Hoa :</p>
 
   <pre><code language="conf">RewriteEngine On
@@ -99,6 +125,13 @@ RewriteRule ^(.*)$ index.php?$1</code></pre>
   pour votre développement avec Hoa vous pouvez ajouter les lignes suivantes en
   toute fin de votre fichier <code>nginx.conf</code> :</p>
 
+  <tabs class="plain">
+    <tablist>
+      <tab for="tunix_nginx" selected="true">Unix</tab>
+      <tab for="twindows_nginx">Windows</tab>
+    </tablist>
+
+    <tabpanel id="tunix_nginx">
   <pre><code language="conf">server {
   server_name localhost;
 
@@ -107,26 +140,46 @@ RewriteRule ^(.*)$ index.php?$1</code></pre>
       index  index.php;
   }
 
-  // passer les fichiers .php à PHP FastCGI
   location ~ \.php$ {
       fastcgi_pass 127.0.0.1:9000;
       fastcgi_index index.php;
       fastcgi_param SCRIPT_FILENAME /path/to/my/hoa/app/Application/Public/$fastcgi_script_name;
       include /etc/nginx/fastcgi_params;
   }
-}
-  </code></pre>
+}</code></pre>
+    </tabpanel>
+    <tabpanel id="twindows_nginx">
+  <pre><code language="conf">server {
+  server_name localhost;
 
-  <p>Le bloc <code>server</code> permet de décrire le nom du serveur. Le bloc
-  <code>location</code> permet de préciser le chemin par défaut ainsi que la
-  page d'index par défaut. La
-  <a href="http://nginx.org/en/docs/">documentation</a> permet de configurer
-  précisemment Nginx.</p>
+  location / {
+      root   C:\path\to\my\hoa\app\Application\Public;
+      index  index.php;
+  }
+
+  location ~ \.php$ {
+      fastcgi_pass 127.0.0.1:9000;
+      fastcgi_index index.php;
+      fastcgi_param SCRIPT_FILENAME C:\path\to\my\hoa\app\Application\Public\$fastcgi_script_name;
+      include C:\nginx\fastcgi_params;
+  }
+}</code></pre>
+    </tabpanel>
+  </tabs>
+
+  <p>Le bloc <code>server</code> permet de décrire le nom du serveur. Le premier
+  bloc <code>location</code> permet de préciser à Nginx à quel chemin sur le
+  disque correspond une requête envoyée sur <code>/</code>. Le second bloc
+  <code>location</code> sert à transmettre à PHP FastCGI le traitement de tous
+  les fichiers avec l'extension <code>.php</code>.</p>
+
+  <p>La<a href="http://nginx.org/en/docs/">documentation</a> permet d'étudier
+  plus précisemment toutes les directives de configuration de Nginx.</p>
 
   <h3 id="Nginx_Reecriture_d_URL" for="main-toc">Réécriture d'URL</h3>
 
-  <p>La réécriture d'URL pour Nginx doit être décrite dans le bloc
-  <code>location</code> en y ajoutant les lignes suivantes :</p>
+  <p>La réécriture d'URL pour Nginx doit être décrite dans le premier bloc
+  <code>location</code> en y ajoutant la ligne suivante :</p>
 
   <pre><code language="conf">try_files $uri $uri/ /index.php?$args;</code></pre>
 
