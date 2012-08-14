@@ -45,8 +45,8 @@
   Les séquences de lexèmes représentant les mots sont construites avec des
   <strong>règles</strong>. À partir d'un mot et d'une règle racine, nous allons
   essayer de <strong>dériver</strong> ses sous-règles. Si une dérivation existe,
-  alors le mot est considérer comme <strong>valide</strong>, sinon il est
-  considérer comme <strong>invalide</strong>. Nous parlons aussi de
+  alors le mot est considéré comme <strong>valide</strong>, sinon il est
+  considéré comme <strong>invalide</strong>. Nous parlons aussi de
   <strong>reconnaissance</strong> de mots. Par exemple, si nous considérons les
   règles suivantes :</p>
   <pre><code>    exp ::= exp + exp
@@ -196,7 +196,7 @@ rule4 ::= e f</code></pre>
   pourquoi il existe des <strong>compilateurs de compilateurs</strong>, ou
   autrement dit, des générateurs de compilateurs. La plupart du temps, ces
   compilateurs de compilateurs utilisent un langage
-  <strong>intermédiaire</strong> pour écrire une grammair. La bibliothèque
+  <strong>intermédiaire</strong> pour écrire une grammaire. La bibliothèque
   <code>Hoa\Compiler</code> propose la classe <code>Hoa\Compiler\Llk</code> qui
   permet l'écriture de compilateurs de compilateurs à travers un langage
   <strong>dédié</strong>.</p>
@@ -334,7 +334,7 @@ number:
   <p>Si l'analyse lexicale est un succès, nous obtenons une
   <strong>trace</strong>. Cette trace peut être transformée en AST, pour
   <em lang="en">Abstract Syntax Tree</em>. Cet arbre représente notre donnée
-  textuelle après analyses. Il a l'avantage de pouvoir être visiter (nous
+  textuelle après analyse. Il a l'avantage de pouvoir être visité (nous
   détaillerons plus loin), ce qui permet par exemple d'ajouter de nouvelles
   <strong>contraintes</strong> qui ne peuvent pas être exprimées dans la
   grammaire, comme une vérification de type.</p>
@@ -439,7 +439,7 @@ in hoa://Library/Compiler/Llk/Parser.php at line 1</code></pre>
 
   <p>Le processus de compilation aboutit très souvent par la
   <strong>production</strong> d'un AST. Il est important de contrôler sa
-  <strong>forme</strong>, sa <strong>taille</strong>, les données qui
+  <strong>forme</strong>, sa <strong>taille</strong>, les données qu'il
   <strong>contient</strong> etc. C'est pourquoi il est nécessaire de comprendre
   la notation <code>#<em>node</em></code> car elle permet de créer des
   <strong>nœuds</strong> dans l'AST. Une précision tout d'abord, les lexèmes
@@ -466,7 +466,7 @@ $ echo '[4, 2]' | hoa pp Json.pp 0 --visitor dump
 >  #bigarray
 >  >  token(number, 4)
 >  >  token(number, 2)</code></pre>
-  <p>Bien sûr, il peut arriver qu'un nœud soit crée ou pas selon le dérivation
+  <p>Bien sûr, il peut arriver qu'un nœud soit créé ou pas selon le dérivation
   <strong>empruntée</strong> dans la règle (selon la dérivation). Le mécanisme
   est normalement assez <strong>intuitif</strong>.</p>
 
@@ -644,7 +644,7 @@ echo $prettyPrint->visit($ast);
  */</code></pre>
   <p>La méthode <code>getData</code> est très pratique pour
   <strong>stocker</strong> des données susceptibles d'être
-  <strong>réutiliser</strong>, par exemple d'un visiteur à l'autre. Cette
+  <strong>réutilisées</strong>, par exemple d'un visiteur à l'autre. Cette
   méthode retourne une <strong>référence</strong> sur un tableau ; ainsi :</p>
   <pre><code language="php">$data = $element->getData();
 
@@ -658,7 +658,7 @@ $previous = $data['previousComputing'];</code></pre>
   n'impose aucune structuration des données, elle propose uniquement un accès à
   un tableau. Ce sera à vous de faire le reste.</p>
   <p>Utiliser la classe <code>Hoa\Compiler\Llk\TreeNode</code> est vraiment
-  <strong>triviale</strong> et nous l'utiliserons la plupart du temps avec un
+  <strong>trivial</strong> et nous l'utiliserons la plupart du temps avec un
   visiteur.</p>
   </checkpoint>
 
@@ -693,7 +693,7 @@ $previous = $data['previousComputing'];</code></pre>
     <li><code>Hoa\Compiler\Llk\Rule\Entry</code> quand l'analyseur syntaxique
     est rentré dans une règle ;</li>
     <li><code>Hoa\Compiler\Llk\Rule\Ekzit</code> quand l'analyseur syntaxique
-    est sortie d'une règle ;</li>
+    est sorti d'une règle ;</li>
     <li><code>Hoa\Compiler\Llk\Rule\Token</code> quand l'analyseur syntaxique a
     rencontré un lexème.</li>
   </ul>
@@ -763,8 +763,8 @@ foreach($compiler->getTrace() as $element)
  *     &amp;lt;   &amp;lt;   ekzit object
  *     &amp;lt;   ekzit value
  */</code></pre>
-  <p>Cet exemple nous rélève plusieurs choses. Tout d'abord, les informations
-  que nous donnes la trace peuvent être utiles : si nous sommes sur une règle,
+  <p>Cet exemple nous révèle plusieurs choses. Tout d'abord, les informations
+  que nous donne la trace peuvent être utiles : si nous sommes sur une règle,
   nous avons son <strong>nom</strong> (avec la méthode <code>getRule</code>), et
   si nous sommes sur un lexème, nous avons son <strong>nom</strong> (avec la
   méthode <code>getTokenName</code>), sa <strong>représentation</strong> (sous
@@ -907,7 +907,7 @@ while(false !== current($stack)) {
   <p>Pour générer les valeurs des lexèmes, peu importe l'algorithme utilisé, il
   doit être <strong>rapide</strong>. Nous allons utiliser un parcours dit
   <strong>isotrope</strong>. Nous partons d'une règle et nous avançons
-  uniquement à partir de choix <strong>aléatoire</strong> et <strong>uniforme
+  uniquement à partir de choix <strong>aléatoires</strong> et <strong>uniformes
   localement</strong> (uniquement pour ce choix). Par exemple si nous avons une
   disjonction entre trois sous-règles, nous allons tirer aléatoirement et
   uniformément entre 1 et 3. Si nous avons une concaténation, nous allons juste
@@ -991,7 +991,7 @@ for($i = 0; $i &amp;lt; 10; ++$i)
   <p>Le deuxième algorithme est celui de la génération <strong>exhaustive
   bornée</strong>. Cet algorithme génère <strong>toutes</strong> les séquences
   (c'est le côté exhaustif) de lexèmes de taille 1 <strong>jusqu'à</strong>
-  <em>n</em> (c'est le caractère bornée). Un aspect très intéressant de cet
+  <em>n</em> (c'est le caractère borné). Un aspect très intéressant de cet
   algorithme est que l'exhaustivité est une forme de <strong>preuve</strong> !
   L'algorithme fonctionne comme un itérateur et est très simple à utiliser :</p>
   <pre><code language="php">from('Hoa')
@@ -1099,13 +1099,13 @@ foreach($sampler as $i => $data)
       <li data-item="+">rapide pour des petites données, grande diversité dans
       les données et taille fixe ;</li>
       <li data-item="-">la phase de pré-calcul est exponentielle et donc
-      longue malgré que, ensuite, la génération soit très rapide.</li>
+      longue bien que, ensuite, la génération soit très rapide.</li>
     </ul></dd>
     <dt>Génération exhaustive bornée :</dt>
     <dd><ul>
       <li data-item="+">rapide pour des petites données et l'exhaustivité est
       efficace ;</li>
-      <li data-item="-">nombre exponentielle de données.</li>
+      <li data-item="-">nombre exponentiel de données.</li>
     </ul></dd>
     <dt>Génération basée sur la couverture :</dt>
     <dd><ul>
@@ -1150,7 +1150,7 @@ foreach($sampler as $i => $data)
   <code>Hoa\Compiler\Ll1</code>, afin de <strong>valider</strong> des données.
   Le <strong>langage PP</strong> permet d'écrire des <strong>grammaires
   algébriques</strong> de manière <strong>simple</strong> et
-  <strong>naturel</strong>. Le compilateur de compilateurs LL(<em>k</em>) est
+  <strong>naturelle</strong>. Le compilateur de compilateurs LL(<em>k</em>) est
   découpé en <strong>processus distincts</strong> ce qui le rend très
   <em lang="en">hackable</em>. Enfin, différents algorithmes permettent de
   <strong>générer</strong> des données à partir d'une grammaire selon le
