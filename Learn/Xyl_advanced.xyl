@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xyl-use href="../Definitions.xyl"?>
+
+<definition xmlns="http://hoa-project.net/xyl/xylophone">
+<yield name="chapter">
+
+  <h1 id="Model">Manuel d'apprentissage<title_break />XYL, avancé</h1>
+
+  <ul class="prev_next">
+    <li><a href="@ll:chapter=Xyl"><previous_chapter /> XYL</a></li>
+    <li>??? <next_chapter/></li>
+  </ul>
+
+  <p>Maintenant que nous savons comment écrire des documents XYL, nous allons
+  étudier le fonctionnement de certains composants en particulier, notamment les
+  formulaires et la gestion de l'asynchrone.</p>
+
+  <h2 id="Table_des_matieres">Table des matières</h2>
+
+  <tableofcontents id="main-toc" />
+
+  <h2 id="Formulaire" for="main-toc">Formulaire</h2>
+
+  <p>Les composants pour les formulaires sont les même que pour HTML, comme
+  précisé dans le chapitre précédent.</p>
+
+  <h3 id="Recuperation_des_donnees" for="main-toc">Récupération des données</h3>
+
+  <h3 id="Contraintes_et_erreurs" for="main-toc">Contraintes et erreurs</h3>
+
+  <h2 id="Fragment" for="main-toc">Fragment</h2>
+
+  <p>Les fragments sont un autre type de document, comme <code>document</code>,
+  <code>overlay</code> ou <code>definition</code>. Ils sont très semblables à
+  <code>document</code> excépté que lors de l'interprétation, ils n'ajoutent
+  rien autour, ils n'affichent que ce qui se trouve à l'intérieur.</p>
+
+  <h3 id="Declarer_et_utiliser_des_fragments" for="main-toc">Déclarer et
+  utiliser des fragments</h3>
+
+  <p>Un document <code>fragment</code> contient plusieurs morceaux contenus dans
+  des composants <code>snippet</code>, chacun identifié par un attribut
+  <code>id</code>. Ainsi, dans <code>Some.frag.xyl</code> :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;fragment xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;snippet id="first">
+    &amp;lt;p>First one&amp;lt;/p>
+  &amp;lt;/snippet>
+
+  &amp;lt;snippet id="second">
+    &amp;lt;p>Second one&amp;lt;/p>
+  &amp;lt;/snippet>
+&amp;lt;/fragment></code></pre>
+
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+&amp;lt;?xyl-fragment href="Some.frag.xyl" as="handle"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>Fragments tests&amp;lt;/title>
+
+  &amp;lt;yield select="?f=handle#first" />
+&amp;lt;/document></code></pre>
+
+  <h3 id="Difference_entre_fragments_et_overlays" for="main-toc">Différence
+  entre fragments et <em lang="en">overlays</em></h3>
+
+  <p>Un overlay s'intègre dans un document, alors qu'un fragment est intégré
+  dans un fragment.</p>
+
+  <h3 id="Rendu_specifique_d-un_fragment" for="main-toc">Rendu spécifique d'un
+  fragment</h3>
+
+  <h2 id="Asynchrone" for="main-toc">Asynchrone</h2>
+
+  <p>Détails uniquement pour l'interprétation HTML.</p>
+
+  <ul class="prev_next">
+    <li><a href="@ll:chapter=Xyl"><previous_chapter /> XYL</a></li>
+    <li>??? <next_chapter/></li>
+  </ul>
+
+</yield>
+</definition>
