@@ -916,11 +916,11 @@ while(false !== current($stack)) {
   strictement équivalent à <code><em>e</em> | <em>ee</em> | <em>eee</em></code>.
   Illustrons plutôt :</p>
   <pre><code>([ae]+|[x-z]!){1,3}              <em>repeat <em>[ae]+|[x-z]!</em> 2 times</em>
-→ ([ae]+|[x-z]!)([ae]+|[x-z]!)  <em>choose between <em>[ae]+</em> and <em>[x-y]!</em></em>
+→ ([ae]+|[x-z]!)([ae]+|[x-z]!)  <em>choose between <em>[ae]+</em> and <em>[x-z]!</em></em>
 → ([ae]+)([ae]+|[x-z]!)         <em>repeat <code>ae</code> 2 times</em>
 → [ae][ae]([ae]+|[x-z]!)        <em>choose between <em>a</em> and <em>e</em></em>
 → e[ae]([ae]+|[x-z]!)           <em>again</em>
-→ ea([ae]+|[x-z]!)              <em>choose between <em>[ae]+</em> and <em>[x-y]!</em></em>
+→ ea([ae]+|[x-z]!)              <em>choose between <em>[ae]+</em> and <em>[x-z]!</em></em>
 → ea([x-z]!)                    <em>choose between <em>x</em>, <em>y</em> and <em>z</em></em>
 → eay!</code></pre>
   <p>Cette génération est <strong>naïve</strong> mais ce n'est pas important. Ce
