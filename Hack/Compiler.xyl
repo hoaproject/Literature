@@ -7,7 +7,7 @@
   <h1 id="Core"><em lang="en">Hack book</em><title_break /><code>Compiler</code></h1>
 
   <p>Les <strong>compilateurs</strong> permettent d'<strong>analyser</strong> et
-  <strong>manipuler</strong> des données <strong>textuelles</strong>.  Leurs
+  <strong>manipuler</strong> des données <strong>textuelles</strong>. Leurs
   applications sont très nombreuses. <code>Hoa\Compiler</code> propose de
   manipuler plusieurs compilateurs selon les besoins.</p>
 
@@ -26,12 +26,12 @@
   lisons et écrivons dans plusieurs langages au quotidien, et certains de ces
   langages sont <strong>compris</strong> par des <strong>machines</strong>.
   Cette opération est possible grâce aux <strong>compilateurs</strong>.</p>
-  <p>La <a
-  href="https://secure.wikimedia.org/wikipedia/fr/wiki/Théorie_des_langages">théorie
-  des langages</a> étudie entre autre l'<strong>analyse automatique</strong> de
+  <p>La
+  <a href="https://secure.wikimedia.org/wikipedia/fr/wiki/Théorie_des_langages">théorie
+  des langages</a> étudie entre autres l'<strong>analyse automatique</strong> de
   ces langages à travers des outils comme des <strong>automates</strong> ou des
   <strong>grammaires</strong>. Il est nécessaire d'avoir un cours détaillé pour
-  bien comprendre tous ces concepts.  Toutefois, nous allons essayer de
+  bien comprendre tous ces concepts. Toutefois, nous allons essayer de
   vulgariser un minimum pour permettre une utilisation correcte de
   <code>Hoa\Compiler</code>.</p>
 
@@ -59,7 +59,7 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
   et de haut en bas, ou <em lang="en">left-to-right</em> et <em
   lang="en">top-to-bottom</em> en anglais), nous pouvons avoir
   <code><em>exp</em> + <em>exp</em></code> ou <code><em>nombre</em></code> (la
-  <strong>disjonction</strong>, <ie /> le « ou », est représenté par le symbole
+  <strong>disjonction</strong>, <ie /> le « ou », est représentée par le symbole
   « <code>|</code> ») :</p>
   <pre><code>exp + exp | nombre
 → exp + exp
@@ -85,7 +85,7 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
 → 7 + 3 5</code></pre>
   <p>Une dériviation existe bel et bien pour reconnaître le mot <code>7 +
   35</code>, c'est donc un mot valide pour ces règles.</p>
-  <p>Un ensemble de règle est appelé une <strong>grammaire</strong>. Et donc,
+  <p>Un ensemble de règles est appelé une <strong>grammaire</strong>. Et donc,
   une grammaire représente un <strong>langage</strong> !</p>
   <p>Toutefois, il existe plusieurs catégories de grammaires. C'est en 1956 qu'a
   été formulée la
@@ -94,16 +94,16 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
   <strong>niveaux</strong> :</p>
   <ol>
     <li>grammaires <strong>générales</strong>, ou <em lang="en">unrestricted
-    grammars</em>, reconnaissants les langages dits de Turing, aucune
+    grammars</em>, reconnaissant les langages dits de Turing, aucune
     restriction n'est imposée aux règles ;</li>
     <li>grammaires <strong>contextuelles</strong>, ou
-    <em lang="en">context-sensitive grammars</em>, reconnaisants les langages
+    <em lang="en">context-sensitive grammars</em>, reconnaissants les langages
     contextuels ;</li>
     <li>grammaires <strong>algébriques</strong>, ou <em lang="en">context-free
-    grammars</em>, reconnaissants les langages algébriques, basés sur les
+    grammars</em>, reconnaissant les langages algébriques, basés sur les
     automates à pile ;</li>
     <li>grammaires <strong>régulières</strong>, ou <em lang="en">regular
-    grammars</em>, reconnaissants les langages réguliers.</li>
+    grammars</em>, reconnaissant les langages réguliers.</li>
   </ol>
   <p>Chaque niveau reconnait le niveau suivant. <code>Hoa\Compiler</code> ne
   traite que les langages définis par les grammaires de niveau 3 et 4. Pour
@@ -222,7 +222,7 @@ rule4 ::= e f</code></pre>
   <p>Les espaces de noms représentent des <strong>sous-ensembles</strong>
   disjoints de lexèmes, utilisés pour <strong>faciliter</strong> les analyses.
   Une déclaration <code>%skip</code> est similaire à <code>%token</code>
-  exceptée qu'elle représente un lexème à <strong>sauter</strong>, c'est à dire
+  excepté qu'elle représente un lexème à <strong>sauter</strong>, c'est à dire
   à ne pas considérer. Un exemple courant de lexèmes <code>%skip</code> est les
   espaces :</p>
   <pre><code language="pp">%skip space \s</code></pre>
@@ -327,7 +327,7 @@ number:
   <p>Le processus de compilation qu'utilise <code>Hoa\Compiler\Llk</code> est
   classique. Il commence par analyser <strong>lexicalement</strong> la donnée
   textuelle, le mot, <ie /> à transformer notre donnée en une séquence de
-  lexèmes. L'<strong>ordre</strong> de déclarations des lexèmes est primordial
+  lexèmes. L'<strong>ordre</strong> de déclaration des lexèmes est primordial
   car l'analyseur lexical va les prendre les uns après les autres. Ensuite,
   c'est l'analyseur <strong>syntaxique</strong> qui entre en jeu afin de
   <strong>reconnaître</strong> notre donnée.</p>
@@ -340,7 +340,7 @@ number:
   grammaire, comme une vérification de type.</p>
   <p>Manipulons un peu <code>Hoa\Compiler\Llk</code>. Cette classe est un
   <strong>assistant</strong> pour lire une grammaire au format PP facilement.
-  Elle prend en seule argument un flux en lecture vers la grammaire et retourne
+  Elle prend en seul argument un flux en lecture vers la grammaire et retourne
   un compilateur <code>Hoa\Compiler\Llk\Parser</code> prêt à l'emploi. Sur ce
   compilateur, nous allons appeler la méthode
   <code>Hoa\Compiler\Llk\Parser::parse</code> pour analyser une donnée JSON. Si
@@ -437,7 +437,7 @@ in hoa://Library/Compiler/Llk/Parser.php at line 1</code></pre>
 
   <h4 id="Nœuds" for="main-toc">Nœuds</h4>
 
-  <p>Le processus de compilation aboutit très souvent par la
+  <p>Le processus de compilation aboutit très souvent à la
   <strong>production</strong> d'un AST. Il est important de contrôler sa
   <strong>forme</strong>, sa <strong>taille</strong>, les données qu'il
   <strong>contient</strong> etc. C'est pourquoi il est nécessaire de comprendre
@@ -467,14 +467,14 @@ $ echo '[4, 2]' | hoa pp Json.pp 0 --visitor dump
 >  >  token(number, 4)
 >  >  token(number, 2)</code></pre>
   <p>Bien sûr, il peut arriver qu'un nœud soit créé ou pas selon le dérivation
-  <strong>empruntée</strong> dans la règle (selon la dérivation). Le mécanisme
-  est normalement assez <strong>intuitif</strong>.</p>
+  <strong>empruntée</strong> dans la règle. Le mécanisme est normalement assez
+  <strong>intuitif</strong>.</p>
 
   <h4 id="Unification" for="main-toc">Unification</h4>
 
   <p>Une caractéristique qu'apporte le langage PP par rapport à d'autres
   langages de grammaires connus est la capacité d'exprimer une
-  <strong>unification</strong> de lexèmes. Imagineons la grammaire
+  <strong>unification</strong> de lexèmes. Imaginons la grammaire
   suivante :</p>
   <pre><code language="pp">%token  quote   '|"
 %token  string  \w+
@@ -493,7 +493,7 @@ rule:
   valeur. Et enfin, l'unification est <strong>locale</strong> à une instance
   d'une règle, c'est à dire qu'il n'y a pas d'unification entre les lexèmes de
   plusieurs règles et que cela s'applique sur la règle <strong>appelée</strong>
-  uniquement.  Ainsi, l'exemple devient :</p>
+  uniquement. Ainsi, l'exemple devient :</p>
   <pre><code language="pp">rule:
     ::quote[0]:: &amp;lt;string> ::quote[0]::</code></pre>
   <p>Ce qui invalide les données <code>"foo'</code> et <code>'foo"</code>.</p>
@@ -686,7 +686,7 @@ $previous = $data['previousComputing'];</code></pre>
   <p>Le compilateur LL(<em>k</em>) que propose Hoa est clairement découpé en
   plusieurs <strong>couches</strong>. Chaque couche est exploitable pour
   permettre une modularité maximum. Quand la grammaire est traduite en « règles
-  machines » et que les analyseur lexical et syntaxique ont validé une donnée,
+  machines » et que les analyseurs lexical et syntaxique ont validé une donnée,
   il en résulte une <strong>trace</strong>. Cette trace est un tableau composé
   de trois classes seulement :</p>
   <ul>
@@ -771,8 +771,8 @@ foreach($compiler->getTrace() as $element)
   la forme d'une PCRE, avec la méthode <code>getRepresentation</code>), sa
   <strong>valeur</strong> (avec la méthode <code>getValue</code>), si c'est un
   nœud à <strong>conserver</strong> dans l'AST (avec la méthode
-  <code>isKept</code> et son index d'<strong>unification</strong> s'il existe
-  (avec la méthode <code>getUnificationIndex</code>. Bien sûr, tout ceci est
+  <code>isKept</code>) et son index d'<strong>unification</strong> s'il existe
+  (avec la méthode <code>getUnificationIndex</code>). Bien sûr, tout ceci est
   modifiable, ce qui peut influencer la construction de l'AST qui est le
   processus (optionnel) suivant.</p>
   <p>Ensuite, nous remarquons que parfois nous entrons dans une règle qui existe
@@ -863,7 +863,7 @@ while(false !== current($stack)) {
   pour être sous sa forme la plus <strong>réduite</strong> possible. Ceci permet
   de <strong>raisonner</strong> beaucoup plus <strong>facilement</strong> et
   <strong>rapidement</strong> sur les règles. En effet, les traitements sur la
-  grammaire ne sont pas réservées aux AST. À l'étape précédente, avec la trace,
+  grammaire ne sont pas réservés aux AST. À l'étape précédente, avec la trace,
   nous pouvons déjà effectuer des traitements.</p>
   </checkpoint>
 
@@ -876,7 +876,7 @@ while(false !== current($stack)) {
   <strong>préparation</strong> de notre compilateur, exécution des
   <strong>analyseurs</strong> lexical et syntaxique résultant sur une
   <strong>trace</strong>, transformation de la trace vers un
-  <strong>AST</strong> pour enfin <strong>visiter</strong> cet arbre.  Mais nous
+  <strong>AST</strong> pour enfin <strong>visiter</strong> cet arbre. Mais nous
   pouvons nous arrêter à la première étape, la préparation de notre compilateur,
   pour exploiter les règles afin de générer une donnée qui sera valide par
   rapport à notre grammaire.</p>
@@ -889,7 +889,7 @@ while(false !== current($stack)) {
   </ul>
   <p>Pourquoi proposer trois algorithmes ? Parce qu'il est illusoire de penser
   qu'un seul algorithme peut suffir aux <strong>nombreux</strong> contextes
-  d'utilisations.  Chacun répond à des besoins différents, nous l'expliquerons
+  d'utilisations. Chacun répond à des besoins différents, nous l'expliquerons
   plus loin.</p>
   <p>Générer une donnée à partir d'une grammaire se fait en <strong>deux
   étapes</strong> :</p>
@@ -935,13 +935,13 @@ while(false !== current($stack)) {
   des séquences de lexèmes de <strong>taille <em>n</em> fixe</strong> et avec
   une <strong>uniformité</strong> non pas locale (comme avec un parcours
   isotrope) mais sur l'<strong>ensemble</strong> de toutes les séquences
-  possibles.  Succintement, l'algorithme travaille en deux étapes :
+  possibles. Succinctement, l'algorithme travaille en deux étapes :
   <strong>pré-calcul</strong> (une seule fois par taille) puis
   <strong>génération</strong>. Le pré-calcul est une étape
-  <strong>automatique</strong> et calcule le <strong></strong> de séquences et
-  sous-séquences possibles de taille <em>n</em>. Cette étape aide au calcul de
-  <strong>fonctions de distributions</strong> pour <strong>guider</strong> la
-  génération des séquences de lexèmes finales.</p>
+  <strong>automatique</strong> et calcule le <strong>nombre</strong> de
+  séquences et sous-séquences possibles de taille <em>n</em>. Cette étape aide
+  au calcul de <strong>fonctions de distributions</strong> pour
+  <strong>guider</strong> la génération des séquences de lexèmes finales.</p>
   <p>Nous allons générer 10 données aléatoires de taille 7, c'est à dire
   composées de 7 lexèmes. Pour cela, nous allons utiliser la classe
   <code>Hoa\Compiler\Llk\Sampler\Uniform</code> qui prend en premier argument
@@ -981,7 +981,7 @@ for($i = 0; $i &amp;lt; 10; ++$i)
  */</code></pre>
   <p>Nous pouvons redéfinir la taille avec la méthode
   <code>Hoa\Compiler\Llk\Sampler\Uniform::setLength</code>. Nous aurons
-  peut-être remarqué que certains opérateurs de répétition non pas de bornes
+  peut-être remarqué que certains opérateurs de répétition n'ont pas de bornes
   supérieures, comme <code>+</code> ou <code>*</code> ; dans ce cas, nous la
   définissons à <em>n</em>.</p>
 
