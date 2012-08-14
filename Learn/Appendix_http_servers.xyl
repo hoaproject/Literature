@@ -95,8 +95,15 @@
 
   <h3 id="Apache_Reecriture_d_URL" for="main-toc">Réécriture d'URL</h3>
 
-  <p>La réécriture d'URL pour Apache peut être spécifiée dans un fichier
-  <code>.htaccess</code> à placer dans le répertoire
+  <p>La réécriture d'URL pour Apache est gérée par le module mod_rewrite,
+  celui-ci doit être activé grâce à la commande :
+<pre><code language="shell">a2enmod mod_rewrite</code></pre>
+  sous Unix ou en décommentant, enlevant le <code>#</code>, la ligne :
+<pre><code language="conf"># LoadModule rewrite_module modules/mod_rewrite.so
+</code></pre>
+  dans le fichier httpd.conf sous
+  Windows. Les règles de réécritures peuvent être spécifiées dans un
+  fichier <code>.htaccess</code> à placer dans le répertoire
   <code>/Application/Public</code> de votre application Hoa :</p>
 
   <pre><code language="conf">RewriteEngine On
@@ -136,15 +143,15 @@ RewriteRule ^(.*)$ index.php?$1</code></pre>
   server_name localhost;
 
   location / {
-      root   /path/to/my/hoa/app/Application/Public/;
-      index  index.php;
+    root   /path/to/my/hoa/app/Application/Public/;
+    index  index.php;
   }
 
   location ~ \.php$ {
-      fastcgi_pass 127.0.0.1:9000;
-      fastcgi_index index.php;
-      fastcgi_param SCRIPT_FILENAME /path/to/my/hoa/app/Application/Public/$fastcgi_script_name;
-      include /etc/nginx/fastcgi_params;
+    fastcgi_pass 127.0.0.1:9000;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME /path/to/my/hoa/app/Application/Public/$fastcgi_script_name;
+    include /etc/nginx/fastcgi_params;
   }
 }</code></pre>
     </tabpanel>
@@ -153,15 +160,15 @@ RewriteRule ^(.*)$ index.php?$1</code></pre>
   server_name localhost;
 
   location / {
-      root   C:\path\to\my\hoa\app\Application\Public;
-      index  index.php;
+    root   C:/path/to/my/hoa/App/Application/Public/;
+    index  index.php;
   }
 
   location ~ \.php$ {
-      fastcgi_pass 127.0.0.1:9000;
-      fastcgi_index index.php;
-      fastcgi_param SCRIPT_FILENAME C:\path\to\my\hoa\app\Application\Public\$fastcgi_script_name;
-      include C:\nginx\fastcgi_params;
+    fastcgi_pass 127.0.0.1:9000;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME C:/path/to/my/hoa/app/Application/Public/$fastcgi_script_name;
+    include C:/nginx/conf/fastcgi_params;
   }
 }</code></pre>
     </tabpanel>
