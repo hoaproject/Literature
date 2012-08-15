@@ -10,12 +10,10 @@
   <p>Nous proposons dans ce guide de découvrir comment configurer un
   <strong>hôte virtuel</strong> ainsi que la <strong>réécriture d'URL</strong>
   pour les serveurs HTTP les plus courants afin de profiter de toutes les
-  fonctionnalités d'Hoa.</p>
-
+  fonctionnalités de Hoa.</p>
   <p>Les hôtes virtuels permettent de maintenir plusieurs sites Internet sur un
   même serveur tout en leur associant un nom ainsi que des paramètres
   spécifiques.</p>
-
   <p>La réécriture d'URL consiste à faire réécrire au serveur HTTP des URL
   complexes sous une forme plus simple afin d'en améliorer la lisibilité (pour
   les utilisateurs du sites mais également pour les moteurs de recherches).</p>
@@ -248,6 +246,78 @@ Waiting for connection… ▋</code></pre>
   </tabs>
   <p>Par défaut Bhoa écoute le port 8888. Il faut des droits <code>root</code>
   pour écouter le port 80.</p>
+
+  <h2 id="Serveur_interne_de_PHP" for="main-toc">Serveur interne de PHP</h2>
+
+  <p>PHP, depuis la version 5.4, fournit un
+  <a href="http://php.net/commandline.webserver">serveur HTTP natif</a>. Ce
+  serveur n'est utile que pour du développement, tout comme Bhoa. Nous pouvons
+  l'utiliser de cette manière, depuis le dossier <code>Public/</code> de notre
+  application :</p>
+  <pre><code language="shell">$ php -S 127.0.0.1:8888 -r .
+PHP x.y.z Development Server started at …
+Listening on 127.0.0.1:8888
+Document root is …/Public
+Press Ctrl-C to quit.
+▋</code></pre>
+  <p>Si nous accédons à l'adresse
+  <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a>, nous aurons
+  le site mais probablement avec des erreurs, car les URL ne sont pas réécrites.
+  Pour cela, nous pouvons préciser un fichier qui s'occupera de cette tâche.
+  Nous proposons le fichier <code>.webserver</code> (dans le dossier
+  <code>Public/</code> toujours) pour interpréter les URL comme étant réécrites.
+  Le principe est simple : toutes les URL se terminant par <code>.html</code>
+  sont redirigées sur <code>index.php</code>, et les autres fichiers sont servis
+  « statiquement » (verbatim). Ce fichier est écrit en utilisant Hoa
+  lui-même ! Ainsi :</p>
+  <pre><code language="php">&amp;lt;?php
+
+require_once '/usr/local/lib/hoa/Core/Core.php';
+
+from('Hoa')
+-> import('Router.Http')
+-> import('Dispatcher.Basic')
+-> import('File.Read')
+-> import('Mime.~');
+
+$router = new Hoa\Router\Http();
+$router
+    ->get('i', '(|.*\.html)', function ( ) {
+
+        require 'index.php';
+    })
+    ->get('a', '.*', function ( Hoa\Dispatcher\Kit $_this ) {
+
+        $file = __DIR__ . DS . $_this->router->getURI();
+
+        if(true === file_exists($file)) {
+
+            $stream = new Hoa\File\Read($file);
+            $mime   = new Hoa\Mime($stream);
+
+            header('Content-Type: ' . $mime->getMime());
+            echo $stream->readAll();
+        }
+        else {
+
+            header('Status: 500 Internal Server Error');
+            echo '500';
+        }
+    });
+
+$dispatcher = new Hoa\Dispatcher\Basic();
+$dispatcher->dispatch($router);
+  </code></pre>
+  <p>Et voici comment l'utiliser dans le serveur natif de PHP :</p>
+  <pre><code language="shell">$ php -S 127.0.0.1:8888 -r . .webserver.php
+PHP x.y.z Development Server started at …
+Listening on 127.0.0.1:8888
+Document root is …/Public
+Press Ctrl-C to quit.
+▋</code></pre>
+  <p>Grâce au fichier <code>.webserver</code>, la majorité des exemples donnés
+  par Hoa dans les différents manuels seront fonctionnels. À vous d'adapter à
+  vos besoins !</p>
 
   <h2 id="Pour_aller_plus_loin" for="main-toc">Pour aller plus loin</h2>
 
