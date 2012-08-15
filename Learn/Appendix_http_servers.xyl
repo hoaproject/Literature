@@ -24,7 +24,7 @@
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Apache" for="main-toc menu-toc">Apache</h2>
+  <h2 id="Apache" for="main-toc">Apache</h2>
 
   <p>Apache est le serveur HTTP le plus utilisé au monde. Il est installé par
   défaut sur Mac OS X, disponible via votre gestionnaire de paquet sur la
@@ -118,7 +118,7 @@ RewriteRule ^(.*)$ index.php?$1</code></pre>
   (<code>RewriteRule</code>) alors le chemin demandé est passé en paramètre au
   fichier index.php.</p>
 
-  <h2 id="Nginx" for="main-toc menu-toc">Nginx</h2>
+  <h2 id="Nginx" for="main-toc">Nginx</h2>
 
   <p>Nginx est un serveur HTTP développé pour les sites à fort traffic. Il a
   acquis sa réputation grâce à sa faible utilisation des ressources. Nginx est
@@ -196,7 +196,7 @@ RewriteRule ^(.*)$ index.php?$1</code></pre>
   si rien de tel n'est trouvé sur le disque, alors il transformera la requête
   pour la passer au fichier <code>index.php</code>.</p>
 
-  <h2 id="Bhoa" for="main-toc menu-toc">Bhoa</h2>
+  <h2 id="Bhoa" for="main-toc">Bhoa</h2>
 
   <p>Bhoa est le serveur HTTP intégré à Hoa. Il n'est pas très évolué mais ne
   nécessite aucune configuration particulière pour fonctionner. Il est donc
