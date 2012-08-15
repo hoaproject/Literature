@@ -106,7 +106,7 @@
   mais il faut le voir dans la plupart des cas comme une suite de liens
   symboliques. Par exemple, <code>hoa://Application/Public/</code> sera toujours
   l'accès au dossier qui contient les données publiques de votre programme. Ce
-  dossier n'est pas forcément dans un dossier <code>Application</code> et ne
+  dossier n'est pas forcément dans un dossier <code>Application/</code> et ne
   s'appelle pas forcément <code>Public</code>, mais dans votre programme, vous
   direz simplement que ce chemin pointe vers tel dossier. Si jamais
   l'architecture de votre application se voit modifiée, alors vous n'aurez qu'à

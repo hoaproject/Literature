@@ -135,7 +135,7 @@ Extracted in ~/Development/MyApp</code></pre>
   vers Hoa et que nous n'aurons jamais à modifier notre application si nous
   déplaçons ou modifie Hoa.</p>
   <p>Lors de la création d'une application, tout est configuré pour chercher Hoa
-  dans le dossier <code>/usr/local/lib/hoa</code> ; ce qui implique que si Hoa
+  dans le dossier <code>/usr/local/lib/hoa/</code> ; ce qui implique que si Hoa
   est présent dans ce dossier, pas besoin de lancer le script, sinon :</p>
   <pre><code language="shell">$ Data/Bin/whereishoa
 ** Where is Hoa **

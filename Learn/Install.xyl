@@ -31,9 +31,9 @@
   <p>Pour les systèmes respectants le
   <a href="http://pathname.com/fhs/"><em>Filesystem Hierarchy
   Standard</em></a> (dans sa version 2.2 minimum), Hoa préfèrera
-  s'installer dans le dossier <code>/usr/local/lib/hoa</code>. Pour les
+  s'installer dans le dossier <code>/usr/local/lib/hoa/</code>. Pour les
   autres systèmes, comme par exemple Windows, Hoa préfèrera s'installer dans
-  le dossier <code>C:\Program Files\Hoa</code>.</p>
+  le dossier <code>C:\Program Files\Hoa\</code>.</p>
 
   <h3 id="Depuis_un_depot_Mercurial" for="main-toc">Depuis un dépôt
   Mercurial</h3>
