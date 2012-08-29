@@ -376,7 +376,7 @@ print_r($router->getTheRule());
   variables <code>controller</code> et <code>action</code> dans le routeur, ce
   qui sera compris de la même manière par le dispatcheur basic et qui aura le
   mérite de ne pas réécrire <code>_call</code> et <code>_able</code>.</p>
-  <p>Dans l'aperçu, nous avons utilisé des fonctions anonymes. Nosu allons à
+  <p>Dans l'aperçu, nous avons utilisé des fonctions anonymes. Nous allons à
   présent utiliser une partie de cet aperçu mais en le transformant pour
   avoir des fonctions déclarées :</p>
   <pre><code language="php">$router = new Hoa\Router\Http();
