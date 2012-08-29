@@ -322,7 +322,7 @@ print_r($router->getTheRule());
   arguments à cette méthode : le premier étant l'identifiant de la règle et le
   second un tableau de variables. Chaque nom de variable correspond au nom d'un
   motif. Par exemple :</p>
-  <pre><code language="php">var_dump($router->unroute('x', array('nick', 'gordon')));
+  <pre><code language="php">var_dump($router->unroute('x', array('nick' => 'gordon')));
 
 /**
  * Will output:
