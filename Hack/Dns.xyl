@@ -207,7 +207,7 @@ $dns->run();</code></pre>
 &amp;lt; Date: …
 &amp;lt; Server: Hoa+Bhoa/x.y
 &amp;lt; Content-Type: text/html
-&amp;lt; Content-Length: 26
+&amp;lt; Content-Length: 8
 &amp;lt;
 yeah \o/
 * Connection #0 to host foo.hoa left intact
