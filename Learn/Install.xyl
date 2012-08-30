@@ -13,9 +13,9 @@
         <next_chapter /></a></li>
   </ul>
 
-  <p>Dans ce chapitre, nous nous intéressons à l'installation de Hoa, ainsi qu'à
-  l'installation de PHP (normalement pas nécessaire sur tout système digne de ce
-  nom).</p>
+  <p>Dans ce chapitre, nous nous intéressons à l'<strong>installation</strong>
+  de Hoa, ainsi qu'à l'installation de PHP (normalement pas nécessaire sur tout
+  système digne de ce nom).</p>
 
   <h2 id="Table_des_matieres">Table des matières</h2>
 
@@ -26,30 +26,100 @@
   <p>Nous nous intéressons à l'installation de Hoa à travers de multiples
   mécanismes.</p>
 
-  <h3 id="Confort_maximal" for="main-toc">Confort maximal</h3>
+  <h3 id="Organisation_du_projet" for="main-toc">Organisation du projet</h3>
 
-  <p>Pour les systèmes respectants le
-  <a href="http://pathname.com/fhs/"><em>Filesystem Hierarchy
-  Standard</em></a> (dans sa version 2.2 minimum), Hoa préfèrera
-  s'installer dans le dossier <code>/usr/local/lib/hoa/</code>. Pour les
-  autres systèmes, comme par exemple Windows, Hoa préfèrera s'installer dans
-  le dossier <code>C:\Program Files\Hoa\</code>.</p>
+  <p>Hoa est un <strong>ensemble</strong> de <strong>bibliothèques</strong>. À
+  chaque bibliothèque est associé un dépôt, une archive etc. L'ensemble des
+  bibliothèques est représenté par le <strong>central</strong> et une seule
+  bibliothèque est nécessaire pour utiliser toutes les autres :
+  <code>Hoa\Core</code>.</p>
+  <p>Pour organiser les fichiers entre eux, Hoa se base sur un principe très
+  simple : les espaces de nom <strong>suivent</strong> l'architecture. Si nous
+  avons une classe <code>A\B\C</code>, nous la trouverons dans le fichier
+  <code>A/B/C.php</code>.  D'une manière moins informelle, les espaces de nom
+  adopte le format suivant :
+  <code><em>Vendor</em>\<em>Libraryname</em>(\<em>…</em>)*</code>. Par exemple,
+  avec la bibliothèque <code>Hoa\Router\Http</code>, le <em
+  class="en">vendor</em> est <code>Hoa</code> et le nom de la bibliothèque est
+  <code>Router</code>. C'est pourquoi toutes les bibliothèques standards de Hoa
+  devront être installées dans un dossier <code>Hoa/</code>. Toutefois, si vous
+  voulez créer vos propres bibliothèques, il suffit de suivre cette même règle
+  et de préciser à Hoa où se trouve le dossier parent du <em
+  lang="en">vendor</em>, c'est tout.</p>
+  <p>Hoa n'est pas le seul à avoir adopté ce principe. En effet, le
+  <a href="http://www.php-fig.org/" lang="en">PHP Framework Interop Group</a> a
+  rédigé plusieurs <strong>recommandations</strong> dont la fameuse PSR-0 qui
+  améliore le <strong>partage</strong> et la <strong>réutilisation</strong> du
+  code entre plusieurs projets.</p>
+  <p>À ce stade, nous comprenons qu'il existe plusieurs façon d'installer Hoa :
+  dans sa <strong>totalité</strong> (avec le central) ou <strong>en
+  partie</strong> (choix des bibliothèques), et <strong>globalement</strong>
+  (sur le système) ou <strong>localement</strong> (dans une application). Les
+  prochaines sections détaillent tout ça.</p>
 
-  <h3 id="Depuis_un_depot_Mercurial" for="main-toc">Depuis un dépôt
-  Mercurial</h3>
+  <h3 id="Depuis_un_depot_Git" for="main-toc">Depuis un dépôt Git</h3>
 
-  <p><a href="http://mercurial.selenic.com/">Mercurial</a> est un logiciel
-  puissant pour gérer les sources. C'est le choix qu'a fait Hoa pour gérer ses
-  sources et ses outils. Tous les dépôts, ainsi que leur description, sont
-  visibles sur l'<a href="http://hg.hoa-project.net/">index des dépôts</a>.</p>
-  <p>Pour installer Hoa à partir de Mercurial, il suffit de faire :</p>
-  <pre><code language="shell">$ hg clone http://hg.hoa-project.net/Central /usr/local/lib/hoa</code></pre>
-  <p>Et c'est terminé !</p>
-  <p>Pour mettre à jour Hoa, deux commandes suffisent :</p>
-  <pre><code language="shell">$ cd /usr/local/lib/hoa
-$ hg pull
-$ hg update</code></pre>
+  <p>Pour commencer, Hoa utilise <a href="http://git-scm.com">Git</a>, un
+  logiciel puissant pour gérer les sources à travers des
+  <strong>dépôts</strong>. L'ensemble des dépôts est accessible sur
+  l'<a href="http://git.hoa-project.net">index des dépôts</a>. Ainsi, nous
+  observons que le central est accessible à l'adresse
+  <code>http://git.hoa-project.net/Central.git</code> et que les bibliothèques,
+  quant à elles, suivent toutes la même convention de nommage, à savoir
+  <code>http://git.hoa-project.net/Library/<em>Name</em>.git</code>. Ainsi, si
+  nous voulons récupérer <code>Hoa\Core</code> :</p>
+  <pre><code language="shell">$ git clone http://git.hoa-project.net/Library/Core.git Hoa/Core</code></pre>
+  <p>Ajoutons <code>Hoa\Router</code> :</p>
+  <pre><code language="shell">$ git clone http://git.hoa-project.net/Library/Router.git Hoa/Router</code></pre>
+  <p>Ces bibliothèques sont dans le même dossier <code>Hoa/</code>.</p>
+  <p>Si nous voulons mettre à jour une bibliothèque, nous ferons (dans le
+  dossier de la bibliothèque) :</p>
+  <pre><code language="shell">$ git pull</code></pre>
+  <p>Notons que Git ne gère pas les dépendances entre les bibliothèques tout
+  seul.</p>
 
+  <h3 id="Depuis_Github" for="main-toc">Depuis Github</h3>
+
+  <p>Hoa a également des miroirs, notamment sur
+  <a href="http://github.com/hoaproject">Github</a>. Ces miroirs sont en
+  permanence synchronisés avec les dépôts de Hoa. L'utilisation est la même que
+  pour Git et le nommage des dépôts est également le même excepté pour les
+  bibliothèques qui sont à la racine du profil et non pas dans un dossier
+  <code>Library/</code>.</p>
+
+  <h3 id="Depuis_Composer_et_Packagist" for="main-toc">Depuis Composer et
+  Packagist</h3>
+
+  <p><a href="http://getcomposer.org/">Composer</a> est un gestionnaire de
+  <strong>dépendances</strong> pour PHP. Une fois installé, il vous permet à
+  travers un fichier <code>composer.json</code> de décrire les dépendances de
+  votre projet (application, bibliothèque ou autre), puis de les installer, les
+  mettre à jour etc.</p>
+  <p>Nous donnons un exemple de fichier <code>composer.json</code> pour
+  installer la bibliothèque <code>Hoa\Router</code> dans sa toute dernière
+  version :</p>
+  <pre><code language="json">{
+    "require": {
+        "hoa/router": "master"
+    },
+    "minimum-stability": "dev"
+}</code></pre>
+  <p>Nous remarquons que le nom de la bibliothèque est entièrement en
+  <strong>minuscule</strong>. Ensuite, il suffit d'utiliser Composer pour
+  installer les bibliothèques :</p>
+  <pre><code language="php">$ composer install</code></pre>
+  <p>Nous remarquons également que <code>Hoa\Core</code> a été installée en même
+  temps car c'est une dépendance de <code>Hoa\Router</code> !</p>
+  <p>Pour mettre le projet à jour :</p>
+  <pre><code language="php">$ composer update</code></pre>
+  <p>Composer intègre <a href="http://packagist.org/">Packagist</a>, un service
+  qui <strong>agrège</strong> l'ensemble des projets utilisables avec Composer.
+  Les bibliothèques sont enregistrées vers le miroir Github car ce dernier
+  propose une API HTTP pour récupérer les sources que Composer utilisera si
+  jamais Git n'est pas installé sur la machine. Seul PHP est donc
+  nécessaire au minimum.</p>
+
+  <!--
   <h3 id="Depuis_une_archive_compressee" for="main-toc">Depuis une archive
   compressée</h3>
 
@@ -99,10 +169,37 @@ Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
 Options :
     …</code></pre>
   <p>Il est conseillé d'extraire Hoa avec l'option <code>-e</code> ou
-  <code>--extract</code>. Cela va extraire Hoa au même niveau que
+  <code>- -extract</code>. Cela va extraire Hoa au même niveau que
   l'archive :</p>
-  <pre><code language="shell">$ php Hoa.next.phar --extract
+  <pre><code language="shell">$ php Hoa.next.phar - -extract
 Extracted in /usr/local/lib/hoa</code></pre>
+  -->
+
+  <h3 id="Confort_maximal" for="main-toc">Confort maximal</h3>
+
+  <p>Tout d'abord, commençons par une installation <strong>globale</strong>,
+  c'est à dire sur le système, en dehors d'une application. Pour les systèmes
+  respectants le <a href="http://pathname.com/fhs/"><em>Filesystem Hierarchy
+  Standard</em></a> (dans sa version 2.2 minimum), Hoa préfèrera s'installer
+  dans le dossier <code>/usr/local/lib/Hoa/</code>. Pour les autres systèmes,
+  comme par exemple Windows, Hoa préfèrera s'installer dans le dossier
+  <code>C:\Program Files\Hoa\</code>.</p>
+  <p>Pour une installation <strong>locale</strong>, c'est à dire dans une
+  application, il n'y a aucune recommandation. Sachez néanmoins que pour
+  Composer, par défaut, Hoa sera installé dans le dossier
+  <code>vendor/hoa/</code>.</p>
+  <p>Enfin, nous avons parlé d'installation par parties, chaque bibliothèque une
+  par une, et non pas d'installation <strong>totale</strong> comme avec le
+  central. Une installation totale est plutôt utilisée dans le cas d'une
+  installation globale. Pour respecter notre recommandation, il faudra user d'un
+  lien symbolique, par exemple :</p>
+  <pre><code language="shell">$ git clone http://git.hoa-project.net/Central.git /usr/local/Hoa.central
+$ ln -s /usr/local/Hoa.central /usr/local/lib/Hoa</code></pre>
+  <p>Hoa est également capable de jongler entre deux installations : si une
+  bibliothèque n'est pas trouvée localement (dans le contexte d'une
+  application), alors Hoa pourra chercher globalement, sans perdre en
+  performance. Cela permet de développer des bibliothèques dédiées à une
+  application sans pour autant dupliquer Hoa à chaque fois.</p>
 
   <h2 id="Tester_l-installation" for="main-toc">Tester
   l'installation</h2>
@@ -110,10 +207,10 @@ Extracted in /usr/local/lib/hoa</code></pre>
   <p>Pour tester l'installation de Hoa, rien de plus simple :</p>
   <pre><code language="php">&amp;lt;?php
 
-require '/usr/local/lib/hoa/Core/Core.php';
+require '/usr/local/lib/Hoa/Core/Core.php';
 var_dump(HOA);</code></pre>
   <p>ou directement en ligne de commande :</p>
-  <pre><code language="shell">$ php -r "require '/usr/local/lib/hoa/Core/Core.php'; var_dump(HOA);"</code></pre>
+  <pre><code language="shell">$ php -r "require '/usr/local/lib/Hoa/Core/Core.php'; var_dump(HOA);"</code></pre>
   <p>À l'exécution, nous devons voir <code>bool(true)</code>. Si c'est le cas,
   c'est que Hoa est correctement installé.</p>
 
@@ -121,26 +218,9 @@ var_dump(HOA);</code></pre>
 
   <p>Toutes les informations sont présentes dans le manuel de PHP :
   <a href="http://php.net/install"><em>Installation and
-  Configuration</em></a>.</p>
+  Configuration</em></a>. Hoa requiert PHP5.3.3 au minimum.</p>
 
-  <h2 id="Architecture_de_Hoa" for="main-toc">Architecture de Hoa</h2>
-
-  <p>L'architecture de Hoa est très simple :</p>
-  <ul>
-    <li><code>Bin</code>, les outils ;</li>
-    <li><code>Core</code>, le noyau ;</li>
-    <li><code>Library</code>, les bibliothèques standards (la famille
-    <em>Hoa</em>) ;</li>
-    <li><code>Module</code>, les bibliothèques utilisateurs (la famille
-    <em>Hoathis</em>) ;</li>
-    <li><code>Stub</code>, permet d'exporter Hoa sous différents formats.</li>
-  </ul>
-  <p>Hoa est conçu selon le principe <em>un ensemble de bibliothèques pour
-  plusieurs applications</em>, <ie /> nous plaçons le dossier Hoa a un seul
-  endroit et toutes les applications vont travailler dessus.</p>
-  <p>Nous allons ainsi commencer par explorer un peu les fonctionnalités du
-  noyau avant d'installer notre première application.</p>
-
+  <!--
   <h2 id="Hoa_en_ligne_de_commande" for="main-toc">Hoa en ligne de
   commande</h2>
 
@@ -150,10 +230,10 @@ var_dump(HOA);</code></pre>
 $ ./hoa
 // Homescreen.</code></pre>
   <p>Sur toutes les commandes, nous trouverons les options <code>-h</code>,
-  <code>--help</code> ou encore <code>-?</code>, pour obtenir de l'aide.  Ainsi,
+  <code>- -help</code> ou encore <code>-?</code>, pour obtenir de l'aide.  Ainsi,
   nous apprendrons que les commandes sont constituées d'un groupe et d'un nom en
   exécutant :</p>
-  <pre><code language="shell">$ ./hoa --help</code></pre>
+  <pre><code language="shell">$ ./hoa - -help</code></pre>
   <p>Par exemple, pour afficher l'arbre du protocole <code>hoa://</code>, nous
   ferons :</p>
   <pre><code language="shell">$ ./hoa protocol:tree
@@ -182,6 +262,7 @@ $ hoa
   <p>Pour Windows, il faudra consulter
   <a href="http://social.technet.microsoft.com/Search/en-US?query=path"><em>Microsoft
   TechNet</em></a> car la manipulation est moins triviale.</p>
+  -->
 
   <ul class="prev_next">
     <li><a href="@ll:chapter=Introduction"><previous_chapter />
