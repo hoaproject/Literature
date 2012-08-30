@@ -194,7 +194,7 @@ Extracted in /usr/local/lib/hoa</code></pre>
   installation globale. Pour respecter notre recommandation, il faudra user d'un
   lien symbolique, par exemple :</p>
   <pre><code language="shell">$ git clone http://git.hoa-project.net/Central.git /usr/local/Hoa.central
-$ ln -s /usr/local/Hoa.central /usr/local/lib/Hoa</code></pre>
+$ ln -s /usr/local/Hoa.central/Hoa /usr/local/lib/Hoa</code></pre>
   <p>Hoa est également capable de jongler entre deux installations : si une
   bibliothèque n'est pas trouvée localement (dans le contexte d'une
   application), alors Hoa pourra chercher globalement, sans perdre en
