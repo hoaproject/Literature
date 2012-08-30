@@ -4,12 +4,12 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
-  <h1 id="Core"><em lang="en">Hack book</em><title_break /><code>FastCgi</code></h1>
+  <h1 id="Core"><em lang="en">Hack book</em><title_break /><code>Fastcgi</code></h1>
 
   <p>Le protocole FastCGI permet d'assurer la <strong>communication</strong>
   entre un <strong>serveur HTTP</strong> et un <strong>programme
   externe</strong>. Comme PHP fonctionne derrière un <strong>serveur
-  CGI</strong>, la bibliothèque <code>Hoa\FastCgi</code> va nous permettre de
+  CGI</strong>, la bibliothèque <code>Hoa\Fastcgi</code> va nous permettre de
   créer des exécutions de PHP.</p>
 
   <h2 id="Table_des_matieres">Table des matières</h2>
@@ -84,7 +84,7 @@
 
   <h2 id="Executer_PHP" for="main-toc">Exécuter PHP</h2>
 
-  <p>La bibliothèque <code>Hoa\FastCgi</code> permet d'une certaine façon de
+  <p>La bibliothèque <code>Hoa\Fastcgi</code> permet d'une certaine façon de
   jouer le <strong>rôle</strong> du serveur HTTP : elle permet d'envoyer des
   requêtes HTTP sur un serveur CGI et de récupérer une réponse. Ainsi, nous
   n'aurons pas besoin de serveur HTTP, mais uniquement des outils de PHP.</p>
@@ -93,17 +93,17 @@
 
   <p>Pour envoyer une requête, nous devons <strong>ouvrir une connexion</strong>
   vers le serveur CGI, et la donner au constructeur de
-  <code>Hoa\FastCgi\Responder</code>. Ainsi, nous avons le fichier
+  <code>Hoa\Fastcgi\Responder</code>. Ainsi, nous avons le fichier
   <code>Responder.php</code> :</p>
   <pre><code language="php">from('Hoa')
 -> import('Socket.Client')
--> import('FastCgi.Responder');
+-> import('Fastcgi.Responder');
 
-$fastcgi = new Hoa\FastCgi\Responder(
+$fastcgi = new Hoa\Fastcgi\Responder(
     new Hoa\Socket\Client('tcp://127.0.0.1:9000')
 );</code></pre>
   <p>Pour <strong>envoyer une requête</strong>, nous utilisons la méthode
-  <code>Hoa\FastCgi\Responder::send</code> qui prend en premier argument la
+  <code>Hoa\Fastcgi\Responder::send</code> qui prend en premier argument la
   liste des en-têtes HTTP et en second argument le contenu de la requête (<ie />
   le corps, optionnel). Les en-têtes minimales sont :</p>
   <ul>
@@ -133,9 +133,9 @@ echo 'foobar';</code></pre>
   <p>Les en-têtes HTTP retournées par notre programme PHP n'apparaissent pas
   dans la réponse. Elles doivent pourtant être retournées au serveur HTTP en
   tant que réponse au client. Pour les obtenir, il suffit d'appeler la méthode
-  <code>Hoa\FastCgi\Responder::getResponseHeaders</code> (sœur de
-  <code>Hoa\FastCgi\Responder::getResponseContent</code> qui retourne la même
-  chose que la méthode <code>Hoa\FastCgi\Responder::send</code>) :</p>
+  <code>Hoa\Fastcgi\Responder::getResponseHeaders</code> (sœur de
+  <code>Hoa\Fastcgi\Responder::getResponseContent</code> qui retourne la même
+  chose que la méthode <code>Hoa\Fastcgi\Responder::send</code>) :</p>
   <pre><code language="php">print_r($fastcgi->getResponseHeaders());
 var_dump($fastcgi->getResponseContent());
 
@@ -153,28 +153,28 @@ var_dump($fastcgi->getResponseContent());
   <h3 id="Erreurs_possibles" for="main-toc">Erreurs possibles</h3>
 
   <p>Le protocole FastCGI peut lever <strong>trois erreurs</strong> possibles en
-  plus de celles ajoutées par <code>Hoa\FastCgi\Responder</code> :</p>
+  plus de celles ajoutées par <code>Hoa\Fastcgi\Responder</code> :</p>
   <ul>
-    <li><code>Hoa\FastCgi\Responder\Exception\CannotMultiplex</code> quand le
+    <li><code>Hoa\Fastcgi\Responder\Exception\CannotMultiplex</code> quand le
     programme externe ne supporte pas le <strong>multiplexage</strong> :
     plusieurs requêtes à travers une seule connexion ;</li>
-    <li><code>Hoa\FastCgi\Responder\Exception\Overloaded</code> quand le
+    <li><code>Hoa\Fastcgi\Responder\Exception\Overloaded</code> quand le
     programme externe est trop <strong>occupé</strong> et a
     <strong>rejeté</strong> la requête ;</li>
-    <li><code>Hoa\FastCgi\Responder\Exception\UnknownRole</code> quand un rôle
+    <li><code>Hoa\Fastcgi\Responder\Exception\UnknownRole</code> quand un rôle
     (un paquet du protocole) <strong>n'est pas reconnu</strong> par le programme
     externe ;</li>
-    <li><code>Hoa\FastCgi\Responder\Exception</code> quand une
+    <li><code>Hoa\Fastcgi\Responder\Exception</code> quand une
     <strong>erreur</strong> de connexion, de protocole ou autre intervient
-    (ajouté par <code>Hoa\FastCgi\Responder</code>).</li>
+    (ajouté par <code>Hoa\Fastcgi\Responder</code>).</li>
   </ul>
   <p>Le meilleur moyen de capturer toutes les exceptions est de capturer
-  <code>Hoa\FastCgi\Responder\Exception</code> :</p>
+  <code>Hoa\Fastcgi\Responder\Exception</code> :</p>
   <pre><code language="php">try {
 
     $fastcgi->send(…);
 }
-catch ( Hoa\FastCgi\Responder\Exception $e ) {
+catch ( Hoa\Fastcgi\Responder\Exception $e ) {
 
     // compute $e.
 }</code></pre>
@@ -186,12 +186,12 @@ catch ( Hoa\FastCgi\Responder\Exception $e ) {
   <code>STDIN</code>, <code>STDOUT</code> et <code>STDERR</code>. Le flux
   entrant sert à <strong>envoyer</strong> la requête. Le flux sortant sert à
   <strong>recevoir</strong> la réponse. Et enfin, le flux d'erreur est
-  <strong>concaténé</strong> par <code>Hoa\FastCgi\Responder</code> au flux
+  <strong>concaténé</strong> par <code>Hoa\Fastcgi\Responder</code> au flux
   sortant.</p>
 
   <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
-  <p><code>Hoa\FastCgi</code> permet d'<strong>exécuter des programmes
+  <p><code>Hoa\Fastcgi</code> permet d'<strong>exécuter des programmes
   PHP</strong> (ou d'autres programmes externes) en toute
   <strong>simplicité</strong> et <strong>rapidement</strong> sans se préoccuper
   de la localisation des binaires PHP, des sous-shells pour les exécuter, de

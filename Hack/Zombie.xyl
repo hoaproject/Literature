@@ -97,12 +97,12 @@ file_put_contents(
 </code></pre>
   <p>Ensuite, nous continuons avec le fichier <code>Run.php</code> qui va
   exécuter <code>Zombie.php</code> grâce à
-  <a href="@lh:chapter=Fastcgi"><code>Hoa\FastCgi</code></a> :</p>
+  <a href="@lh:chapter=Fastcgi"><code>Hoa\Fastcgi</code></a> :</p>
   <pre><code language="php">from('Hoa')
 -> import('Socket.Client')
--> import('FastCgi.Responder');
+-> import('Fastcgi.Responder');
 
-$fastcgi = new Hoa\FastCgi\Responder(
+$fastcgi = new Hoa\Fastcgi\Responder(
     new Hoa\Socket\Client('tcp://127.0.0.1:9000')
 );
 
