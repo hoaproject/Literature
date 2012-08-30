@@ -381,7 +381,7 @@ echo $dump->visit($ast);
   une grammaire et d'appliquer un visiteur si besoin sur l'AST résultant. Notons
   que la lecture de la donnée peut se faire à travers un
   <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)"><em lang="en">pipe</em></a> :</p>
-  <pre><code language="shell">$ echo '[1, [1, [2, 3], 5], 8]' | hoa pp Json.pp 0 --visitor dump
+  <pre><code language="shell">$ echo '[1, [1, [2, 3], 5], 8]' | hoa compiler:pp Json.pp 0 --visitor dump
 >  #array
 >  >  token(number, 1)
 >  >  #array
@@ -415,7 +415,7 @@ var_dump($valid);
 
   <p>Les erreurs de compilation sont remontées à travers des exceptions,
   ainsi :</p>
-  <pre><code language="shell">$ echo '{"foo" true}' | hoa pp Json.pp 0 --visitor dump
+  <pre><code language="shell">$ echo '{"foo" true}' | hoa compiler:pp Json.pp 0 --visitor dump
 Uncaught exception (Hoa\Compiler\Exception\UnexpectedToken):
 Hoa\Compiler\Llk\Parser::parse(): (0) Unexpected token "true" (true) at line 1
 and column 8:
@@ -459,10 +459,10 @@ in hoa://Library/Compiler/Llk/Parser.php at line 1</code></pre>
   <p>Si le tableau ne contient qu'une seule valeur, le nœud s'appelera
   <code>#array</code>, sinon il s'appelera <code>#bigarray</code> ; voyons
   plutôt :</p>
-  <pre><code language="shell">$ echo '[42]' | hoa pp Json.pp 0 --visitor dump
+  <pre><code language="shell">$ echo '[42]' | hoa compiler:pp Json.pp 0 --visitor dump
   >  #array
   >  >  token(number, 42)
-$ echo '[4, 2]' | hoa pp Json.pp 0 --visitor dump
+$ echo '[4, 2]' | hoa compiler:pp Json.pp 0 --visitor dump
 >  #bigarray
 >  >  token(number, 4)
 >  >  token(number, 2)</code></pre>
