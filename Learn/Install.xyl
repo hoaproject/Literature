@@ -179,10 +179,10 @@ Extracted in /usr/local/lib/hoa</code></pre>
 
   <p>Tout d'abord, commençons par une installation <strong>globale</strong>,
   c'est à dire sur le système, en dehors d'une application. Pour les systèmes
-  respectants le <a href="http://pathname.com/fhs/"><em>Filesystem Hierarchy
-  Standard</em></a> (dans sa version 2.2 minimum), Hoa préfèrera s'installer
-  dans le dossier <code>/usr/local/lib/Hoa/</code>. Pour les autres systèmes,
-  comme par exemple Windows, Hoa préfèrera s'installer dans le dossier
+  respectants le <a href="http://pathname.com/fhs/" lang="en">Filesystem
+  Hierarchy Standard</a> (dans sa version 2.2 minimum), Hoa préfèrera
+  s'installer dans le dossier <code>/usr/local/lib/Hoa/</code>. Pour les autres
+  systèmes, comme par exemple Windows, Hoa préfèrera s'installer dans le dossier
   <code>C:\Program Files\Hoa\</code>.</p>
   <p>Pour une installation <strong>locale</strong>, c'est à dire dans une
   application, il n'y a aucune recommandation. Sachez néanmoins que pour
