@@ -7,8 +7,8 @@
   <h1 id="Install">Manuel d'apprentissage<title_break />Installation</h1>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Discover"><previous_chapter /> À la découverte de
-        Hoa</a></li>
+    <li><a href="@ll:chapter=Introduction"><previous_chapter />
+        Introduction</a></li>
     <li><a href="@ll:chapter=Core">Exploration du noyau
         <next_chapter /></a></li>
   </ul>
@@ -184,8 +184,8 @@ $ hoa
   TechNet</em></a> car la manipulation est moins triviale.</p>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Discover"><previous_chapter /> À la découverte de
-        Hoa</a></li>
+    <li><a href="@ll:chapter=Introduction"><previous_chapter />
+        Introduction</a></li>
     <li><a href="@ll:chapter=Core">Exploration du noyau <next_chapter /></a></li>
   </ul>
 

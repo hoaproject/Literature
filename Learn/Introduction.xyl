@@ -8,8 +8,7 @@
 
   <ul class="prev_next">
     <li><a href="@l"><previous_chapter /> Sommaire</a></li>
-    <li><a href="@ll:chapter=Discover">À la découverte de Hoa
-        <next_chapter /></a></li>
+    <li><a href="@ll:chapter=Install">Installation <next_chapter /></a></li>
   </ul>
 
   <p>PHP est un langage très répandu qui apporte une dynamique rarement
@@ -22,10 +21,8 @@
   popularité.</p>
   <p>Dans le but d'améliorer la puissance, l'uniformité et la rigueur du
   langage, nous proposons Hoa : un ensemble de bibliothèques PHP
-  <strong>puissantes</strong>, <strong>rapides</strong>, hautement
-  <strong>modulaires</strong>, <strong>sûres</strong>,
-  <strong>sécurisées</strong>, <strong>innovantes</strong> et respectueuses des
-  <strong>standards</strong>.</p>
+  <strong>modulaire</strong>, <strong>extensible</strong> et
+  <strong>structuré</strong>.</p>
 
   <h2 id="Table_des_matieres">Table des matières</h2>
 
@@ -56,8 +53,7 @@
 
   <ul class="prev_next">
     <li><a href="@l"><previous_chapter /> Sommaire</a></li>
-    <li><a href="@ll:chapter=Discover">À la découverte de Hoa
-        <next_chapter /></a></li>
+    <li><a href="@ll:chapter=Install">Installation <next_chapter /></a></li>
   </ul>
 
 </yield>
