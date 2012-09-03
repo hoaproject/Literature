@@ -951,14 +951,14 @@ while(false !== current($stack)) {
 -> import('File.Read')
 -> import('Compiler.Llk.~')
 -> import('Compiler.Llk.Sampler.Uniform')
--> import('Test.Sampler.Random')
+-> import('Math.Sampler.Random')
 -> import('Regex.Visitor.Isotropic');
 
 $sampler = new Hoa\Compiler\Llk\Sampler\Uniform(
     // Grammar.
     Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp')),
     // Token sampler.
-    new Hoa\Regex\Visitor\Isotropic(new Hoa\Test\Sampler\Random()),
+    new Hoa\Regex\Visitor\Isotropic(new Hoa\Math\Sampler\Random()),
     // Length.
     7
 );
@@ -1001,7 +1001,7 @@ $sampler = new Hoa\Compiler\Llk\Sampler\BoundedExhaustive(
     // Grammar.
     Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp')),
     // Token sampler.
-    new Hoa\Regex\Visitor\Isotropic(new Hoa\Test\Sampler\Random()),
+    new Hoa\Regex\Visitor\Isotropic(new Hoa\Math\Sampler\Random()),
     // Length.
     7
 );
@@ -1063,7 +1063,7 @@ $sampler = new Hoa\Compiler\Llk\Sampler\Coverage(
     // Grammar.
     Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp')),
     // Token sampler.
-    new Hoa\Regex\Visitor\Isotropic(new Hoa\Test\Sampler\Random())
+    new Hoa\Regex\Visitor\Isotropic(new Hoa\Math\Sampler\Random())
 );
 
 foreach($sampler as $i => $data)
