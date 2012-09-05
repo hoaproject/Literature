@@ -221,50 +221,6 @@ var_dump(HOA);</code></pre>
   <a href="http://php.net/install"><em>Installation and
   Configuration</em></a>. Hoa requiert PHP5.3.3 au minimum.</p>
 
-  <!--
-  <h2 id="Hoa_en_ligne_de_commande" for="main-toc">Hoa en ligne de
-  commande</h2>
-
-  <p>Lorsque nous exécutons le script <code>hoa</code> (ou
-  <code>hoa.bat</code>), un écran d'accueil apparaît :</p>
-  <pre><code language="shell">$ cd Bin/
-$ ./hoa
-// Homescreen.</code></pre>
-  <p>Sur toutes les commandes, nous trouverons les options <code>-h</code>,
-  <code>- -help</code> ou encore <code>-?</code>, pour obtenir de l'aide.  Ainsi,
-  nous apprendrons que les commandes sont constituées d'un groupe et d'un nom en
-  exécutant :</p>
-  <pre><code language="shell">$ ./hoa - -help</code></pre>
-  <p>Par exemple, pour afficher l'arbre du protocole <code>hoa://</code>, nous
-  ferons :</p>
-  <pre><code language="shell">$ ./hoa protocol:tree
-hoa://
-  Application
-    Public
-  Bin
-  Data
-    Etc
-      Configuration
-      Locale
-    …</code></pre>
-  <p>Il sera plus confortable de placer le script <code>hoa</code> (ou
-  <code>hoa.bat</code>) dans le <code>$PATH</code> afin qu'il soit
-  accessible depuis n'importe où sur le disque. En effet, comme Hoa
-  s'installe une fois pour être utilisé plusieurs fois, il est logique que
-  son script soit accessible partout. Pour cela, sous Unix, il faudra
-  modifier la variable <code>$PATH</code> dans
-  <code>~/.<em>shell</em>rc</code> (par exemple : <code>~/.bashrc</code>,
-  <code>~/.zshrc</code> etc.) :</p>
-  <pre><code language="shell">export PATH=/usr/local/lib/hoa/Bin:$PATH</code></pre>
-  <p>Nous rechargeons notre profil et le script sera disponible partout :</p>
-  <pre><code language="shell">$ source ~/.zshrc
-$ hoa
-// Homescreen.</code></pre>
-  <p>Pour Windows, il faudra consulter
-  <a href="http://social.technet.microsoft.com/Search/en-US?query=path"><em>Microsoft
-  TechNet</em></a> car la manipulation est moins triviale.</p>
-  -->
-
   <ul class="prev_next">
     <li><a href="@ll:chapter=Introduction"><previous_chapter />
         Introduction</a></li>

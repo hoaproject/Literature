@@ -815,7 +815,7 @@ $file->writeAll('Bazqux');</code></pre>
   <h2 id="Script" for="main-toc">Script</h2>
 
   <p>La bibliothèque <code>Hoa\Core</code> propose également un script en ligne
-  de commande : <code>hoa</code> (et <code>hoa.bat</code> pour Windows). Pour
+  de commande : <code>hoa</code> et <code>hoa.bat</code> pour Windows. Pour
   l'utiliser, il faut installer les bibliothèques <code>Hoa\Router</code>,
   <code>Hoa\Dispatcher</code>, <code>Hoa\Console</code> et
   <code>Hoa\String</code>. Ces scripts se trouvent dans le dossier
@@ -831,7 +831,7 @@ $file->writeAll('Bazqux');</code></pre>
   disque. Pour cela, sous Unix, il faudra modifier la variable
   <code>$PATH</code> dans <code>~/.<em>shell</em>rc</code> (par exemple :
   <code>~/.bashrc</code>, <code>~/.zshrc</code> etc.) :</p>
-  <pre><code language="shell">export PATH=/usr/local/lib/Hoa/Bin:$PATH</code></pre>
+  <pre><code language="shell">export PATH=/usr/local/lib/Hoa/Core/Bin:$PATH</code></pre>
   <p>Nous rechargeons notre profil et le script sera disponible partout :</p>
   <pre><code language="shell">$ source ~/.zshrc
 $ hoa
