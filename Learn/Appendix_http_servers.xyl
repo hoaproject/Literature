@@ -272,7 +272,7 @@ Press Ctrl-C to quit.
   lui-même ! Ainsi :</p>
   <pre><code language="php">&amp;lt;?php
 
-require_once '/usr/local/lib/hoa/Core/Core.php';
+require_once '/usr/local/lib/Hoa/Core/Core.php';
 
 from('Hoa')
 -> import('Router.Http')

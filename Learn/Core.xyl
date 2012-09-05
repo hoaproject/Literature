@@ -34,7 +34,7 @@
   besoin et dans de bonnes conditions.</p>
   <pre><code language="php">&amp;lt;?php
 
-require '/usr/local/lib/hoa/Core/Core.php';</code></pre>
+require '/usr/local/lib/Hoa/Core/Core.php';</code></pre>
   <p>Le noyau ne peut être inclus qu'une seule fois. Si nous essayons de
   l'inclure une deuxième fois, le programme quittera avec une erreur. C'est le
   seul et unique cas où Hoa va quitter le programme.</p>
@@ -46,45 +46,47 @@ require '/usr/local/lib/hoa/Core/Core.php';</code></pre>
 
   <p>Le noyau est constitué de plusieurs couches :</p>
   <ul>
-    <li><em>Consistency</em> est la couche qui gère la <strong>cohésion</strong>
-    entre les bibliothèques à travers les importations, les chargements, les
-    appels etc. ;</li>
-    <li><em>Event</em> est la couche qui introduit les
+    <li><em lang="en">Consistency</em> est la couche qui gère la
+    <strong>cohésion</strong> entre les bibliothèques à travers les
+    importations, les chargements, les appels etc. ;</li>
+    <li><em lang="en">Event</em> est la couche qui introduit les
     <strong>événements</strong> dans PHP ; nous distinguerons deux catégories
     d'événements ;</li>
-    <li><em>Exception</em> est la couche qui gère les
+    <li><em lang="en">Exception</em> est la couche qui gère les
     <strong>exceptions</strong>, unifie les erreurs etc. ; nous distinguerons
     trois catégories d'exceptions ;</li>
-    <li><em>Protocol</em> est la couche qui introduit le <strong>protocole
-    <code>hoa://</code></strong>, très utile pour abstraire l'accès aux
-    ressources ;</li>
-    <li><em>Parameter</em> est la couche qui permet de
+    <li><em lang="en">Protocol</em> est la couche qui introduit le
+    <strong>protocole <code>hoa://</code></strong>, très utile pour abstraire
+    l'accès aux ressources ;</li>
+    <li><em lang="en">Parameter</em> est la couche qui permet de
     <strong>paramétrer</strong> des classes et des bibliothèques ;</li>
-    <li><em>Data</em> est la couche qui permet de manipuler des
+    <li><em lang="en">Data</em> est la couche qui permet de manipuler des
     <strong>données</strong> polymorphiques avec de bonnes performances.</li>
   </ul>
   <p>Nous présentons dans ce chapitre les quatre premières couches. Les couches
   restantes seront présentées dans les chapitres suivants, cela dans un but
   pédagogique.</p>
 
-  <h2 id="Consistency" for="main-toc"><em>Consistency</em></h2>
+  <h2 id="Consistency" for="main-toc"><em lang="en">Consistency</em></h2>
 
   <p>La classe <code>Hoa\Core\Consistency</code> porte le mécanisme
   d'<strong>importation</strong> et de <strong>chargement</strong> des classes.
-  Ce mécanisme est basé sur la notion de <strong>familles</strong> de classes et
-  d'espaces de nommage. Quand nous souhaitons utiliser une classe, nous allons
-  commencer par préciser à quelle famille elle appartient, puis nous allons
-  l'importer. La sélection de la famille se fait à l'aide de la fonction
-  <code>from</code>. Cette fonction est un alias vers la méthode
-  <code>Hoa\Core\Consistency::from</code>, pour plus de facilité d'écriture et
-  de lecture. Ainsi, nous choisissons la famille <code>Hoa</code> pour effectuer
-  une importation :</p>
+  Ce mécanisme est basé sur la notion de <strong>familles</strong> (ou
+  <em lang="en">vendor</em>) de classes et d'espaces de nommage. Quand nous
+  souhaitons utiliser une classe, nous allons commencer par préciser à quelle
+  famille elle appartient, puis nous allons l'importer. La sélection de la
+  famille se fait à l'aide de la fonction <code>from</code>. Cette fonction est
+  un alias vers la méthode <code>Hoa\Core\Consistency::from</code>, pour plus de
+  facilité d'écriture et de lecture. Ainsi, nous choisissons la famille
+  <code>Hoa</code> pour effectuer une importation :</p>
   <pre><code language="php">from('Hoa')
 -> import(…);</code></pre>
   <p>Il existe deux familles par défaut (d'autres peuvent être ajoutées) :</p>
   <ul>
     <li><code>Hoa</code> pour les bibliothèques standards de Hoa ;</li>
-    <li><code>Hoathis</code> pour les bibliothèques utilisateurs.</li>
+    <li><code>Hoathis</code> pour les bibliothèques utilisateurs (c'est une
+    famille comme les autres sauf qu'elle a un privilège supplémentaire, nous le
+    détaillerons plus tard).</li>
   </ul>
 
   <h3 id="Chemin_d-importation" for="main-toc">Chemin d'importation</h3>
@@ -94,12 +96,12 @@ require '/usr/local/lib/hoa/Core/Core.php';</code></pre>
   (symbole « <code>.</code> ») et l'extension du fichier doit être
   « <code>.php</code> » sans être précisée dans le chemin. Ainsi, si nous
   voulons inclure la classe <code>Hoa\Router\Http</code> située dans le fichier
-  <code>Library/Router/Http.php</code>, nous écrirons :</p>
+  <code>Hoa/Router/Http.php</code>, nous écrirons :</p>
   <pre><code language="php">from('Hoa')
 -> import('Router.Http');</code></pre>
   <p>Nous comprenons que la famille <code>Hoa</code> correspond à l'espace de
   nommage racine <code>\Hoa</code> et est contenue dans le dossier
-  <code>Library/</code>. Tout ceci est bien évidemment modifiable, nous le
+  <code>Hoa/</code>. Tout ceci est bien évidemment modifiable, nous le
   verrons plus tard.</p>
   <p>Nous sommes capable d'enchaîner les importations et de changer de famille
   de cette manière :</p>
@@ -119,7 +121,7 @@ from('Hoathis')
   opérateur est utile par exemple pour atteindre la <strong>classe
   d'entrée</strong> d'une bibliothèque, <ie /> une classe qui porte le même nom
   que la bibliothèque (c'est le cas de <code>Hoa\Xml</code> qui se trouve dans
-  le fichier <code>Library/Xml/Xml.php</code>).</p>
+  le fichier <code>Hoa/Xml/Xml.php</code>).</p>
   <p>L'opérateur étoile (qui fait référence à l'<strong>étoile de
   Kleene</strong>) signifie « tout ». Par exemple, le chemin
   <code>Stream.I~.*</code> correspond à tous les chemins possibles depuis le
@@ -129,6 +131,17 @@ from('Hoathis')
   étoile. En effet, il est utile voire inévitable dans certaines situations,
   mais il est toujours préférable de gérer les importations au cas par cas,
   quand c'est possible, afin de toujours savoir ce que nous manipulons.</p>
+
+  <h3 id="Plusieurs_chemins_pour_une_famille" for="main-toc">Plusieurs chemins
+  pour une famille</h3>
+
+  <p>Il est possible de spécifier <strong>plusieurs</strong> emplacements où
+  trouver une famille de bibliothèques. Par exemple, les familles
+  <code>Hoa</code> et <code>Hoathis</code> ont deux dossiers par défaut (nous le
+  verrons plus tard).  Ceci a pour intérêt de pouvoir surcharger n'importe
+  quelle classe dans le code par notre propre classe, ou alors d'en ajouter de
+  nouvelles. Ce mécanisme de choix rend Hoa hautement modulaire et
+  extensible.</p>
 
   <h3 id="Pre-chargement_chargement_et_auto-chargement" for="main-toc">Pré-chargement,
   chargement et auto-chargement</h3>
@@ -180,14 +193,16 @@ var_dump($family);
 //     string(7) "Hoathis"
 // or:
 //     string(3) "Hoa"</code></pre>
-  <p>Ce mécanisme est surtout très utile avec le <em>dynamic new</em>.</p>
+  <p>Encore une fois, ce mécanisme ajoute de l'extensibilité dans Hoa. De plus,
+  ce mécanisme s'avère utile avec le <em lang="en">dynamic new</em>.</p>
 
-  <h3 id="Dynamic_new" for="main-toc"><em>Dynamic new</em></h3>
+  <h3 id="Dynamic_new" for="main-toc"><em lang="en">Dynamic new</em></h3>
 
-  <p>La couche <em>Consistency</em> introduit un mécanisme appelé <em>dynamic
-  new</em>, comprendre un moyen d'importer, de charger et d'instancier des
-  classes <strong>dynamiques</strong>. Ceci est une implémentation légère et
-  efficace du modèle de conception <em>Fabrique abstraite</em>.</p>
+  <p>La couche <em lang="en">Consistency</em> introduit un mécanisme appelé <em
+  lang="en">dynamic new</em>, comprendre un moyen d'importer, de charger et
+  d'instancier des classes <strong>dynamiques</strong>. Ceci est une
+  implémentation légère et efficace du modèle de conception <em>Fabrique
+  abstraite</em>.</p>
   <p>Ce mécanisme est exposé à travers la fonction <code>dnew</code>, qui est un
   alias pour la méthode <code>Hoa\Core\Consistency::dnew</code>, pour des
   raisons de facilité d'écriture et de lecture. Cette fonction utilise deux
@@ -217,13 +232,13 @@ var_dump(get_class($server));
 
   <p>Nous allons commencer par un exercice très facile : créer une classe dans
   la famille <code>Hoathis</code>, l'importer et l'utiliser.</p>
-  <p>Par défaut, les bibliothèques utilisateurs se placent entre autres dans
-  le dossier <code>Module/</code> de Hoa (situé normalement dans
-  <code>/usr/local/lib/hoa</code>). Nous allons y créer le fichier
-  <code>Exercise/Core/First.php</code> :</p>
+  <p>Les bibliothèques utilisateurs se placent dans le dossier
+  <code>Hoathis/</code>, situé par défaut au même niveau que <code>Hoa</code>.
+  Donc, nous allons créer le fichier
+  <code>/usr/local/lib/Hoathis/Exercise/First.php</code> :</p>
   <pre><code language="php">&amp;lt;?php
 
-namespace Hoathis\Exercise\Core {
+namespace Hoathis\Exercise {
 
 class First {
 
@@ -239,12 +254,12 @@ class First {
   où :</p>
   <pre><code language="php">&amp;lt;?php
 
-require '/usr/local/lib/hoa/Core/Core.php';
+require '/usr/local/lib/Hoa/Core/Core.php';
 
 from('Hoathis')
--> import('Exercise.Core.First');
+-> import('Exercise.First');
 
-$first = new Hoathis\Exercise\Core\First();
+$first = new Hoathis\Exercise\First();
 $first->say();
 
 // Will output:
@@ -252,12 +267,12 @@ $first->say();
   <p>Bravo ! Vous venez de créer votre première bibliothèque
   <code>Hoathis</code> !</p>
 
-  <h3 id="Callable" for="main-toc"><em>Callable</em></h3>
+  <h3 id="Callable" for="main-toc"><em lang="en">Callable</em></h3>
 
-  <p>La couche <em>Consistency</em> propose un autre objet qui est
+  <p>La couche <em lang="en">Consistency</em> propose un autre objet qui est
   <code>Hoa\Core\Consistency\Xcallable</code> et qui permet d'étendre le
-  principe des <a href="http://php.net/callback"><em>callbacks</em></a> aux
-  fonctionnalités proposées par Hoa.</p>
+  principe des <a href="http://php.net/types.callable"><em>callbacks</em></a>
+  aux fonctionnalités proposées par Hoa.</p>
   <p>Il existe la fonction alias <code>xcallable</code> qui permet de
   construire un objet <code>Hoa\Core\Consistency\Xcallable</code>. Cette
   fonction utilise deux arguments qui sont <strong>systématiques</strong>
@@ -289,7 +304,7 @@ $callable($argument1, $argument2, …);</code></pre>
   aurons alors le réflexe de fournir des données comme présentées ci-dessus. Un
   exemple se trouve dans la section suivante avec les événements.</p>
 
-  <h2 id="Event" for="main-toc"><em>Event</em></h2>
+  <h2 id="Event" for="main-toc"><em lang="en">Event</em></h2>
 
   <p>Une des fonctionnalités que Hoa ajoute à PHP est la gestion des
   <strong>événements</strong>. Les événements sont très pratiques pour faire
@@ -334,7 +349,7 @@ $callable($argument1, $argument2, …);</code></pre>
 
   <p>Un événement porte un identifiant unique. Hoa a adopté un
   <strong>formalisme</strong> pour nommer ses événements :
-  <code>hoa://Event/<em>Package</em>[/<em>anId</em>[:<em>pseudo-class</em>]][#<em>anotherId</em>]</code>.
+  <code>hoa://Event/<em>Package</em>[/<em>anId</em>[:<em>pseudo-class</em>]][#<em>anAnchor</em>]</code>.
   Quelques exemples d'événements connus dans Hoa :</p>
   <ul>
     <li><code>hoa://Event/Exception</code> pour écouter toutes les
@@ -395,11 +410,11 @@ catch ( Hoa\Core\Exception $e ) {
   <h3 id="Exercice_ajout_d-un_evenement" for="main-toc">Exercice : ajout d'un
   événement</h3>
 
-  <p>Nous allons créer la classe <code>Hoathis\Exercise\Core\Second</code> pour
+  <p>Nous allons créer la classe <code>Hoathis\Exercise\Second</code> pour
   lui ajouter des événements :</p>
   <pre><code language="php">&amp;lt;?php
 
-namespace Hoathis\Exercise\Core {
+namespace Hoathis\Exercise {
 
 class Second implements \Hoa\Core\Event\Source {
 
@@ -424,17 +439,17 @@ class Second implements \Hoa\Core\Event\Source {
   <p>Et dans n'importe quel fichier n'importe où :</p>
   <pre><code language="php">&amp;lt;?php
 
-require '/usr/local/lib/hoa/Core/Core.php';
+require '/usr/local/lib/Hoa/Core/Core.php';
 
 from('Hoathis')
--> import('Exercise.Core.Second');
+-> import('Exercise.Second');
 
 event('hoa://Event/Exercise')->attach(function ( Hoa\Core\Event\Bucket $bucket ) {
 
     echo 'I have received “', $bucket->getData(), '“.', "\n";
 });
 
-$second = new Hoathis\Exercise\Core\Second();
+$second = new Hoathis\Exercise\Second();
 var_dump($second->doSomething('Gordon'));
 
 // Will output:
@@ -457,10 +472,10 @@ var_dump($second->doSomething('Gordon'));
   disponibles. Enfin, pour lancer un écouteur, nous utiliserons la méthode
   <code>Hoa\Core\Event\Listener::fire</code>. Les données des écouteurs sont
   également portées par la classe <code>Hoa\Core\Event\Bucket</code>.</p>
-  <p>Nous créons la classe <code>Hoathis\Exercise\Core\Third</code> :</p>
+  <p>Nous créons la classe <code>Hoathis\Exercise\Third</code> :</p>
   <pre><code language="php">&amp;lt;?php
 
-namespace Hoathis\Exercise\Core {
+namespace Hoathis\Exercise {
 
 class Third implements \Hoa\Core\Event\Listenable {
 
@@ -493,12 +508,12 @@ class Third implements \Hoa\Core\Event\Listenable {
   <p>Et dans n'importe quel fichier n'importe où :</p>
   <pre><code language="php">&amp;lt;?php
 
-require '/usr/local/lib/hoa/Core/Core.php';
+require '/usr/local/lib/Hoa/Core/Core.php';
 
 from('Hoathis')
--> import('Exercise.Core.Third');
+-> import('Exercise.Third');
 
-$third = new Hoathis\Exercise\Core\Third();
+$third = new Hoathis\Exercise\Third();
 $third->on('foo', function ( Hoa\Core\Event\Bucket $bucket ) {
 
     echo 'I have received “', $bucket->getData(), '“.', "\n";
@@ -516,7 +531,7 @@ var_dump($third->doSomething('Gordon'));
   une proximité pour pouvoir interagir avec ce composant, d'où le fait que ça ne
   concerne que quelques composants.</p>
 
-  <h2 id="Exception" for="main-toc"><em>Exception</em></h2>
+  <h2 id="Exception" for="main-toc"><em lang="en">Exception</em></h2>
 
   <p>Dans Hoa, il existe trois catégories d'exceptions (dans l'ordre de
   parenté) :</p>
@@ -643,26 +658,26 @@ catch ( Hoa\Core\Exception\Idle $e ) {
 
   <p>Cet exercice est très facile mais utile : nous allons créer notre propre
   exception à notre bibliothèque. Pour cela, nous créons le fichier
-  <code>Exercise/Core/Exception.php</code> :</p>
+  <code>Exercise/Exception.php</code> :</p>
   <pre><code language="php">&amp;lt;?php
 
-namespace Hoathis\Exercise\Core {
+namespace Hoathis\Exercise {
 
 class Exception extends \Hoa\Core\Exception { }
 
 }</code></pre>
   <p>Et pour l'utiliser, par exemple dans
-  <code>Hoathis\Exercise\Core\Fourth</code>, rien de plus simple :</p>
+  <code>Hoathis\Exercise\Fourth</code>, rien de plus simple :</p>
   <pre><code language="php">&amp;lt;?php
 
 namespace {
 
 from('Hoathis')
--> import('Exercise.Core.Exception');
+-> import('Exercise.Exception');
 
 }
 
-namespace Hoathis\Exercise\Core {
+namespace Hoathis\Exercise {
 
 class Fourth {
 
@@ -677,16 +692,16 @@ class Fourth {
   n'importe où :</p>
   <pre><code language="php">&amp;lt;?php
 
-require '/usr/local/lib/hoa/Core/Core.php';
+require '/usr/local/lib/Hoa/Core/Core.php';
 
 from('Hoathis')
--> import('Exercise.Core.Fourth');
+-> import('Exercise.Fourth');
 
 try {
 
-    $fourth = new Hoathis\Exercise\Core\Fourth();
+    $fourth = new Hoathis\Exercise\Fourth();
 }
-catch ( Hoathis\Exercise\Core\Exception $e ) {
+catch ( Hoathis\Exercise\Exception $e ) {
 
     echo '** Exception **', "\n",
          $e->getFormattedMessage();
@@ -696,7 +711,7 @@ catch ( Hoathis\Exercise\Core\Exception $e ) {
 //     ** Exception **
 //     Bazinga!</code></pre>
 
-  <h2 id="Protocol" for="main-toc"><em>Protocol</em></h2>
+  <h2 id="Protocol" for="main-toc"><em lang="en">Protocol</em></h2>
 
   <p>Le protocole <code>hoa://</code> permet d'<strong>abstraire l'accès à des
   ressources</strong>. Il existe trois racines principales que nous pouvons
@@ -713,42 +728,66 @@ catch ( Hoathis\Exercise\Core\Exception $e ) {
   possibilité d'ajouter facilement des composants. Ainsi, nous pourrons créer
   nos propres abstractions.</p>
 
+  <h3 id="Abstraction_destinee_aux_bibliotheques" for="main-toc">Abstraction
+  destinée aux bibliothèques</h3>
+
+  <p>Une racine est destinée à l'accès aux <strong>bibliothèques
+  standards</strong> : <code>hoa://Library</code>. Chaque ressource des
+  bibliothèques est accessible sur
+  <code>hoa://Library/<em>Libraryname</em>/</code>. Par exemple,
+  <code>hoa://Library/Json/Grammar.pp</code> permet d'accéder à la grammaire du
+  <a href="http://json.org/">langage JSON</a> située dans le fichier
+  <code>Hoa/Json/Grammar.pp</code>. Un autre exemple est celui du registre
+  statique <code>Hoa\Registry</code> qui place sur le protocole une ressource
+  qui n'est pas un fichier mais une donnée de PHP (une données scalaire, un
+  tableau, une fonction, un objet etc.), ainsi :</p>
+  <pre><code language="php">from('Hoa')
+-> import('Registry.~');
+
+Hoa\Registry::set('foo', 'bar');
+var_dump(
+    resolve('hoa://Library/Registry#foo')
+);
+
+// Will output:
+//     string(3) "bar"</code></pre>
+  <p>Nous pouvons imaginer stocker des instances de cache, de base de données,
+  des fonctions anonymes etc. Nous remarquerons l'utilisation de la fonction
+  <code>resolve</code>, un alias plus évolué, qui permet de résoudre des
+  composants du protocole <code>hoa://</code>.</p>
+  <p>En réalité, la racine <code>hoa://Library/</code> pointe vers quatre
+  emplacements différent. Si la ressource est un fichier ou dossier, elle va
+  chercher au niveau de l'installation locale (si nous sommes dans une
+  application) et de l'installation globale, et ce, pour les deux familles
+  <code>Hoathis</code> et <code>Hoa</code> (dans cet ordre). C'est pour ça que
+  <code>Hoathis</code> est une famille avec un privilège : elle est intégrée au
+  protocole <code>hoa://</code>. Ce privilège peut être étendu à d'autres
+  familles, nous le verrons plus tard.</p>
+
   <h3 id="Abstraction_destinee_aux_applications" for="main-toc">Abstraction
   destinée aux applications</h3>
 
-  <p>Deux racines sont destinées à l'application courante, <ie /> exploitant
-  Hoa :</p>
+  <p>Deux racines sont destinées à l'application courante :</p>
   <ul>
     <li><code>hoa://Application</code> pour accéder à
     l'<strong>application</strong> ;</li>
     <li><code>hoa://Data</code> pour accéder aux <strong>données de
     l'application</strong>.</li>
   </ul>
-  <p>À partir de ces racines, chaque composant du protocole peut être vu
-  comme un <strong>lien symbolique</strong> vers un dossier réel.</p>
   <p>Pour la première racine, seul un composant existe par défaut :
   <code>hoa://Application/Public</code> qui donne accès à toutes les données
   publiques, <ie /> toutes les données accessibles directement par
-  l'utilisateur ; par exemple : <code>hoa://Application/Public/index.php</code>.
-  Autre exemple, la classe <code>Hoa\Xyl</code> propose les composants
-  suivants :</p>
-  <ul>
-    <li><code>hoa://Application/Public/<em>theme</em>/Css/</code> pour accéder
-    aux feuilles CSS ;</li>
-    <li><code>hoa://Application/Public/<em>theme</em>/Javascript/</code> pour
-    accéder aux scripts Javascript ;</li>
-    <li>etc.</li>
-  </ul>
+  l'utilisateur ; par exemple :
+  <code>hoa://Application/Public/index.php</code>.</p>
   <p>Pour la seconde racine, plusieurs composants existent par défaut :</p>
   <ul>
-    <li><code>hoa://Data/Etc/Configuration/</code> pour les
-    configurations ;</li>
-    <li><code>hoa://Data/Etc/Locale/</code> pour les données liées à la
-    localisation ;</li>
+    <li><code>hoa://Data/Etc/</code> pour les configurations, les données liées
+    à la localisation etc. ;</li>
+    <li><code>hoa://Data/Library/</code>, similaire à
+    <code>hoa://Library/</code> sauf que la recherche s'arrête à l'installation
+    locale (à l'application) ;</li>
     <li><code>hoa://Data/Lost+found/</code> pour les ressources perdues ou
     trouvées (normalement toujours vide) ;</li>
-    <li><code>hoa://Data/Module/</code> pour les bibliothèques utilisateurs
-    restreintes à l'application courante (on y reviendra) ;</li>
     <li><code>hoa://Data/Temporary/</code> pour les données temporaires ;</li>
     <li><code>hoa://Data/Variable/</code> pour les fichiers modifiés
     régulièrement (dits variables), comme les caches, les bases de données, les
@@ -773,32 +812,157 @@ $file->writeAll('Bazqux');</code></pre>
   configurations. La <strong>maintenance</strong> est alors considérablement
   <strong>réduite</strong>.</p>
 
-  <h3 id="Abstraction_destinee_aux_bibliotheques" for="main-toc">Abstraction
-  destinée aux bibliothèques</h3>
+  <h2 id="Script" for="main-toc">Script</h2>
 
-  <p>Une racine est destinée à l'accès aux bibliothèques standards :
-  <code>hoa://Library</code>. Actuellement, nous rencontrons peu de cas
-  d'utilisations. La bibliothèque <code>Hoa\Xyl</code> propose des ressources
-  accessibles de cette manière (mais pas par l'utilisateur, uniquement par le
-  système interne, le protocole se transforme à la volée).  Un exemple
-  intéressant est celui du registre statique <code>Hoa\Registry</code> qui place
-  sur le protocole une ressource qui n'est pas un fichier mais une donnée de PHP
-  (une données scalaire, un tableau, une fonction, un objet etc.), ainsi :</p>
-  <pre><code language="php">from('Hoa')
--> import('Registry.~');
+  <p>La bibliothèque <code>Hoa\Core</code> propose également un script en ligne
+  de commande : <code>hoa</code> (et <code>hoa.bat</code> pour Windows). Pour
+  l'utiliser, il faut installer les bibliothèques <code>Hoa\Router</code>,
+  <code>Hoa\Dispatcher</code>, <code>Hoa\Console</code> et
+  <code>Hoa\String</code>. Ces scripts se trouvent dans le dossier
+  <code>Hoa/Core/Bin/</code>. Lorsque nous exécutions un de ces scripts, un
+  écran d'accueil apparaît :</p>
+  <pre><code language="shell">$ Hoa/Core/Bin/hoa
+// Homescreen.</code></pre>
 
-Hoa\Registry::set('foo', 'bar');
-var_dump(
-    resolve('hoa://Library/Registry#foo')
-);
+  <h3 id="Plus_de_confort" for="main-toc">Plus de confort</h3>
 
-// Will output:
-//     string(3) "bar"</code></pre>
-  <p>Nous pouvons imaginer stocker des instances de cache, de base de données,
-  des fonctions anonymes etc.</p>
-  <p>Nous remarquerons l'utilisation de la fonction <code>resolve</code>, un
-  alias plus évolué, qui permet de résoudre des composants du protocole
-  <code>hoa://</code>.</p>
+  <p>Il sera plus confortable de placer les scripts <code>hoa</code> dans le
+  <code>$PATH</code> afin qu'ils soient accessibles depuis n'importe où sur le
+  disque. Pour cela, sous Unix, il faudra modifier la variable
+  <code>$PATH</code> dans <code>~/.<em>shell</em>rc</code> (par exemple :
+  <code>~/.bashrc</code>, <code>~/.zshrc</code> etc.) :</p>
+  <pre><code language="shell">export PATH=/usr/local/lib/Hoa/Bin:$PATH</code></pre>
+  <p>Nous rechargeons notre profil et le script sera disponible partout :</p>
+  <pre><code language="shell">$ source ~/.zshrc
+$ hoa
+// Homescreen.</code></pre>
+  <p>Pour Windows, il faudra consulter
+  <a href="http://social.technet.microsoft.com/Search/en-US?query=path" lang="en">Microsoft
+  TechNet</a> car la manipulation est moins triviale.</p>
+
+  <h3 id="Premier_pas_avec_le_script_hoa" for="main-toc">Premier pas avec le
+  script <code>hoa</code></h3>
+
+  <p>Tout d'abord, à n'importe quel moment, vous pouvez utiliser les options
+  <code>-h</code>, <code>--help</code> ou <code>-?</code> pour obtenir de
+  l'aide.</p>
+  <p>Ensuite, le script fonctionne de la manière suivante : <code>hoa
+  [<em>vendor</em>] <em>library</em>[:<em>command</em>] [<em>tail</em>]</code>.
+  Quelques explications :</p>
+  <ul>
+    <li><code><em>vendor</em></code> représente la famille de bibliothèque et
+    vaut <code>hoa</code> par défaut ;</li>
+    <li><code><em>library</em></code> représente la bibliothèque qui va contenir
+    les commandes et vaut <code>core</code> par défaut ;</li>
+    <li><code><em>command</em></code> représente la commande à exécuter et vaut
+    <code>welcome</code> par défaut ;</li>
+    <li><code><em>tail</em></code> représente des options, des entrées etc.</li>
+  </ul>
+  <p>En réalité, <code>hoa</code> va exécuter la classe
+  <code><em>Vendor</em>\<em>Library</em>\Bin\<em>Command</em></code>. Nous
+  remarquons que la seule partie fixe est <code>Bin\</code>, c'est un espace de
+  nom particulier qui est compris par le script <code>hoa</code> comme contenant
+  des commandes. Ainsi, quand nous exécutons :</p>
+  <pre><code language="shell">$ hoa core:resolve hoa://Library --no-verbose</code></pre>
+  <p>Cela va exécuter la classe <code>Hoa\Core\Bin\Resolve</code> située sans
+  surprise dans le fichier <code>Hoa/Core/Bin/Resolve.php</code>.</p>
+
+  <h3 id="Creer_notre_propre_commande" for="main-toc">Créer notre propre
+  commande</h3>
+
+  <p>Nous allons créer notre propre commande rapidement, sans trop insister sur
+  les détails, mais uniquement pour donner un aperçu du fonctionnement. Créeons
+  le fichier <code>Hoathis/Exercise/Bin/Hello</code> :</p>
+  <pre><code language="php">&amp;lt;?php
+
+namespace Hoathis\Exercise\Bin {
+
+class Hello extends \Hoa\Console\Dispatcher\Kit {
+
+    protected $options = array(
+        array('who',  \Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'w'),
+        array('help', \Hoa\Console\GetOption::NO_ARGUMENT,       'h'),
+        array('help', \Hoa\Console\GetOption::NO_ARGUMENT,       '?')
+    );
+
+    public function main ( ) {
+
+        $who = 'world';
+
+        while(false !== $c = $this->getOption($v)) switch($c) {
+
+            case 'w':
+                $who = $v;
+              break;
+
+            case 'h':
+            case '?':
+                return $this->usage();
+              break;
+
+            case '__ambiguous':
+                $this->resolveOptionAmbiguity($v);
+              break;
+        }
+
+        echo 'Hello ', $who, '!', "\n";
+    }
+
+    public function usage ( ) {
+
+        echo 'Usage   : exercise:hello &amp;lt;options>', "\n",
+             'Options :', "\n",
+             $this->makeUsageOptionsList(array(
+                'w'    => 'Hello to who?',
+                'help' => 'This help.'
+             )), "\n";
+    }
+}
+
+}</code></pre>
+  <p>Nous avons défini la commande <code>exercise:hello</code>, avec deux
+  options (et leurs équivalents courts) : <code>who</code> et <code>help</code>.
+  Et maintenant testons !</p>
+  <pre><code language="shell">$ hoa hoathis exercise:hello
+Hello world!
+$ hoa hoathis exercise:hello --who Gordon
+Hello Gordon!
+$ hoa hoathis exercise:hello --help
+Usage   : exercise:hello &amp;lt;options>
+Options :
+ -w, --who= : Hello to who?
+ -h, --help : This help.
+ -?, --help : This help.</code></pre>
+  <p>Amusez-vous à utiliser l'option <code>--woo</code> au lieu de
+  <code>--who</code> pour vous amuser.</p>
+  <p>Nous pouvons même créer un alias pour utiliser nos bibliothèques
+  <code>Hoathis</code> :</p>
+  <pre><code language="shell">$ alias hoathis="hoa hoathis"
+$ hoathis exercise:hello
+Hello world!</code></pre>
+  <p>N'importe quelle famille de bibliothèques peut ainsi créer ses propres
+  scripts.</p>
+
+  <h2 id="Conclusion" for="main-toc">Conclusion</h2>
+
+  <p><code>Hoa\Core</code> est le cœur de Hoa et nous comprenons mieux pourquoi.
+  Cette bibliothèque à elle seule apporte déjà de grands services.</p>
+  <p>Hoa est un ensemble de bibliothèques <strong>modulaire</strong>,
+  <strong>extensible</strong> et <strong>structuré</strong> :</p>
+  <ul>
+    <li><strong>modulaire</strong> car chaque bibliothèque est bien isolée mais
+    nous pouvons les assembler comme bon nous semble, les installer à plusieurs
+    endroits de plusieurs manières ;</li>
+    <li><strong>extensible</strong> car nous pouvons pratiquement tout modifier,
+    tout surcharger, et écrire nos propres bibliothèques (après tout, Hoa est un
+    environnement de développement de bibliothèques et l'intégration des scripts
+    est un service parmi d'autres) ;</li>
+    <li><strong>structuré</strong> car Hoa repose sur des logiques simples qui
+    permettent cette modularité et cette extensibilité.</li>
+  </ul>
+  <p>Nous verrons plus en détail dans les prochains chapitres pourquoi Hoa est
+  réellement structuré : les bibliothèques ne sont pas écrites pas hasard et
+  elles offrent beaucoup de possibilités.</p>
 
   <ul class="prev_next">
     <li><a href="@ll:chapter=Install"><previous_chapter /> Installation</a></li>
