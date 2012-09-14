@@ -9,8 +9,7 @@
   <ul class="prev_next">
     <li><a href="@ll:chapter=Routerdispatcher"><previous_chapter /> Router +
         Dispatcher = ♥</a></li>
-    <li><a href="@ll:chapter=Xyl_foundamental">XYL, les fondamentaux
-        <next_chapter /></a></li>
+    <li><a href="@ll:chapter=Xyl">XYL <next_chapter /></a></li>
   </ul>
 
   <p>Une part importante d'une application est la <strong>manipulation des
@@ -871,8 +870,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   <ul class="prev_next">
     <li><a href="@ll:chapter=Routerdispatcher"><previous_chapter /> Router +
         Dispatcher = ♥</a></li>
-    <li><a href="@ll:chapter=Xyl_foundamental">XYL, les fondamentaux
-        <next_chapter /></a></li>
+    <li><a href="@ll:chapter=Xyl">XYL <next_chapter /></a></li>
   </ul>
 
 </yield>
