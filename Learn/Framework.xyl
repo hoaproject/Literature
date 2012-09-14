@@ -32,21 +32,21 @@
   framework qui doit être vu comme une <strong>démonstration de
   faisabilité</strong>, ou un <em>proof-of-concept</em>.</p>
   <p>Nous noterons que l'aspect framework est évidemment tourné vers un usage
-  <strong>intensif</strong> des bibliothèques, <ie /> que nous ne proposerons
-  pas d'« outils <strong>boîte-noires</strong> » sur lesquelles l'utilisateur
-  n'a <strong>aucun contrôle</strong>. La philosophie de Hoa est tournée vers
-  les bibliothèques, <ie /> vers le fait que l'utilisateur sait et comprend
+  <strong>intensif</strong> des bibliothèques : nous ne proposerons pas
+  d'« outils <strong>boîte-noires</strong> » sur lesquelles l'utilisateur n'a
+  <strong>aucun contrôle</strong>. La philosophie de Hoa est tournée vers les
+  bibliothèques, <ie /> vers le fait que l'utilisateur sait et comprend
   parfaitement ce qu'il fait. Ces bibliothèques fonctionnent bien ensemble, ce
   qui entraîne une modularité qui peut s'apparenter à des comportements
   rencontrés dans des frameworks, mais nous saurons toujours ce que nous
-  faisons. Le fait que nous puissons créer ses propres bibliothèques et
+  faisons. Le fait que nous puissons créer nos propres bibliothèques et
   composants facilite la <strong>réutilisation</strong> et le
   <strong>partage</strong> de son travail, qui sont des aspects importants des
   frameworks.</p>
   <p>Enfin, Hoa met particulièrement l'accent sur
-  l'<strong><em>hackability</em></strong> (la bidouillabilité), <ie /> que tout
-  est modifiable (sans pour autant observer une régression des fonctionnalités).
-  Nous saurons alors capable de construire une application avec nos propres
+  l'<strong lang="en">hackability</strong> (la bidouillabilité) : tout est
+  modifiable (sans pour autant observer une régression des fonctionnalités).
+  Nous serons alors capable de construire une application avec nos propres
   <strong>spécificités</strong>, <strong>mécanismes</strong>,
   <strong>outils</strong> et <strong>fonctionnements</strong>.</p>
 
@@ -182,9 +182,9 @@ Data/Bin/gordonsapp
   <code>hoa</code> (comme il ne connaît pas notre application), et le bon
   chemin pour <code>myapp</code> car il connaît notre application ;
   ainsi :</p>
-  <pre><code language="shell">$ hoa protocol:resolve hoa://Data
+  <pre><code language="shell">$ hoa core:resolve hoa://Data
 // Somewhere, in a galaxy far, far away…
-$ myapp protocol:resolve hoa://Data
+$ myapp core:resolve hoa://Data
 hoa://Data is equivalent to:
 ~/Development/MyApp/Data/</code></pre>
   <p>Nous verrons plus tard comment écrire des commandes uniquement accessibles
