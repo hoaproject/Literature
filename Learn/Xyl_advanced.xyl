@@ -21,18 +21,147 @@
 
   <h2 id="Formulaire" for="main-toc">Formulaire</h2>
 
-  <p>Les composants pour les formulaires sont les même que pour HTML, comme
-  précisé dans le chapitre précédent.</p>
+  <p>Les formulaires sont un moyen donné à l'utilisateur pour entrer des
+  données. Mais attention, il est bien connu que tout ce qui provient de
+  l'utilisateur est potentiellement dangereux ou faux, il est donc nécessaire de
+  valider toutes ces données. Par ailleurs, si nous lui demandons des données,
+  c'est probablement pour les manipuler par la suite, ce qui doit pouvoir se
+  faire facilement.</p>
+  <p>Nous avons précisé que les composants standards de XYL suivent le
+  vocabulaire d'HTML. Les formulaires n'échappent pas à la règle même s'ils
+  comportent des petits plus.</p>
+
+  <h3 id="Ecrire_et_envoyer_un_formulaire" for="main-toc">Écrire et envoyer un
+  formulaire</h3>
+
+  <p>Nous allons écrire un formulaire très simple dans un fichier
+  <code>Form.xyl</code> et utiliser les composants <code>form</code> ainsi que
+  <code>input</code> :</p>
+  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>Form&amp;lt;/title>
+
+  &amp;lt;form action="#" method="post" id="myForm">
+    &amp;lt;p>Foo: &amp;lt;input type="text" name="foo" />&amp;lt;/p>
+    &amp;lt;p>Bar: &amp;lt;input type="text" name="bar" />&amp;lt;/p>
+    &amp;lt;p>&amp;lt;input type="submit" />&amp;lt;/p>
+  &amp;lt;/form>
+
+  &amp;lt;ul>
+    &amp;lt;li bind="?result" />
+  &amp;lt;/ul>
+&amp;lt;/document></code></pre>
+  <p>Pour envoyer un formulaire, il nous faut savoir vers quelle ressource
+  seront transmises les données et avec quelle méthode HTTP. Ces informations
+  sont présentes respectivement dans l'attribut <code>action</code> et
+  <code>method</code>. Quand l'attribut <code>action</code> vaut <code>#</code>,
+  cela signifie que les données seront envoyées sur l'URI courant.</p>
 
   <h3 id="Recuperation_des_donnees" for="main-toc">Récupération des données</h3>
 
+  <p>Nous allons maintenant écrire l'interpréteur XYL pour ce document. Dans un
+  premier temps, affichons simplement le formulaire, puis nous verrons comment
+  récupérer les données par la suite. Ainsi, dans un fichier
+  <code>index.php</code> par exemple :</p>
+  <pre><code language="php">from('Hoa')
+-> import('File.Read')
+-> import('Http.Response')
+-> import('Xyl.~')
+-> import('Xyl.Interpreter.Html.~');
+
+$xyl = new Hoa\Xyl(
+    new Hoa\File\Read('Form.xyl'),
+    new Hoa\Http\Response(),
+    new Hoa\Xyl\Interpreter\Html()
+);
+
+$xyl->render();</code></pre>
+  <p>Avec ceci, le formulaire s'affichera. Nous connaissons déjà très bien cette
+  opération. Maintenant, nous savons que quand le formulaire sera envoyé, ce
+  sera ce même code qui va s'exécuter. Nous voulons que notre composant
+  <code>ul</code> contiennent les données. Pour cela, nous allons procéder en
+  trois étapes :</p>
+  <ul>
+    <li>récupérer notre formulaire ;</li>
+    <li>vérifier s'il est valide ;</li>
+    <li>liéer les données avec notre liste.</li>
+  </ul>
+  <p>Lorsque nous appelons la méthode <code>Hoa\Xyl::render</code>, plusieurs
+  opérations se déroulent. Pour simplifier, nous pouvons regrouper ces
+  opérations en deux catégories : l'interprétation et l'exécution. Tous les
+  composants sont prêts à l'emploi à la fin de l'interprétation : c'est le
+  moment idéal pour appele des opérations dessus. Pour interpréter manuellement
+  le document, nous devons appeler la méthode <code>Hoa\Xyl::interprete</code>.
+  Ensuite, nous allons récupérer notre formulaire à l'aide de son identifiant
+  (attribut <code>id</code>), en utilisant la méthode
+  <code>Hoa\Xyl::getElement</code>. Ensuite, une fois que nous aurons notre
+  formulaire, nous pourrons appeler les méthodes
+  <code>Hoa\Xyl\Interpreter\Html\Form::hasBeenSent</code> et
+  <code>Hoa\Xyl\Interpreter\Html\Form::isValid</code>, respectivement pour
+  savoir si le formulaire a été envoyé et s'il est valide. Attention, les
+  données ne seront pas disponibles tant qu'elles n'auront pas été validé.
+  Enfin, si toutes ces contraintes sont respectées, alors nous récupérerons les
+  données avec la méthode
+  <code>Hoa\Xyl\Interpreter\Html\Form::getFormData</code> ; ainsi :</p>
+  <pre><code language="php">$xyl = new Hoa\Xyl(
+    new Hoa\File\Read('Form.xyl'),
+    new Hoa\Http\Response(),
+    new Hoa\Xyl\Interpreter\Html()
+);
+$xyl->interprete();
+$form = $xyl->getElement('myForm');
+
+if(   true === $form->hasBeenSent()
+   &amp;amp;&amp;amp; true === $form->isValid())
+    $data->result = array_values($form->getFormData());
+
+$xyl->render();</code></pre>
+  <p>Nous pouvons tester que notre formulaire fonctionne bien. Nous remarquons
+  que les données sont persistantes dans le formulaire, c'est à dire qu'elles
+  sont automatiquement replacées dans les champs correspondants (et ce n'est pas
+  réservé au composant <code>input</code>, mais aussi à <code>select</code>,
+  <code>textarea</code> etc.).</p>
+
   <h3 id="Contraintes_et_erreurs" for="main-toc">Contraintes et erreurs</h3>
+
+  <p>Maintenant, nous aimerions ajouter des contraintes sur les entrées du
+  formulaire. Nous allons nous aider de l'attribut <code>validate</code>. Dans
+  cet attribut, nous allons écrire du code Praspel (que nous décrirons plus
+  tard, nous allons donner un exemple pour illustrer). Par exemple, nous allons
+  dire que l'entrée <code>foo</code> doit être un entier entre 0 et 255,
+  ainsi :</p>
+  <pre><code language="xml">&amp;lt;input type="text" name="foo" validate="boundinteger(0, 255)" /></code></pre>
+  <p>Si nous entrons <code>hello</code> dans notre entrée, le formulaire ne sera
+  pas valide et nous ne verrons pas le résultat. En revanche, si nous entrons
+  <code>42</code>, alors le résultat apparaîtra car le formulaire est
+  valide ! Très bien, mais nous aimerions afficher une erreur si la validation
+  échoue. Nous pouvons utiliser l'attribut <code>onerror</code> sur notre champ
+  mais nous pouvons également utiliser le composant <code>error</code>. Les deux
+  sont liés à travers l'identifiant du composant <code>error</code>. Nous
+  pouvons placer ce composant où nous le voulons, il n'apparaîtra pas tant
+  qu'une erreur ne sera pas survenue :</p>
+  <pre><code language="xml">&amp;lt;input type="text" name="foo" validate="boundinteger(0, 255)" onerror="e_foo" /></code></pre>
+  <p>Et autre part :</p>
+  <pre><code language="xml">&amp;lt;error id="e_foo">
+  foo must be an integer between 0 and 255.
+&amp;lt;/error></code></pre>
+  <p>Essayons d'entrer <code>hello</code> à nouveau et nous verrons l'erreur
+  apparaître.</p>
+  <p>C'est un bon début mais il arrive souvent que nous ayons plusieurs erreurs
+  possibles pour une même entrée. Nous pouvons alors écrire plusieurs attributes
+  <code>validate-<em>suffix</em></code> et
+  <code>onerror-<em>suffix</em></code>.</p>
+
+  <!-- validate-x & onerror-x forment une disjonction et pas une conjonction,
+       refaire le système et factoriser le code -->
+  <!-- @novalidate -->
 
   <h2 id="Fragment" for="main-toc">Fragment</h2>
 
   <p>Les fragments sont un autre type de document, comme <code>document</code>,
   <code>overlay</code> ou <code>definition</code>. Ils sont très semblables à
-  <code>document</code> excépté que lors de l'interprétation, ils n'ajoutent
+  <code>document</code> excepté que lors de l'interprétation, ils n'ajoutent
   rien autour, ils n'affichent que ce qui se trouve à l'intérieur.</p>
 
   <h3 id="Declarer_et_utiliser_des_fragments" for="main-toc">Déclarer et
