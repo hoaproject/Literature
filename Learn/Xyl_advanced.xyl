@@ -154,7 +154,7 @@ $xyl->render();</code></pre>
   <code>onerror-<em>suffix</em></code>.</p>
 
   <!-- validate-x & onerror-x forment une disjonction et pas une conjonction,
-       refaire le système et factoriser le code -->
+       refaire le système et factoriser le code. -->
   <!-- @novalidate -->
 
   <h2 id="Fragment" for="main-toc">Fragment</h2>
