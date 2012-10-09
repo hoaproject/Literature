@@ -294,5 +294,6 @@ Press Ctrl-C to quit.
   d'<a href="@lh:chapter=Dns"><code>Hoa\Dns</code></a> pour, par exemple,
   résoudre des noms de domaine <code>.hoa</code> et ainsi utiliser un hôte
   virtuel comme <code>monprojet.hoa</code>.</p>
+
 </yield>
 </definition>
