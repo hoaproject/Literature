@@ -8,8 +8,8 @@
   Dispatcher = ♥</h1>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Framework"><previous_chapter /> Aspect
-       framework</a></li>
+    <li><a href="@ll:chapter=Embryo"><previous_chapter /> Squelette
+        d'application</a></li>
     <li><a href="@ll:chapter=Model">Modèle de données <next_chapter /></a></li>
   </ul>
 
@@ -606,8 +606,8 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
 Your page seems to be not found /o\.</code></pre>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Framework"><previous_chapter /> Aspect
-        framework</a></li>
+    <li><a href="@ll:chapter=Embryo"><previous_chapter /> Squelette
+        d'application</a></li>
     <li><a href="@ll:chapter=Model">Modèle de données <next_chapter /></a></li>
   </ul>
 

@@ -8,7 +8,8 @@
 
   <ul class="prev_next">
     <li><a href="@ll:chapter=Install"><previous_chapter /> Installation</a></li>
-    <li><a href="@ll:chapter=Framework">Aspect framework <next_chapter /></a></li>
+    <li><a href="@ll:chapter=Embryo">Squelette d'application
+        <next_chapter /></a></li>
   </ul>
 
   <p>Le noyau est la partie <strong>indispensable</strong> de Hoa. C'est le
@@ -966,7 +967,7 @@ Hello world!</code></pre>
 
   <ul class="prev_next">
     <li><a href="@ll:chapter=Install"><previous_chapter /> Installation</a></li>
-    <li><a href="@ll:chapter=Framework">Aspect framework
+    <li><a href="@ll:chapter=Embryo">Squelette d'application
         <next_chapter /></a></li>
   </ul>
 
