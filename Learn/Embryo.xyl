@@ -4,7 +4,7 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
-  <h1 id="Framework">Manuel d'apprentissage<title_break />Aspect framework</h1>
+  <h1 id="Embryo">Manuel d'apprentissage<title_break />Squelette d'application</h1>
 
   <ul class="prev_next">
     <li><a href="@ll:chapter=Core"><previous_chapter /> Exploration du
