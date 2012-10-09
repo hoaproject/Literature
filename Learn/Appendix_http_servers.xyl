@@ -11,31 +11,36 @@
   <strong>hôte virtuel</strong> ainsi que la <strong>réécriture d'URL</strong>
   pour les serveurs HTTP les plus courants afin de profiter de toutes les
   fonctionnalités de Hoa.</p>
-  <p>Les hôtes virtuels permettent de maintenir plusieurs sites Internet sur un
-  même serveur tout en leur associant un nom ainsi que des paramètres
-  spécifiques.</p>
-  <p>La réécriture d'URL consiste à faire réécrire au serveur HTTP des URL
-  complexes sous une forme plus simple afin d'en améliorer la lisibilité (pour
-  les utilisateurs du sites mais également pour les moteurs de recherches).</p>
 
   <h2 id="Table_des_matieres" for="menu-toc">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
+  <h2 id="Introduction" for="main-toc">Introduction</h2>
+
+  <p>Les hôtes virtuels permettent de faire co-exister <strong>plusieurs
+  sites</strong> sur un même serveur tout en leur associant un nom ainsi que des
+  paramètres spécifiques. La réécriture d'URL consiste à faire
+  <strong>réécrire</strong> au serveur HTTP des URL complexes sous une forme
+  plus simple afin d'en améliorer la lisibilité (pour les utilisateurs des sites
+  mais également pour les moteurs de recherches).</p>
+
   <h2 id="Apache" for="main-toc">Apache</h2>
 
-  <p>Apache est le serveur HTTP le plus utilisé au monde. Il est installé par
-  défaut sur Mac OS X, disponible via votre gestionnaire de paquet sur la
-  plupart des distributions Linux ou installable en quelques clics sous Windows.
-  Les sources et les exécutables sont disponibles sur le
-  <a href="http://httpd.apache.org/">site officiel</a>.</p>
+  <p><a href="http://httpd.apache.org/">Apache</a> est le serveur HTTP le plus
+  utilisé au monde. Il est installé par défaut sur Mac OS X, disponible via
+  votre gestionnaire de paquet sur la plupart des distributions Linux ou
+  installable en quelques clics sous Windows.  Les sources et les exécutables
+  sont disponibles sur
+  <a href="http://httpd.apache.org/download.cgi" title="Télécharger Apache">le
+  site officiel</a>.</p>
 
-  <h3 id="Apache_Hote_virtuel" for="main-toc">Hôte virtuel</h3>
+  <h3 id="Hote_virtuel_avec_VirtualHost" for="main-toc">Hôte virtuel avec
+  <code>&amp;amp;lt;VirtualHost></code></h3>
 
   <p>Pour ajouter un hôte virtuel à Apache il faut modifier le fichier
   <code>httpd.conf</code> afin d'y ajouter à la fin la déclaration de notre
-  nouvel hôte :</p>
-
+  nouvel hôte :</p>
   <tabs class="plain">
     <tablist>
       <tab for="tunix_httpd" selected="true">Unix</tab>
@@ -43,43 +48,38 @@
     </tablist>
 
     <tabpanel id="tunix_httpd">
-      <pre><code language="conf">&amp;lt;VirtualHost *:80>
+      <pre><code>&amp;amp;lt;VirtualHost *:80>
   ServerName localhost
 
-  DocumentRoot /path/to/my/hoa/app/Application/Public
+  DocumentRoot "/path/to/my/hoa/app/Application/Public"
 
-  &amp;lt;Directory /path/to/my/hoa/app/Application/Public>
+  &amp;amp;lt;Directory "/path/to/my/hoa/app/Application/Public">
     Options All
     AllowOverride All
-  &amp;lt;/Directory>
+  &amp;amp;lt;/Directory>
 
-&amp;lt;/VirtualHost></code></pre>
+&amp;amp;lt;/VirtualHost></code></pre>
     </tabpanel>
     <tabpanel id="twindows_httpd">
-      <pre><code language="conf">&amp;lt;VirtualHost *:80>
+      <pre><code>&amp;amp;lt;VirtualHost *:80>
   ServerName localhost
 
-  DocumentRoot C:\path\to\my\hoa\app\Application\Public
+  DocumentRoot "C:\path\to\my\hoa\app\Application\Public"
 
-  &amp;lt;Directory C:\path\to\my\hoa\app\Application\Public>
+  &amp;amp;lt;Directory "C:\path\to\my\hoa\app\Application\Public">
     Options All
     AllowOverride All
-  &amp;lt;/Directory>
+  &amp;amp;lt;/Directory>
 
-&amp;lt;/VirtualHost></code></pre>
+&amp;amp;lt;/VirtualHost></code></pre>
     </tabpanel>
   </tabs>
-
-  <p>Cet hôte virtuel (<code>VirtualHost</code>) minimal permet de faire
-  fonctionner Hoa grâce au <code>DocumentRoot</code> qui pointe sur le
-  sous-dossier <code>/Application/Public/</code> du dossier de l'application
-  Hoa. Le  <code>ServerName</code> le plus courant pour le développement est
-  <code>localhost</code> car il est résolu sur l'adresse IP locale (127.0.0.1).
-  Si vous utilisez un autre nom, celui-ci doit figurer dans votre fichier Host
-  (<code>/etc/hosts</code> sous Unix,
-  <code>%SystemRoot%\system32\drivers\etc\hosts</code> sous Windows) où être
-  résolu par votre serveur DNS comme pointant sur votre adresse IP locale.</p>
-
+  <p>Cet hôte virtuel, avec <code>VirtualHost</code>, minimal permet de faire
+  fonctionner Hoa grâce au <code>DocumentRoot</code> qui pointe sur le dossier
+  public <code>Application/Public/</code> de l'application. Le nom du serveur,
+  avec <code>ServerName</code>, le plus courant pour le développement est
+  <code>localhost</code> car il est résolu sur l'adresse IP locale :
+  <code>127.0.0.1</code>.</p>
   <p>La directive <code>Directory</code> permet de préciser des fonctionnalitées
   pour un dossier en particulier. Dans notre cas nous souhaitons pouvoir
   utiliser toutes les fonctionnalités, nous activons donc
@@ -87,49 +87,49 @@
   fonctionnalitées grâce à un fichier <code>.htaccess</code>
   que nous placerons dans le répertoire, nous activons cette possibilité avec
   la directive <code>AllowOverride All</code>.</p>
+  <p>La documentation permet de découvrir toutes les
+  <a href="http://httpd.apache.org/docs/">directives disponibles pour la
+  configuration d'Apache</a>.</p>
 
-  <p>La <a href="http://httpd.apache.org/docs/">documentation</a> permet de
-  découvrir toutes les directives disponibles pour la configuration d'Apache.</p>
+  <h3 id="Reecriture_d-URL_avec_mod_rewrite" for="main-toc">Réécriture d'URL
+  avec <code>mod_rewrite</code></h3>
 
-  <h3 id="Apache_Reecriture_d_URL" for="main-toc">Réécriture d'URL</h3>
-
-  <p>La réécriture d'URL pour Apache est gérée par le module mod_rewrite,
-  celui-ci doit être activé grâce à la commande :
-<pre><code language="shell">a2enmod mod_rewrite</code></pre>
-  sous Unix ou en décommentant, enlevant le <code>#</code>, la ligne :
-<pre><code language="conf"># LoadModule rewrite_module modules/mod_rewrite.so
-</code></pre>
-  dans le fichier httpd.conf sous
-  Windows. Les règles de réécritures peuvent être spécifiées dans un
-  fichier <code>.htaccess</code> à placer dans le répertoire
-  <code>/Application/Public</code> de votre application Hoa :</p>
-
-  <pre><code language="conf">RewriteEngine On
+  <p>La réécriture d'URL pour Apache est gérée par le module
+  <a href="http://httpd.apache.org/docs/current/mod/mod_rewrite.html"><code>mod_rewrite</code></a>.
+  Sous Unix, celui-ci peut être activé grâce à la commande :</p>
+  <pre><code language="shell">$ a2enmod mod_rewrite</code></pre>
+  <p>Sous Windows, dans le fichier <code>httpd.conf</code>, il faut décommenter
+  la ligne suivante :</p>
+  <pre><code>LoadModule rewrite_module modules/mod_rewrite.so</code></pre>
+  <p>Les règles de réécritures peuvent être spécifiées dans un fichier
+  <code>.htaccess</code> à placer dans le répertoire
+  <code>Application/Public</code> de votre application Hoa :</p>
+  <pre><code>RewriteEngine On
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?$1</code></pre>
-
   <p>La première ligne active la réécriture d'URL. Les lignes suivantes ajoutent
   des conditions (<code>RewriteCond</code>) qui empêchent de réécrire l'URL si
   le fichier (<code>-f</code>) ou le dossier (<code>-d</code>) demandé existe
   sur le disque. Enfin, si nous atteignons la règle de réécriture
   (<code>RewriteRule</code>) alors le chemin demandé est passé en paramètre au
-  fichier index.php.</p>
+  fichier <code>index.php</code>.</p>
 
-  <h2 id="Nginx" for="main-toc">Nginx</h2>
+  <h2 id="nginx" for="main-toc">nginx</h2>
 
-  <p>Nginx est un serveur HTTP développé pour les sites à fort traffic. Il a
-  acquis sa réputation grâce à sa faible utilisation des ressources. Nginx est
-  disponible sur toutes les plateformes sur <a href="http://nginx.org/">le site
+  <p><a href="http://nginx.org">nginx</a> est un serveur HTTP développé pour les sites à fort traffic. Il a
+  acquis sa réputation grâce à sa faible utilisation des ressources. nginx est
+  disponible sur toutes les plateformes sur
+  <a href="http://nginx.org/en/download.html" title="Télécharger nginx">le site
   officiel</a>.</p>
 
-  <h3 id="Nginx_Hote_virtuel" for="main-toc">Hôte virtuel</h3>
+  <h3 id="Hote_virtuel_avec_server" for="main-toc">Hôte virtuel avec
+  <code>server</code></h3>
 
-  <p>Les hôtes virtuels, appelés <code>ServerBlock</code> pour Nginx, sont
+  <p>Les hôtes virtuels, appelés <code>ServerBlock</code> par nginx, sont
   décris dans le fichier <code>nginx.conf</code>. Pour ajouter un hôte virtuel
-  pour votre développement avec Hoa vous pouvez ajouter les lignes suivantes en
-  toute fin de votre fichier <code>nginx.conf</code> :</p>
-
+  pour votre développement avec Hoa, vous pouvez ajouter les lignes suivantes en
+  toute fin de votre fichier <code>nginx.conf</code> :</p>
   <tabs class="plain">
     <tablist>
       <tab for="tunix_nginx" selected="true">Unix</tab>
@@ -137,62 +137,65 @@ RewriteRule ^(.*)$ index.php?$1</code></pre>
     </tablist>
 
     <tabpanel id="tunix_nginx">
-  <pre><code language="conf">server {
+  <pre><code>server {
   server_name localhost;
 
   location / {
-    root   /path/to/my/hoa/app/Application/Public/;
+    root   "/path/to/my/hoa/app/Application/Public/";
     index  index.php;
   }
 
   location ~ \.php$ {
     fastcgi_pass 127.0.0.1:9000;
     fastcgi_index index.php;
-    fastcgi_param SCRIPT_FILENAME /path/to/my/hoa/app/Application/Public/$fastcgi_script_name;
+    fastcgi_param SCRIPT_FILENAME "/path/to/my/hoa/app/Application/Public/$fastcgi_script_name";
     include /etc/nginx/fastcgi_params;
   }
 }</code></pre>
     </tabpanel>
     <tabpanel id="twindows_nginx">
-  <pre><code language="conf">server {
+  <pre><code>server {
   server_name localhost;
 
   location / {
-    root   C:/path/to/my/hoa/App/Application/Public/;
+    root   "C:/path/to/my/hoa/app/Application/Public/";
     index  index.php;
   }
 
   location ~ \.php$ {
     fastcgi_pass 127.0.0.1:9000;
     fastcgi_index index.php;
-    fastcgi_param SCRIPT_FILENAME C:/path/to/my/hoa/app/Application/Public/$fastcgi_script_name;
+    fastcgi_param SCRIPT_FILENAME "C:/path/to/my/hoa/app/Application/Public/$fastcgi_script_name";
     include C:/nginx/conf/fastcgi_params;
   }
 }</code></pre>
     </tabpanel>
   </tabs>
-
   <p>Le bloc <code>server</code> permet de décrire le nom du serveur. Le premier
-  bloc <code>location</code> permet de préciser à Nginx à quel chemin sur le
+  bloc <code>location</code> permet de préciser à nginx à quel chemin sur le
   disque correspond une requête envoyée sur <code>/</code>. Le second bloc
-  <code>location</code> sert à transmettre à PHP FastCGI le traitement de tous
-  les fichiers avec l'extension <code>.php</code>.</p>
+  <code>location</code> sert à transmettre à
+  <a href="http://fastcgi.com/">FastCGI</a> le traitement de tous les fichiers
+  avec l'extension <code>.php</code>.</p>
+  <p>La documentation permet d'étudier plus précisemment toutes les
+  <a href="http://nginx.org/en/docs/">directives de configuration de
+  nginx</a>. Attention à bien démarrer le serveur FastCGI de PHP pour que nginx
+  puisse exécuter les fichiers PHP :</p>
+  <pre><code language="shell">$ php-cgi -b 127.0.0.1:9000</code></pre>
+  <p>nginx vous préviendra avec une erreur 500 que le serveur n'est pas
+  accessible.</p>
 
-  <p>La<a href="http://nginx.org/en/docs/">documentation</a> permet d'étudier
-  plus précisemment toutes les directives de configuration de Nginx.</p>
+  <h3 id="Reecriture_d-URL_avec_try_files" for="main-toc">Réécriture d'URL avec
+  <code>try_files</code></h3>
 
-  <h3 id="Nginx_Reecriture_d_URL" for="main-toc">Réécriture d'URL</h3>
-
-  <p>La réécriture d'URL pour Nginx doit être décrite dans le premier bloc
-  <code>location</code> en y ajoutant la ligne suivante :</p>
-
-  <pre><code language="conf">try_files $uri $uri/ /index.php?$args;</code></pre>
-
+  <p>La réécriture d'URL pour nginx doit être décrite dans le premier bloc
+  <code>location</code> en y ajoutant la ligne suivante :</p>
+  <pre><code>try_files $uri $uri/ /index.php?$args;</code></pre>
   <p>L'instruction <code>try_files</code> vérifie l'existance de fichiers dans
-  l'ordre des paramètres. Ainsi avec l'instruction précédente Nginx va chercher
-  le fichier demandé, puis un dossier avec le même nom (avec le slash final) et
-  si rien de tel n'est trouvé sur le disque, alors il transformera la requête
-  pour la passer au fichier <code>index.php</code>.</p>
+  l'ordre des paramètres. Ainsi avec l'instruction précédente, nginx va chercher
+  le fichier demandé, puis un dossier avec le même nom (avec le <code>/</code>
+  final), et si rien de tel n'est trouvé sur le disque, alors il transformera
+  l'URL pour la donner au fichier <code>index.php</code>.</p>
 
   <h2 id="Bhoa" for="main-toc">Bhoa</h2>
 
@@ -200,51 +203,22 @@ RewriteRule ^(.*)$ index.php?$1</code></pre>
   nécessite aucune configuration particulière pour fonctionner. Il est donc
   l'outil idéal pour développer avec Hoa.</p>
 
-  <p>Bhoa jouant le rôle de serveur HTTP,
-  il a besoin de communiquer avec PHP qui lui se charge interpréter les pages.
-  Bhoa utilise PHP FastCGI pour exécuter PHP, nous allons donc devoir le
-  démarrer sur le port standard (9000) :</p>
-
-  <tabs class="plain">
-    <tablist>
-      <tab for="tunix_start_phpcgi" selected="true">Unix</tab>
-      <tab for="twindows_start_phpcgi">Windows</tab>
-    </tablist>
-    <tabpanel id="tunix_start_phpcgi">
-      <pre><code language="shell">$ php-cgi -b 127.0.0.1:9000&amp;amp;</code></pre>
-    </tabpanel>
-    <tabpanel id="twindows_start_phpcgi">
-      <pre><code language="shell">// dans une nouvelle invite de commande
-> php-cgi -b 127.0.0.1:9000</code></pre>
-    </tabpanel>
-  </tabs>
-
+  <p>Bhoa jouant le rôle de serveur HTTP, il a besoin de communiquer avec PHP à
+  travers un serveur <a href="http://fastcgi.com/">FastCGI</a>, qui lui se
+  charge d'interpréter les pages, comme nginx. Ainsi, nous allons devoir le
+  démarrer :</p>
+  <pre><code language="shell">$ php-cgi -b 127.0.0.1:9000</code></pre>
   <p>Enfin, Hoa fournit une abstraction des chemins à travers le protocole
   <code>hoa://</code> qui propose le chemin
   <code>hoa://Application/Public/</code> pour accéder à notre dossier
   public. Nous allons utiliser ce chemin pour définir la racine du serveur ;
   ainsi :</p>
-  <tabs class="plain">
-    <tablist>
-      <tab for="tunix_start_bhoa" selected="true">Unix</tab>
-      <tab for="twindows_start_bhoa">Windows</tab>
-    </tablist>
-    <tabpanel id="tunix_start_bhoa">
-      <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public/
+  <pre><code language="shell">$ myapp bhoa --root hoa://Application/Public/
 Server is up, on tcp://127.0.0.1:8888!
 Root: hoa://Application/Public/.
 
 Waiting for connection… ▋</code></pre>
-    </tabpanel>
-    <tabpanel id="twindows_start_bhoa">
-      <pre><code language="shell">> gordonsapp bhoa --root hoa://Application/Public/
-Server is up, on tcp://127.0.0.1:8888!
-Root: hoa://Application/Public/.
-
-Waiting for connection… ▋</code></pre>
-    </tabpanel>
-  </tabs>
-  <p>Par défaut Bhoa écoute le port 8888. Il faut des droits <code>root</code>
+  <p>Par défaut, Bhoa écoute le port 8888. Il faut des droits super-utilisateurs
   pour écouter le port 80.</p>
 
   <h2 id="Serveur_interne_de_PHP" for="main-toc">Serveur interne de PHP</h2>
@@ -252,8 +226,8 @@ Waiting for connection… ▋</code></pre>
   <p>PHP, depuis la version 5.4, fournit un
   <a href="http://php.net/commandline.webserver">serveur HTTP natif</a>. Ce
   serveur n'est utile que pour du développement, tout comme Bhoa. Nous pouvons
-  l'utiliser de cette manière, depuis le dossier <code>Public/</code> de notre
-  application :</p>
+  l'utiliser de cette manière, depuis le dossier
+  <code>Application/Public/</code> de notre application :</p>
   <pre><code language="shell">$ php -S 127.0.0.1:8888 -r .
 PHP x.y.z Development Server started at …
 Listening on 127.0.0.1:8888
@@ -265,11 +239,8 @@ Press Ctrl-C to quit.
   le site mais probablement avec des erreurs, car les URL ne sont pas réécrites.
   Pour cela, nous pouvons préciser un fichier qui s'occupera de cette tâche.
   Nous proposons le fichier <code>.webserver</code> (dans le dossier
-  <code>Public/</code> toujours) pour interpréter les URL comme étant réécrites.
-  Le principe est simple : toutes les URL se terminant par <code>.html</code>
-  sont redirigées sur <code>index.php</code>, et les autres fichiers sont servis
-  « statiquement » (verbatim). Ce fichier est écrit en utilisant Hoa
-  lui-même ! Ainsi :</p>
+  <code>Application/Public/</code> toujours) pour interpréter les URL comme
+  étant réécrites. Ce fichier est écrit en utilisant Hoa lui-même ! Ainsi :</p>
   <pre><code language="php">&amp;lt;?php
 
 require_once '/usr/local/lib/Hoa/Core/Core.php';
@@ -282,27 +253,23 @@ from('Hoa')
 
 $router = new Hoa\Router\Http();
 $router
-    ->get('i', '(|.*\.html)', function ( ) {
+    ->all('a', '.*', function ( Hoa\Dispatcher\Kit $_this ) {
 
-        require 'index.php';
-    })
-    ->get('a', '.*', function ( Hoa\Dispatcher\Kit $_this ) {
+        $uri  = $_this->router->getURI();
+        $file = __DIR__ . DS . $uri;
 
-        $file = __DIR__ . DS . $_this->router->getURI();
-
-        if(true === file_exists($file)) {
+        if(!empty($uri) &amp;amp;&amp;amp; true === file_exists($file)) {
 
             $stream = new Hoa\File\Read($file);
             $mime   = new Hoa\Mime($stream);
 
             header('Content-Type: ' . $mime->getMime());
             echo $stream->readAll();
-        }
-        else {
 
-            header('Status: 500 Internal Server Error');
-            echo '500';
+            return;
         }
+
+        require 'index.php';
     });
 
 $dispatcher = new Hoa\Dispatcher\Basic();
@@ -322,7 +289,9 @@ Press Ctrl-C to quit.
   <h2 id="Pour_aller_plus_loin" for="main-toc">Pour aller plus loin</h2>
 
   <p>Maintenant que votre hôte virtuel est configuré correctement ainsi que la
-  réécriture d'URL, vous pouvez profiter d'Hoa\Dns pour résoudre les noms de
-  domaine .hoa et ainsi utiliser un hôte virtuel comme monprojet.hoa</p>
+  réécriture d'URL, vous pouvez profiter
+  d'<a href="@lh:chapter=Dns"><code>Hoa\Dns</code></a> pour, par exemple,
+  résoudre des noms de domaine <code>.hoa</code> et ainsi utiliser un hôte
+  virtuel comme <code>monprojet.hoa</code>.</p>
 </yield>
 </definition>
