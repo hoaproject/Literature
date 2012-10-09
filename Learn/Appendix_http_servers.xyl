@@ -213,7 +213,7 @@ RewriteRule ^(.*)$ index.php?$1</code></pre>
   <code>hoa://Application/Public/</code> pour accéder à notre dossier
   public. Nous allons utiliser ce chemin pour définir la racine du serveur ;
   ainsi :</p>
-  <pre><code language="shell">$ myapp bhoa --root hoa://Application/Public/
+  <pre><code language="shell">$ myapp http:bhoa --root hoa://Application/Public/
 Server is up, on tcp://127.0.0.1:8888!
 Root: hoa://Application/Public/.
 

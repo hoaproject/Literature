@@ -330,14 +330,14 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
       <tab for="twindows_start_bhoa">Windows</tab>
     </tablist>
     <tabpanel id="tunix_start_bhoa">
-      <pre><code language="shell">$ gordonsapp bhoa --root hoa://Application/Public/
+      <pre><code language="shell">$ gordonsapp http:bhoa --root hoa://Application/Public/
 Server is up, on tcp://127.0.0.1:8888!
 Root: hoa://Application/Public/.
 
 Waiting for connection… ▋</code></pre>
     </tabpanel>
     <tabpanel id="twindows_start_bhoa">
-      <pre><code language="shell">> gordonsapp bhoa --root hoa://Application/Public/
+      <pre><code language="shell">> gordonsapp http:bhoa --root hoa://Application/Public/
 Server is up, on tcp://127.0.0.1:8888!
 Root: hoa://Application/Public/.
 

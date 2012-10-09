@@ -188,7 +188,7 @@ $dns->run();</code></pre>
   notre serveur de résolution à fonctionner. Le fichier
   <code>/tmp/index.html</code> n'est présent que pour avoir un exemple complet.
   Démarrons donc Bhoa :</p>
-  <pre><code language="shell">$ hoa bhoa --root /tmp --listen 127.0.0.1:8888</code></pre>
+  <pre><code language="shell">$ hoa http:bhoa --root /tmp --listen 127.0.0.1:8888</code></pre>
   <p>Nous démarrons aussi notre serveur de résolution :</p>
   <pre><code language="shell">$ php Resolver.php</code></pre>
   <p>Enfin, nous pouvons tester l'ensemble, par exemple avec

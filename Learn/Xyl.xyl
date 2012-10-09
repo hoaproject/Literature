@@ -157,7 +157,7 @@ $xyl->render();</code></pre>
   résultat :</p>
   <pre><code language="shell">$ php index.php</code></pre>
   <p>Ou depuis un navigateur (à l'aide de Bhoa par exemple) :</p>
-  <pre><code language="shell">$ myapp bhoa --root .</code></pre>
+  <pre><code language="shell">$ myapp http:bhoa --root .</code></pre>
   <p>puis en ouvrant l'URL
   <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a>.</p>
   <p>Nous vous conseillons d'essayer de modifier ce document XYL comme si
@@ -1104,7 +1104,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
     echo 'Your page seems to be not found /o\.', "\n";
 }</code></pre>
   <p>Maintenant, utilisons Bhoa pour exécuter notre application :</p>
-  <pre><code language="shell">$ myapp bhoa --root hoa://Application/Public</code></pre>
+  <pre><code language="shell">$ myapp http:bhoa --root hoa://Application/Public</code></pre>
   <p>Puis, depuis un navigateur en allant sur
   <a href="http://127.0.0.1:8888/"><code>127.0.0.1:8888</code></a>, nous verrons
   notre document rendu en HTML et plus précisément la liste des articles

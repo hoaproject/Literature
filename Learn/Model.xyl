@@ -814,7 +814,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
 }</code></pre>
   <p>Enfin, nous allons tester notre application un peu plus enrichie ! Nous
   commençons par démarrer Bhoa :</p>
-  <pre><code language="shell">$ myapp bhoa --root hoa://Application/Public</code></pre>
+  <pre><code language="shell">$ myapp http:bhoa --root hoa://Application/Public</code></pre>
   <p>À l'aide de cURL, nous allons afficher le résultat de notre index et d'un
   article :</p>
   <pre><code language="shell">$ curl 127.0.0.1:8888/

@@ -141,7 +141,7 @@ $dispatcher->dispatch($router);</code></pre>
   manipuler plusieurs protocoles, dont HTTP. Tout d'abord, démarrons
   PHP FastCGI et Bhoa :</p>
   <pre><code language="shell">$ php-cgi -b 127.0.0.1:9000&amp;amp;
-$ myapp bhoa --root hoa://Application/Public</code></pre>
+$ myapp http:bhoa --root hoa://Application/Public</code></pre>
   <p>Puis dans un autre terminal, envoyons-lui une requête avec cURL :</p>
   <pre><code language="shell">$ curl 127.0.0.1:8888/hello
 world!
@@ -570,7 +570,7 @@ class Blog extends \Hoa\Dispatcher\Kit {
   précisant que la racine est le dossier <code>Public/</code> de notre
   application. Nous allons profiter de l'abstraction qu'offre le protocole
   <code>hoa://</code> au lieu d'utiliser un chemin en dur :</p>
-  <pre><code language="shell">$ myapp bhoa --root hoa://Application/Public</code></pre>
+  <pre><code language="shell">$ myapp http:bhoa --root hoa://Application/Public</code></pre>
   <p>Puis, à l'aide de cURL ou d'un navigateur, nous allons joindre
   <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a> :</p>
   <pre><code language="shell">$ curl 127.0.0.1:8888/
