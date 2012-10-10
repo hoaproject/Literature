@@ -16,6 +16,12 @@
 
   <h2 id="Introduction" for="main-toc">Introduction</h2>
 
+  <p><code>Hoa\Bench</code> propose deux manières d'analyser son application :
+  avec PHP lui-même, ou alors avec
+  <a href="http://opensolaris.org/os/community/dtrace/">DTrace</a>, grâce à des
+  programmes présents dans le dossier
+  <code>hoa://Library/Bench/Dtrace/</code>.</p>
+
   <h2 id="Placer_des_marques" for="main-toc">Placer des marques</h2>
 
   <p>La bibliothèque <code>Hoa\Bench</code> fonctionne de manière très
@@ -166,7 +172,15 @@ if(isset($bench->foo))
 
   <p>La bibliothèque <code>Hoa\Bench</code> fournit également des programmes
   DTrace dans le dossier <code>hoa://Library/Bench/Dtrace/</code>. DTrace permet
-  …. PHP peut utiliser DTrace s'il a été compilé avec l'option
+  de générer des traces afin de détecter des problèmes en temps réel dans un
+  environnement de production. Il est
+  intégré au niveau du noyau et au niveau applicatif, ce qui lui assure
+  d'excellentes performances. DTrace utilise
+  <a href="https://wikis.oracle.com/display/DTrace/Documentation">le langage
+  D</a>. Nous conseillons également la lecture de
+  <a href="http://dtracebook.com/">DTraceBook</a>. Attention, DTrace n'est pas
+  disponible sur toutes les plateformes.</p>
+  <p>PHP peut utiliser DTrace s'il a été compilé avec l'option
   <code>--enable-dtrace</code> (voir
   <a href="https://wiki.php.net/rfc/dtrace"><em lang="en">DTraces probes for
   PHP</em></a>).</p>
@@ -265,7 +279,15 @@ Total execution time: 108ms</code></pre>
   également leur temps d'exécution moyen. Autant dire que pour détecter les
   sections critiques d'un point de vue performance, ce programme apporte une
   véritable réponse et rapidement !</p>
+
   <h2 id="Conclusion" for="main-toc">Conclusion</h2>
+
+  <p><code>Hoa\Bench</code> permet d'analyser l'exécution de programmes PHP à
+  l'aide de PHP lui-même ou de DTrace. Ces outils sont utiles pour améliorer les
+  <strong>performances</strong> en permettant de détecter des goulots
+  d'étranglements, des appels trop nombreux, des ralentissements etc., afin de
+  les corriger. Bref, tout ce qu'il faut pour obtenir des programmes de
+  <strong>qualité</strong>.</p>
 
 </yield>
 </definition>
