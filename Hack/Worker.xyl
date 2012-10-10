@@ -100,17 +100,17 @@ $worker->run();
   <code>hoa://Data/Variable/Run/<em>workerId</em>.wid</code>. Attention à
   vérifier que ce chemin est bien défini, par exemple en choisissant le dossier
   <code>/path/to/wid/directory</code> :</p>
-  <pre><code language="php">Hoa\Core::getInstance()->initialize(array(
-    'protocol.Data/Variable/Run' => '/path/to/wid/directory/'
-));
+  <pre><code language="php">Hoa\Core::getInstance()->setProtocol(
+    'hoa://Data/Variable/Run',
+    '/path/to/wid/directory/'
+);
 var_dump(resolve('hoa://Data/Variable/Run/'));
 
 /**
  * Will output:
  *     string(21) "/path/to/wid/directory/
  */</code></pre>
-  <p>Notons que si nous utilisons Hoa avec son dossier <code>Data/</code> (pour
-  <a href="@ll:chapter=Framework">l'aspect framework</a>) alors
+  <p>Notons que si nous utilisons Hoa avec son dossier <code>Data/</code> alors
   <code>hoa://Data/</code> se définira <strong>automatiquement</strong> vers ce
   dossier et nous n'aurons pas besoin de redéfinir le protocole. Et dans tous
   les cas, il ne sera <strong>pas nécessaire</strong> de modifier le code mais
