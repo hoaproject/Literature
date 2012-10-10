@@ -236,7 +236,7 @@ Request start
 Request end</code></pre>
   <p>Le second programme DTrace est
   <code>hoa://Library/Bench/Dtrace/Stat.d</code> et permet de collecter quelques
-  statistiques sur l'exécution comme : la liste de toutes les fonctions et
+  statistiques sur l'exécution comme la liste de toutes les fonctions et
   méthodes appelées avec leur nombre d'appels et la distribution du temps
   d'exécution. Par exemple, si nous essayons sur notre première version de
   <code>Dtrace.php</code>, nous allons avoir :</p>
