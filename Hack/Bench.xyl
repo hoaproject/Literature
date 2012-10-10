@@ -35,8 +35,7 @@
   <h3 id="Utilisation_rapide" for="main-toc">Utilisation rapide</h3>
 
   <p>L'utilisation la plus courante de <code>Hoa\Bench</code> sera la suivante :
-  placer quelques marques et afficher leurs statistiques. Pour cela, rien de
-  plus facile :</p>
+  placer quelques marques et afficher leurs statistiques. Ainsi :</p>
   <pre><code language="php">from('Hoa')
 -> import('Bench.~');
 
