@@ -30,7 +30,7 @@
   <p><a href="http://httpd.apache.org/">Apache</a> est le serveur HTTP le plus
   utilisé au monde. Il est installé par défaut sur Mac OS X, disponible via
   votre gestionnaire de paquet sur la plupart des distributions Linux ou
-  installable en quelques clics sous Windows.  Les sources et les exécutables
+  installable en quelques clics sous Windows. Les sources et les exécutables
   sont disponibles sur
   <a href="http://httpd.apache.org/download.cgi" title="Télécharger Apache">le
   site officiel</a>.</p>
@@ -40,7 +40,10 @@
 
   <p>Pour ajouter un hôte virtuel à Apache il faut modifier le fichier
   <code>httpd.conf</code> afin d'y ajouter à la fin la déclaration de notre
-  nouvel hôte :</p>
+  nouvel hôte. Notre hôte sera accessible à l'adresse :
+  <code>localhost:80</code> et pointera sur le dossier public de notre
+  application, à savoir <code>Application/Public/</code> (les dossiers parents
+  seront inacessibles). Ainsi :</p>
   <tabs class="plain">
     <tablist>
       <tab for="tunix_httpd" selected="true">Unix</tab>
@@ -74,19 +77,14 @@
 &amp;amp;lt;/VirtualHost></code></pre>
     </tabpanel>
   </tabs>
-  <p>Cet hôte virtuel, avec <code>VirtualHost</code>, minimal permet de faire
-  fonctionner Hoa grâce au <code>DocumentRoot</code> qui pointe sur le dossier
-  public <code>Application/Public/</code> de l'application. Le nom du serveur,
-  avec <code>ServerName</code>, le plus courant pour le développement est
-  <code>localhost</code> car il est résolu sur l'adresse IP locale :
-  <code>127.0.0.1</code>.</p>
-  <p>La directive <code>Directory</code> permet de préciser des fonctionnalitées
-  pour un dossier en particulier. Dans notre cas nous souhaitons pouvoir
-  utiliser toutes les fonctionnalités, nous activons donc
-  <code>Options All</code>. Nous souhaitons pouvoir configurer ces
-  fonctionnalitées grâce à un fichier <code>.htaccess</code>
-  que nous placerons dans le répertoire, nous activons cette possibilité avec
-  la directive <code>AllowOverride All</code>.</p>
+  <p>La déclaration de l'hôte se fait avec <code>VirtualHost</code>, le nom du
+  serveur avec <code>ServerName</code> et la déclaration du dossier public avec
+  <code>DocumentRoot</code>. Notons la directive <code>Directory</code> qui
+  permet de préciser des fonctionnalitées pour un dossier précis. Ici, nous
+  précisons que ce dossier a toutes les options d'activées, avec <code>Options
+  All</code>, et que nous autorisons la surcharge de ces options à l'aide par
+  exemple d'un fichier <code>.htaccess</code>, avec <code>AllowOverride
+  All</code>.</p>
   <p>La documentation permet de découvrir toutes les
   <a href="http://httpd.apache.org/docs/">directives disponibles pour la
   configuration d'Apache</a>.</p>
@@ -103,7 +101,7 @@
   <pre><code>LoadModule rewrite_module modules/mod_rewrite.so</code></pre>
   <p>Les règles de réécritures peuvent être spécifiées dans un fichier
   <code>.htaccess</code> à placer dans le répertoire
-  <code>Application/Public</code> de votre application Hoa :</p>
+  <code>Application/Public/</code> de votre application Hoa :</p>
   <pre><code>RewriteEngine On
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d
@@ -127,10 +125,11 @@ RewriteRule ^(.*)$ index.php?$1</code></pre>
   <h3 id="Hote_virtuel_avec_server" for="main-toc">Hôte virtuel avec
   <code>server</code></h3>
 
-  <p>Les hôtes virtuels, appelés <code>ServerBlock</code> par nginx, sont
-  décris dans le fichier <code>nginx.conf</code>. Pour ajouter un hôte virtuel
-  pour votre développement avec Hoa, vous pouvez ajouter les lignes suivantes en
-  toute fin de votre fichier <code>nginx.conf</code> :</p>
+  <p>Les hôtes virtuels sont décris dans le fichier <code>nginx.conf</code>.
+  Pour en ajouter un, vous pouvez ajouter les lignes suivantes en toute fin de
+  votre fichier <code>nginx.conf</code>. Nous allons créer un hôte accessible à
+  l'adresse : <code>localhost:80</code> et pointera sur le dossier public de
+  notre application, à savoir <code>Application/Public/</code>. Ainsi :</p>
   <tabs class="plain">
     <tablist>
       <tab for="tunix_nginx" selected="true">Unix</tab>
