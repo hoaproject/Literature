@@ -140,7 +140,7 @@ if(isset($bench->foo))
   <code>Hoa\Bench::unsetAll</code>. De plus, la classe <code>Hoa\Bench</code> se
   comporte comme un itérateur sur toutes les marques, ainsi :</p>
   <pre><code language="php">foreach($bench as $id => $mark)
-    echo $id, ' => ', ($mark->isRunning() ? 'running', 'stopped'), "\n";
+    echo $id, ' => ', ($mark->isRunning() ? 'running' : 'stopped'), "\n";
 
 /**
  * Could output:
