@@ -91,13 +91,13 @@
   HTTP. La requête HTTP reçue fournit toutes les informations nécessaires pour
   que PHP exécute une tâche sans problème.</p>
   <p>Une requête HTTP est principalement caractérisée par une
-  <strong>méthode</strong>. Nous en dénombrons huit au total :
+  <strong>méthode</strong>. Nous en dénombrons neuf au total :
   <code>CONNECT</code>, <code>DELETE</code>, <code>GET</code>,
   <code>HEAD</code>, <code>OPTIONS</code>, <code>POST</code>, <code>PUT</code>
-  et <code>TRACE</code>. Nous sommes capable bien sûr d'ajouter nos propres
-  méthodes mais l'objectif ici n'est pas de faire un cours sur HTTP.  À chaque
-  méthode est associée une <strong>URI</strong> (pour <em>Uniform Resource
-  Identifier</em>), standardisée par la
+  <code>PATCH</code> et <code>TRACE</code>. Nous sommes capable bien sûr
+  d'ajouter nos propres méthodes mais l'objectif ici n'est pas de faire un cours
+  sur HTTP.  À chaque méthode est associée une <strong>URI</strong> (pour
+  <em>Uniform Resource Identifier</em>), standardisée par la
   <a href="http://tools.ietf.org/html/rfc3986">RFC3986</a>. Ainsi, l'exemple
   suivant est une requête qui exprime « je souhaite obtenir la ressource
   <code>/path/to/resource</code> » :</p>
@@ -178,7 +178,8 @@ Welcome Alyx!</code></pre>
     <li>visibilité : ne pas en tenir compte pour ce chapitre ;</li>
     <li>méthodes HTTP : un tableau des méthodes qui permettent d'atteindre la
     règle, parmi <code>GET</code>, <code>POST</code>, <code>PUT</code>,
-    <code>DELETE</code>, <code>HEAD</code> et <code>OPTIONS</code> ;</li>
+    <code>PATCH</code>, <code>DELETE</code>, <code>HEAD</code> et
+    <code>OPTIONS</code> ;</li>
     <li>identifant : l'identifiant (unique) de la règle ;</li>
     <li>motif : une expression régulière définissant la forme de la règle ;</li>
     <li><em>call</em> et <em>able</em> : composantes définissants une action que
