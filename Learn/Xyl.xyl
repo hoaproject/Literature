@@ -528,7 +528,7 @@ $data->article[1]->author = 'A. Vance';</code></pre>
   <p>Nous aimerions maintenant que chaque article puisse avoir plusieurs
   auteurs, nous allons alors créer un nouveau sous-arbre <code>name</code> sous
   le sous-arbre <code>author</code> :</p>
-  <pre><code language="php">$data->article[0]->id                 = 0;
+  <pre><code language="php">$data->article[0]->id              = 0;
 $data->article[0]->title           = 'Foobar';
 $data->article[0]->author->name[0] = 'G. Freeman';
 $data->article[0]->author->name[1] = 'G-Man';
