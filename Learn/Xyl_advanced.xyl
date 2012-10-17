@@ -22,10 +22,9 @@
   <h2 id="Fragment" for="main-toc">Fragment</h2>
 
   <p>Les fragments sont un autre type de document, comme <code>document</code>,
-  <code>overlay</code> ou <code>definition</code>. Ils représentent une
-  <strong>portion</strong> d'un document. Ils sont très semblables à
-  <code>document</code> excepté que lors de l'interprétation, ils n'ajoutent
-  rien autour, ils n'affichent que ce qui se trouve à l'intérieur. </p>
+  <code>overlay</code> ou <code>definition</code>. Un fragment représente une
+  <strong>portion isolée</strong> d'un document susceptible d'être
+  <strong>réutilisée</strong>.</p>
 
   <h3 id="Declarer_et_utiliser_des_fragments" for="main-toc">Déclarer et
   utiliser des fragments</h3>
