@@ -29,11 +29,10 @@
   <h3 id="Declarer_et_utiliser_des_fragments" for="main-toc">Déclarer et
   utiliser des fragments</h3>
 
-  <p>Un document <code>fragment</code> peut contenir en réalité
-  <strong>plusieurs</strong> fragments, chacun contenu dans des composants
-  <code>snippet</code> et étant identifié par un attribut <code>id</code>.
-  Ainsi, nous pouvons avoir le fragment suivant dans
-  <code>Some.frag.xyl</code> :</p>
+  <p>Un document <code>fragment</code> peut contenir <strong>plusieurs</strong>
+  fragments, chacun étant contenu dans des composants <code>snippet</code> et
+  identifié par un attribut <code>id</code>. Ainsi, nous pouvons avoir le
+  fragment suivant dans <code>Some.frag.xyl</code> :</p>
   <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;fragment xmlns="http://hoa-project.net/xyl/xylophone">
