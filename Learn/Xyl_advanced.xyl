@@ -164,7 +164,7 @@ $xyl->render($fragment);</code></pre>
   valider toutes ces données. Par ailleurs, si nous lui demandons des données,
   c'est probablement pour les manipuler par la suite, ce qui doit pouvoir se
   faire facilement.</p>
-  <p>Nous avons précisé que les composants standards de XYL suivent le
+  <p>Nous savons maintenant que les composants standards de XYL suivent le
   vocabulaire d'HTML. Les formulaires n'échappent pas à la règle même s'ils
   comportent des petits plus.</p>
 
@@ -193,14 +193,15 @@ $xyl->render($fragment);</code></pre>
   seront transmises les données et avec quelle méthode HTTP. Ces informations
   sont présentes respectivement dans l'attribut <code>action</code> et
   <code>method</code>. Quand l'attribut <code>action</code> vaut <code>#</code>,
-  cela signifie que les données seront envoyées sur l'URI courant.</p>
+  cela signifie que les données seront envoyées sur l'URI courant. Aucune
+  différence avec les formulaires en HTML !</p>
 
   <h3 id="Recuperation_des_donnees" for="main-toc">Récupération des données</h3>
 
   <p>Nous allons maintenant écrire l'interpréteur XYL pour ce document. Dans un
   premier temps, affichons simplement le formulaire, puis nous verrons comment
   récupérer les données par la suite. Ainsi, dans un fichier
-  <code>index.php</code> par exemple :</p>
+  <code>index.php</code> :</p>
   <pre><code language="php">from('Hoa')
 -> import('File.Read')
 -> import('Http.Response')
@@ -212,7 +213,6 @@ $xyl = new Hoa\Xyl(
     new Hoa\Http\Response(),
     new Hoa\Xyl\Interpreter\Html()
 );
-
 $xyl->render();</code></pre>
   <p>Avec ceci, le formulaire s'affichera. Nous connaissons déjà très bien cette
   opération. Maintenant, nous savons que quand le formulaire sera envoyé, ce
@@ -224,20 +224,17 @@ $xyl->render();</code></pre>
     <li>vérifier s'il est valide ;</li>
     <li>liéer les données avec notre liste.</li>
   </ul>
-  <p>Lorsque nous appelons la méthode <code>Hoa\Xyl::render</code>, plusieurs
-  opérations se déroulent. Pour simplifier, nous pouvons regrouper ces
-  opérations en deux catégories : l'interprétation et l'exécution. Tous les
-  composants sont prêts à l'emploi à la fin de l'interprétation : c'est le
-  moment idéal pour appele des opérations dessus. Pour interpréter manuellement
-  le document, nous devons appeler la méthode <code>Hoa\Xyl::interprete</code>.
-  Ensuite, nous allons récupérer notre formulaire à l'aide de son identifiant
-  (attribut <code>id</code>), en utilisant la méthode
-  <code>Hoa\Xyl::getElement</code>. Ensuite, une fois que nous aurons notre
-  formulaire, nous pourrons appeler les méthodes
+  <p>Comme pour les fragments, nous allons découper le rendu en deux pour faire
+  tout d'abord l'interprétation du document, puis récupérer notre formulaire, le
+  reste des opérations, et enfin terminer sur le rendu.</p>
+  <p>Pour récupérer notre formulaire, nous allons utiliser la méthode
+  <code>Hoa\Xyl::getElement</code> qui prend en argument l'identifiant d'un
+  élément. Nous allons nous en servir pour récupérer notre formulaire. Ensuite,
+  une fois que nous l'aurons, nous pourrons appeler les méthodes
   <code>Hoa\Xyl\Interpreter\Html\Form::hasBeenSent</code> et
   <code>Hoa\Xyl\Interpreter\Html\Form::isValid</code>, respectivement pour
   savoir si le formulaire a été envoyé et s'il est valide. Attention, les
-  données ne seront pas disponibles tant qu'elles n'auront pas été validé.
+  données ne seront pas disponibles tant qu'elles n'auront pas été validées.
   Enfin, si toutes ces contraintes sont respectées, alors nous récupérerons les
   données avec la méthode
   <code>Hoa\Xyl\Interpreter\Html\Form::getFormData</code> ; ainsi :</p>
@@ -247,6 +244,7 @@ $xyl->render();</code></pre>
     new Hoa\Xyl\Interpreter\Html()
 );
 $xyl->interprete();
+$data = $xyl->getData();
 $form = $xyl->getElement('myForm');
 
 if(   true === $form->hasBeenSent()
@@ -262,6 +260,37 @@ $xyl->render();</code></pre>
 
   <h3 id="Contraintes_et_erreurs" for="main-toc">Contraintes et erreurs</h3>
 
+  <p>Nous avons parlé de validité du formulaire. Le premier niveau de validité
+  est celui introduit par HTML. Par exemple, l'extrait suivant exprime la
+  contrainte : « la taille du texte est comprise entre 0 et 42 ».</p>
+  <pre><code language="xml">&amp;lt;input type="text" maxlength="42" /></code></pre>
+  <p>L'exemple suivant exprime : « mon nombre est compris entre 7 et 42 » :</p>
+  <pre><code language="xml">&amp;lt;input type="range" min="7" max="42" /></code></pre>
+  <p>L'exemple suivant exprime : « ma donnée est une adresse email » :</p>
+  <pre><code language="xml">&amp;lt;input type="email" /></code></pre>
+  <p>Et ainsi de suite. HTML propose une expressivité déjà importante. Côté
+  client, ce sont les navigateurs qui sont chargés de ces validations pour
+  fournir un retour immédiat à l'utilisateur. Côté serveur, c'est XYL qui se
+  charge de ces validations (car les données ne proviennent pas toujours d'un
+  navigateur, rappelez-vous qu'il ne faut jamais faire confiance à
+  l'utilisateur).</p>
+  <p>Très souvent, nous souhaitons associer des erreurs à une validation. C'est
+  le rôle de l'attribut <code>error</code> présents sur tous les éléments de
+  formulaires pouvant être soumis (comme <code>input</code>,
+  <code>button</code>, <code>select</code>, <code>textarea</code>,
+  <code>keygen</code> etc.). Cet attribut contient une liste d'identifiants
+  séparés par des espaces (comme pour l'attribut <code>class</code>). Ces
+  identifiants réfèrent des composants <code>error</code>. Ces composants, par
+  défaut, ne sont pas peints, sauf si une erreur survient et qu'elle change sa
+  visibilité. Ils peuvent contenir absolument n'importe quoi et peuvent être
+  placés n'importe où. Par exemple :</p>
+  <pre><code language="xml">&amp;lt;input type="email" error="myError" />
+…
+&amp;lt;error id="myError">
+  &amp;lt;p>I am an error!&amp;lt;/p>
+&amp;lt;error></code></pre>
+
+  <!--
   <p>Maintenant, nous aimerions ajouter des contraintes sur les entrées du
   formulaire. Nous allons nous aider de l'attribut <code>validate</code>. Dans
   cet attribut, nous allons écrire du code Praspel (que nous décrirons plus
@@ -289,6 +318,7 @@ $xyl->render();</code></pre>
   possibles pour une même entrée. Nous pouvons alors écrire plusieurs attributes
   <code>validate-<em>suffix</em></code> et
   <code>onerror-<em>suffix</em></code>.</p>
+  -->
 
   <!-- validate-x & onerror-x forment une disjonction et pas une conjonction,
        refaire le système et factoriser le code. -->
