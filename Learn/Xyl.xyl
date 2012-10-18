@@ -4,12 +4,12 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
-  <h1 id="Model">Manuel d'apprentissage<title_break />XYL</h1>
+  <h1 id="XYL">Manuel d'apprentissage<title_break />XYL</h1>
 
   <ul class="prev_next">
     <li><a href="@ll:chapter=Model"><previous_chapter /> Modèle de
         données</a></li>
-    <li><a href="@ll:chapter=Xyl_advanced">XYL avancé <next_chapter/></a></li>
+    <li><a href="@ll:chapter=Form">Formulaire <next_chapter/></a></li>
   </ul>
 
   <p>Le système d'interface graphique permet de déclarer des
@@ -1146,7 +1146,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
   <ul class="prev_next">
     <li><a href="@ll:chapter=Model"><previous_chapter /> Modèle de
         données</a></li>
-    <li><a href="@ll:chapter=Xyl_advanced">XYL avancé <next_chapter/></a></li>
+    <li><a href="@ll:chapter=Form">Formulaire <next_chapter/></a></li>
   </ul>
 
 </yield>

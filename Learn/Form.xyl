@@ -4,159 +4,23 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
-  <h1 id="Model">Manuel d'apprentissage<title_break />XYL, avancé</h1>
+  <h1 id="Form">Manuel d'apprentissage<title_break />Formulaire</h1>
 
   <ul class="prev_next">
     <li><a href="@ll:chapter=Xyl"><previous_chapter /> XYL</a></li>
-    <li>??? <next_chapter/></li>
+    <li><a href="@ll:chapter=Fragment_async">Fragment et asynchrone
+    <next_chapter /></a></li>
   </ul>
 
-  <p>Ce chapitre introduit des notions plus avancées de XYL, comme les
-  <strong>fragments</strong>, les <strong>formulaires</strong> ou encore
-  l'<strong>asynchrone</strong>.</p>
+  <p>Les formulaires sont un des rares point d'interaction entre l'utilisateur
+  et notre application. Dans ce chapitre, nous allons découvrir les mécanismes
+  que propose XYL pour faciliter la manipulation des formulaires.</p>
 
   <h2 id="Table_des_matieres">Table des matières</h2>
 
   <tableofcontents id="main-toc" />
 
-  <h2 id="Fragment" for="main-toc">Fragment</h2>
-
-  <p>Les fragments sont un autre type de document, comme <code>document</code>,
-  <code>overlay</code> ou <code>definition</code>. Un fragment représente une
-  <strong>portion isolée</strong> d'un document susceptible d'être
-  <strong>réutilisée</strong>.</p>
-
-  <h3 id="Declarer_et_utiliser_des_fragments" for="main-toc">Déclarer et
-  utiliser des fragments</h3>
-
-  <p>Un document <code>fragment</code> peut contenir <strong>plusieurs</strong>
-  fragments, chacun étant contenu dans des composants <code>snippet</code> et
-  identifié par un attribut <code>id</code>. Ainsi, nous pouvons avoir le
-  fragment suivant dans <code>Some.frag.xyl</code> :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
-
-&amp;lt;fragment xmlns="http://hoa-project.net/xyl/xylophone">
-  &amp;lt;snippet id="first">
-    &amp;lt;p>First one&amp;lt;/p>
-  &amp;lt;/snippet>
-
-  &amp;lt;snippet id="second">
-    &amp;lt;p>Second one&amp;lt;/p>
-  &amp;lt;/snippet>
-&amp;lt;/fragment></code></pre>
-  <p>Pour pouvoir utiliser un fragment, nous devons utiliser la
-  <em lang="en">processing-instruction</em>
-  <code>&amp;amp;lt;?xyl-fragment?></code> qui ressemble à ses sœurs, avec
-  l'attribut <code>href</code>. Par la suite, pour utiliser un fragment, nous
-  allons nous servir du composant <code>yield</code> et de son attribut
-  <code>select</code> avec comme sélecteur
-  <code>?f[ile]:<em>filename</em>#<em>id</em></code>. Cela signifie que nous
-  allons <strong>sélectionner</strong> le <strong>fragment</strong>
-  <code><em>id</em></code> dans le <strong>fichier</strong>
-  <code><em>filename</em></code>. Voyons plutôt avec <code>Main.xyl</code> :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
-&amp;lt;?xyl-fragment href="Some.frag.xyl"?>
-
-&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
-  &amp;lt;title>Fragments tests&amp;lt;/title>
-
-  &amp;lt;yield select="?f:Some.frag.xyl#first" />
-&amp;lt;/document></code></pre>
-  <p>Toutefois, il est inconfortable de toujours devoir préciser le nom du
-  fichier, surtout si ce fichier est déplacé ou comporte un nom plus long. C'est
-  pourquoi nous pouvons lui préciser un <strong>alias</strong> avec l'attribut
-  <code>as</code> dans la <em lang="en">processing-instruction</em>
-  <code>&amp;amp;lt;?xyl-fragment?></code>. Cet alias pourra être utilisé à la
-  place de <code><em>filename</em></code> dans nos attributs
-  <code>select</code>. Ainsi, l'exemple précédent devient :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
-&amp;lt;?xyl-fragment href="Some.frag.xyl" as="some"?>
-
-&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
-  &amp;lt;title>Fragments tests&amp;lt;/title>
-
-  &amp;lt;yield select="?f:some#first" />
-&amp;lt;/document></code></pre>
-  <p>Notons que les aliases doivent être <strong>uniques</strong> au sein du
-  même document mais pas entre plusieurs documents.</p>
-  <p>Enfin, faire le rendu de <code>Main.xyl</code> est tout ce qu'il y a de
-  plus classique et nous pourrons observer le placement du fragment :</p>
-  <pre><code language="php">from('Hoa')
--> import('File.Read')
--> import('Http.Response')
--> import('Xyl.~')
--> import('Xyl.Interpreter.Html.~');
-
-$xyl = new Hoa\Xyl(
-    new Hoa\File\Read('Main.xyl'),
-    new Hoa\Http\Response(),
-    new Hoa\Xyl\Interpreter\Html()
-);
-$xyl->render();</code></pre>
-  <p>Le fragment apparaît bien à l'endroit où nous le souhaitons.</p>
-
-  <h3 id="Difference_entre_fragments_et_overlays" for="main-toc">Différence
-  entre fragments et <em lang="en">overlays</em></h3>
-
-  <p>Un <em lang="en">overlay</em> est utilisé pour être placé
-  <strong>intelligemment</strong> et <strong>dynamiquement</strong> dans un
-  document, c'est à dire que si le document est modifié, les
-  <em lang="en">overlays</em> vont savoir se <strong>replacer</strong> comme il
-  faut. Un fragment, quant à lui, est placé <strong>statiquement</strong> dans
-  un document et n'a <strong>aucune connaissance</strong> de ce document. Nous
-  pouvons parler d'« inclusion verbatim ».</p>
-  <p>Sémantiquement parlant, un <em lang="en">overlay</em> représente n'importe
-  quoi, souvent des blocs graphiques, alors qu'un fragment représente réellement
-  un <strong>fragment graphique</strong>, une partie qui est
-  <strong>détachable</strong>. Une bonne manière de voir les fragments est dans
-  un contexte asynchrone : une partie du document peut changer, nous pouvons
-  <strong>remplacer</strong> un fragment par un autre.</p>
-  <p>Notons qu'un fragment peut être utilisé dans un
-  <em lang="en">overlay</em>.</p>
-
-  <h3 id="Rendu_isole_d-un_fragment" for="main-toc">Rendu isolé d'un
-  fragment</h3>
-
-  <p>Il est intéressant de pouvoir faire le rendu d'un fragment de manière
-  <strong>isolée</strong>. Pour cela, nous devons récupérer le fragment en
-  question, à l'aide de la méthode <code>Hoa\Xyl::getSnippet</code> puis en
-  faire son rendu avec la méthode <code>Hoa\Xyl::render</code>.</p>
-  <p>Précédemment, nous avons vu la méthode <code>Hoa\Xyl::render</code> sans
-  préciser réellement ce qu'elle faisait. Sans rentrer dans le détail, nous
-  pouvons dire qu'elle travaille en deux étapes :</p>
-  <ol>
-    <li>interprétation : assemblage du document principal ;</li>
-    <li>rendu : liage des données et rendu.</li>
-  </ol>
-  <p>La méthode <code>Hoa\Xyl::render</code> est suffisamment intelligente pour
-  savoir si l'interprétation a déjà été faite ou pas, et si ce n'est pas le cas,
-  le faire automatiquement.</p>
-  <p>Être capable de récupérer un fragment pour en faire son rendu nécessite
-  <strong>préalablement</strong> d'interpréter le document, grâce à la méthode
-  <code>Hoa\Xyl::interprete</code>. Ainsi :</p>
-  <pre><code language="php">from('Hoa')
--> import('File.Read')
--> import('Http.Response')
--> import('Xyl.~')
--> import('Xyl.Interpreter.Html.~');
-
-$xyl = new Hoa\Xyl(
-    new Hoa\File\Read('Some.frag.xyl'),
-    new Hoa\Http\Response(),
-    new Hoa\Xyl\Interpreter\Html()
-);
-// 1. interpretation
-$xyl->interprete();
-
-// 2. get fragment.
-$fragment = $xyl->getSnippet('first');
-
-// 3. render.
-$xyl->render($fragment);</code></pre>
-  <p>C'est tout pour les fragments ! Ça reste un document comme les autres, avec
-  le liage des données et tout ce que nous connaissons de XYL.</p>
-
-  <h2 id="Formulaire" for="main-toc">Formulaire</h2>
+  <h2 id="Introduction" for="main-toc">Introduction</h2>
 
   <p>Les formulaires sont un moyen donné à l'utilisateur pour entrer des
   données. Mais attention, il est bien connu que tout ce qui provient de
@@ -168,8 +32,8 @@ $xyl->render($fragment);</code></pre>
   vocabulaire d'HTML. Les formulaires n'échappent pas à la règle même s'ils
   comportent des petits plus.</p>
 
-  <h3 id="Ecrire_et_envoyer_un_formulaire" for="main-toc">Écrire et envoyer un
-  formulaire</h3>
+  <h2 id="Ecrire_et_envoyer_un_formulaire" for="main-toc">Écrire et envoyer un
+  formulaire</h2>
 
   <p>Nous allons écrire un formulaire très simple dans un fichier
   <code>Form.xyl</code> et utiliser les composants <code>form</code> ainsi que
@@ -196,7 +60,7 @@ $xyl->render($fragment);</code></pre>
   cela signifie que les données seront envoyées sur l'URI courant. Aucune
   différence avec les formulaires en HTML !</p>
 
-  <h3 id="Recuperation_des_donnees" for="main-toc">Récupération des données</h3>
+  <h2 id="Recuperation_des_donnees" for="main-toc">Récupération des données</h2>
 
   <p>Nous allons maintenant écrire l'interpréteur XYL pour ce document. Dans un
   premier temps, affichons simplement le formulaire, puis nous verrons comment
@@ -258,7 +122,7 @@ $xyl->render();</code></pre>
   réservé au composant <code>input</code>, mais aussi à <code>select</code>,
   <code>textarea</code> etc.).</p>
 
-  <h3 id="Contraintes_et_erreurs" for="main-toc">Contraintes et erreurs</h3>
+  <h2 id="Contraintes_et_erreurs" for="main-toc">Contraintes et erreurs</h2>
 
   <p>Nous avons parlé de validité du formulaire. Le premier niveau de validité
   est celui introduit par HTML. Par exemple, l'extrait suivant exprime la
@@ -324,13 +188,10 @@ $xyl->render();</code></pre>
        refaire le système et factoriser le code. -->
   <!-- @novalidate -->
 
-  <h2 id="Asynchrone" for="main-toc">Asynchrone</h2>
-
-  <p>Détails uniquement pour l'interprétation HTML.</p>
-
   <ul class="prev_next">
     <li><a href="@ll:chapter=Xyl"><previous_chapter /> XYL</a></li>
-    <li>??? <next_chapter/></li>
+    <li><a href="@ll:chapter=Fragment_async">Fragment et asynchrone
+    <next_chapter /></a></li>
   </ul>
 
 </yield>
