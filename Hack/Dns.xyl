@@ -225,12 +225,12 @@ yeah \o/
   serveur de résolution et de rediriger certains domaines vers des IP. Le
   filtrage se fait à l'aide d'expressions régulières (voir les
   <a href="http://pcre.org/">PCRE</a>). Ainsi :</p>
-  <pre><code language="shell">$ hoa dns:server 'foo.*' to 1.2.3.4 'bar.*' to 5.6.7.8
+  <pre><code language="shell">$ hoa dns:server 'foo.*' to 1.2.3.4 '.*\.bar\..*' to 5.6.7.8
 Server is up, on udp://127.0.0.1:57005!
 
 ▋</code></pre>
   <p>Ainsi, tous les noms commençant par <code>foo</code> seront résolus vers
-  <code>1.2.3.4</code> et ceux commençant par <code>bar</code> seront résolus
+  <code>1.2.3.4</code> et ceux contenant <code>.bar.</code> seront résolus
   vers <code>5.6.7.8</code>. La syntaxe est très simple : <code><em>regex</em>
   to <em>ip</em></code>.</p>
   <p>Cette commande est très simple et peut s'avérer utile lors de tests
