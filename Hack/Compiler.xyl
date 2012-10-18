@@ -376,10 +376,10 @@ echo $dump->visit($ast);
  */</code></pre>
   <p>Quand nous écrivons et testons une grammaire, nous allons répéter ces trois
   tâches très <strong>régulièrement</strong>. C'est pourquoi, le script
-  <code>hoa</code> (ou <code>hoa.bat</code>) propose la commande
-  <code>pp</code>. Cette commande propose d'analyser une donnée par rapport à
-  une grammaire et d'appliquer un visiteur si besoin sur l'AST résultant. Notons
-  que la lecture de la donnée peut se faire à travers un
+  <code>hoa</code> propose la commande <code>compiler:pp</code>. Cette commande
+  propose d'analyser une donnée par rapport à une grammaire et d'appliquer un
+  visiteur si besoin sur l'AST résultant. Notons que la lecture de la donnée
+  peut se faire à travers uu
   <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)"><em lang="en">pipe</em></a> :</p>
   <pre><code language="shell">$ echo '[1, [1, [2, 3], 5], 8]' | hoa compiler:pp Json.pp 0 --visitor dump
 >  #array
@@ -393,7 +393,7 @@ echo $dump->visit($ast);
 >  >  token(number, 8)</code></pre>
   <p>C'est un moyen pratique pour tester <strong>rapidement</strong> des données
   par rapport à notre grammaire. Il ne faut pas hésiter à regarder l'aide de la
-  commande <code>pp</code> pour plus de détails !</p>
+  commande <code>compiler:pp</code> pour plus de détails !</p>
   <p>Les analyses s'effectuent sur la règle <strong>racine</strong> mais nous
   pouvons préciser une <strong>autre règle</strong> à l'aide du deuxième
   argument de la méthode <code>Hoa\Compiler\Llk\Parser::parse</code> :</p>
