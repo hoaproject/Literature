@@ -172,6 +172,8 @@ $xyl->render();</code></pre>
   <p>L'erreur <code>myError</code> ne sera jamais affichée sauf si la donné
   contenu dans le composant <code>input</code> de type <code>email</code> est
   invalide.</p>
+  <p>Notons qu'un composant <code>error</code> peut contenir d'autres composants
+  <code>error</code>.</p>
 
   <h3 id="Desactiver_les_validations" for="main-toc">Désactiver les
   validations</h3>
@@ -194,21 +196,22 @@ $xyl->render();</code></pre>
   <h3 id="Validations_plus_fines" for="main-toc">Validations plus fines</h3>
 
   <p>Hoa propose le langage Praspel, déjà rapidement évoqué. Nous pouvons
-  l'utiliser pour valider plus finement nos données côté serveur uniquement. En
-  complément à l'attribut <code>error</code>, il existe l'attribut
-  <code>validate</code>, également présent sur tous les éléments de formulaires
-  pouvant être soumis. Par exemple, pour exprimer la contrainte « un nombre
-  entre 7 et 42 ou 153 et 256 » :</p>
+  l'utiliser pour valider plus <strong>finement</strong> nos données côté
+  <strong>serveur</strong> uniquement. En complément à l'attribut
+  <code>error</code>, il existe l'attribut <code>validate</code>, également
+  présent sur tous les éléments de formulaires pouvant être soumis. Par exemple,
+  pour exprimer la contrainte « un nombre entre 7 et 42 ou 153 et 256 » :</p>
   <pre><code language="xml">&amp;lt;input type="text" validate="boundinteger(7, 42) or boundinteger(153, 256)" error="myError" /></code></pre>
   <p>Nous avons donc deux niveaux de validations : validation HTML et validation
   plus fine avec Praspel. Ces deux niveaux sont évaluées comme une
   <strong>conjonction</strong>, c'est à dire avec <em>et</em> logique :
   validation HTML <em>et</em> validation plus fine avec Praspel. Toutefois, ce
-  <em>et</em> logique ne fait pas d'évaluation paraisseuse, c'est à dire que
-  même si la première évaluation échoue, la validation suivante sera évaluée (et
-  pourra lever les erreurs associées). Ainsi, nous pouvons écrire :</p>
+  <em>et</em> logique ne fait pas d'évaluation <strong>paraisseuse</strong>,
+  c'est à dire que même si la première évaluation échoue, la validation suivante
+  sera évaluée (et pourra lever les erreurs associées). Ainsi, nous pouvons
+  écrire :</p>
   <pre><code language="xml">&amp;lt;input type="text" required="true" validate="boundinteger(7, 42)" /></code></pre>
-  <p>Nous avons deux niveaux de validations :</p>
+  <p>Avec cet exemple, nous avons deux niveaux de validations :</p>
   <ol>
     <li>HTML, avec <code>required</code> (non vide) ;</li>
     <li>plus fine, avec <code>validate</code> (entier entre 7 et 42).</li>
@@ -216,11 +219,12 @@ $xyl->render();</code></pre>
   <p>Si la donnée est vide, nous allons quand même vérifier que c'est un entier
   compris entre 7 et 42, ce qui peut lever de nouvelles erreurs.</p>
   <p>Il est conseillé de voir l'attribut <code>validate</code> comme offrant un
-  raffinement du type de la donnée.</p>
+  <strong>raffinement</strong> du type de la donnée.</p>
   <p>Mais ce n'est pas tout. L'attribut <code>validate</code> peut être
   <em>personnalisé</em> : <code>validate-<em>suffix</em></code>, tout comme
-  l'attribut <code>error</code>. Cela permet d'associer des erreurs à une
-  validation si leur <code><em>suffix</em></code> correspond. Par exemple :</p>
+  l'attribut <code>error</code>. Cela permet d'<strong>associer</strong> des
+  erreurs à une validation si leur <code><em>suffix</em></code> correspond. Par
+  exemple :</p>
   <pre><code language="xml">&amp;lt;input type="text" validate-abc="…" error-abc="…" validate-def="…" error-def="…" /></code></pre>
   <p>Si la validation spécifiée par l'attribut <code>validate-abc</code> échoue,
   alors les erreurs spécifiées par l'attribut <code>error-abc</code> seront
@@ -231,8 +235,8 @@ $xyl->render();</code></pre>
   erreurs</h3>
 
   <p>Les validations précédemment vues ne concernent qu'une seule donnée à la
-  fois mais pourtant il peut exister des dépendances entre toutes ses données.
-  Ce niveau de validation appartient théoriquement au
+  fois mais pourtant il peut exister des <strong>dépendances</strong> entre
+  toutes ses données. Ce niveau de validation appartient théoriquement au
   <a href="@ll:chapter=Model">modèle</a>. Des erreurs peuvent en remonter et
   elles doivent pouvoir s'afficher sur la vue (le plus souvent, à travers un
   contrôleur). Nous allons voir comment lever nos propres erreurs
@@ -242,18 +246,9 @@ $xyl->render();</code></pre>
   <code>Hoa\Xyl\Interpreter\Error::raise</code> qui est un alias pour une
   question de sémantique. Ainsi, si nous voulons lever l'erreur <code>e1</code>,
   nous ferons :</p>
-  <pre><code language="php">$xyl = new Hoa\Xyl(
-    new Hoa\File\Read('Form.xyl'),
-    new Hoa\Http\Response(),
-    new Hoa\Xyl\Interpreter\Html()
-);
-$xyl->interprete();
-
-// Make e1 visible.
-$xyl->getElement('e1')->raise();
-
-$xyl->render();</code></pre>
-  <p>Bla bla.</p>
+  <pre><code language="php">$xyl->getElement('e1')->raise();</code></pre>
+  <p>Ainsi, peu importe où nous faisons nos validations, l'affiche des erreurs
+  reste identique.</p>
 
   <h2 id="Application_Gordon-s_blog" for="main-toc">Application :
   <em lang="en">Gordon's blog</em></h2>
