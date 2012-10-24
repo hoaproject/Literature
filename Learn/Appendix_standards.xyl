@@ -90,7 +90,7 @@
   notation <strong><em>CamelCase</em></strong>. Tout ce qui n'est pas une
   variable (de classes, de méthodes ou de fonctions), une méthode ou une
   fonction, voient leur première lettre mise en majuscule. Ainsi :</p>
-  <pre><code language="php">namespace Foo\BarBaz\Qux {
+  <pre><code class="language-php">namespace Foo\BarBaz\Qux {
 
 class FooBar {
 
@@ -146,7 +146,7 @@ function iAmAFunction ( ) { }
 
   <p>Si un bloc ne contient pas plus d'une instruction, les accolades ne sont
   pas obligatoires. On respectera toujours cette règle. Ainsi :</p>
-  <pre><code language="php">if(/* condition */)
+  <pre><code class="language-php">if(/* condition */)
     /* a lonely instruction */;
 else {
   
@@ -169,7 +169,7 @@ else {
     <p>Un code se lit horizontalement mais aussi verticalement. Ainsi, aligner
     son code pour former des colonnes quand cela est utile offre une bien
     meilleure lisibilité et compréhension :</p>
-    <pre><code language="php">$i         = 0;
+    <pre><code class="language-php">$i         = 0;
 $short     = 42;
 $loongName = 53;
 $foo       = 'bar';</code></pre>

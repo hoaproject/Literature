@@ -109,7 +109,7 @@
   <p>Un aperçu est ici utile pour faire quelques essais avant de détailler le
   fonctionnement. Nous écrivons l'exemple suivant dans le fichier
   <code>Application/Public/index.php</code> :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Router.Http')
 -> import('Dispatcher.Basic');
 
@@ -140,10 +140,10 @@ $dispatcher->dispatch($router);</code></pre>
   Request Library</em>), un client en ligne de commande permettant de
   manipuler plusieurs protocoles, dont HTTP. Tout d'abord, démarrons
   PHP FastCGI et Bhoa :</p>
-  <pre><code language="shell">$ php-cgi -b 127.0.0.1:9000&amp;amp;
+  <pre><code class="language-shell">$ php-cgi -b 127.0.0.1:9000&amp;amp;
 $ myapp http:bhoa --root hoa://Application/Public</code></pre>
   <p>Puis dans un autre terminal, envoyons-lui une requête avec cURL :</p>
-  <pre><code language="shell">$ curl 127.0.0.1:8888/hello
+  <pre><code class="language-shell">$ curl 127.0.0.1:8888/hello
 world!
 $ curl 127.0.0.1:8888/bye
 ohh :-(
@@ -201,7 +201,7 @@ Welcome Alyx!</code></pre>
   <code>Hoa\Router\Http::addRule</code> qui ajoute une règle avec une visibilité
   publique, <ie /> nous ne nous occuperons pas de la visibilité, elle sera gérée
   toute seule. Ainsi :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Router.Http');
 
 $router = new Hoa\Router\Http();
@@ -213,17 +213,17 @@ $router->addRule($methods, $id, $pattern, $call, $able, $variables);</code></pre
   contexte.</p>
   <p>Si nous devions exprimer la règle <code>u</code> de notre aperçu, on aurait
   ceci :</p>
-  <pre><code language="php">$router->addRule(array('get'), 'u', '/hello', function ( ) { … });</code></pre>
+  <pre><code class="language-php">$router->addRule(array('get'), 'u', '/hello', function ( ) { … });</code></pre>
   <p>Par soucis de simplicité, nous pouvons ne pas utiliser la méthode
   <code>Hoa\Router\Http::addRule</code> mais invoquer un peu de magie ! En
   effet, l'écriture qui va suivre est strictement identique à la
   précédente :</p>
-  <pre><code language="php">$router->get('u', '/hello', function ( ) { … });</code></pre>
+  <pre><code class="language-php">$router->get('u', '/hello', function ( ) { … });</code></pre>
   <p>Voici comment opère la magie : les appels vers une méthode
   <code><em>method</em>[_<em>method</em>]*(…)</code> seront redirigés vers la
   méthode <code>addRule(array('<em>method</em>'[, '<em>method</em>']*),
   …)</code>. Voyons plutôt des exemples d'équivalences :</p>
-  <pre><code language="php">$router->get(…);
+  <pre><code class="language-php">$router->get(…);
 $router->addRule(array('get'), …);
 
 $router->get_post(…);
@@ -281,7 +281,7 @@ $router->addRule(array('put', 'delete', 'get'), …);
   <code>Hoa\Router::RULE_<em>*</em></code> existent pour manipuler le
   <em>t</em>-uplet représentant une règle. Ainsi, à partir de notre
   exemple :</p>
-  <pre><code language="php">$router->route('/root/hello_gordon', '/root');
+  <pre><code class="language-php">$router->route('/root/hello_gordon', '/root');
 print_r($router->getTheRule());
 
 /**
@@ -323,13 +323,12 @@ print_r($router->getTheRule());
   arguments à cette méthode : le premier étant l'identifiant de la règle et le
   second un tableau de variables. Chaque nom de variable correspond au nom d'un
   motif. Par exemple :</p>
-  <pre><code language="php">var_dump($router->unroute('x', array('nick' => 'gordon')));
+  <pre><code class="language-php">var_dump($router->unroute('x', array('nick' => 'gordon')));
 
 /**
  * Will output:
  *     string(13) "/hello_gordon"
- */
-</code></pre>
+ */</code></pre>
   <p>Le mécanisme de routage peut être effectué <strong>automatiquement</strong>
   par les dispatcheurs, comme nous allons le voir.</p>
 
@@ -380,7 +379,7 @@ print_r($router->getTheRule());
   <p>Dans l'aperçu, nous avons utilisé des fonctions anonymes. Nous allons à
   présent utiliser une partie de cet aperçu mais en le transformant pour
   avoir des fonctions déclarées :</p>
-  <pre><code language="php">$router = new Hoa\Router\Http();
+  <pre><code class="language-php">$router = new Hoa\Router\Http();
 $router->get('u', '/hello', 'hello')
        ->get('v', '/bye', 'bye');
 
@@ -401,7 +400,7 @@ $dispatcher->dispatch($router);</code></pre>
   du contrôleur est identique à la partie à droite du symbole « <code>/</code> »
   dans la règle. Nous pouvons alors simplifier les règles en capturant la valeur
   de la variable <code>controller</code> de cette manière :</p>
-  <pre><code language="php">$router = new Hoa\Router\Http();
+  <pre><code class="language-php">$router = new Hoa\Router\Http();
 $router->get('u', '/(?&amp;lt;controller>hello|bye)');</code></pre>
   <p>Nous pouvons imaginer utiliser le motif <code>\w+</code> à la place de
   <code>hello|bye</code> pour avoir plus de dynamisme (mais il ne faudra pas
@@ -413,7 +412,7 @@ $router->get('u', '/(?&amp;lt;controller>hello|bye)');</code></pre>
   <code>/hello_(?&amp;amp;lt;nick>\w+)</code>, nous pouvons retrouver
   la valeur de la variable <code>nick</code> directement dans notre action dans
   son argument <code>$nick</code> ; de cette manière :</p>
-  <pre><code language="php">$router->get('x', 'hello_(?&amp;lt;nick>\w+)', function ( $nick ) {
+  <pre><code class="language-php">$router->get('x', 'hello_(?&amp;lt;nick>\w+)', function ( $nick ) {
 
     echo 'Welcome ', ucfirst($nick), '!', "\n";
 });</code></pre>
@@ -441,7 +440,7 @@ $router->get('u', '/(?&amp;lt;controller>hello|bye)');</code></pre>
   dispatcheur grâce à la méthode <code>Hoa\Dispatcher::setKitName</code>.  Par
   exemple, nous créons un kit qui va ajouter une méthode
   <code>listRequestKeys</code> se basant sur le routeur HTTP :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Dispatcher.Kit')
 -> import('Dispatcher.Basic')
 -> import('Router.Http');
@@ -464,7 +463,7 @@ $dispatcher->setKitName('MyKit');</code></pre>
   tant que variable du routeur sous le nom <code>_this</code>. Ainsi, si on veut
   récupérer le kit depuis une action, nous n'aurons qu'à avoir un argument
   <code>$_this</code> :</p>
-  <pre><code language="php">$router = new Hoa\Router\Http();
+  <pre><code class="language-php">$router = new Hoa\Router\Http();
 $router->get_post('u', '/(?&amp;lt;controller>hello)');
 
 function hello ( MyKit $_this ) {
@@ -474,7 +473,7 @@ function hello ( MyKit $_this ) {
 
 $dispatcher->dispatch($router);</code></pre>
   <p>Nous testons notre nouveau kit :</p>
-  <pre><code language="shell">$ curl -X POST -d foo=bar\&amp;amp;baz=qux 127.0.0.1:8888/hello
+  <pre><code class="language-shell">$ curl -X POST -d foo=bar\&amp;amp;baz=qux 127.0.0.1:8888/hello
 Array
 (
     [0] => foo
@@ -535,7 +534,7 @@ Array
   règle <code>a</code> depuis <code>/article-<em>id</em>.html</code>. Nous
   allons avoir un contrôleur qui sera une classe avec deux méthodes, une pour
   chaque action :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Dispatcher.Basic')
 -> import('Router.Http');
 
@@ -551,7 +550,7 @@ $dispatcher->dispatch($router);</code></pre>
   <code>Application\Controller\Blog</code>, avec deux méthodes :
   <code>IndexAction</code> et <code>ArticleAction</code>, respectivement pour la
   règle <code>i</code> et <code>a</code>. Ainsi :</p>
-  <pre><code language="php">namespace Application\Controller {
+  <pre><code class="language-php">namespace Application\Controller {
 
 class Blog extends \Hoa\Dispatcher\Kit {
 
@@ -571,10 +570,10 @@ class Blog extends \Hoa\Dispatcher\Kit {
   précisant que la racine est le dossier <code>Public/</code> de notre
   application. Nous allons profiter de l'abstraction qu'offre le protocole
   <code>hoa://</code> au lieu d'utiliser un chemin en dur :</p>
-  <pre><code language="shell">$ myapp http:bhoa --root hoa://Application/Public</code></pre>
+  <pre><code class="language-shell">$ myapp http:bhoa --root hoa://Application/Public</code></pre>
   <p>Puis, à l'aide de cURL ou d'un navigateur, nous allons joindre
   <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a> :</p>
-  <pre><code language="shell">$ curl 127.0.0.1:8888/
+  <pre><code class="language-shell">$ curl 127.0.0.1:8888/
 Gordon's blog index
 $ curl 127.0.0.1:8888/article-1.html
 Article n°1
@@ -583,7 +582,7 @@ Article n°42</code></pre>
   <p>Tout fonctionne bien ! Mais ce ne sera pas toujours le cas. Par exemple, si
   nous appelons une URI qui n'est pas comprise par le routeur, une erreur sera
   levée :</p>
-  <pre><code language="shell">$ curl 127.0.0.1:8888/foobar
+  <pre><code class="language-shell">$ curl 127.0.0.1:8888/foobar
 Uncaught exception (Hoa\Router\Exception\NotFound):
 Hoa\Router\Http::route(): (6) Cannot found an appropriated rule to route foobar.
 in hoa://Library/Router/Http.php at line 490.</code></pre>
@@ -594,7 +593,7 @@ in hoa://Library/Router/Http.php at line 490.</code></pre>
   de routage dû à l'utilisateur. Il serait intéressant de capturer cette
   exception et de réagir en conséquence, par exemple en indiquant qu'une erreur
   s'est produite :</p>
-  <pre><code language="php">try {
+  <pre><code class="language-php">try {
 
     $dispatcher->dispatch($router);
 }
@@ -603,7 +602,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
     echo 'Your page seems to be not found /o\.', "\n";
 }</code></pre>
   <p>Et ainsi, plus d'exception affichée à l'utilisateur mais notre erreur :</p>
-  <pre><code language="shell">$ curl 127.0.0.1:8888/foobar
+  <pre><code class="language-shell">$ curl 127.0.0.1:8888/foobar
 Your page seems to be not found /o\.</code></pre>
 
   <ul class="prev_next">

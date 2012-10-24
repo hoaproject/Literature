@@ -59,7 +59,7 @@
     zombie en rondelles.</li>
   </ul>
   <p>Toutes ces méthodes ont fait leurs preuves. Ainsi :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Zombie.~');
 
 // I'm alive!
@@ -82,7 +82,7 @@ Hoa\Zombie::decapitate();
   <strong>émettant</strong> une requête FastCGI vers PHP FPM. C'est ce dernier
   choix que nous allons retenir.</p>
   <p>Nous commençons avec le fichier <code>Zombie.php</code> :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Zombie.~');
 
 echo 'I guess I am sick…', "\n";
@@ -98,7 +98,7 @@ file_put_contents(
   <p>Ensuite, nous continuons avec le fichier <code>Run.php</code> qui va
   exécuter <code>Zombie.php</code> grâce à
   <a href="@lh:chapter=Fastcgi"><code>Hoa\Fastcgi</code></a> :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Socket.Client')
 -> import('Fastcgi.Responder');
 
@@ -113,10 +113,9 @@ echo $fastcgi->send(array(
     'SCRIPT_FILENAME'   => __DIR__ . DS . 'Zombie.php'
 ));</code></pre>
   <p>Et enfin, nous testons :</p>
-  <pre><code language="shell">$ php-fpm -d listen=127.0.0.1:9000
+  <pre><code class="language-shell">$ php-fpm -d listen=127.0.0.1:9000
 $ php Run.php
-I guess I am sick…
-$ ▋</code></pre>
+I guess I am sick…</code></pre>
   <p>Et après 10 secondes, nous verrons le fichier <code>AMessage</code>
   apparaître et contenant <em lang="en">Hello from after-life… or somewhere
   about!</em>.</p>

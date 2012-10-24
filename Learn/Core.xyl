@@ -33,7 +33,7 @@
   <p>Le noyau s'instancie à l'aide d'un seul fichier
   <code>Core/Core.php</code>. Ce dernier instanciera le reste du noyau au
   besoin et dans de bonnes conditions.</p>
-  <pre><code language="php">&amp;lt;?php
+  <pre><code class="language-php">&amp;lt;?php
 
 require '/usr/local/lib/Hoa/Core/Core.php';</code></pre>
   <p>Le noyau ne peut être inclus qu'une seule fois. Si nous essayons de
@@ -80,7 +80,7 @@ require '/usr/local/lib/Hoa/Core/Core.php';</code></pre>
   un alias vers la méthode <code>Hoa\Core\Consistency::from</code>, pour plus de
   facilité d'écriture et de lecture. Ainsi, nous choisissons la famille
   <code>Hoa</code> pour effectuer une importation :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import(…);</code></pre>
   <p>Il existe deux familles par défaut (d'autres peuvent être ajoutées) :</p>
   <ul>
@@ -98,7 +98,7 @@ require '/usr/local/lib/Hoa/Core/Core.php';</code></pre>
   « <code>.php</code> » sans être précisée dans le chemin. Ainsi, si nous
   voulons inclure la classe <code>Hoa\Router\Http</code> située dans le fichier
   <code>Hoa/Router/Http.php</code>, nous écrirons :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Router.Http');</code></pre>
   <p>Nous comprenons que la famille <code>Hoa</code> correspond à l'espace de
   nommage racine <code>\Hoa</code> et est contenue dans le dossier
@@ -106,7 +106,7 @@ require '/usr/local/lib/Hoa/Core/Core.php';</code></pre>
   verrons plus tard.</p>
   <p>Nous sommes capable d'enchaîner les importations et de changer de famille
   de cette manière :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Router.Http')
 -> import('Dispatcher.Basic')
 -> import('File.Read');
@@ -165,7 +165,7 @@ from('Hoathis')
   lors de l'importation, nous pouvons utiliser le second paramètre de la méthode
   <code>import</code> qui est un booléen : <code>true</code> pour charger,
   <code>false</code> pour pré-charger. Ainsi :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Router.Http', true) // chargée
 -> import('Dispatcher.Basic'); // pré-chargée</code></pre>
 
@@ -177,7 +177,7 @@ from('Hoathis')
   imaginons que vous souhaitiez utiliser soit votre propre classe
   <code>Hoathis\Socket\Server</code>, soit si elle n'est pas présente, la
   classe standard <code>Hoa\Socket\Server</code>, alors vous feriez :</p>
-  <pre><code language="php">from('Hoathis or Hoa')
+  <pre><code class="language-php">from('Hoathis or Hoa')
 -> import('Socket.Server');</code></pre>
   <p>Ce mécanisme va d'abord chercher à importer <code>Socket.Server</code>
   dans la famille <code>Hoathis</code>. S'il n'y parvient pas (par exemple
@@ -185,7 +185,7 @@ from('Hoathis')
   <code>Hoa</code>.</p>
   <p>Pour savoir quelle famille a été sélectionnée, vous pouvez utiliser un
   troisième paramètre de la méthode <code>import</code>, en référence :</p>
-  <pre><code language="php">from('Hoathis or Hoa')
+  <pre><code class="language-php">from('Hoathis or Hoa')
 -> import('Socket.Server', false, $family);
 
 var_dump($family);
@@ -209,12 +209,12 @@ var_dump($family);
   raisons de facilité d'écriture et de lecture. Cette fonction utilise deux
   paramètres : le nom de la classe et les arguments du constructeur rassemblés
   dans un tableau. Ainsi :</p>
-  <pre><code language="php">$server = dnew('Hoa\Socket\Server', array($arguments));</code></pre>
+  <pre><code class="language-php">$server = dnew('Hoa\Socket\Server', array($arguments));</code></pre>
   <p>La classe dynamiquement créée n'a pas besoin d'être pré-chargée, tout se
   fera en une seule fois.</p>
   <p>Ce mécanisme a un intérêt plus important lorsque nous considèrons plusieurs
   familles potentielles contenant notre classe. Ainsi :</p>
-  <pre><code language="php">$server = dnew('(Hoathis or Hoa)\Socket\Server', array($arguments));
+  <pre><code class="language-php">$server = dnew('(Hoathis or Hoa)\Socket\Server', array($arguments));
 var_dump(get_class($server));
 
 // Will output:
@@ -237,7 +237,7 @@ var_dump(get_class($server));
   <code>Hoathis/</code>, situé par défaut au même niveau que <code>Hoa</code>.
   Donc, nous allons créer le fichier
   <code>/usr/local/lib/Hoathis/Exercise/First.php</code> :</p>
-  <pre><code language="php">&amp;lt;?php
+  <pre><code class="language-php">&amp;lt;?php
 
 namespace Hoathis\Exercise {
 
@@ -253,7 +253,7 @@ class First {
   <p>Nous notons que l'espace de nom suit le chemin vers le fichier. Nous allons
   maintenant utiliser cette classe dans n'importe quel fichier, n'importe
   où :</p>
-  <pre><code language="php">&amp;lt;?php
+  <pre><code class="language-php">&amp;lt;?php
 
 require '/usr/local/lib/Hoa/Core/Core.php';
 
@@ -291,7 +291,7 @@ $first->say();
   </ul>
   <p>Nous remarquons que beaucoup de formes sont supportées. Dans tous les cas,
   pour effectuer un appel, nous ferons comme ceci :</p>
-  <pre><code language="php">$callable = xcallable(…);
+  <pre><code class="language-php">$callable = xcallable(…);
 $callable($argument1, $argument2, …);</code></pre>
   <p>Si nous donnons un objet mais que la méthode n'est pas précisée, c'est
   <code>Hoa\Core\Consistency\Xcallable</code> qui va déterminer la méthode :
@@ -338,12 +338,12 @@ $callable($argument1, $argument2, …);</code></pre>
   méthode <code>Hoa\Core\Event::register</code>, où le premier argument est
   l'identifiant de l'événement et le second argument est le propriétaire (ou
   l'émetteur) :</p>
-  <pre><code language="php">Hoa\Core\Event::register('id', $observable);</code></pre>
+  <pre><code class="language-php">Hoa\Core\Event::register('id', $observable);</code></pre>
   <p>Une fois l'événement enregistré (ou créé), nous sommes capable d'émettre
   grâce à la méthode <code>Hoa\Core\Event::notify</code>, dont le premier
   argument est l'identifiant de l'événement, le deuxième est l'émetteur et le
   dernier les données :</p>
-  <pre><code language="php">Hoa\Core\Event::notify('id', $observable, new \Hoa\Core\Event\Bucket($data));</code></pre>
+  <pre><code class="language-php">Hoa\Core\Event::notify('id', $observable, new \Hoa\Core\Event\Bucket($data));</code></pre>
 
   <h3 id="Format_des_identifiants_d-evenements" for="main-toc">Format des
   identifiants d'événements</h3>
@@ -373,7 +373,7 @@ $callable($argument1, $argument2, …);</code></pre>
   la méthode <code>attach</code> des actions : une fonction déclarée, une
   fonction anonyme, une classe et une méthode, un objet et une méthode, un flux
   etc. Ainsi, si nous voulons capturer des exceptions :</p>
-  <pre><code language="php">event('hoa://Event/Exception')->attach(
+  <pre><code class="language-php">event('hoa://Event/Exception')->attach(
     function ( Hoa\Core\Event\Bucket $bucket ) {
 
         $exception = $bucket->getData();
@@ -387,7 +387,7 @@ $callable($argument1, $argument2, …);</code></pre>
   d'événement. De cette façon, nous sommes capables de journaliser toutes les
   exceptions en « redigirant » l'événement vers un flux, par exemple un fichier
   <code>Exception.log</code> :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('File.Write');
 
 event('hoa://Event/Exception')->attach(new Hoa\File\Write('Exception.log'));
@@ -413,7 +413,7 @@ catch ( Hoa\Core\Exception $e ) {
 
   <p>Nous allons créer la classe <code>Hoathis\Exercise\Second</code> pour
   lui ajouter des événements :</p>
-  <pre><code language="php">&amp;lt;?php
+  <pre><code class="language-php">&amp;lt;?php
 
 namespace Hoathis\Exercise {
 
@@ -438,7 +438,7 @@ class Second implements \Hoa\Core\Event\Source {
 
 }</code></pre>
   <p>Et dans n'importe quel fichier n'importe où :</p>
-  <pre><code language="php">&amp;lt;?php
+  <pre><code class="language-php">&amp;lt;?php
 
 require '/usr/local/lib/Hoa/Core/Core.php';
 
@@ -474,7 +474,7 @@ var_dump($second->doSomething('Gordon'));
   <code>Hoa\Core\Event\Listener::fire</code>. Les données des écouteurs sont
   également portées par la classe <code>Hoa\Core\Event\Bucket</code>.</p>
   <p>Nous créons la classe <code>Hoathis\Exercise\Third</code> :</p>
-  <pre><code language="php">&amp;lt;?php
+  <pre><code class="language-php">&amp;lt;?php
 
 namespace Hoathis\Exercise {
 
@@ -507,7 +507,7 @@ class Third implements \Hoa\Core\Event\Listenable {
 
 }</code></pre>
   <p>Et dans n'importe quel fichier n'importe où :</p>
-  <pre><code language="php">&amp;lt;?php
+  <pre><code class="language-php">&amp;lt;?php
 
 require '/usr/local/lib/Hoa/Core/Core.php';
 
@@ -561,7 +561,7 @@ var_dump($third->doSomething('Gordon'));
   arguments : un message formaté, un code, une liste d'arguments pour le message
   formaté et une exception (si un lien de causalité existe, notion abordée
   rapidement). Seul le premier argument est obligatoire. Ainsi :</p>
-  <pre><code language="php">try {
+  <pre><code class="language-php">try {
 
     throw new Hoa\Core\Exception('Hello Gordon.');
 }
@@ -575,7 +575,7 @@ catch ( Hoa\Core\Exception $e ) {
     //     Hello Gordon.
 }</code></pre>
   <p>Avec un message formaté :</p>
-  <pre><code language="php">try { 
+  <pre><code class="language-php">try { 
 
     throw new Hoa\Core\Exception('Hello %s.', 42, 'Gordon');
 }
@@ -589,7 +589,7 @@ catch ( Hoa\Core\Exception $e ) {
     //     Hello Gordon.
 }</code></pre>
   <p>Avec un message formaté avec plus d'arguments :</p>
-  <pre><code language="php">try {
+  <pre><code class="language-php">try {
 
     throw new Hoa\Core\Exception('%s %s.', 42, array('Hello', 'Gordon'));
 }
@@ -611,7 +611,7 @@ catch ( Hoa\Core\Exception $e ) {
   <p>Si une exception n'est pas capturée explicitement, elle le sera par Hoa à
   la fin de sa remontée. Un message résumant l'exception sera affiché sur le
   flux de sortie courant de PHP. Ainsi :</p>
-  <pre><code language="php">++$foo;
+  <pre><code class="language-php">++$foo;
 
 // Will output:
 //     Uncaught exception (Hoa\Core\Exception\Error):
@@ -624,7 +624,7 @@ catch ( Hoa\Core\Exception $e ) {
   nous ne pouvons pas toujours faire remonter les exceptions telles quelles pour
   des raisons de facilité d'utilisation. C'est pourquoi nous avons la
   possibilité d'imbriquer les exceptions entre elles. Ainsi :</p>
-  <pre><code language="php">try {
+  <pre><code class="language-php">try {
 
     throw new Hoa\Core\Exception\Idle('I\'m a nested exception!', 42);
 }
@@ -660,7 +660,7 @@ catch ( Hoa\Core\Exception\Idle $e ) {
   <p>Cet exercice est très facile mais utile : nous allons créer notre propre
   exception à notre bibliothèque. Pour cela, nous créons le fichier
   <code>Exercise/Exception.php</code> :</p>
-  <pre><code language="php">&amp;lt;?php
+  <pre><code class="language-php">&amp;lt;?php
 
 namespace Hoathis\Exercise {
 
@@ -669,7 +669,7 @@ class Exception extends \Hoa\Core\Exception { }
 }</code></pre>
   <p>Et pour l'utiliser, par exemple dans
   <code>Hoathis\Exercise\Fourth</code>, rien de plus simple :</p>
-  <pre><code language="php">&amp;lt;?php
+  <pre><code class="language-php">&amp;lt;?php
 
 namespace {
 
@@ -691,7 +691,7 @@ class Fourth {
 }</code></pre>
   <p>Et enfin, pour tester notre exception, dans n'importe quel fichier
   n'importe où :</p>
-  <pre><code language="php">&amp;lt;?php
+  <pre><code class="language-php">&amp;lt;?php
 
 require '/usr/local/lib/Hoa/Core/Core.php';
 
@@ -742,7 +742,7 @@ catch ( Hoathis\Exercise\Exception $e ) {
   statique <code>Hoa\Registry</code> qui place sur le protocole une ressource
   qui n'est pas un fichier mais une donnée de PHP (une données scalaire, un
   tableau, une fonction, un objet etc.), ainsi :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Registry.~');
 
 Hoa\Registry::set('foo', 'bar');
@@ -795,13 +795,13 @@ var_dump(
     logs, les tests etc.</li>
   </ul>
   <p>Nous les utilisons simplement de cette façon :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('File.Write');
 
 $file = new Hoa\File\Write('hoa://Data/Temporary/Foobar.txt');
 $file->writeAll('Bazqux');</code></pre>
   <p>Cela fonctionne également sur des instructions bien plus élémentaires :</p>
-  <pre><code language="php">$foo = require 'hoa://Data/Etc/Configuration/.Cache/HoaCoreCore.php';</code></pre>
+  <pre><code class="language-php">$foo = require 'hoa://Data/Etc/Configuration/.Cache/HoaCoreCore.php';</code></pre>
   <p>Nous verrons plus en détail comment cela fonctionne quand nous écrirons une
   application. Il faut retenir que c'est une suite de composants, chacun pouvant
   être vu comme un lien symbolique. L'utilisation de ce protocole dans votre
@@ -822,7 +822,7 @@ $file->writeAll('Bazqux');</code></pre>
   <code>Hoa\String</code>. Ces scripts se trouvent dans le dossier
   <code>Hoa/Core/Bin/</code>. Lorsque nous exécutions un de ces scripts, un
   écran d'accueil apparaît :</p>
-  <pre><code language="shell">$ Hoa/Core/Bin/hoa
+  <pre><code class="language-shell">$ Hoa/Core/Bin/hoa
 // Homescreen.</code></pre>
 
   <h3 id="Plus_de_confort" for="main-toc">Plus de confort</h3>
@@ -832,9 +832,9 @@ $file->writeAll('Bazqux');</code></pre>
   disque. Pour cela, sous Unix, il faudra modifier la variable
   <code>$PATH</code> dans <code>~/.<em>shell</em>rc</code> (par exemple :
   <code>~/.bashrc</code>, <code>~/.zshrc</code> etc.) :</p>
-  <pre><code language="shell">export PATH=/usr/local/lib/Hoa/Core/Bin:$PATH</code></pre>
+  <pre><code class="language-shell">export PATH=/usr/local/lib/Hoa/Core/Bin:$PATH</code></pre>
   <p>Nous rechargeons notre profil et le script sera disponible partout :</p>
-  <pre><code language="shell">$ source ~/.zshrc
+  <pre><code class="language-shell">$ source ~/.zshrc
 $ hoa
 // Homescreen.</code></pre>
   <p>Pour Windows, il faudra consulter
@@ -864,7 +864,7 @@ $ hoa
   remarquons que la seule partie fixe est <code>Bin\</code>, c'est un espace de
   nom particulier qui est compris par le script <code>hoa</code> comme contenant
   des commandes. Ainsi, quand nous exécutons :</p>
-  <pre><code language="shell">$ hoa core:resolve hoa://Library --no-verbose</code></pre>
+  <pre><code class="language-shell">$ hoa core:resolve hoa://Library --no-verbose</code></pre>
   <p>Cela va exécuter la classe <code>Hoa\Core\Bin\Resolve</code> située sans
   surprise dans le fichier <code>Hoa/Core/Bin/Resolve.php</code>.</p>
 
@@ -874,7 +874,7 @@ $ hoa
   <p>Nous allons créer notre propre commande rapidement, sans trop insister sur
   les détails, mais uniquement pour donner un aperçu du fonctionnement. Créeons
   le fichier <code>Hoathis/Exercise/Bin/Hello</code> :</p>
-  <pre><code language="php">&amp;lt;?php
+  <pre><code class="language-php">&amp;lt;?php
 
 namespace Hoathis\Exercise\Bin {
 
@@ -924,7 +924,7 @@ class Hello extends \Hoa\Console\Dispatcher\Kit {
   <p>Nous avons défini la commande <code>exercise:hello</code>, avec deux
   options (et leurs équivalents courts) : <code>who</code> et <code>help</code>.
   Et maintenant testons !</p>
-  <pre><code language="shell">$ hoa hoathis exercise:hello
+  <pre><code class="language-shell">$ hoa hoathis exercise:hello
 Hello world!
 $ hoa hoathis exercise:hello --who Gordon
 Hello Gordon!
@@ -938,7 +938,7 @@ Options :
   <code>--who</code> pour vous amuser.</p>
   <p>Nous pouvons même créer un alias pour utiliser nos bibliothèques
   <code>Hoathis</code> :</p>
-  <pre><code language="shell">$ alias hoathis="hoa hoathis"
+  <pre><code class="language-shell">$ alias hoathis="hoa hoathis"
 $ hoathis exercise:hello
 Hello world!</code></pre>
   <p>N'importe quelle famille de bibliothèques peut ainsi créer ses propres

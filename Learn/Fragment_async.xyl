@@ -31,7 +31,7 @@
   fragments, chacun étant contenu dans des composants <code>snippet</code> et
   identifié par un attribut <code>id</code>. Ainsi, nous pouvons avoir le
   fragment suivant dans <code>Some.frag.xyl</code> :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;fragment xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;snippet id="first">
@@ -52,7 +52,7 @@
   allons <strong>sélectionner</strong> le <strong>fragment</strong>
   <code><em>id</em></code> dans le <strong>fichier</strong>
   <code><em>filename</em></code>. Voyons plutôt avec <code>Main.xyl</code> :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-fragment href="Some.frag.xyl"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
@@ -67,7 +67,7 @@
   <code>&amp;amp;lt;?xyl-fragment?></code>. Cet alias pourra être utilisé à la
   place de <code><em>filename</em></code> dans nos attributs
   <code>select</code>. Ainsi, l'exemple précédent devient :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-fragment href="Some.frag.xyl" as="some"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
@@ -79,7 +79,7 @@
   même document mais pas entre plusieurs documents.</p>
   <p>Enfin, faire le rendu de <code>Main.xyl</code> est tout ce qu'il y a de
   plus classique et nous pourrons observer le placement du fragment :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('File.Read')
 -> import('Http.Response')
 -> import('Xyl.~')
@@ -132,7 +132,7 @@ $xyl->render();</code></pre>
   <p>Être capable de récupérer un fragment pour en faire son rendu nécessite
   <strong>préalablement</strong> d'interpréter le document, grâce à la méthode
   <code>Hoa\Xyl::interprete</code>. Ainsi :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('File.Read')
 -> import('Http.Response')
 -> import('Xyl.~')

@@ -111,7 +111,7 @@
   document, nous allons définir un titre grâce au composant <code>title</code>,
   et enfin nous allons ajouter un paragraphe avec une liste non-ordonnée grâce
   aux composants <code>p</code>, <code>ul</code> et <code>li</code> :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
@@ -141,7 +141,7 @@
   Notre flux de sortie sera représenté par la classe
   <code>Hoa\Http\Response</code>. Ainsi, créons le fichier
   <code>index.php</code> :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('File.Read')
 -> import('Http.Response')
 -> import('Xyl.~')
@@ -155,9 +155,9 @@ $xyl = new Hoa\Xyl(
 $xyl->render();</code></pre>
   <p>Il suffit maintenant d'exécuter ce fichier PHP pour observer le
   résultat :</p>
-  <pre><code language="shell">$ php index.php</code></pre>
+  <pre><code class="language-shell">$ php index.php</code></pre>
   <p>Ou depuis un navigateur (à l'aide de Bhoa par exemple) :</p>
-  <pre><code language="shell">$ myapp http:bhoa --root .</code></pre>
+  <pre><code class="language-shell">$ myapp http:bhoa --root .</code></pre>
   <p>puis en ouvrant l'URL
   <a href="http://127.0.0.1:8888"><code>127.0.0.1:8888</code></a>.</p>
   <p>Nous vous conseillons d'essayer de modifier ce document XYL comme si
@@ -178,14 +178,14 @@ $xyl->render();</code></pre>
   XYL avec son attribut <code>href</code> pour préciser l'emplacement de notre
   feuille de style. Nous parlons d'une <strong>déclaration statique</strong>.
   Ainsi :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-stylesheet href="UI.css"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
   …</code></pre>
   <p>Et notre fichier <code>UI.css</code> :</p>
-  <pre><code language="css">body {
+  <pre><code class="language-css">body {
     color: red
 }</code></pre>
   <p>Maintenant, réouvrons
@@ -194,7 +194,7 @@ $xyl->render();</code></pre>
   <p>Nous pouvons déclarer <strong>dynamiquement</strong> une feuille de style
   en utilisant la méthode <code>addStylesheet</code> de la classe
   <code>Hoa\Xyl</code>. Ainsi, le code suivant produira le même résultat :</p>
-  <pre><code language="php">$xyl = new Hoa\Xyl(
+  <pre><code class="language-php">$xyl = new Hoa\Xyl(
     new Hoa\File\Read('Main.xyl'),
     new Hoa\Http\Response(),
     new Hoa\Xyl\Interpreter\Html()
@@ -226,7 +226,7 @@ $xyl->render();</code></pre>
   <code>Extension.xyl</code> à notre document auquel nous avons ajouté un
   composant portant l'identifiant <code>extensions</code> et accueillant déjà
   une extension :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-stylesheet href="UI.css"?>
 &amp;lt;?xyl-overlay href="Extension.xyl"?>
 
@@ -260,7 +260,7 @@ $xyl->render();</code></pre>
   <strong>composant de référence</strong> qui indique sur quel composant nous
   voulons nous <strong>accrocher</strong>. Chaque fils d'un composant de
   référence représente un <strong>composant à insérer</strong>.</p>
-  <pre><code language="xml">&amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
+  <pre><code class="language-markup">&amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;reference_component>
     &amp;lt;component_to_insert>…&amp;lt;/component_to_insert>
     &amp;lt;component_to_insert>…&amp;lt;/component_to_insert>
@@ -275,7 +275,7 @@ $xyl->render();</code></pre>
   des nouveaux composant, parmi ceux déjà présents.</p>
   <p>Ajoutons une nouvelle extension dans notre colonne en écrivant dans notre
   fichier <code>Extension.xyl</code> :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;aside id="extensions">
@@ -335,7 +335,7 @@ $xyl->render();</code></pre>
   dernière position mais en première position, nous aurons la position
   <code>1</code> (utiliser la position <code>0</code> la placerait avant le
   titre de notre colonne) :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;aside id="extensions">
@@ -349,7 +349,7 @@ $xyl->render();</code></pre>
   grâce au composant <code>hr</code>. Nous avons donc un second composant à
   insérer et nous le positionnerons après notre composant <code>foo</code> ;
   ainsi :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;aside id="extensions">
@@ -370,7 +370,7 @@ $xyl->render();</code></pre>
   <p>Les <em>overlays</em> peuvent également déclarer des feuilles de style
   grâce aux mécanismes vus précédemment. Ainsi, nous pouvons imaginer
   avoir :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-stylesheet href="Extension.css"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
@@ -378,7 +378,7 @@ $xyl->render();</code></pre>
     &amp;lt;div id="foo" position="1">
       …</code></pre>
   <p>Avec notre fichier <code>Extension.css</code> qui contiendrait :</p>
-  <pre><code language="css">#foo {
+  <pre><code class="language-css">#foo {
     color: green
 }</code></pre>
   <p>Après réinterprétation de notre document, le texte de notre extension aura
@@ -394,7 +394,7 @@ $xyl->render();</code></pre>
   <code>element(#<em>anId</em>)</code> n'est pas supporté. Ainsi, si nous
   souhaitons que notre feuille <code>Extension.css</code> se place en première
   position, nous aurons :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-stylesheet href="Extension.css" position="0"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
@@ -435,7 +435,7 @@ $xyl->render();</code></pre>
   ajouter ou modifier des attributs (mais pas en supprimer). Par exemple, si
   nous voulons ajouter un attribut <code>class</code> à notre colonne, nous
   ferons :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-stylesheet href="Extension.css"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
@@ -476,7 +476,7 @@ $xyl->render();</code></pre>
   </ul>
   <p>Avec une instance de <code>Hoa\Core\Data</code> que nous récupérons avec la
   méthode <code>Hoa\Xyl::getData</code>, nous avons :</p>
-  <pre><code language="php">$xyl  = new Hoa\Xyl(…);
+  <pre><code class="language-php">$xyl  = new Hoa\Xyl(…);
 $data = $xyl->getData();
 
 $data->article->id     = 0;
@@ -487,7 +487,7 @@ $xyl->render();</code></pre>
   <p>Essayons de <strong>lier</strong> ces données grâce à l'attribut
   <code>bind</code> qui se trouve sur <strong>tous</strong> les composants
   XYL. La syntaxe d'un liage est <code>?[p[ath]:]<em>aTreeName</em></code>. Ainsi :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
@@ -503,8 +503,8 @@ $xyl->render();</code></pre>
   des feuilles), respectivement <code>id</code>, <code>title</code> et
   <code>author</code>. Nous découvrons en même temps le composant
   <code>value</code> qui sert à afficher une valeur verbatim. Nous déduisons
-  alors que faire <code language="xml">&amp;lt;cite bind="?title" /></code> est
-  strictement équivalent à faire <code language="xml">&amp;lt;cite>&amp;lt;value
+  alors que faire <code class="language-markup">&amp;lt;cite bind="?title" /></code> est
+  strictement équivalent à faire <code class="language-markup">&amp;lt;cite>&amp;lt;value
   bind="?title" />&amp;lt;/cite></code>.</p>
   <p>Si nous interprétons notre document, nous verrons bien les données
   apparaître.</p>
@@ -515,7 +515,7 @@ $xyl->render();</code></pre>
   nous créons un nouvel arbre <code>article</code>, il aura la même forme que
   celui que nous venons de créer. Nous accédons aux différents arbres grâce à un
   index comme pour un tableau ; ainsi :</p>
-  <pre><code language="php">$data->article[0]->id     = 0;
+  <pre><code class="language-php">$data->article[0]->id     = 0;
 $data->article[0]->title  = 'Foobar';
 $data->article[0]->author = 'G. Freeman';
 
@@ -528,7 +528,7 @@ $data->article[1]->author = 'A. Vance';</code></pre>
   <p>Nous aimerions maintenant que chaque article puisse avoir plusieurs
   auteurs, nous allons alors créer un nouveau sous-arbre <code>name</code> sous
   le sous-arbre <code>author</code> :</p>
-  <pre><code language="php">$data->article[0]->id              = 0;
+  <pre><code class="language-php">$data->article[0]->id              = 0;
 $data->article[0]->title           = 'Foobar';
 $data->article[0]->author->name[0] = 'G. Freeman';
 $data->article[0]->author->name[1] = 'G-Man';
@@ -538,7 +538,7 @@ $data->article[1]->title           = 'Bazqux';
 $data->article[1]->author->name    = 'A. Vance';</code></pre>
   <p>Nous devons modifier notre document XYL pour qu'il prenne en considérations
   ce nouveau sous-arbre :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
@@ -569,7 +569,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   liables, <strong>tous</strong> les attributs de tous les composants le sont
   également. Ainsi, nous pouvons modifier notre document existant en déplaçant
   la donnée <code>id</code> dans un attribut :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
@@ -606,7 +606,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   modification suivante du document remplacera notre liste d'auteurs avec les
   composants <code>ul</code> et <code>li</code> par simplement <code>em</code>
   (<code>yield</code> n'apparaîtra pas) :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
@@ -626,7 +626,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   réutiliser où nous voulons et autant de fois que nous le désirons. Par
   exemple, nous allons créer un composant nommé <code>author_article</code>,
   puis l'utiliser :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
@@ -645,7 +645,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   peut servir de <em>memorandum</em> !</p>
   <p>Bien entendu, nous pouvons réutiliser nos composants dans de nouveaux
   composants et ainsi de suite (l'ordre n'a pas d'importance) :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
@@ -672,7 +672,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   <code>?q[uery]:<em>selector</em></code>. Par exemple, au lieu d'utiliser le
   composant <code>hr</code> de manière statique, nous allons sélectionner tous
   les composants fournis par l'utilisateur :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
@@ -694,7 +694,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
 &amp;lt;/document></code></pre>
   <p>Les composants sélectionnés peuvent également se lier aux données du
   composant dans lequel ils sont insérés :</p>
-  <pre><code language="xml">  …
+  <pre><code class="language-markup">  …
   &amp;lt;author_articles bind="?article">
     &amp;lt;p>End of &amp;lt;value bind="?title" />, go to &amp;lt;a href="#">top&amp;lt;/a>&amp;lt;/p>
     &amp;lt;hr />
@@ -719,7 +719,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   bibliothèques et ainsi de suite. Une bibliothèque peut également déclarer des
   feuilles de style mais pas des <em>overlays</em>. Ainsi, si nous
   <strong>externalisons</strong> nos composants fraîchement créés :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-use href="Author.xyl"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
@@ -733,7 +733,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   <p>Enfin, notre bibliothèque graphique est contenue dans le <strong>composant
   racine</strong> <code>definition</code> et ne contient que des composants
   nommés. Voici notre fichier <code>Author.xyl</code> :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;definition xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;yield name="author_articles">
@@ -773,7 +773,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   à notre instance de XYL. La règle aura pour identifiant <code>blog</code> et
   n'aura aucune action (<ie /> <em>callable</em>) attachée — nous voulons juste
   écrire un lien, c'est à dire le <strong>dérouter</strong> — , ainsi :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Router.Http')
 -> import('File.Read')
 -> import('Http.Response.~')
@@ -800,12 +800,12 @@ $xyl->render();</code></pre>
   notre <strong>règle</strong> <code><em>anId</em></code> pour laquelle nous
   allons définir une <strong>valeur</strong> <code><em>value</em></code>. Ainsi,
   nous allons écrire le lien <code>@blog:id=42&amp;amp;title=Foobar</code> :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
 
-  &amp;lt;p>This is a link to &amp;lt;a href="@blog:id=42&amp;amp;amp;amp;title=Foobar">an article in my
+  &amp;lt;p>This is a link to &amp;lt;a href="@blog:id=42&amp;amp;amp;title=Foobar">an article in my
   blog&amp;lt;/a>!&amp;lt;/p>
 &amp;lt;/document></code></pre>
   <p>Le contenu de l'attribut <code>href</code> vaudra
@@ -828,12 +828,12 @@ $xyl->render();</code></pre>
   <p>Enfin, si nous voulons écrire un lien à partir du routeur en étant en
   dehors d'un attribut, nous pouvons utiliser le composant <code>value</code> et
   son attribut <code>link</code> de cette manière :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
 
-  &amp;lt;p>This is the link &amp;lt;value link="@blog:id=42&amp;amp;amp;amp;title=Foobar" />!&amp;lt;/p>
+  &amp;lt;p>This is the link &amp;lt;value link="@blog:id=42&amp;amp;amp;title=Foobar" />!&amp;lt;/p>
 &amp;lt;/document></code></pre>
 
   <h3 id="Ressources_de_l-application_et_theme" for="main-toc">Ressources de
@@ -870,7 +870,7 @@ $xyl->render();</code></pre>
   sera strictement équivalent à utiliser le lien
   <code>@_css:theme=Classic&amp;amp;resource=UI.css</code>. Puis dans notre
   routeur, définissons la règle suivante :</p>
-  <pre><code language="php">$router->_get('_css', '/Assets/(?&amp;lt;theme>)/Style/(?&amp;lt;resource>)');</code></pre>
+  <pre><code class="language-php">$router->_get('_css', '/Assets/(?&amp;lt;theme>)/Style/(?&amp;lt;resource>)');</code></pre>
   <p>Côté <strong>client</strong>, nous aurons le lien : <code>/Assets/Classic/Style/UI.css</code>.</p>
   <p>Si la règle <code>_<em>type</em></code> n'existe pas dans le routeur, une
   règle par <strong>défaut</strong> sera utilisée : <code>_resource</code>. XYL
@@ -921,7 +921,7 @@ $xyl->render();</code></pre>
   accueillera nos différentes pages. Chaque page sera un <em>overlay</em> par
   rapport à ce document principal, il faudra donc préciser un identifiant.
   Ainsi :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>&amp;lt;value bind="?title" /> — Gordon's blog&amp;lt;/title>
@@ -947,7 +947,7 @@ $xyl->render();</code></pre>
   <code>Application/View/Blog/</code>. Ainsi, la liste des articles sera
   représentée par le fichier <code>Index.xyl</code> et va définir un
   <em>overlay</em> pour l'identifiant <code>main</code> :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;div id="main">
@@ -973,7 +973,7 @@ $xyl->render();</code></pre>
   fait le choix de définir un composant pour représenter les commentaires sous
   le nom <code>comment</code> et défini dans le fichier
   <code>Comment.xyl</code>. Ainsi :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-use href="hoa://Application/View/Blog/Comment.xyl"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
@@ -996,7 +996,7 @@ $xyl->render();</code></pre>
   variable d'où sa grande simplicité.</p>
   <p>Et la déclaration de notre composant <code>comment</code> se fait de la
   manière suivante :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;definition xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;yield name="comment">
@@ -1020,7 +1020,7 @@ $xyl->render();</code></pre>
   <code>ArticleAction</code> pour un seul article. Les données sont déjà
   extraites, nous allons les donner à XYL. Commençons par
   <code>IndexAction</code> :</p>
-  <pre><code language="php">public function IndexAction ( ) {
+  <pre><code class="language-php">public function IndexAction ( ) {
 
     $article              = new \Application\Model\Article();
     $list                 = $article->getShortList();
@@ -1039,7 +1039,7 @@ $xyl->render();</code></pre>
   comprend bien les données provenant des bases de données (entre autres) : nous
   lui donnons <code>$list</code> sans effectuer aucune opération.</p>
   <p>Le traitement sera similaire pour un article et ses commentaires :</p>
-  <pre><code language="php">public function ArticleAction ( $id ) {
+  <pre><code class="language-php">public function ArticleAction ( $id ) {
 
     $article              = new \Application\Model\Article();
     $article->id          = $id;
@@ -1067,7 +1067,7 @@ $xyl->render();</code></pre>
   <p>Avant de tester, nous devons modifier notre fichier d'amorçage
   <code>index.php</code> pour préciser à notre dispatcheur en second argument
   qu'il doit utiliser <code>Hoa\Xyl</code> comme vue :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Database.Dal')
 -> import('Dispatcher.Basic')
 -> import('Router.Http')
@@ -1104,7 +1104,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
     echo 'Your page seems to be not found /o\.', "\n";
 }</code></pre>
   <p>Maintenant, utilisons Bhoa pour exécuter notre application :</p>
-  <pre><code language="shell">$ myapp http:bhoa --root hoa://Application/Public</code></pre>
+  <pre><code class="language-shell">$ myapp http:bhoa --root hoa://Application/Public</code></pre>
   <p>Puis, depuis un navigateur en allant sur
   <a href="http://127.0.0.1:8888/"><code>127.0.0.1:8888</code></a>, nous verrons
   notre document rendu en HTML et plus précisément la liste des articles
@@ -1124,7 +1124,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
   <code>Application/Public/Classic/</code>. Pour les utiliser, nous allons
   ajouter la feuille de style <code>Css/UI.css</code> à notre document
   principal :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-stylesheet href="hoa://Application/Public/Css/UI.css"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">

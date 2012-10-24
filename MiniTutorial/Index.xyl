@@ -62,7 +62,7 @@
     </tablist>
 
     <tabpanel id="tunix_execute_phar">
-      <pre><code language="shell">$ mkdir -p /usr/local/lib/hoa
+      <pre><code class="language-shell">$ mkdir -p /usr/local/lib/hoa
 $ cd /usr/local/lib/hoa
 $ wget http://download.hoa-project.net/Central/Hoa.next.phar
 $ php Hoa.next.phar
@@ -78,7 +78,7 @@ Options :
     </tabpanel>
 
     <tabpanel id="twindows_execute_phar">
-      <pre><code language="shell">// dans une invite de commande démarrée en tant qu'Administrateur
+      <pre><code class="language-shell">// dans une invite de commande démarrée en tant qu'Administrateur
 > mkdir "Program Files\Hoa"
 > cd "Program Files\Hoa"
 // télécharger http://download.hoa-project.net/Central/Hoa.next.phar
@@ -105,13 +105,13 @@ Options :
     </tablist>
 
     <tabpanel id="tunix_detect_unicode">
-      <pre><code language="shell">$ php -d detect_unicode=0 Hoa.next.phar
+      <pre><code class="language-shell">$ php -d detect_unicode=0 Hoa.next.phar
 Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
 Options :
     …</code></pre>
     </tabpanel>
     <tabpanel id="twindows_detect_unicode">
-      <pre><code language="shell">> php -d detect_unicode=0 Hoa.next.phar
+      <pre><code class="language-shell">> php -d detect_unicode=0 Hoa.next.phar
 Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
 Options :
     …</code></pre>
@@ -127,12 +127,12 @@ Options :
     </tablist>
 
     <tabpanel id="tunix_extract_hoa">
-      <pre><code language="shell">$ php Hoa.next.phar --extract
+      <pre><code class="language-shell">$ php Hoa.next.phar --extract
 Extracted in /usr/local/lib/hoa</code></pre>
     </tabpanel>
 
     <tabpanel id="twindows_extract_hoa">
-      <pre><code language="shell">> php Hoa.next.phar --extract
+      <pre><code class="language-shell">> php Hoa.next.phar --extract
 Extracted in C:\Program Files\Hoa</code></pre>
     </tabpanel>
   </tabs>
@@ -149,7 +149,7 @@ Extracted in C:\Program Files\Hoa</code></pre>
     </tablist>
 
     <tabpanel id="tunix_install_framework">
-      <pre><code language="shell">$ cd ~/Development/GordonsApp/
+      <pre><code class="language-shell">$ cd ~/Development/GordonsApp/
 $ wget http://download.hoa-project.net/Framework/Hoa_Framework.next.phar
 $ php Hoa_Framework.next.phar
 Usage   : Hoa_Framework.next.phar &amp;lt;options>
@@ -165,7 +165,7 @@ Extracted in ~/Development/GordonsApp</code></pre>
     </tabpanel>
 
     <tabpanel id="twindows_install_framework">
-      <pre><code language="shell">> cd %UserProfile%\Development\GordonsApp\
+      <pre><code class="language-shell">> cd %UserProfile%\Development\GordonsApp\
 // télécharger http://download.hoa-project.net/Framework/Hoa_Framework.next.phar
 > php Hoa_Framework.next.phar
 Usage   : Hoa_Framework.next.phar &amp;lt;options>
@@ -205,7 +205,7 @@ Extracted in C:\Users\MyUser\Development\GordonsApp</code></pre>
     </tablist>
 
     <tabpanel id="tunix_where_is_hoa">
-      <pre><code language="shell">$ chmod u+x Data/Bin/whereishoa
+      <pre><code class="language-shell">$ chmod u+x Data/Bin/whereishoa
 $ Data/Bin/whereishoa
 ** Where is Hoa **
 
@@ -222,7 +222,7 @@ A very simple question: where is Hoa so?
     </tabpanel>
 
     <tabpanel id="twindows_where_is_hoa">
-      <pre><code language="shell">> .\Data\Bin\whereishoa.bat
+      <pre><code class="language-shell">> .\Data\Bin\whereishoa.bat
 ** Where is Hoa **
 
 Ready to redefine the path to Hoa?
@@ -253,7 +253,7 @@ C:\Program Files\Hoa▋</code></pre>
     </tablist>
 
     <tabpanel id="tunix_rename_script">
-      <pre><code language="shell">$ chmod u+x Data/Bin/myapp
+      <pre><code class="language-shell">$ chmod u+x Data/Bin/myapp
 $ Data/Bin/myapp
 // Homescreen.
 $ mv Data/Bin/myapp Data/Bin/gordonsapp
@@ -262,7 +262,7 @@ $ Data/Bin/gordonsapp
     </tabpanel>
 
     <tabpanel id="twindows_rename_script">
-      <pre><code language="shell">> .\Data\Bin\myapp.bat
+      <pre><code class="language-shell">> .\Data\Bin\myapp.bat
 // Homescreen.
 > move Data/Bin/myapp.bat Data/Bin/gordonsapp.bat
 > .\Data\Bin\gordonsapp.bat
@@ -287,11 +287,11 @@ $ Data/Bin/gordonsapp
       <tab for="twindows_test_new_app">Windows</tab>
     </tablist>
     <tabpanel id="tunix_test_new_app">
-      <pre><code language="shell">$ php Application/Public/index.php
+      <pre><code class="language-shell">$ php Application/Public/index.php
 Hello you! I'm your first Hoa-based application \o/.</code></pre>
     </tabpanel>
     <tabpanel id="twindows_test_new_app">
-      <pre><code language="shell">> php Application\Public\index.php
+      <pre><code class="language-shell">> php Application\Public\index.php
 Hello you! I'm your first Hoa-based application \o/.</code></pre>
     </tabpanel>
   </tabs>
@@ -312,10 +312,10 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
       <tab for="twindows_start_phpcgi">Windows</tab>
     </tablist>
     <tabpanel id="tunix_start_phpcgi">
-      <pre><code language="shell">$ php-cgi -b 127.0.0.1:9000&amp;amp;</code></pre>
+      <pre><code class="language-shell">$ php-cgi -b 127.0.0.1:9000&amp;amp;</code></pre>
     </tabpanel>
     <tabpanel id="twindows_start_phpcgi">
-      <pre><code language="shell">// dans une nouvelle invite de commande
+      <pre><code class="language-shell">// dans une nouvelle invite de commande
 > php-cgi -b 127.0.0.1:9000</code></pre>
     </tabpanel>
   </tabs>
@@ -330,14 +330,14 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
       <tab for="twindows_start_bhoa">Windows</tab>
     </tablist>
     <tabpanel id="tunix_start_bhoa">
-      <pre><code language="shell">$ gordonsapp http:bhoa --root hoa://Application/Public/
+      <pre><code class="language-shell">$ gordonsapp http:bhoa --root hoa://Application/Public/
 Server is up, on tcp://127.0.0.1:8888!
 Root: hoa://Application/Public/.
 
 Waiting for connection… ▋</code></pre>
     </tabpanel>
     <tabpanel id="twindows_start_bhoa">
-      <pre><code language="shell">> gordonsapp http:bhoa --root hoa://Application/Public/
+      <pre><code class="language-shell">> gordonsapp http:bhoa --root hoa://Application/Public/
 Server is up, on tcp://127.0.0.1:8888!
 Root: hoa://Application/Public/.
 
@@ -356,11 +356,11 @@ Waiting for connection… ▋</code></pre>
       <tab for="twindows_curl_test">Windows</tab>
     </tablist>
     <tabpanel id="tunix_curl_test">
-      <pre><code language="shell">$ curl 127.0.0.1:8888
+      <pre><code class="language-shell">$ curl 127.0.0.1:8888
 Hello you! I'm your first Hoa-based application \o/.</code></pre>
     </tabpanel>
     <tabpanel id="twindows_curl_test">
-      <pre><code language="shell">> curl 127.0.0.1:8888
+      <pre><code class="language-shell">> curl 127.0.0.1:8888
 Hello you! I'm your first Hoa-based application \o/.</code></pre>
     </tabpanel>
   </tabs>
@@ -379,7 +379,7 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
       <tab for="twindows_tree">Windows</tab>
     </tablist>
     <tabpanel id="tunix_tree">
-      <pre><code language="shell">$ gordonsapp tree --list-directory --depth 2
+      <pre><code class="language-shell">$ gordonsapp tree --list-directory --depth 2
 ~/Development/GordonsApp/
 |-- Application/     — notre application
 |   |-- Public/      —   son dossier public (visible depuis l'extérieur)
@@ -392,7 +392,7 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
 |   |-- Variable/    —   caches, bases de données, logs, tests …</code></pre>
     </tabpanel>
     <tabpanel id="twindows_tree">
-      <pre><code language="shell">> gordonsapp tree --list-directory --depth 2
+      <pre><code class="language-shell">> gordonsapp tree --list-directory --depth 2
 ~/Development/GordonsApp/
 |-- Application/     — notre application
 |   |-- Public/      —   son dossier public (visible depuis l'extérieur)
@@ -446,7 +446,7 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
   Nous allons avoir un contrôleur qui sera une classe avec deux méthodes, une
   pour chaque action. Nous remplaçons le <code>echo</code> du fichier
   <code>Application/Public/index.php</code> par le code suivant :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Dispatcher.Basic')
 -> import('Router.Http');
 
@@ -462,7 +462,7 @@ $dispatcher->dispatch($router);</code></pre>
   la classe <code>Application\Controller\Blog</code>, avec deux méthodes :
   <code>IndexAction</code> et <code>ArticleAction</code>, respectivement pour
   les règles <code>i</code> et <code>a</code>. Ainsi :</p>
-  <pre><code language="php">namespace Application\Controller {
+  <pre><code class="language-php">namespace Application\Controller {
 
 class Blog extends \Hoa\Dispatcher\Kit {
 
@@ -489,7 +489,7 @@ class Blog extends \Hoa\Dispatcher\Kit {
       <tab for="twindows_curl_basic">Windows</tab>
     </tablist>
     <tabpanel id="tunix_curl_article">
-      <pre><code language="shell">$ curl 127.0.0.1:8888/
+      <pre><code class="language-shell">$ curl 127.0.0.1:8888/
 Gordon's blog index
 $ curl 127.0.0.1:8888/article-1.html
 Article n°1
@@ -497,7 +497,7 @@ $ curl 127.0.0.1:8888/article-42.html
 Article n°42</code></pre>
     </tabpanel>
     <tabpanel id="twindows_curl_basic">
-      <pre><code language="shell">> curl 127.0.0.1:8888/
+      <pre><code class="language-shell">> curl 127.0.0.1:8888/
 Gordon's blog index
 > curl 127.0.0.1:8888/article-1.html
 Article n°1
@@ -514,13 +514,13 @@ Article n°42</code></pre>
       <tab for="twindows_curl_wrong_uri">Windows</tab>
     </tablist>
     <tabpanel id="tunix_curl_wrong_uri">
-      <pre><code language="shell">$ curl 127.0.0.1:8888/foobar
+      <pre><code class="language-shell">$ curl 127.0.0.1:8888/foobar
 Uncaught exception (Hoa\Router\Exception\NotFound):
 Hoa\Router\Http::route(): (6) Cannot found an appropriated rule to route foobar.
 in hoa://Library/Router/Http.php at line 490.</code></pre>
     </tabpanel>
     <tabpanel id="twindows_curl_wrong_uri">
-      <pre><code language="shell">> curl 127.0.0.1:8888/foobar
+      <pre><code class="language-shell">> curl 127.0.0.1:8888/foobar
 Uncaught exception (Hoa\Router\Exception\NotFound):
 Hoa\Router\Http::route(): (6) Cannot found an appropriated rule to route foobar.
 in hoa://Library/Router/Http.php at line 490.</code></pre>
@@ -531,7 +531,7 @@ in hoa://Library/Router/Http.php at line 490.</code></pre>
   pouvons capturer cette exception et réagir en conséquence, par exemple en
   indiquant qu'une erreur s'est produite, en modifiant la fin du fichier
   <code>Application/Public/index.php</code> ainsi :</p>
-  <pre><code language="php">try {
+  <pre><code class="language-php">try {
 
     $dispatcher->dispatch($router);
 }
@@ -546,11 +546,11 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
       <tab for="twindows_curl_not_found">Windows</tab>
     </tablist>
     <tabpanel id="tunix_curl_not_found">
-      <pre><code language="shell">$ curl 127.0.0.1:8888/foobar
+      <pre><code class="language-shell">$ curl 127.0.0.1:8888/foobar
 Your page seems to be not found /o\.</code></pre>
     </tabpanel>
     <tabpanel id="twindows_curl_not_found">
-      <pre><code language="shell">> curl 127.0.0.1:8888/foobar
+      <pre><code class="language-shell">> curl 127.0.0.1:8888/foobar
 Your page seems to be not found /o\.</code></pre>
     </tabpanel>
   </tabs>
@@ -576,7 +576,7 @@ Your page seems to be not found /o\.</code></pre>
   <a href="http://hg.hoa-project.net/Sandbox">le dépôt <code>Sandbox/</code></a>
   dans le fichier <code>GordonsBlog/Data/Variable/Database/Blog.sql</code>. Nous
   donnons ici la description des tables :</p>
-  <pre><code language="sql">CREATE TABLE article (
+  <pre><code class="language-sql">CREATE TABLE article (
     id      INTEGER,
     title   VARCHAR(255),
     posted  TIMESTAMP,
@@ -605,11 +605,11 @@ CREATE TABLE comment (
       <tab for="twindows_init_database">Windows</tab>
     </tablist>
     <tabpanel id="tunix_init_database">
-      <pre><code language="shell">$ cd Data/Variable/Database
+      <pre><code class="language-shell">$ cd Data/Variable/Database
 $ sqlite3 -init Blog.sql -echo Blog.sqlite</code></pre>
     </tabpanel>
     <tabpanel id="twindows_init_database">
-      <pre><code language="shell">> cd Data\Variable\Database
+      <pre><code class="language-shell">> cd Data\Variable\Database
 > sqlite3 -init Blog.sql -echo Blog.sqlite</code></pre>
     </tabpanel>
   </tabs>
@@ -623,7 +623,7 @@ $ sqlite3 -init Blog.sql -echo Blog.sqlite</code></pre>
   <p>Nous commençons par écrire l'entité <code>Comment</code> comme étant la
   classe <code>Application\Model\Comment</code> en fonction de notre
   schéma :</p>
-  <pre><code language="php">namespace {
+  <pre><code class="language-php">namespace {
 
 from('Hoa')
 -> import('Model.~')
@@ -681,7 +681,7 @@ class Comment extends \Hoa\Model {
   Maintenant voyons l'entité <code>Article</code> comme étant la classe
   <code>Application\Model\Article</code> toujours en fonction de notre
   schéma :</p>
-  <pre><code language="php">namespace {
+  <pre><code class="language-php">namespace {
 
 from('Hoa')
 -> import('Model.~')
@@ -789,7 +789,7 @@ class Article extends \Hoa\Model {
   <p>Pour la méthode <code>IndexAction</code>, nous allons afficher la liste des
   articles présents sur le blog. Pour cela, nous allons nous aider de la méthode
   <code>getShortList</code> de <code>Application\Model\Article</code> :</p>
-  <pre><code language="php">public function IndexAction ( ) {
+  <pre><code class="language-php">public function IndexAction ( ) {
 
     $article = new \Application\Model\Article();
     $list    = $article->getShortList();
@@ -809,7 +809,7 @@ class Article extends \Hoa\Model {
 }</code></pre>
   <p>Pour la méthode <code>ArticleAction</code>, nous allons afficher un article
   avec ses commentaires en fonction de l'identifiant de l'article demandé :</p>
-  <pre><code language="php">public function ArticleAction ( $id ) {
+  <pre><code class="language-php">public function ArticleAction ( $id ) {
 
     $article = new \Application\Model\Article();
     $article->open(array('id' => $id));
@@ -830,7 +830,7 @@ class Article extends \Hoa\Model {
 
   <p>Nous devons également inclure les classes des modèles que nous utilisons
   en ajoutant, tout en haut de notre contrôleur :</p>
-  <pre><code language="php">namespace {
+  <pre><code class="language-php">namespace {
 
 from('Application')
 -> import('Model.Article')
@@ -844,7 +844,7 @@ from('Application')
   pour lui ajouter la connexion à notre base de données qui sera exploitée par
   notre modèle (à l'aide de la méthode <code>getLastInstance</code> de
   <code>Hoa\Database\Dal</code>) ; ainsi :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Database.Dal')
 -> import('Dispatcher.Basic')
 -> import('Router.Http');
@@ -877,7 +877,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
       <tab for="twindows_curl_rich">Windows</tab>
     </tablist>
     <tabpanel id="tunix_curl_rich">
-      <pre><code language="shell">$ curl 127.0.0.1:8888/
+      <pre><code class="language-shell">$ curl 127.0.0.1:8888/
 
                                ★ Gordon's blog ★
 
@@ -915,7 +915,7 @@ I really donnot understand what you do but I am very proud of my
 little Gordy :-). xoxo, your Mummy.</code></pre>
     </tabpanel>
     <tabpanel id="twindows_curl_rich">
-      <pre><code language="shell">> curl 127.0.0.1:8888/
+      <pre><code class="language-shell">> curl 127.0.0.1:8888/
 
                                ★ Gordon's blog ★
 
@@ -986,7 +986,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   <p>Chaque page sera un <em>overlay</em> par rapport au document principal,
   nous y préciserons donc un identifiant auquel ceux-ci pourront venir
   s'attacher. Ainsi le document principal s'écrira :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>&amp;lt;value bind="?title" /> — Gordon's blog&amp;lt;/title>
@@ -1012,7 +1012,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   <code>Application/View/Blog/</code>. Ainsi, la liste des articles sera
   représentée par le fichier <code>Index.xyl</code> et va définir un
   <em>overlay</em> pour l'identifiant <code>main</code> :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;div id="main">
@@ -1040,7 +1040,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   fait le choix de définir un composant pour représenter les commentaires sous
   le nom <code>comment</code> et défini dans le fichier
   <code>Comment.xyl</code>. Ainsi :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-use href="hoa://Application/View/Blog/Comment.xyl"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
@@ -1063,7 +1063,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   variable d'où sa grande simplicité.</p>
   <p>Et la déclaration de notre composant <code>comment</code> se fait de la
   manière suivante :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;definition xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;yield name="comment">
@@ -1087,7 +1087,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   <code>ArticleAction</code> pour un seul article. Les données sont déjà
   extraites, nous allons les donner à XYL. Commençons par
   <code>IndexAction</code> :</p>
-  <pre><code language="php">public function IndexAction ( ) {
+  <pre><code class="language-php">public function IndexAction ( ) {
 
     $article              = new \Application\Model\Article();
     $list                 = $article->getShortList();
@@ -1106,7 +1106,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   comprend bien les données provenant des bases de données (entre autres) : nous
   lui donnons <code>$list</code> sans effectuer aucune opération.</p>
   <p>Le traitement sera similaire pour un article et ses commentaires :</p>
-  <pre><code language="php">public function ArticleAction ( $id ) {
+  <pre><code class="language-php">public function ArticleAction ( $id ) {
 
     $article              = new \Application\Model\Article();
     $article->id          = $id;
@@ -1126,7 +1126,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   <p>Avant de tester, nous devons modifier notre fichier d'amorçage
   <code>index.php</code> pour préciser à notre dispatcheur en second argument
   qu'il doit utiliser <code>Hoa\Xyl</code> comme vue :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Database.Dal')
 -> import('Dispatcher.Basic')
 -> import('Router.Http')
@@ -1181,7 +1181,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
   <code>Application/Public/Classic/</code>. Pour les utiliser, nous allons
   ajouter la feuille de style <code>Css/UI.css</code> à notre document
   principal :</p>
-  <pre><code language="xml">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-stylesheet href="hoa://Application/Public/Css/UI.css"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">

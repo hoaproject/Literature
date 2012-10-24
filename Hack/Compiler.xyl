@@ -218,21 +218,21 @@ rule4 ::= e f</code></pre>
   (vaut <code>default</code> par défaut). Par exemple <code>number</code> qui
   représente un nombre composé de chiffres de <code>0</code> à
   <code>9</code> :</p>
-  <pre><code language="pp">%token number \d+</code></pre>
+  <pre><code class="language-pp">%token number \d+</code></pre>
   <p>Les espaces de noms représentent des <strong>sous-ensembles</strong>
   disjoints de lexèmes, utilisés pour <strong>faciliter</strong> les analyses.
   Une déclaration <code>%skip</code> est similaire à <code>%token</code>
   excepté qu'elle représente un lexème à <strong>sauter</strong>, c'est à dire
   à ne pas considérer. Un exemple courant de lexèmes <code>%skip</code> est les
   espaces :</p>
-  <pre><code language="pp">%skip space \s</code></pre>
+  <pre><code class="language-pp">%skip space \s</code></pre>
   <p>Pour expliquer les règles, nous allons utiliser comme exemple la grammaire
   <code>Json.pp</code>, grammaire légèrement <strong>simplifiée</strong> du
   <a href="http://json.org/">langage JSON</a> (voir la
   <a href="https://tools.ietf.org/html/rfc4627">RFC4627</a>). La grammaire
   <strong>complète</strong> se situe dans le fichier
   <code>hoa://Library/Json/Grammar.pp</code>. Ainsi :</p>
-  <pre><code language="pp">%skip   space          \s
+  <pre><code class="language-pp">%skip   space          \s
 // Scalars.
 %token  true           true
 %token  false          false
@@ -347,7 +347,7 @@ number:
   la donnée est correcte, nous aurons en retour un AST, sinon une exception sera
   levée. Enfin, nous allons utiliser le visiteur
   <code>Hoa\Compiler\Visitor\Dump</code> pour afficher notre AST :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('File.Read')
 -> import('Compiler.Llk.~')
 -> import('Compiler.Visitor.Dump');
@@ -381,7 +381,7 @@ echo $dump->visit($ast);
   visiteur si besoin sur l'AST résultant. Notons que la lecture de la donnée
   peut se faire à travers uu
   <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)"><em lang="en">pipe</em></a> :</p>
-  <pre><code language="shell">$ echo '[1, [1, [2, 3], 5], 8]' | hoa compiler:pp Json.pp 0 --visitor dump
+  <pre><code class="language-shell">$ echo '[1, [1, [2, 3], 5], 8]' | hoa compiler:pp Json.pp 0 --visitor dump
 >  #array
 >  >  token(number, 1)
 >  >  #array
@@ -397,12 +397,12 @@ echo $dump->visit($ast);
   <p>Les analyses s'effectuent sur la règle <strong>racine</strong> mais nous
   pouvons préciser une <strong>autre règle</strong> à l'aide du deuxième
   argument de la méthode <code>Hoa\Compiler\Llk\Parser::parse</code> :</p>
-  <pre><code language="php">$compiler->parse('{"foo": true, "bar": [null, 42]}', 'object');</code></pre>
+  <pre><code class="language-php">$compiler->parse('{"foo": true, "bar": [null, 42]}', 'object');</code></pre>
   <p>Pour utiliser la règle racine, il suffit de passer <code>null</code>.</p>
   <p>Et enfin, pour ne pas générer l'AST mais uniquement savoir si la donnée est
   valide ou pas, nous pouvons utiliser le dernier argument de notre méthode en
   lui passant <code>false</code> :</p>
-  <pre><code language="php">$valid = $compiler->parse('{"foo": true, "bar": [null, 42]}', null, false);
+  <pre><code class="language-php">$valid = $compiler->parse('{"foo": true, "bar": [null, 42]}', null, false);
 var_dump($valid);
 
 /**
@@ -415,7 +415,7 @@ var_dump($valid);
 
   <p>Les erreurs de compilation sont remontées à travers des exceptions,
   ainsi :</p>
-  <pre><code language="shell">$ echo '{"foo" true}' | hoa compiler:pp Json.pp 0 --visitor dump
+  <pre><code class="language-shell">$ echo '{"foo" true}' | hoa compiler:pp Json.pp 0 --visitor dump
 Uncaught exception (Hoa\Compiler\Exception\UnexpectedToken):
 Hoa\Compiler\Llk\Parser::parse(): (0) Unexpected token "true" (true) at line 1
 and column 8:
@@ -454,12 +454,12 @@ in hoa://Library/Compiler/Llk/Parser.php at line 1</code></pre>
   <code>#</code>, comme pour la règle <code>#array</code>, qui permet de définir
   un nœud par <strong>défaut</strong>, mais il peut être surchargé. Par exemple,
   si nous remplaçons la règle <code>array</code> par :</p>
-  <pre><code language="pp">#array:
+  <pre><code class="language-pp">#array:
     ::bracket_:: value() ( ::comma:: value() #bigarray )* ::_bracket::</code></pre>
   <p>Si le tableau ne contient qu'une seule valeur, le nœud s'appelera
   <code>#array</code>, sinon il s'appelera <code>#bigarray</code> ; voyons
   plutôt :</p>
-  <pre><code language="shell">$ echo '[42]' | hoa compiler:pp Json.pp 0 --visitor dump
+  <pre><code class="language-shell">$ echo '[42]' | hoa compiler:pp Json.pp 0 --visitor dump
   >  #array
   >  >  token(number, 42)
 $ echo '[4, 2]' | hoa compiler:pp Json.pp 0 --visitor dump
@@ -476,7 +476,7 @@ $ echo '[4, 2]' | hoa compiler:pp Json.pp 0 --visitor dump
   langages de grammaires connus est la capacité d'exprimer une
   <strong>unification</strong> de lexèmes. Imaginons la grammaire
   suivante :</p>
-  <pre><code language="pp">%token  quote   '|"
+  <pre><code class="language-pp">%token  quote   '|"
 %token  string  \w+
 
 rule:
@@ -494,7 +494,7 @@ rule:
   d'une règle, c'est à dire qu'il n'y a pas d'unification entre les lexèmes de
   plusieurs règles et que cela s'applique sur la règle <strong>appelée</strong>
   uniquement. Ainsi, l'exemple devient :</p>
-  <pre><code language="pp">rule:
+  <pre><code class="language-pp">rule:
     ::quote[0]:: &amp;lt;string> ::quote[0]::</code></pre>
   <p>Ce qui invalide les données <code>"foo'</code> et <code>'foo"</code>.</p>
   <p>L'unification trouve de nombreuses applications, comme par exemple unifier
@@ -549,7 +549,7 @@ rule:
   méthode à écrire : <code>visit</code> qui prend trois arguments :
   l'élément et deux arguments accessoires (en copie et en référence). Voyons
   plutôt :</p>
-  <pre><code language="php">class PrettyPrinter implements Hoa\Visitor\Visit {
+  <pre><code class="language-php">class PrettyPrinter implements Hoa\Visitor\Visit {
 
     public function visit ( Hoa\Visitor\Element $element,
                             &amp;amp;$handle = null, $eldnah = null ) {
@@ -627,7 +627,7 @@ rule:
     }
 }</code></pre>
   <p>Nous allons voir tout de suite un exemple d'utilisation :</p>
-  <pre><code language="php">$compiler    = Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp'));
+  <pre><code class="language-php">$compiler    = Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp'));
 $ast         = $compiler->parse('{"foo": true, "bar": [null, 42]}');
 $prettyPrint = new PrettyPrinter();
 echo $prettyPrint->visit($ast);
@@ -646,7 +646,7 @@ echo $prettyPrint->visit($ast);
   <strong>stocker</strong> des données susceptibles d'être
   <strong>réutilisées</strong>, par exemple d'un visiteur à l'autre. Cette
   méthode retourne une <strong>référence</strong> sur un tableau ; ainsi :</p>
-  <pre><code language="php">$data = $element->getData();
+  <pre><code class="language-php">$data = $element->getData();
 
 if(!isset($data['previousComputing']))
     throw new Exception('Need a previous computing.', 0);
@@ -700,7 +700,7 @@ $previous = $data['previousComputing'];</code></pre>
   <p>Nous pouvons l'obtenir grâce à la méthode
   <code>Hoa\Compiler\Llk\Parser::getTrace</code>. Pour bien comprendre cette
   trace, nous allons commencer par un exemple :</p>
-  <pre><code language="php">$compiler = Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp'));
+  <pre><code class="language-php">$compiler = Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp'));
 $ast      = $compiler->parse('{"foo": true, "bar": [null, 42]}');
 $i        = 0;
 
@@ -794,7 +794,7 @@ foreach($compiler->getTrace() as $element)
   <code>Hoa\Compiler\Llk\Parser::getRules</code> sous la forme d'un tableau.
   Nous allons afficher toutes les règles <strong>accessibles</strong> depuis la
   règle racine pour mieux comprendre :</p>
-  <pre><code language="php">$compiler = Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp'));
+  <pre><code class="language-php">$compiler = Hoa\Compiler\Llk::load(new Hoa\File\Read('Json.pp'));
 $ast      = $compiler->parse('{"foo": true, "bar": [null, 42]}');
 
 // 1. Get all rules.
@@ -947,7 +947,7 @@ while(false !== current($stack)) {
   <code>Hoa\Compiler\Llk\Sampler\Uniform</code> qui prend en premier argument
   notre grammaire, en deuxième le générateur de valeurs de lexèmes (ici
   <code>Hoa\Regex\Visitor\Isototropic</code>) et enfin la taille :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('File.Read')
 -> import('Compiler.Llk.~')
 -> import('Compiler.Llk.Sampler.Uniform')
@@ -994,7 +994,7 @@ for($i = 0; $i &amp;lt; 10; ++$i)
   <em>n</em> (c'est le caractère borné). Un aspect très intéressant de cet
   algorithme est que l'exhaustivité est une forme de <strong>preuve</strong> !
   L'algorithme fonctionne comme un itérateur et est très simple à utiliser :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Compiler.Llk.Sampler.BoundedExhaustive');
 
 $sampler = new Hoa\Compiler\Llk\Sampler\BoundedExhaustive(
@@ -1056,7 +1056,7 @@ foreach($sampler as $i => $data)
   les séquences produites, les points de choix entre des sous-règles non
   couvertes sont résolus par tirages <strong>aléatoires</strong>. L'algorithme
   fonctionne également comme un itérateur :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Compiler.Llk.Sampler.Coverage');
 
 $sampler = new Hoa\Compiler\Llk\Sampler\Coverage(

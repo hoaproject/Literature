@@ -68,13 +68,13 @@
   quant à elles, suivent toutes la même convention de nommage, à savoir
   <code>http://git.hoa-project.net/Library/<em>Name</em>.git</code>. Ainsi, si
   nous voulons récupérer <code>Hoa\Core</code> :</p>
-  <pre><code language="shell">$ git clone http://git.hoa-project.net/Library/Core.git Hoa/Core</code></pre>
+  <pre><code class="language-shell">$ git clone http://git.hoa-project.net/Library/Core.git Hoa/Core</code></pre>
   <p>Ajoutons <code>Hoa\Router</code> :</p>
-  <pre><code language="shell">$ git clone http://git.hoa-project.net/Library/Router.git Hoa/Router</code></pre>
+  <pre><code class="language-shell">$ git clone http://git.hoa-project.net/Library/Router.git Hoa/Router</code></pre>
   <p>Ces bibliothèques sont dans le même dossier <code>Hoa/</code>.</p>
   <p>Si nous voulons mettre à jour une bibliothèque, nous ferons (dans le
   dossier de la bibliothèque) :</p>
-  <pre><code language="shell">$ git pull</code></pre>
+  <pre><code class="language-shell">$ git pull</code></pre>
   <p>Notons que Git ne gère pas les dépendances entre les bibliothèques tout
   seul.</p>
 
@@ -86,7 +86,7 @@
   pour Git et le nommage des dépôts est également le même excepté pour les
   bibliothèques qui sont à la racine du profil et non pas dans un dossier
   <code>Library/</code>, ainsi :</p>
-  <pre><code language="shell">$ git clone https://github.com/hoaproject/Core.git Hoa/Core</code></pre>
+  <pre><code class="language-shell">$ git clone https://github.com/hoaproject/Core.git Hoa/Core</code></pre>
 
   <h3 id="Depuis_Composer_et_Packagist" for="main-toc">Depuis Composer et
   Packagist</h3>
@@ -108,11 +108,11 @@
   <p>Nous remarquons que le nom de la bibliothèque est entièrement en
   <strong>minuscule</strong>. Ensuite, il suffit d'utiliser Composer pour
   installer les bibliothèques :</p>
-  <pre><code language="php">$ composer install</code></pre>
+  <pre><code class="language-php">$ composer install</code></pre>
   <p>Nous remarquons également que <code>Hoa\Core</code> a été installée en même
   temps car c'est une dépendance de <code>Hoa\Router</code> !</p>
   <p>Pour mettre le projet à jour :</p>
-  <pre><code language="php">$ composer update</code></pre>
+  <pre><code class="language-php">$ composer update</code></pre>
   <p>Composer intègre <a href="http://packagist.org/">Packagist</a>, un service
   qui <strong>agrège</strong> l'ensemble des projets utilisables avec Composer.
   Les bibliothèques sont enregistrées vers le miroir Github car ce dernier
@@ -148,7 +148,7 @@
   <p>Ce format d'archive est disponible aux mêmes endroits que
   <a href="#Depuis_une_archive_compressee">les archives compressées</a>,
   toutefois, l'archive est exécutable :</p>
-  <pre><code language="shell">$ mkdir -p /usr/local/lib/hoa
+  <pre><code class="language-shell">$ mkdir -p /usr/local/lib/hoa
 $ cd !!$
 $ wget http://download.hoa-project.net/Central/Hoa.next.phar
 $ php Hoa.next.phar
@@ -165,14 +165,14 @@ Options :
   paramètre <code>detect_unicode</code> dans votre fichier
   <code>php.ini</code> pour le passer à <code>0</code>. Ou sinon,
   directement :</p>
-  <pre><code language="shell">$ php -d detect_unicode=0 Hoa.next.phar
+  <pre><code class="language-shell">$ php -d detect_unicode=0 Hoa.next.phar
 Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
 Options :
     …</code></pre>
   <p>Il est conseillé d'extraire Hoa avec l'option <code>-e</code> ou
   <code>- -extract</code>. Cela va extraire Hoa au même niveau que
   l'archive :</p>
-  <pre><code language="shell">$ php Hoa.next.phar - -extract
+  <pre><code class="language-shell">$ php Hoa.next.phar - -extract
 Extracted in /usr/local/lib/hoa</code></pre>
   -->
 
@@ -194,7 +194,7 @@ Extracted in /usr/local/lib/hoa</code></pre>
   <strong>totale</strong> comme avec le central. Une installation totale est
   plutôt utilisée dans le cas d'une installation globale. Pour respecter notre
   recommandation, il faudra user d'un lien symbolique, par exemple :</p>
-  <pre><code language="shell">$ git clone http://git.hoa-project.net/Central.git /usr/local/Hoa.central
+  <pre><code class="language-shell">$ git clone http://git.hoa-project.net/Central.git /usr/local/Hoa.central
 $ ln -s /usr/local/Hoa.central/Hoa /usr/local/lib/Hoa</code></pre>
   <p>Hoa est également capable de jongler entre deux installations : si une
   bibliothèque n'est pas trouvée localement (dans le contexte d'une
@@ -206,12 +206,12 @@ $ ln -s /usr/local/Hoa.central/Hoa /usr/local/lib/Hoa</code></pre>
   l'installation</h2>
 
   <p>Pour tester l'installation de Hoa, rien de plus simple :</p>
-  <pre><code language="php">&amp;lt;?php
+  <pre><code class="language-php">&amp;lt;?php
 
-require '/usr/local/lib/Hoa/Core/Core.php';
+require_once '/usr/local/lib/Hoa/Core/Core.php';
 var_dump(HOA);</code></pre>
   <p>ou directement en ligne de commande :</p>
-  <pre><code language="shell">$ php -r "require '/usr/local/lib/Hoa/Core/Core.php'; var_dump(HOA);"</code></pre>
+  <pre><code class="language-shell">$ php -r "require '/usr/local/lib/Hoa/Core/Core.php'; var_dump(HOA);"</code></pre>
   <p>À l'exécution, nous devons voir <code>bool(true)</code>. Si c'est le cas,
   c'est que Hoa est correctement installé.</p>
 

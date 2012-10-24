@@ -113,7 +113,7 @@ port 57005</code></pre>
   domaines <code>*.hoa</code> vers notre propre serveur :</p>
   <pre><code>server=/hoa/127.0.0.1#57005</code></pre>
   <p>Il ne faut pas oublier de redémarrer DNSMasq :</p>
-  <pre><code language="shell">$ sudo /etc/init.d/dnsmasq restart
+  <pre><code class="language-shell">$ sudo /etc/init.d/dnsmasq restart
  * Restarting DNS forwarder and DHCP server dnsmasq                         [OK]</code></pre>
 
   <h4 id="Sous_Windows" for="main-toc">Sous Windows</h4>
@@ -127,7 +127,7 @@ port 57005</code></pre>
   <code>127.0.0.1:57005</code> et en UDP. Ce serveur sera donné à
   <code>Hoa\Dns</code>, et le tout sera dans le fichier
   <code>Resolver.php</code> :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Socket.Server')
 -> import('Dns.~');
 
@@ -140,7 +140,7 @@ $dns = new Hoa\Dns(
   les domaines <code>*.hoa</code> l'adresse IP <code>127.0.0.1</code>, nous
   n'allons pas considérer les sous-domaines de <code>hoa</code> dans le cadre de
   cet exercice.</p>
-  <pre><code language="php">$dns->on('query', function ( Hoa\Core\Event\Bucket $bucket ) {
+  <pre><code class="language-php">$dns->on('query', function ( Hoa\Core\Event\Bucket $bucket ) {
 
     $data = $bucket->getData();
     echo 'Resolving domain ', $data['domain'],
@@ -179,7 +179,7 @@ $dns->run();</code></pre>
   </script>
   <p>Pour tester et s'amuser, nous allons <strong>créer</strong> un fichier
   <code>/tmp/index.html</code> contenant :</p>
-  <pre><code language="xml">&amp;lt;body&amp;gt;
+  <pre><code class="language-markup">&amp;lt;body&amp;gt;
   yeah \o/
 &amp;lt;/body&amp;gt;</code></pre>
   <p>Pour atteindre ce fichier, nous allons démarrer un <strong>serveur
@@ -188,12 +188,12 @@ $dns->run();</code></pre>
   notre serveur de résolution à fonctionner. Le fichier
   <code>/tmp/index.html</code> n'est présent que pour avoir un exemple complet.
   Démarrons donc Bhoa :</p>
-  <pre><code language="shell">$ hoa http:bhoa --root /tmp --listen 127.0.0.1:8888</code></pre>
+  <pre><code class="language-shell">$ hoa http:bhoa --root /tmp --listen 127.0.0.1:8888</code></pre>
   <p>Nous démarrons aussi notre serveur de résolution :</p>
-  <pre><code language="shell">$ php Resolver.php</code></pre>
+  <pre><code class="language-shell">$ php Resolver.php</code></pre>
   <p>Enfin, nous pouvons tester l'ensemble, par exemple avec
   <a href="http://curl.haxx.se/">cURL</a> :</p>
-  <pre><code language="shell">$ curl foo.hoa:8888 --verbose
+  <pre><code class="language-shell">$ curl foo.hoa:8888 --verbose
 * About to connect() to foo.hoa port 8888 (#0)
 *   Trying 127.0.0.1... connected
 * Connected to foo.hoa (127.0.0.1) port 8888 (#0)
@@ -225,7 +225,7 @@ yeah \o/
   serveur de résolution et de rediriger certains domaines vers des IP. Le
   filtrage se fait à l'aide d'expressions régulières (voir les
   <a href="http://pcre.org/">PCRE</a>). Ainsi :</p>
-  <pre><code language="shell">$ hoa dns:server 'foo.*' to 1.2.3.4 '.*\.bar\..*' to 5.6.7.8
+  <pre><code class="language-shell">$ hoa dns:server 'foo.*' to 1.2.3.4 '.*\.bar\..*' to 5.6.7.8
 Server is up, on udp://127.0.0.1:57005!
 
 ▋</code></pre>

@@ -60,7 +60,7 @@
   méthode <code>Hoa\Worker\Run::widExists</code>, dans le cas échant nous
   allons le créer avec la méthode <code>Hoa\Worker\Run::register</code>.
   Ainsi :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Worker.Run')
 -> import('Worker.Backend.Shared');
 
@@ -76,7 +76,7 @@ if(false === Hoa\Worker\Run::widExists('demorker'))
   traitement de tâches. Enfin, la méthode
   <code>Hoa\Worker\Backend\Shared::run</code> permet de démarrer le <em
   lang="en">worker</em> :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('File.Write');
 
 $file   = new Hoa\File\Write(__DIR__ . DS . 'Log');
@@ -100,7 +100,7 @@ $worker->run();
   <code>hoa://Data/Variable/Run/<em>workerId</em>.wid</code>. Attention à
   vérifier que ce chemin est bien défini, par exemple en choisissant le dossier
   <code>/path/to/wid/directory</code> :</p>
-  <pre><code language="php">Hoa\Core::getInstance()->setProtocol(
+  <pre><code class="language-php">Hoa\Core::getInstance()->setProtocol(
     'hoa://Data/Variable/Run',
     '/path/to/wid/directory/'
 );
@@ -126,7 +126,7 @@ var_dump(resolve('hoa://Data/Variable/Run/'));
   l'identifiant du <em lang="en">worker</em>, et ensuite utiliser la méthode
   adéquate pour envoyer des messages, à savoir
   <code>Hoa\Worker\Shared::postMessage</code> :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Worker.Shared');
 
 $worker = new Hoa\Worker\Shared('demorker');
@@ -148,7 +148,7 @@ $worker->postMessage('mail gordon@freeman.hl Hello Gordon!');</code></pre>
 
   <p>Pour exécuter un <em lang="en">worker</em>, il faut avant tout démarrer
   <a href="http://php.net/install.fpm">PHP FPM</a> :</p>
-  <pre><code language="shell">$ php-fpm -d listen=127.0.0.1:9000</code></pre>
+  <pre><code class="language-shell">$ php-fpm -d listen=127.0.0.1:9000</code></pre>
   <p>Ensuite, pour <strong>démarrer</strong> notre <em lang="en">worker</em>,
   nous allons utiliser
   <a href="@ll:chapter=Install#Hoa_en_ligne_de_commande">Hoa en ligne de
@@ -157,7 +157,7 @@ $worker->postMessage('mail gordon@freeman.hl Hello Gordon!');</code></pre>
   <code>Hoa\Worker\Backend\Shared::start</code> qui nécessite l'adresse de
   PHP FPM (par défaut <code>127.0.0.1:9000</code>) et le chemin vers le fichier
   qui contient notre <em lang="en">worker</em> :</p>
-  <pre><code language="shell">$ hoa worker:start /path/to/your/worker.php</code></pre>
+  <pre><code class="language-shell">$ hoa worker:start /path/to/your/worker.php</code></pre>
   <p>Pour vérifier que notre <em lang="en">worker</em> a été créé, nous pouvons
   utiliser la commande <code>worker:status</code> qui va nous retourner la
   <strong>liste</strong> de tous les <em lang="en">workers</em> ainsi que des
@@ -165,7 +165,7 @@ $worker->postMessage('mail gordon@freeman.hl Hello Gordon!');</code></pre>
   les identifiants, adresses des serveurs, âge, consommation mémoire actuelle,
   moyenne et maximum etc. En réalité, elle n'est qu'un alias vers
   <code>Hoa\Worker\Shared::getInformations()</code>. Ainsi :</p>
-  <pre><code language="shell">$ hoa worker:status --run /path/to/wid/directory/
+  <pre><code class="language-shell">$ hoa worker:status --run /path/to/wid/directory/
 Shared worker informations
 
 ID        PID   Socket                  Uptime      Messages  Last  
@@ -182,7 +182,7 @@ demorker  ||||||||||||||||||||||||||||||||||||   |  1,398Kb 1,398Kb 1,536Kb
   proprement, nous avons la commande <code>worker:stop</code>, qui n'est qu'un
   alias de <code>Hoa\Worker\Backend\Shared</code>, nécessitant l'identifiant du
   <em lang="en">worker</em> et son <strong>mot de passe</strong> :</p>
-  <pre><code language="shell">$ hoa worker:stop --run /path/to/wid/directory/ demorker
+  <pre><code class="language-shell">$ hoa worker:stop --run /path/to/wid/directory/ demorker
 Password: ▋</code></pre>
   <p>Si le mot de passe est correct, le <em lang="en">worker</em> sera arrêté et
   le client ne pourra plus communiquer avec lui et lèvera une exception

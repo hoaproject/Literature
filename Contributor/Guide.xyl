@@ -45,7 +45,7 @@
 
   <h2 id="get-the-code" for="main-toc">Récupération du code</h2>
   <p>Le code est disponible en clonant l'un des dépôts officiels. Ainsi, pour cloner la bibliothèque <code>Bench</code> :</p>
-  <pre><code language="shell">$ git clone http://git.hoa-project.net/Libraries/Bench.git
+  <pre><code class="language-shell">$ git clone http://git.hoa-project.net/Libraries/Bench.git
 Cloning into 'Bench'...
 remote: Counting objects: 19978, done.
 remote: Compressing objects: 100% (4950/4950), done.
@@ -54,7 +54,7 @@ Receiving objects: 100% (19978/19978), 2.93 MiB, done.
 Resolving deltas: 100% (14741/14741), done.</code></pre>
   <p>Vous avez maintenant le répertoire Bench, dans lequel sont présentes
   les sources de la librairie Bench :</p>
-  <pre><code language="shell">$ cd Bench
+  <pre><code class="language-shell">$ cd Bench
 $ git branch -a
 * master
 remotes/origin/HEAD -> origin/master

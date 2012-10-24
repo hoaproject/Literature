@@ -69,12 +69,12 @@
   <p>PHP propose l'outil <code>php-cgi</code> qui permet de
   <strong>démarrer</strong> un serveur CGI (reposant sur le protocole FastCGI).
   Pour l'utiliser :</p>
-  <pre><code language="shell">$ php-cgi -b 127.0.0.1:9000</code></pre>
+  <pre><code class="language-shell">$ php-cgi -b 127.0.0.1:9000</code></pre>
   <p>PHP propose un autre outil : <code>php-fpm</code>, qui utilise
   <a href="http://php.net/install.fpm">FPM</a> (pour <em lang="en">FastCGI
   Process Manager</em>). C'est un serveur CGI dédié à la <strong>haute
   performance</strong> et uniquement réservé à PHP. Pour l'utiliser :</p>
-  <pre><code language="shell">$ php-fpm -d listen=127.0.0.1:9000</code></pre>
+  <pre><code class="language-shell">$ php-fpm -d listen=127.0.0.1:9000</code></pre>
   <p>Attention à bien <strong>compiler</strong> PHP avec les options
   <code>--enable-cgi</code> ou <code>--enable-fpm</code> pour obtenir l'outil de
   votre choix.</p>
@@ -95,7 +95,7 @@
   vers le serveur CGI, et la donner au constructeur de
   <code>Hoa\Fastcgi\Responder</code>. Ainsi, nous avons le fichier
   <code>Responder.php</code> :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Socket.Client')
 -> import('Fastcgi.Responder');
 
@@ -116,11 +116,11 @@ $fastcgi = new Hoa\Fastcgi\Responder(
   </ul>
   <p>Cette méthode retourne la réponse de la requête. Ainsi, nous préparons
   notre fichier <code>Echo.php</code> :</p>
-  <pre><code language="php">&amp;lt;?php
+  <pre><code class="language-php">&amp;lt;?php
 
 echo 'foobar';</code></pre>
   <p>Et nous ajoutons à <code>Responder.php</code> :</p>
-  <pre><code language="php">var_dump($fastcgi->send(array(
+  <pre><code class="language-php">var_dump($fastcgi->send(array(
     'REQUEST_METHOD'  => 'GET',
     'REQUEST_URI'     => '/',
     'SCRIPT_FILENAME' => __DIR__ . DS . 'Echo.php'
@@ -136,7 +136,7 @@ echo 'foobar';</code></pre>
   <code>Hoa\Fastcgi\Responder::getResponseHeaders</code> (sœur de
   <code>Hoa\Fastcgi\Responder::getResponseContent</code> qui retourne la même
   chose que la méthode <code>Hoa\Fastcgi\Responder::send</code>) :</p>
-  <pre><code language="php">print_r($fastcgi->getResponseHeaders());
+  <pre><code class="language-php">print_r($fastcgi->getResponseHeaders());
 var_dump($fastcgi->getResponseContent());
 
 /**
@@ -170,7 +170,7 @@ var_dump($fastcgi->getResponseContent());
   </ul>
   <p>Le meilleur moyen de capturer toutes les exceptions est de capturer
   <code>Hoa\Fastcgi\Responder\Exception</code> :</p>
-  <pre><code language="php">try {
+  <pre><code class="language-php">try {
 
     $fastcgi->send(…);
 }

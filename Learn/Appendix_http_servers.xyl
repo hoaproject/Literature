@@ -95,7 +95,7 @@
   <p>La réécriture d'URL pour Apache est gérée par le module
   <a href="http://httpd.apache.org/docs/current/mod/mod_rewrite.html"><code>mod_rewrite</code></a>.
   Sous Unix, celui-ci peut être activé grâce à la commande :</p>
-  <pre><code language="shell">$ a2enmod mod_rewrite</code></pre>
+  <pre><code class="language-shell">$ a2enmod mod_rewrite</code></pre>
   <p>Sous Windows, dans le fichier <code>httpd.conf</code>, il faut décommenter
   la ligne suivante :</p>
   <pre><code>LoadModule rewrite_module modules/mod_rewrite.so</code></pre>
@@ -181,7 +181,7 @@ RewriteRule ^(.*)$ index.php?$1</code></pre>
   <a href="http://nginx.org/en/docs/">directives de configuration de
   nginx</a>. Attention à bien démarrer le serveur FastCGI de PHP pour que nginx
   puisse exécuter les fichiers PHP :</p>
-  <pre><code language="shell">$ php-cgi -b 127.0.0.1:9000</code></pre>
+  <pre><code class="language-shell">$ php-cgi -b 127.0.0.1:9000</code></pre>
   <p>nginx vous préviendra avec une erreur 500 que le serveur n'est pas
   accessible.</p>
 
@@ -207,13 +207,13 @@ RewriteRule ^(.*)$ index.php?$1</code></pre>
   travers un serveur <a href="http://fastcgi.com/">FastCGI</a>, qui lui se
   charge d'interpréter les pages, comme nginx. Ainsi, nous allons devoir le
   démarrer :</p>
-  <pre><code language="shell">$ php-cgi -b 127.0.0.1:9000</code></pre>
+  <pre><code class="language-shell">$ php-cgi -b 127.0.0.1:9000</code></pre>
   <p>Enfin, Hoa fournit une abstraction des chemins à travers le protocole
   <code>hoa://</code> qui propose le chemin
   <code>hoa://Application/Public/</code> pour accéder à notre dossier
   public. Nous allons utiliser ce chemin pour définir la racine du serveur ;
   ainsi :</p>
-  <pre><code language="shell">$ myapp http:bhoa --root hoa://Application/Public/
+  <pre><code class="language-shell">$ myapp http:bhoa --root hoa://Application/Public/
 Server is up, on tcp://127.0.0.1:8888!
 Root: hoa://Application/Public/.
 
@@ -228,7 +228,7 @@ Waiting for connection… ▋</code></pre>
   serveur n'est utile que pour du développement, tout comme Bhoa. Nous pouvons
   l'utiliser de cette manière, depuis le dossier
   <code>Application/Public/</code> de notre application :</p>
-  <pre><code language="shell">$ php -S 127.0.0.1:8888 -r .
+  <pre><code class="language-shell">$ php -S 127.0.0.1:8888 -r .
 PHP x.y.z Development Server started at …
 Listening on 127.0.0.1:8888
 Document root is …/Public
@@ -241,7 +241,7 @@ Press Ctrl-C to quit.
   Nous proposons le fichier <code>.webserver</code> (dans le dossier
   <code>Application/Public/</code> toujours) pour interpréter les URL comme
   étant réécrites. Ce fichier est écrit en utilisant Hoa lui-même ! Ainsi :</p>
-  <pre><code language="php">&amp;lt;?php
+  <pre><code class="language-php">&amp;lt;?php
 
 require_once '/usr/local/lib/Hoa/Core/Core.php';
 
@@ -276,7 +276,7 @@ $dispatcher = new Hoa\Dispatcher\Basic();
 $dispatcher->dispatch($router);
   </code></pre>
   <p>Et voici comment l'utiliser dans le serveur natif de PHP :</p>
-  <pre><code language="shell">$ php -S 127.0.0.1:8888 -r . .webserver.php
+  <pre><code class="language-shell">$ php -S 127.0.0.1:8888 -r . .webserver.php
 PHP x.y.z Development Server started at …
 Listening on 127.0.0.1:8888
 Document root is …/Public

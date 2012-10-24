@@ -90,7 +90,7 @@
   <p>Pour illuster les premiers exemples, nous allons créer une petite base de
   données et la pré-remplir de quelques données. Dans un fichier, n'importe où
   (par exemple <code>/tmp/Foo.sql)</code>, nous écrivons nos requêtes SQL :</p>
-  <pre><code language="sql">CREATE TABLE user (
+  <pre><code class="language-sql">CREATE TABLE user (
     id        INTEGER PRIMARY KEY ASC AUTOINCREMENT,
     firstname VARCHAR(32),
     lastname  VARCHAR(32),
@@ -101,7 +101,7 @@ INSERT INTO user VALUES ( NULL, 'Gordon', 'Freeman', 1973 );
 INSERT INTO user VALUES ( NULL, 'Alyx',   'Vance',   1995 );
 INSERT INTO user VALUES ( NULL, 'Cave',   'Johnson', 1947 );</code></pre>
   <p>Puis nous allons créer notre base de données :</p>
-  <pre><code language="shell">$ sqlite3 -init /tmp/Foo.sql -echo /var/db/Foo.sqlite</code></pre>
+  <pre><code class="language-shell">$ sqlite3 -init /tmp/Foo.sql -echo /var/db/Foo.sqlite</code></pre>
 
   <h3 id="Se_connecter_a_une_base_de_donnees" for="main-toc">Se connecter à une
   base de données</h3>
@@ -131,7 +131,7 @@ INSERT INTO user VALUES ( NULL, 'Cave',   'Johnson', 1947 );</code></pre>
   Par exemple, si nous utilisons une base de données SQLite située dans le
   fichier <code>/var/db/Foo.sqlite</code> sous le profil <code>default</code>,
   alors nous aurons le code suivant :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Database.Dal');
 
 Hoa\Database\Dal::initializeParameters(array(
@@ -146,7 +146,7 @@ Hoa\Database\Dal::initializeParameters(array(
   <code>getInstance</code> qui permet de <strong>retrouver</strong> la connexion
   associée à un identifiant ou de l'<strong>ouvrir</strong> si c'est la première
   fois. Ainsi, nous ferons :</p>
-  <pre><code language="php">Hoa\Database\Dal::getInstance('default');</code></pre>
+  <pre><code class="language-php">Hoa\Database\Dal::getInstance('default');</code></pre>
   <p>Mais il existe aussi des cas où nous voulons simplement utiliser la
   connexion <strong>courante</strong> sans savoir laquelle c'est, en particulier
   si nous manipulons plusieurs connexions en même temps. C'est pourquoi
@@ -158,7 +158,7 @@ Hoa\Database\Dal::initializeParameters(array(
   défaut. L'exemple suivant va enrichir les paramètres que nous avons déjà
   écrits puis ouvrir la connexion attachée au profil <code>default</code> comme
   si la connexion avait déjà été ouverte :</p>
-  <pre><code language="php">Hoa\Database\Dal::initializeParameters(array(
+  <pre><code class="language-php">Hoa\Database\Dal::initializeParameters(array(
     'connection.list.default.dal' => Hoa\Database\Dal::PDO,
     'connection.list.default.dsn' => 'sqlite:/var/db/Foo.sqlite',
     'connection.autoload'         => 'default'
@@ -184,7 +184,7 @@ $connexion = Hoa\Database\Dal::getLastInstance();</code></pre>
   manière générale. Pour récupérer les résultats de notre requête, nous
   utiliserons la méthode <code>Hoa\Database\DalStatement::fetchAll</code>.
   Ainsi :</p>
-  <pre><code language="php">$dal       = Hoa\Database\Dal::getLastInstance();
+  <pre><code class="language-php">$dal       = Hoa\Database\Dal::getLastInstance();
 $statement = $dal->query('SELECT * FROM foo LIMIT 2');
 print_r($statement->fetchAll());
 
@@ -227,7 +227,7 @@ print_r($statement->fetchAll());
   reçoit un tableau de valeurs pour chaque paramètre. Les paramètres sont
   préfixés par deux-points (symbole « <code>:</code> ») et ne doivent pas
   contenir d'espaces.  Voyons plutôt :</p>
-  <pre><code language="php">$dal       = Hoa\Database\Dal::getLastInstance();
+  <pre><code class="language-php">$dal       = Hoa\Database\Dal::getLastInstance();
 $statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
 $limit     = 2;
 $statement->execute(array('my_limit' => $limit));
@@ -237,7 +237,7 @@ print_r($statement->fetchAll());</code></pre>
   <code>Hoa\Database\Dal::bindParameter</code> qui permet de faire des choses
   intéressantes. Nous ne verrons que deux des quatres arguments disponibles, qui
   permettent d'associer une valeur à un paramètre :</p>
-  <pre><code language="php">$statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
+  <pre><code class="language-php">$statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
 $limit     = 2;
 $statement->bindParameter('my_limit', $limit);
 $statement->execute();</code></pre>
@@ -245,7 +245,7 @@ $statement->execute();</code></pre>
   est passée en <strong>référence</strong> ! Ce qui signifie que nos paramètres
   sont modifiables en modifiant simplement la valeur de cette variable sans
   avoir besoin d'appeler à nouveau la méthode <code>bindParameter</code> :</p>
-  <pre><code language="php">$statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
+  <pre><code class="language-php">$statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
 $limit     = 1;
 $statement->bindParameter('my_limit', $limit);
 ++$limit; // $limit and :my_limit are now set to 2.
@@ -291,7 +291,7 @@ $statement->execute();</code></pre>
   <code>Hoa\Model</code> pour profiter de ses services. Par exemple pour
   représenter un utilisateur qui a un identifiant, un prénom, un nom et un âge,
   nous aurions :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Model.~');
 
 class User extends Hoa\Model {
@@ -304,7 +304,7 @@ class User extends Hoa\Model {
   <p>Pour instancier un utilisateur, nous allons travailler sur ses attributs en
   faisant abstraction du <em>underscore</em> (symbole « <code>_</code> »),
   ainsi :</p>
-  <pre><code language="php">$user     = new User();
+  <pre><code class="language-php">$user     = new User();
 $user->id = 42;
 var_dump($user->id);
 
@@ -332,7 +332,7 @@ var_dump($user->id);
   entre les données extraites et notre modèle grâce à la méthode
   <code>map</code> qui reconnaît des données de plusieurs formes courantes et
   arrive à les associer à nos attributs :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Model.~')
 -> import('Model.Exception')
 -> import('Database.Dal');
@@ -375,20 +375,22 @@ class User extends Hoa\Model {
     }
 }</code></pre>
   <p>Nous pouvons tester ce modèle de cette façon :</p>
-  <pre><code language="php">$user = new User();
+  <pre><code class="language-php">$user = new User();
 $user->open(array('id' => 1));
 var_dump($user->firsname);
 
-// Will output:
-//     string(6) "Gordon"</code></pre>
+/**
+ * Will output:
+ *     string(6) "Gordon"
+ */</code></pre>
   <p>Il existe une autre manière de définir des contraintes en définissant des
   valeurs aux attributs avant d'ouvrir le modèle. Pour assurer les deux
   <strong>approches</strong>, nous pouvons fusionner les contraintes données
   dans la méthode <code>open</code> avec les contraintes définies par les
   attributs. Nous ajoutons alors juste avant le point 2 :</p>
-  <pre><code language="php">$constraints = array_merge($this->getConstraints(), $constraints);</code></pre>
+  <pre><code class="language-php">$constraints = array_merge($this->getConstraints(), $constraints);</code></pre>
   <p>Puis, pour arriver au même résultat que précédemment :</p>
-  <pre><code language="php">$user     = new User();
+  <pre><code class="language-php">$user     = new User();
 $user->id = 1;
 $user->open();
 var_dump($user->firstname);</code></pre>
@@ -412,19 +414,19 @@ var_dump($user->firstname);</code></pre>
   href="https://en.wikipedia.org/wiki/CamelCase">CamelCase</a>).</p>
   <p>Ainsi, si nous voulons ajouter une validation sur l'année de naissance qui
   doit être compris entre 1970 et l'année courante, nous ferions :</p>
-  <pre><code language="php">public function validateBirthday ( $birthday ) {
+  <pre><code class="language-php">public function validateBirthday ( $birthday ) {
 
     return 1970 &amp;lt;= $birthday &amp;amp;&amp;amp; ((int) date('Y')) >= $birthday;
 }</code></pre>
   <p>Si nous testons notre validateur en assignant des valeurs à la donnée
   <code>birthday</code>, nous aurons :</p>
-  <pre><code language="php">$user           = new User();
+  <pre><code class="language-php">$user           = new User();
 $user->birthday = 1973;  // all right.
 $user->birthday = 65537; // an exception is thrown.</code></pre>
   <!-- 65537 is a Fermat number (2^2^n + 1) -->
   <p>Nous pouvons désactiver la validation à l'aide de la méthode
   <code>setEnableValidation</code> de cette manière :</p>
-  <pre><code language="php">$user->setEnableValidation(false);</code></pre>
+  <pre><code class="language-php">$user->setEnableValidation(false);</code></pre>
   <p>Notons que comme notre modèle est représenté par un ensemble de classe,
   nous pouvons avoir de l'héritage et ainsi <strong>hériter</strong> des
   propriétés de validations. Nous sommes ainsi capable d'en surcharger certaines
@@ -460,7 +462,7 @@ $user->birthday = 65537; // an exception is thrown.</code></pre>
   automatiquement.</p>
   <p>Même si nous n'expliquons pas Praspel dans le détail, nous allons montrer
   comment valider notre modèle :</p>
-  <pre><code language="php">class User extends Hoa\Model {
+  <pre><code class="language-php">class User extends Hoa\Model {
 
     /**
      * @invariant id: boundinteger(1);
@@ -507,14 +509,14 @@ $user->birthday = 65537; // an exception is thrown.</code></pre>
   réaliste <code>array</code>. Nous devons préciser à quelle entité du modèle
   est reliée notre entitée courant et sa cardinalité. Par exemple, pour dire
   qu'« un utilisateur peut avoir zéro ou vingt mails », nous écririons :</p>
-  <pre><code language="php">/**
+  <pre><code class="language-php">/**
  * @invariant mails: relation('Mail', boundinteger(0, 20));
  */
 public $mails;</code></pre>
   <p>Enfin, pour faire le lien entre les données et la relation de notre modèle,
   nous devons nous positionner sur l'attribut qui va accueillir la relation et
   ensuite utiliser la méthode <code>map</code> :</p>
-  <pre><code language="php">$this->mails->map(…);</code></pre>
+  <pre><code class="language-php">$this->mails->map(…);</code></pre>
   <p>Nous ne détaillons pas toutes les possibilités de <code>Hoa\Model</code>,
   juste suffisamment pour démarrer.</p>
 
@@ -538,7 +540,7 @@ public $mails;</code></pre>
   <a href="http://hg.hoa-project.net/Sandbox">le dépôt <code>Sandbox/</code></a>
   dans le fichier <code>GordonsBlog/Data/Variable/Database/Blog.sql</code>. Nous
   donnons ici la description des tables :</p>
-  <pre><code language="sql">CREATE TABLE article (
+  <pre><code class="language-sql">CREATE TABLE article (
     id      INTEGER,
     title   VARCHAR(255),
     posted  TIMESTAMP,
@@ -560,7 +562,7 @@ CREATE TABLE comment (
   <p>Pour créer la base de données, nous allons nous aider de
   <code>sqlite3</code> en étant préalablement placé dans le dossier
   <code>Data/Variable/Database/</code> :</p>
-  <pre><code language="shell">$ cd Data/Variable/Database
+  <pre><code class="language-shell">$ cd Data/Variable/Database
 $ sqlite3 -init Blog.sql -echo Blog.sqlite</code></pre>
   <p>Notre base de données est maintenant créée. Nous allons écrire le modèle
   correspondant.</p>
@@ -572,7 +574,7 @@ $ sqlite3 -init Blog.sql -echo Blog.sqlite</code></pre>
   <p>Nous commençons par écrire l'entité <code>Comment</code> comme étant la
   classe <code>Application\Model\Comment</code> en fonction de notre
   schéma :</p>
-  <pre><code language="php">namespace {
+  <pre><code class="language-php">namespace {
 
 from('Hoa')
 -> import('Model.~')
@@ -628,7 +630,7 @@ class Comment extends \Hoa\Model {
   <code>Article</code> comme étant la classe
   <code>Application\Model\Article</code> toujours en fonction de notre
   schéma :</p>
-  <pre><code language="php">namespace {
+  <pre><code class="language-php">namespace {
 
 from('Hoa')
 -> import('Model.~')
@@ -734,7 +736,7 @@ class Article extends \Hoa\Model {
   <p>Pour la méthode <code>IndexAction</code>, nous allons afficher la liste des
   articles présents sur le blog. Pour cela, nous allons nous aider de la méthode
   <code>getShortList</code> sur <code>Application\Model\Article</code> :</p>
-  <pre><code language="php">public function IndexAction ( ) {
+  <pre><code class="language-php">public function IndexAction ( ) {
 
     $article = new \Application\Model\Article();
     $list    = $article->getShortList();
@@ -753,7 +755,7 @@ class Article extends \Hoa\Model {
 }</code></pre>
   <p>Pour la méthode <code>ArticleAction</code>, nous allons afficher un article
   avec ses commentaires en fonction de l'identifiant de l'article demandé :</p>
-  <pre><code language="php">public function ArticleAction ( $id ) {
+  <pre><code class="language-php">public function ArticleAction ( $id ) {
 
     $article = new \Application\Model\Article();
     $article->open(array('id' => $id));
@@ -774,7 +776,7 @@ class Article extends \Hoa\Model {
 
   <p>Nous devons également inclure les classes des modèles que nous utilisons
   en ajoutant, tout en haut de notre contrôleur :</p>
-  <pre><code language="php">namespace {
+  <pre><code class="language-php">namespace {
 
 from('Application')
 -> import('Model.Article')
@@ -788,7 +790,7 @@ from('Application')
   pour lui ajouter la connexion à notre base de données qui sera exploitée par
   notre modèle (à l'aide de la méthode <code>getLastInstance</code> de
   <code>Hoa\Database\Dal</code>) ; ainsi :</p>
-  <pre><code language="php">from('Hoa')
+  <pre><code class="language-php">from('Hoa')
 -> import('Database.Dal')
 -> import('Dispatcher.Basic')
 -> import('Router.Http');
@@ -814,10 +816,10 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
 }</code></pre>
   <p>Enfin, nous allons tester notre application un peu plus enrichie ! Nous
   commençons par démarrer Bhoa :</p>
-  <pre><code language="shell">$ myapp http:bhoa --root hoa://Application/Public</code></pre>
+  <pre><code class="language-shell">$ myapp http:bhoa --root hoa://Application/Public</code></pre>
   <p>À l'aide de cURL, nous allons afficher le résultat de notre index et d'un
   article :</p>
-  <pre><code language="shell">$ curl 127.0.0.1:8888/
+  <pre><code class="language-shell">$ curl 127.0.0.1:8888/
 
                                ★ Gordon's blog ★
 

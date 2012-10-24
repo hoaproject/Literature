@@ -57,7 +57,7 @@
   premier à travers <a href="http://mercurial.selenic.com/">Mercurial</a>, le
   second à travers une <a href="http://php.net/phar">archive exécutable
   Phar</a>. Ainsi, première solution :</p>
-  <pre><code language="shell">$ mkdir -p ~/Development/MyApp/
+  <pre><code class="language-shell">$ mkdir -p ~/Development/MyApp/
 $ cd !!$
 $ hg clone http://hg.hoa-project.net/Framework .
 $ hoa tree --list-directory
@@ -84,7 +84,7 @@ $ hoa tree --list-directory
 |   |   |   |-- Repository/
 |-- Stub/</code></pre>
   <p>Ou alors avec une archive exécutable :</p>
-  <pre><code language="shell">$ mkdir -p ~/Development/MyApp/
+  <pre><code class="language-shell">$ mkdir -p ~/Development/MyApp/
 $ cd !!$
 $ wget http://download.hoa-project.net/Framework/Hoa_Framework.next.phar
 $ php Hoa_Framework.next.phar
@@ -137,7 +137,7 @@ Extracted in ~/Development/MyApp</code></pre>
   <p>Lors de la création d'une application, tout est configuré pour chercher Hoa
   dans le dossier <code>/usr/local/lib/Hoa/</code> ; ce qui implique que si Hoa
   est présent dans ce dossier, pas besoin de lancer le script, sinon :</p>
-  <pre><code language="shell">$ Data/Bin/whereishoa
+  <pre><code class="language-shell">$ Data/Bin/whereishoa
 ** Where is Hoa **
 
 Ready to redefine the path to Hoa?
@@ -169,7 +169,7 @@ A very simple question: where is Hoa so?
   <strong>personnaliser</strong> notre application, il nous suffit de les
   renommer (nous utiliserons <code>myapp</code> dans tous les exemples). Libre à
   nous de placer ces scripts dans le <code>$PATH</code> par la suite.</p>
-  <pre><code language="shell">$ Data/Bin/myapp
+  <pre><code class="language-shell">$ Data/Bin/myapp
 // Homescreen.
 $ mv !! !!:s/myapp/gordonsapp
 mv Data/Bin/myapp Data/Bin/gordonsapp
@@ -182,7 +182,7 @@ Data/Bin/gordonsapp
   <code>hoa</code> (comme il ne connaît pas notre application), et le bon
   chemin pour <code>myapp</code> car il connaît notre application ;
   ainsi :</p>
-  <pre><code language="shell">$ hoa core:resolve hoa://Data
+  <pre><code class="language-shell">$ hoa core:resolve hoa://Data
 // Somewhere, in a galaxy far, far away…
 $ myapp core:resolve hoa://Data
 hoa://Data is equivalent to:
@@ -199,7 +199,7 @@ hoa://Data is equivalent to:
   avec un fichier <code>index.php</code>. Nous allons le tester immédiatement.
   Si aucune erreur n'apparaît, c'est que tout est bien fonctionnel.</p>
   <p>Nous pourrons exécuter notre index de cette manière :</p>
-  <pre><code language="shell">$ php Application/Public/index.php
+  <pre><code class="language-shell">$ php Application/Public/index.php
 Hello you! I'm your first Hoa-based application \o/.</code></pre>
   <p>Toutes mes félicitations ! Vous avez installé Hoa et vous avez créé votre
   première application avec vos propres scripts !</p>
