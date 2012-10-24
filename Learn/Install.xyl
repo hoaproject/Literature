@@ -218,7 +218,7 @@ var_dump(HOA);</code></pre>
   <h2 id="Installer_PHP" for="main-toc">Installer PHP</h2>
 
   <p>Toutes les informations sont présentes dans le manuel de PHP :
-  <a href="http://php.net/install"><em>Installation and
+  <a href="http://php.net/install"><em lang="en">Installation and
   Configuration</em></a>. Hoa requiert PHP5.3.3 au minimum.</p>
 
   <ul class="prev_next">
