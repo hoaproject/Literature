@@ -211,7 +211,7 @@ $ ln -s /usr/local/Hoa.central/Hoa /usr/local/lib/Hoa</code></pre>
 require_once '/usr/local/lib/Hoa/Core/Core.php';
 var_dump(HOA);</code></pre>
   <p>ou directement en ligne de commande :</p>
-  <pre><code class="language-shell">$ php -r "require '/usr/local/lib/Hoa/Core/Core.php'; var_dump(HOA);"</code></pre>
+  <pre><code class="language-shell">$ php -r "require_once '/usr/local/lib/Hoa/Core/Core.php'; var_dump(HOA);"</code></pre>
   <p>À l'exécution, nous devons voir <code>bool(true)</code>. Si c'est le cas,
   c'est que Hoa est correctement installé.</p>
 

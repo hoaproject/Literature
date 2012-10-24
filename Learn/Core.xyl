@@ -35,7 +35,7 @@
   besoin et dans de bonnes conditions.</p>
   <pre><code class="language-php">&amp;lt;?php
 
-require '/usr/local/lib/Hoa/Core/Core.php';</code></pre>
+require_once '/usr/local/lib/Hoa/Core/Core.php';</code></pre>
   <p>Le noyau ne peut être inclus qu'une seule fois. Si nous essayons de
   l'inclure une deuxième fois, le programme quittera avec une erreur. C'est le
   seul et unique cas où Hoa va quitter le programme.</p>
@@ -255,7 +255,7 @@ class First {
   où :</p>
   <pre><code class="language-php">&amp;lt;?php
 
-require '/usr/local/lib/Hoa/Core/Core.php';
+require_once '/usr/local/lib/Hoa/Core/Core.php';
 
 from('Hoathis')
 -> import('Exercise.First');
@@ -440,7 +440,7 @@ class Second implements \Hoa\Core\Event\Source {
   <p>Et dans n'importe quel fichier n'importe où :</p>
   <pre><code class="language-php">&amp;lt;?php
 
-require '/usr/local/lib/Hoa/Core/Core.php';
+require_once '/usr/local/lib/Hoa/Core/Core.php';
 
 from('Hoathis')
 -> import('Exercise.Second');
@@ -509,7 +509,7 @@ class Third implements \Hoa\Core\Event\Listenable {
   <p>Et dans n'importe quel fichier n'importe où :</p>
   <pre><code class="language-php">&amp;lt;?php
 
-require '/usr/local/lib/Hoa/Core/Core.php';
+require_once '/usr/local/lib/Hoa/Core/Core.php';
 
 from('Hoathis')
 -> import('Exercise.Third');
@@ -693,7 +693,7 @@ class Fourth {
   n'importe où :</p>
   <pre><code class="language-php">&amp;lt;?php
 
-require '/usr/local/lib/Hoa/Core/Core.php';
+require_once '/usr/local/lib/Hoa/Core/Core.php';
 
 from('Hoathis')
 -> import('Exercise.Fourth');
