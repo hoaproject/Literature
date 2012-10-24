@@ -108,11 +108,11 @@
   <p>Nous remarquons que le nom de la bibliothèque est entièrement en
   <strong>minuscule</strong>. Ensuite, il suffit d'utiliser Composer pour
   installer les bibliothèques :</p>
-  <pre><code class="language-php">$ composer install</code></pre>
+  <pre><code class="language-shell">$ composer install</code></pre>
   <p>Nous remarquons également que <code>Hoa\Core</code> a été installée en même
   temps car c'est une dépendance de <code>Hoa\Router</code> !</p>
   <p>Pour mettre le projet à jour :</p>
-  <pre><code class="language-php">$ composer update</code></pre>
+  <pre><code class="language-shell">$ composer update</code></pre>
   <p>Composer intègre <a href="http://packagist.org/">Packagist</a>, un service
   qui <strong>agrège</strong> l'ensemble des projets utilisables avec Composer.
   Les bibliothèques sont enregistrées vers le miroir Github car ce dernier
