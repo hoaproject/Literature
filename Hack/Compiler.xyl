@@ -331,7 +331,7 @@ number:
   car l'analyseur lexical va les prendre les uns après les autres. Ensuite,
   c'est l'analyseur <strong>syntaxique</strong> qui entre en jeu afin de
   <strong>reconnaître</strong> notre donnée.</p>
-  <p>Si l'analyse lexicale est un succès, nous obtenons une
+  <p>Si l'analyse syntaxique est un succès, nous obtenons une
   <strong>trace</strong>. Cette trace peut être transformée en AST, pour
   <em lang="en">Abstract Syntax Tree</em>. Cet arbre représente notre donnée
   textuelle après analyse. Il a l'avantage de pouvoir être visité (nous
