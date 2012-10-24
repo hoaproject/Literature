@@ -190,10 +190,12 @@ from('Hoathis')
 
 var_dump($family);
 
-// Will output:
-//     string(7) "Hoathis"
-// or:
-//     string(3) "Hoa"</code></pre>
+/**
+ * Will output:
+ *     string(7) "Hoathis"
+ * or:
+ *     string(3) "Hoa"
+ */</code></pre>
   <p>Encore une fois, ce mécanisme ajoute de l'extensibilité dans Hoa. De plus,
   ce mécanisme s'avère utile avec le <em lang="en">dynamic new</em>.</p>
 
@@ -217,10 +219,12 @@ var_dump($family);
   <pre><code class="language-php">$server = dnew('(Hoathis or Hoa)\Socket\Server', array($arguments));
 var_dump(get_class($server));
 
-// Will output:
-//     string(32) "Hoathis\Socket\Server"
-// or:
-//     string(28) "Hoa\Socket\Server"</code></pre>
+/**
+ * Will output:
+ *     string(32) "Hoathis\Socket\Server"
+ * or:
+ *     string(28) "Hoa\Socket\Server"
+ */</code></pre>
   <p>Ce mécanisme est très intéressant lorsque nous proposons une implémentation
   par défaut que l'utilisateur peut remplacer par sa propre implémentation dans
   une autre famille. C'est un avantage pour ajouter de la modularité dans son
@@ -263,8 +267,10 @@ from('Hoathis')
 $first = new Hoathis\Exercise\First();
 $first->say();
 
-// Will output:
-//     Hello world!</code></pre>
+/**
+ * Will output:
+ *     Hello world!
+ */</code></pre>
   <p>Bravo ! Vous venez de créer votre première bibliothèque
   <code>Hoathis</code> !</p>
 
@@ -453,9 +459,11 @@ event('hoa://Event/Exercise')->attach(function ( Hoa\Core\Event\Bucket $bucket )
 $second = new Hoathis\Exercise\Second();
 var_dump($second->doSomething('Gordon'));
 
-// Will output:
-//     I have received “Hello Gordon”.
-//     int(53)</code></pre>
+/**
+ * Will output:
+ *     I have received “Hello Gordon”.
+ *     int(53)
+ */</code></pre>
 
   <h3 id="Plus_d-intimite_avec_les_ecouteurs" for="main-toc">Plus d'intimité
   avec les écouteurs</h3>
@@ -521,9 +529,11 @@ $third->on('foo', function ( Hoa\Core\Event\Bucket $bucket ) {
 });
 var_dump($third->doSomething('Gordon'));
 
-// Will output:
-//     I have received “Hello Gordon”.
-//     int(53)</code></pre>
+/**
+ * Will output:
+ *     I have received “Hello Gordon”.
+ *     int(53)
+ */</code></pre>
   <p>Nous parlons de <strong>synchrones à l'enregistrement</strong> car le
   composant qui porte les écouteurs existe nécessairement pour y attacher des
   actions. Nous parlons d'<strong>identification à l'utilisation</strong> car
@@ -570,9 +580,11 @@ catch ( Hoa\Core\Exception $e ) {
     echo $e->getMessage(), "\n",
          $e->getFormattedMessage();
 
-    // Will output:
-    //     Hello Gordon.
-    //     Hello Gordon.
+    /**
+     * Will output:
+     *     Hello Gordon.
+     *     Hello Gordon.
+     */
 }</code></pre>
   <p>Avec un message formaté :</p>
   <pre><code class="language-php">try { 
@@ -584,9 +596,11 @@ catch ( Hoa\Core\Exception $e ) {
     echo $e->getMessage(), "\n",.
          $e->getFormattedMessage();
 
-    // Will output:
-    //     Hello %s.
-    //     Hello Gordon.
+    /**
+     * Will output:
+     *     Hello %s.
+     *     Hello Gordon.
+     */
 }</code></pre>
   <p>Avec un message formaté avec plus d'arguments :</p>
   <pre><code class="language-php">try {
@@ -598,9 +612,11 @@ catch ( Hoa\Core\Exception $e ) {
     echo $e->getMessage(), "\n",
          $e->getFormattedMessage();
 
-    // Will output:
-    //     %s %s.
-    //     Hello Gordon.
+    /**
+     * Will output:
+     *     %s %s.
+     *     Hello Gordon.
+     */
 }</code></pre>
   <p>Nous aurons compris qu'il faut préférer la méthode
   <code>getFormattedMessage</code> à <code>getMessage</code> pour avoir un
@@ -613,10 +629,12 @@ catch ( Hoa\Core\Exception $e ) {
   flux de sortie courant de PHP. Ainsi :</p>
   <pre><code class="language-php">++$foo;
 
-// Will output:
-//     Uncaught exception (Hoa\Core\Exception\Error):
-//     Hoa\Core\Exception\Idle::error(): (-1) Undefined variable: foo
-//     in /Flatland/Foobar.php at line 42.</code></pre>
+/**
+ * Will output:
+ *     Uncaught exception (Hoa\Core\Exception\Error):
+ *     Hoa\Core\Exception\Idle::error(): (-1) Undefined variable: foo
+ *     in /Flatland/Foobar.php at line 42.
+ */</code></pre>
 
   <h3 id="Exception_imbriquee" for="main-toc">Exception imbriquée</h3>
 
@@ -634,16 +652,18 @@ catch ( Hoa\Core\Exception\Idle $e ) {
         'Oh, something wrong happened.', 53, null, $e);
 }
 
-// Will output:
-//     Uncaught exception (Hoa\Core\Exception\Exception):
-//     {main}: (53) Oh, something wrong happened.
-//     in /Flatland/Foobar.php at line 13.
-//
-//     ⬇
-//
-//     Nested exception (Hoa\Core\Exception\Idle):
-//     {main}: (42) I'm a nested exception!
-//     in /Flatland/Foobar.php at line 18.</code></pre>
+/**
+ * Will output:
+ *     Uncaught exception (Hoa\Core\Exception\Exception):
+ *     {main}: (53) Oh, something wrong happened.
+ *     in /Flatland/Foobar.php at line 13.
+ *
+ *     ⬇
+ *
+ *     Nested exception (Hoa\Core\Exception\Idle):
+ *     {main}: (42) I'm a nested exception!
+ *     in /Flatland/Foobar.php at line 18.
+ */</code></pre>
   <p>Nous remarquons que l'affichage des exceptions non-capturées sait
   repérer les imbrications. Pour cela, nous avons la méthode
   <code>getPreviousThrow</code> qui retourne l'exception causale ou
@@ -708,9 +728,11 @@ catch ( Hoathis\Exercise\Exception $e ) {
          $e->getFormattedMessage();
 }
 
-// Will output:
-//     ** Exception **
-//     Bazinga!</code></pre>
+/**
+ * Will output:
+ *     ** Exception **
+ *     Bazinga!
+ */</code></pre>
 
   <h2 id="Protocol" for="main-toc"><em lang="en">Protocol</em></h2>
 
@@ -750,8 +772,10 @@ var_dump(
     resolve('hoa://Library/Registry#foo')
 );
 
-// Will output:
-//     string(3) "bar"</code></pre>
+/**
+ * Will output:
+ *     string(3) "bar"
+ */</code></pre>
   <p>Nous pouvons imaginer stocker des instances de cache, de base de données,
   des fonctions anonymes etc. Nous remarquerons l'utilisation de la fonction
   <code>resolve</code>, un alias plus évolué, qui permet de résoudre des
