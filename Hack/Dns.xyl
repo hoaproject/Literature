@@ -135,11 +135,12 @@ $dns = new Hoa\Dns(
     new Hoa\Socket\Server('udp://127.0.0.1:57005')
 );</code></pre>
   <p><code>Hoa\Dns</code> émet un seul évènement : <code>query</code>, et envoie
-  en donnée un tableau contenant <code>type</code>, le type du domaine, et
-  <code>domain</code>, le domaine. Nous allons <strong>associer</strong> à tous
-  les domaines <code>*.hoa</code> l'adresse IP <code>127.0.0.1</code>, nous
-  n'allons pas considérer les sous-domaines de <code>hoa</code> dans le cadre de
-  cet exercice.</p>
+  en donnée un tableau contenant <code>domain</code> (par exemple
+  <code>foo.bar.baz.tld</code>), <code>type</code> (par exemple
+  <code>aaaa</code>) et classe (par exemple <code>in</code>). Nous allons
+  <strong>associer</strong> à tous les domaines <code>*.hoa</code> l'adresse IP
+  <code>127.0.0.1</code>, nous n'allons pas considérer les sous-domaines de
+  <code>hoa</code> dans le cadre de cet exercice.</p>
   <pre><code class="language-php">$dns->on('query', function ( Hoa\Core\Event\Bucket $bucket ) {
 
     $data = $bucket->getData();
