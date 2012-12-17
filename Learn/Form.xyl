@@ -113,7 +113,7 @@ $xyl->render();</code></pre>
   été validées. Enfin, si toutes ces contraintes sont respectées, alors nous
   récupérerons les données avec la méthode
   <code>Hoa\Xyl\Interpreter\Html\Form::getData</code> ; ainsi :</p>
-  <pre><code class="language-php">$xyl = new Hoa\Xyl(
+  <pre data-line="6-12"><code class="language-php">$xyl = new Hoa\Xyl(
     new Hoa\File\Read('Form.xyl'),
     new Hoa\Http\Response(),
     new Hoa\Xyl\Interpreter\Html()

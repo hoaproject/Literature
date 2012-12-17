@@ -178,7 +178,7 @@ $xyl->render();</code></pre>
   XYL avec son attribut <code>href</code> pour préciser l'emplacement de notre
   feuille de style. Nous parlons d'une <strong>déclaration statique</strong>.
   Ainsi :</p>
-  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre data-line="2"><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-stylesheet href="UI.css"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
@@ -194,7 +194,7 @@ $xyl->render();</code></pre>
   <p>Nous pouvons déclarer <strong>dynamiquement</strong> une feuille de style
   en utilisant la méthode <code>addStylesheet</code> de la classe
   <code>Hoa\Xyl</code>. Ainsi, le code suivant produira le même résultat :</p>
-  <pre><code class="language-php">$xyl = new Hoa\Xyl(
+  <pre data-line="6"><code class="language-php">$xyl = new Hoa\Xyl(
     new Hoa\File\Read('Main.xyl'),
     new Hoa\Http\Response(),
     new Hoa\Xyl\Interpreter\Html()
@@ -202,31 +202,33 @@ $xyl->render();</code></pre>
 $xyl->addStylesheet('UI.css');
 $xyl->render();</code></pre>
 
-  <h2 id="Overlay" for="main-toc"><em>Overlay</em></h2>
+  <h2 id="Overlay" for="main-toc"><em lang="en">Overlay</em></h2>
 
-  <p>Les <strong><em>overlays</em></strong> sont un ou plusieurs composants que
-  nous voulons <strong>insérer</strong> dans un document. Par exemple, imaginons
-  une application qui présente un contenu et une colonne sur le côté contenant
-  plusieurs extensions que l'utilisateur de l'application peut installer comme
-  il le souhaite. Chaque extension est définie comme un <em>overlay</em> qui ne
-  sait pas comment est construit le document principal, mais il connaît
-  l'<strong>identifiant</strong> de la colonne contenant les extensions. Cette
-  information est amplement suffisante ! Ainsi, lorsque l'extension va
-  s'installer, l'application n'aura qu'à déclarer un nouvel <em>overlay</em>
-  dans le document et il bénéficiera de <strong>toutes les ressources</strong>
-  du document. En plus de préciser où s'accrocher par rapport à un composant, il
-  peut préciser sa position dans ce composant.</p>
+  <p>Les <strong><em lang="en">overlays</em></strong> sont un ou plusieurs
+  composants que nous voulons <strong>insérer</strong> dans un document. Par
+  exemple, imaginons une application qui présente un contenu et une colonne sur
+  le côté contenant plusieurs extensions que l'utilisateur de l'application peut
+  installer comme il le souhaite. Chaque extension est définie comme un
+  <em lang="en">overlay</em> qui ne sait pas comment est construit le document
+  principal, mais il connaît l'<strong>identifiant</strong> de la colonne
+  contenant les extensions. Cette information est amplement suffisante ! Ainsi,
+  lorsque l'extension va s'installer, l'application n'aura qu'à déclarer un
+  nouvel <em lang="en">overlay</em> dans le document et il bénéficiera de
+  <strong>toutes les ressources</strong> du document. En plus de préciser où
+  s'accrocher par rapport à un composant, il peut préciser sa position dans ce
+  composant.</p>
   <p><em>À l'instar</em> d'une déclaration de feuille de style, une déclaration
-  d'<em>overlay</em> se fait avec une <em>processing-instruction</em> :
-  <code>&amp;amp;lt;?xyl-overlay?></code> en tête de n'importe quel document
-  XYL et avec son attribut <code>href</code> pour préciser l'emplacement de
-  notre <em>overlay</em>. De même, pour une déclaration dynamique, nous avons la
-  méthode <code>addOverlay</code> sur la classe <code>Hoa\Xyl</code>. Ainsi,
-  nous déclarons l'<em>overlay</em> contenu dans le fichier
+  d'<em lang="en">overlay</em> se fait avec une
+  <em>processing-instruction</em> : <code>&amp;amp;lt;?xyl-overlay?></code> en
+  tête de n'importe quel document XYL et avec son attribut <code>href</code>
+  pour préciser l'emplacement de notre <em lang="en">overlay</em>. De même, pour
+  une déclaration dynamique, nous avons la méthode <code>addOverlay</code> sur
+  la classe <code>Hoa\Xyl</code>. Ainsi, nous déclarons
+  l'<em lang="en">overlay</em> contenu dans le fichier
   <code>Extension.xyl</code> à notre document auquel nous avons ajouté un
   composant portant l'identifiant <code>extensions</code> et accueillant déjà
   une extension :</p>
-  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre data-line="3,13-19"><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-stylesheet href="UI.css"?>
 &amp;lt;?xyl-overlay href="Extension.xyl"?>
 
@@ -247,19 +249,19 @@ $xyl->render();</code></pre>
   &amp;lt;/aside>
 &amp;lt;/document></code></pre>
   <p>Nous avons précisé que tous les documents XYL peuvent déclarer des
-  <em>overlays</em>, ce qui signifie qu'un <em>overlay</em> peut utiliser
-  d'autres <em>overlays</em> et ainsi de suite, mais tous s'appliqueront sur le
-  document final.</p>
+  <em lang="en">overlays</em>, ce qui signifie qu'un <em lang="en">overlay</em>
+  peut utiliser d'autres <em lang="en">overlays</em> et ainsi de suite, mais
+  tous s'appliqueront sur le document final.</p>
 
   <h3 id="Composition_d-un_overlay" for="main-toc">Composition d'un
-  <em>overlay</em></h3>
+  <em lang="en">overlay</em></h3>
 
-  <p>Étudions maintenant la <strong>composition</strong> d'un <em>overlay</em>.
-  Tout d'abord, nous utilisons le <strong>composant racine</strong>
-  <code>overlay</code>. Chaque fils de ce composant racine représente un
-  <strong>composant de référence</strong> qui indique sur quel composant nous
-  voulons nous <strong>accrocher</strong>. Chaque fils d'un composant de
-  référence représente un <strong>composant à insérer</strong>.</p>
+  <p>Étudions maintenant la <strong>composition</strong> d'un
+  <em lang="en">overlay</em>. Tout d'abord, nous utilisons le <strong>composant
+  racine</strong> <code>overlay</code>. Chaque fils de ce composant racine
+  représente un <strong>composant de référence</strong> qui indique sur quel
+  composant nous voulons nous <strong>accrocher</strong>. Chaque fils d'un
+  composant de référence représente un <strong>composant à insérer</strong>.</p>
   <pre><code class="language-markup">&amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;reference_component>
     &amp;lt;component_to_insert>…&amp;lt;/component_to_insert>
@@ -291,12 +293,12 @@ $xyl->render();</code></pre>
   présentes.</p>
 
   <h3 id="Positionner_des_overlays" for="main-toc">Positionner des
-  <em>overlays</em></h3>
+  <em lang="en">overlays</em></h3>
 
   <p>Chaque composant à insérer possède l'attribut <code>position</code> qui
-  permet de <strong>positionner</strong> notre <em>overlay</em> parmi les
-  composants qui vont l'accueillir. Les valeurs sont constituées des expressions
-  suivantes :</p>
+  permet de <strong>positionner</strong> notre <em lang="en">overlay</em> parmi
+  les composants qui vont l'accueillir. Les valeurs sont constituées des
+  expressions suivantes :</p>
   <ul>
     <li>un <strong>index</strong> supérieur ou égal à zéro (<code>0</code>,
     <code>1</code>, …, <code><em>n</em></code>) ;</li>
@@ -311,7 +313,7 @@ $xyl->render();</code></pre>
     position.</li>
   </ul>
   <p>Prenons quelques exemples concrets pour bien comprendre. Pour positionner
-  un <em>overlay</em> :</p>
+  un <em lang="en">overlay</em> :</p>
   <ul>
     <li>en première position : <code>0</code> ;</li>
     <li>en seconde position : <code>1</code> (nous devrions comprendre que
@@ -335,7 +337,7 @@ $xyl->render();</code></pre>
   dernière position mais en première position, nous aurons la position
   <code>1</code> (utiliser la position <code>0</code> la placerait avant le
   titre de notre colonne) :</p>
-  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre data-line="5"><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;aside id="extensions">
@@ -349,7 +351,7 @@ $xyl->render();</code></pre>
   grâce au composant <code>hr</code>. Nous avons donc un second composant à
   insérer et nous le positionnerons après notre composant <code>foo</code> ;
   ainsi :</p>
-  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre data-line="10"><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;aside id="extensions">
@@ -364,13 +366,13 @@ $xyl->render();</code></pre>
   <p>Si la position de notre nouvelle extension est modifiée, son séparateur
   sera toujours après elle sans <strong>rien changer</strong>.</p>
 
-  <h3 id="Overlays_et_feuilles_de_style" for="main-toc"><em>Overlays</em> et
-  feuilles de style</h3>
+  <h3 id="Overlays_et_feuilles_de_style" for="main-toc"><em lang="en">Overlays</em>
+  et feuilles de style</h3>
 
-  <p>Les <em>overlays</em> peuvent également déclarer des feuilles de style
-  grâce aux mécanismes vus précédemment. Ainsi, nous pouvons imaginer
+  <p>Les <em lang="en">overlays</em> peuvent également déclarer des feuilles de
+  style grâce aux mécanismes vus précédemment. Ainsi, nous pouvons imaginer
   avoir :</p>
-  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre data-line="2"><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-stylesheet href="Extension.css"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
@@ -386,15 +388,15 @@ $xyl->render();</code></pre>
   <strong>embarquer</strong> leurs propres styles (ou d'autres ressources).</p>
   <p>Toutefois, nous noterons que les feuilles de style se comportent comme une
   <strong>pile</strong> : elles s'ajoutent les unes après les autres. Aussi bien
-  avec les <em>overlays</em> qu'avec <strong>tous</strong> les autres documents,
-  la déclaration d'une feuille de style peut <strong>se positionner</strong>
-  grâce à l'attribut <code>position</code>. Nous retrouvons les mêmes
-  expressions que pour l'attribut <code>position</code> des composants à insérer
-  d'un <em>overlay</em>, excepté que l'index dynamique
+  avec les <em lang="en">overlays</em> qu'avec <strong>tous</strong> les autres
+  documents, la déclaration d'une feuille de style peut <strong>se
+  positionner</strong> grâce à l'attribut <code>position</code>. Nous retrouvons
+  les mêmes expressions que pour l'attribut <code>position</code> des composants
+  à insérer d'un <em lang="en">overlay</em>, excepté que l'index dynamique
   <code>element(#<em>anId</em>)</code> n'est pas supporté. Ainsi, si nous
   souhaitons que notre feuille <code>Extension.css</code> se place en première
   position, nous aurons :</p>
-  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre data-line="2"><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-stylesheet href="Extension.css" position="0"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
@@ -428,7 +430,7 @@ $xyl->render();</code></pre>
   précédentes vers le haut de la pile.</p>
 
   <h3 id="Un_peu_plus_loin_avec_les_overlays" for="main-toc">Un peu plus loin
-  avec les <em>overlays</em></h3>
+  avec les <em lang="en">overlays</em></h3>
 
   <p>Un composant de référence est capable de <strong>modifier</strong> le
   composant dans lequel il va insérer de nouveaux composants : il peut lui
@@ -538,7 +540,7 @@ $data->article[1]->title           = 'Bazqux';
 $data->article[1]->author->name    = 'A. Vance';</code></pre>
   <p>Nous devons modifier notre document XYL pour qu'il prenne en considérations
   ce nouveau sous-arbre :</p>
-  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre data-line="9"><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
@@ -569,7 +571,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   liables, <strong>tous</strong> les attributs de tous les composants le sont
   également. Ainsi, nous pouvons modifier notre document existant en déplaçant
   la donnée <code>id</code> dans un attribut :</p>
-  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre data-line="8"><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>First step with XYL&amp;lt;/title>
@@ -583,7 +585,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
 &amp;lt;/document></code></pre>
 
   <h3 id="Donnees_symboliques_et_definition_de_composants"
-  for="main-toc">Données symboliques et définition de composants</h3>
+      for="main-toc">Données symboliques et définition de composants</h3>
 
   <p>Maintenant que nous connaissons la forme des données et le mécanisme de
   liage (verbatim ou interne), nous allons nous intéresser à la création de
@@ -710,16 +712,17 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   Nous pouvons alors avoir des <strong>bibliothèques de composants
   graphiques</strong> stockées dans un ou plusieurs fichiers XYL.</p>
   <p><em>À l'instar</em> d'une déclaration de feuille de style ou d'un
-  <em>overlay</em>, une utilisation d'une bibliothèque graphique se fait avec
-  une <em>processing-instruction</em> : <code>&amp;amp;lt;?xyl-use?></code> en
-  tête de n'importe quels documents XYL et avec son attribut <code>href</code>
-  pour préciser l'emplacement de notre bibliothèque graphique. De même, pour une
-  déclaration dynamique, nous avons la méthode <code>addUse</code> sur la classe
-  <code>Hoa\Xyl</code>. Une bibliothèque peut bien sûr inclure d'autres
-  bibliothèques et ainsi de suite. Une bibliothèque peut également déclarer des
-  feuilles de style mais pas des <em>overlays</em>. Ainsi, si nous
-  <strong>externalisons</strong> nos composants fraîchement créés :</p>
-  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <em lang="en">overlay</em>, une utilisation d'une bibliothèque graphique se
+  fait avec une <em>processing-instruction</em> :
+  <code>&amp;amp;lt;?xyl-use?></code> en tête de n'importe quels documents XYL
+  et avec son attribut <code>href</code> pour préciser l'emplacement de notre
+  bibliothèque graphique. De même, pour une déclaration dynamique, nous avons la
+  méthode <code>addUse</code> sur la classe <code>Hoa\Xyl</code>. Une
+  bibliothèque peut bien sûr inclure d'autres bibliothèques et ainsi de suite.
+  Une bibliothèque peut également déclarer des feuilles de style mais pas des
+  <em lang="en">overlays</em>. Ainsi, si nous <strong>externalisons</strong> nos
+  composants fraîchement créés :</p>
+  <pre data-line="2"><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-use href="Author.xyl"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
@@ -918,9 +921,9 @@ $xyl->render();</code></pre>
   <h3 id="Document_principal" for="main-toc">Document principal</h3>
 
   <p>Notre document principal sera <code>Application/View/Main.xyl</code> et
-  accueillera nos différentes pages. Chaque page sera un <em>overlay</em> par
-  rapport à ce document principal, il faudra donc préciser un identifiant.
-  Ainsi :</p>
+  accueillera nos différentes pages. Chaque page sera un
+  <em lang="en">overlay</em> par rapport à ce document principal, il faudra donc
+  préciser un identifiant. Ainsi :</p>
   <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
@@ -946,7 +949,7 @@ $xyl->render();</code></pre>
   <p>Nous proposons de ranger les vues du blog dans le dossier
   <code>Application/View/Blog/</code>. Ainsi, la liste des articles sera
   représentée par le fichier <code>Index.xyl</code> et va définir un
-  <em>overlay</em> pour l'identifiant <code>main</code> :</p>
+  <em lang="en">overlay</em> pour l'identifiant <code>main</code> :</p>
   <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;overlay xmlns="http://hoa-project.net/xyl/xylophone">
@@ -968,10 +971,10 @@ $xyl->render();</code></pre>
   commentaires</h3>
 
   <p>Maintenant, nous allons écrire la vue d'un article dans le fichier
-  <code>Article.xyl</code>, toujours en tant qu'<em>overlay</em>. Elle affichera
-  le titre de l'article, son contenu et les commentaires associés. Nous avons
-  fait le choix de définir un composant pour représenter les commentaires sous
-  le nom <code>comment</code> et défini dans le fichier
+  <code>Article.xyl</code>, toujours en tant qu'<em lang="en">overlay</em>. Elle
+  affichera le titre de l'article, son contenu et les commentaires associés.
+  Nous avons fait le choix de définir un composant pour représenter les
+  commentaires sous le nom <code>comment</code> et défini dans le fichier
   <code>Comment.xyl</code>. Ainsi :</p>
   <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-use href="hoa://Application/View/Blog/Comment.xyl"?>
@@ -1033,11 +1036,12 @@ $xyl->render();</code></pre>
     return;
 }</code></pre>
   <p>Nous déclarons deux données : le titre du document principal et la liste
-  des articles. Puis, nous demandons à la vue d'utiliser l'<em>overlay</em>
-  correspondant à la liste des articles et d'en faire un rendu. Nous remarquons
-  que <code>Hoa\Core\Data</code> représenté par l'attribut <code>data</code>
-  comprend bien les données provenant des bases de données (entre autres) : nous
-  lui donnons <code>$list</code> sans effectuer aucune opération.</p>
+  des articles. Puis, nous demandons à la vue d'utiliser
+  l'<em lang="en">overlay</em> correspondant à la liste des articles et d'en
+  faire un rendu. Nous remarquons que <code>Hoa\Core\Data</code> représenté par
+  l'attribut <code>data</code> comprend bien les données provenant des bases de
+  données (entre autres) : nous lui donnons <code>$list</code> sans effectuer
+  aucune opération.</p>
   <p>Le traitement sera similaire pour un article et ses commentaires :</p>
   <pre><code class="language-php">public function ArticleAction ( $id ) {
 

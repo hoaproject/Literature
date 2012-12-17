@@ -30,9 +30,9 @@
   usages les plus courants se tournent vers des bases de données relationnelles
   qui utilisent la théorie des ensembles pour stocker et extraire leurs
   données.</p>
-  <p>Le langage <strong>SQL</strong> (pour <em>Structured Query Language</em>)
-  permet de communiquer avec ces bases de données. Plusieurs standards ont été
-  dictés, comme les normes
+  <p>Le langage <strong>SQL</strong> (pour <em lang="en">Structured Query
+  Language</em>) permet de communiquer avec ces bases de données. Plusieurs
+  standards ont été dictés, comme les normes
   <a href="https://secure.wikimedia.org/wikipedia/en/wiki/SQL-92">SQL-92</a>
   (ou SQL2) et
   <a href="https://secure.wikimedia.org/wikipedia/en/wiki/SQL:1999">SQL-99</a>
@@ -158,7 +158,7 @@ Hoa\Database\Dal::initializeParameters(array(
   défaut. L'exemple suivant va enrichir les paramètres que nous avons déjà
   écrits puis ouvrir la connexion attachée au profil <code>default</code> comme
   si la connexion avait déjà été ouverte :</p>
-  <pre><code class="language-php">Hoa\Database\Dal::initializeParameters(array(
+  <pre data-line="4"><code class="language-php">Hoa\Database\Dal::initializeParameters(array(
     'connection.list.default.dal' => Hoa\Database\Dal::PDO,
     'connection.list.default.dsn' => 'sqlite:/var/db/Foo.sqlite',
     'connection.autoload'         => 'default'
