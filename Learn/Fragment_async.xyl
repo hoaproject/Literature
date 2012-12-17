@@ -67,7 +67,7 @@
   <code>&amp;amp;lt;?xyl-fragment?></code>. Cet alias pourra être utilisé à la
   place de <code><em>filename</em></code> dans nos attributs
   <code>select</code>. Ainsi, l'exemple précédent devient :</p>
-  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+  <pre data-line="2,7"><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 &amp;lt;?xyl-fragment href="Some.frag.xyl" as="some"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
@@ -119,19 +119,9 @@ $xyl->render();</code></pre>
   <strong>isolée</strong>. Pour cela, nous devons récupérer le fragment en
   question, à l'aide de la méthode <code>Hoa\Xyl::getSnippet</code> puis en
   faire son rendu avec la méthode <code>Hoa\Xyl::render</code>.</p>
-  <p>Précédemment, nous avons vu la méthode <code>Hoa\Xyl::render</code> sans
-  préciser réellement ce qu'elle faisait. Sans rentrer dans le détail, nous
-  pouvons dire qu'elle travaille en deux étapes :</p>
-  <ol>
-    <li>interprétation : assemblage du document principal ;</li>
-    <li>rendu : liage des données et rendu.</li>
-  </ol>
-  <p>La méthode <code>Hoa\Xyl::render</code> est suffisamment intelligente pour
-  savoir si l'interprétation a déjà été faite ou pas, et si ce n'est pas le cas,
-  le faire automatiquement.</p>
-  <p>Être capable de récupérer un fragment pour en faire son rendu nécessite
-  <strong>préalablement</strong> d'interpréter le document, grâce à la méthode
-  <code>Hoa\Xyl::interprete</code>. Ainsi :</p>
+  <p>Cependant, être capable de récupérer un fragment pour en faire son rendu
+  nécessite <strong>préalablement</strong> d'interpréter le document, grâce à la
+  méthode <code>Hoa\Xyl::interprete</code>. Ainsi :</p>
   <pre><code class="language-php">from('Hoa')
 -> import('File.Read')
 -> import('Http.Response')
@@ -156,7 +146,42 @@ $xyl->render($fragment);</code></pre>
 
   <h2 id="Asynchrone" for="main-toc">Asynchrone</h2>
 
-  <p>Détails uniquement pour l'interprétation HTML.</p>
+  <p>Lorsqu'un client demande le rendu d'un document, nous (le serveur) le
+  traitons en entier puis nous lui servons. Ce dernier a alors fait une requête
+  pour le document qui engendre une nouvelle requête par ressource associée. Le
+  client change alors de document ou veut le modifier : nous allons à nouveau
+  devoir traiter le document entier, lui servir, et il va à nouveau charger
+  toutes les ressources associées. La majorité des données échangées sont
+  inutiles, et malgré que certaines ressources ont été détectées comme
+  inchangées, des requêstes ont été faites. Nous pouvons parler de construction
+  <strong>synchrone</strong> de document. Afin d'économiser des ressources,
+  aussi bien côté client que serveur, il serait intéressant d'envisager une
+  construction <strong>asynchrone</strong>.</p>
+  <p>Une construction asynchrone permet de ne reconstruire qu'une ou
+  plusieurs parties d'un document. En HTML, nous pouvons nous appuyer sur
+  <a href="http://w3.org/TR/XMLHttpRequest/">XHR</a> (pour <em lang="en">XML
+  HTTP Request</em>) qui permet de créer des requêtes HTTP depuis
+  Javascript afin d'échanger des données sous divers formats (voir la
+  <a href="http://w3.org/TR/XMLHttpRequest/#xmlhttprequestresponsetype">liste
+  des formats de XHR</a>).</p>
+  <p>XYL <strong>propose</strong> un support <strong>natif</strong> de
+  l'asynchrone pour certains interpréteurs, mais nous allons rester concentrer
+  sur l'interpréteur HTML. XYL fonctionne en deux étapes pour ce support :</p>
+  <ol>
+    <li>côté serveur : mise en place d'un balisage sémantique
+    pour identifier les zones asynchrones dans le document ;</li>
+    <li>côté client : utilisation d'une bibliothèque Javascript exploitant le
+    balisage sémantique pour créer et manipuler les requêtes HTTP.</li>
+  </ol>
+  <p>Ces deux étapes permettent une séparation <strong>claire</strong> des
+  préoccupations. Si nous connaissons alors le balisage sémantique introduit par
+  la première étape, nous pouvons utiliser n'importe quelle bibliothèque
+  Javascript pour gérer la seconde étape.</p>
+  <p>Hoa propose la bibliothèque
+  <code>hoa://Library/Xyl/Javascript/Hoa.js</code> pour permettre entre autre de
+  jouer ce rôle de seconde étape. C'est cette bibliothèque que nous allons
+  utiliser dans nos exemples mais il est tout à fait imagineable d'en utiliser
+  d'autres !</p>
 
   <ul class="prev_next">
     <li><a href="@ll:chapter=Form"><previous_chapter /> Formulaire</a></li>
