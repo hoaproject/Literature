@@ -364,7 +364,7 @@ print_r($router->getTheRule());
   nommage facilement. De même, il est proposé des règles de nommage différentes
   pour des <strong>appels synchrones</strong> ou <strong>asynchrones</strong> ;
   nous proposons <code><em>ActionName</em>ActionAsync</code> pour les actions
-  asynchrones.  Un appel asynchrone peut s'effectuer par exemple à travers
+  asynchrones. Un appel asynchrone peut s'effectuer par exemple à travers
   <strong>XHR</strong> (pour <em>XML HTTP Request</em>),
   <a href="http://w3.org/TR/XMLHttpRequest/">protocole standardisée par le
   W3C</a>.</p>
