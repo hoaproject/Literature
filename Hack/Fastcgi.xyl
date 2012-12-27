@@ -18,12 +18,11 @@
 
   <h2 id="Introduction" for="main-toc">Introduction</h2>
 
-  <checkpoint class="sticky" style="padding-top: 340px">
-  <div id="overview" class="verbatim schema"><div></div></div>
+  <div id="overview" class="verbatim schema"></div>
   <script>
   Hoa.Document.onReady(function ( ) {
 
-      var paper = Hoa.Graph(Hoa.$('#overview div'), 800, 300);
+      var paper = Hoa.Graph(Hoa.$('#overview'), 800, 300);
       var grid  = paper.grid(0, 0, 800, 300, 3, 3);
       var http  = grid.push(paper.rect(0, 0, 170, 90, 3, 'serveur HTTP'), 0, 1);
       var fcgi  = grid.push(paper.rect(0, 0, 170, 90, 3, 'serveur CGI'), 1, 1);
@@ -62,7 +61,6 @@
   <a href="https://tools.ietf.org/html/rfc793">RFC793</a>, et usuellement, les
   serveurs écoutent sur le port 9000 et en local (ou sur un réseau protégé) pour
   des raisons de sécurité.</p>
-  </checkpoint>
 
   <h3 id="Les_outils_de_PHP" for="main-toc">Les outils de PHP</h3>
 

@@ -117,12 +117,11 @@ chiffre ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
 
   <h3 id="Reconnaissance_de_mots" for="main-toc">Reconnaissance de mots</h3>
 
-  <checkpoint class="sticky" style="padding-top: 220px">
-  <div id="parsers" class="verbatim schema"><div></div></div>
+  <div id="parsers" class="verbatim schema"></div>
   <script>
   Hoa.Document.onReady(function ( ) {
 
-      var paper    = Hoa.Graph(Hoa.$('#parsers div'), 800, 180);
+      var paper    = Hoa.Graph(Hoa.$('#parsers'), 800, 180);
       var grid     = paper.grid(0, 0, 800, 180, 5, 2);
       var word     = grid.push(paper.rect(0, 0, 140, 80, 3, 'mot'), 0, 0);
       var sequence = grid.push(paper.rect(0, 0, 140, 80, 3, 'séquence'), 2, 0);
@@ -186,7 +185,6 @@ rule4 ::= e f</code></pre>
   <p>La règle <code>rule2</code> est ambiguë, ce qui peut entraîner une mauvaise
   dérivation et donc un retour en arrière, un
   <em lang="en">backtracking</em>.</p>
-  </checkpoint>
 
   <h2 id="Compilateur_de_compilateurs_LLk" for="main-toc">Compilateur de
   compilateurs LL(<em>k</em>)</h2>
@@ -305,12 +303,11 @@ number:
 
   <h3 id="Processus_de_compilation" for="main-toc">Processus de compilation</h3>
 
-  <checkpoint class="sticky" style="padding-top: 400px">
-  <div id="overview" class="verbatim schema"><div></div></div>
+  <div id="overview" class="verbatim schema"></div>
   <script>
   Hoa.Document.onReady(function ( ) {
 
-      var paper = Hoa.Graph(Hoa.$('#overview div'), 800, 360);
+      var paper = Hoa.Graph(Hoa.$('#overview'), 800, 360);
       var flow  = paper.grid(0, 0, 800, 360, 1, 4);
       flow.push(paper.rect(0, 0, 200, 70, 3, 'analyseur lexical'));
       flow.push(paper.rect(0, 0, 200, 70, 3, 'analyseur syntaxique'));
@@ -409,7 +406,6 @@ var_dump($valid);
  * Will output:
  *     bool(true)
  */</code></pre>
-  </checkpoint>
 
   <h4 id="Erreurs" for="main-toc">Erreurs</h4>
 
@@ -504,12 +500,11 @@ rule:
   <h3 id="Abstract_Syntax_Tree" for="main-toc"><em lang="en">Abstract Syntax
   Tree</em></h3>
 
-  <checkpoint class="sticky" style="padding-top: 400px">
-  <div id="overview_ast" class="verbatim schema"><div></div></div>
+  <div id="overview_ast" class="verbatim schema"></div>
   <script>
   Hoa.Document.onReady(function ( ) {
 
-      var paper = Hoa.Graph(Hoa.$('#overview_ast div'), 800, 360);
+      var paper = Hoa.Graph(Hoa.$('#overview_ast'), 800, 360);
       var flow  = paper.grid(0, 0, 800, 360, 1, 4);
       flow.push(paper.rect(0, 0, 200, 70, 3, 'analyseur lexical').attr({opacity: .3}));
       flow.push(paper.rect(0, 0, 200, 70, 3, 'analyseur syntaxique').attr({opacity: .3}));
@@ -660,16 +655,14 @@ $previous = $data['previousComputing'];</code></pre>
   <p>Utiliser la classe <code>Hoa\Compiler\Llk\TreeNode</code> est vraiment
   <strong>trivial</strong> et nous l'utiliserons la plupart du temps avec un
   visiteur.</p>
-  </checkpoint>
 
   <h3 id="Traces" for="main-toc">Traces</h3>
 
-  <checkpoint class="sticky" style="padding-top: 400px">
-  <div id="overview_trace" class="verbatim schema"><div></div></div>
+  <div id="overview_trace" class="verbatim schema"></div>
   <script>
   Hoa.Document.onReady(function ( ) {
 
-      var paper = Hoa.Graph(Hoa.$('#overview_trace div'), 800, 360);
+      var paper = Hoa.Graph(Hoa.$('#overview_trace'), 800, 360);
       var flow  = paper.grid(0, 0, 800, 360, 1, 4);
       flow.push(paper.rect(0, 0, 200, 70, 3, 'analyseur lexical').attr({opacity: .3}));
       flow.push(paper.rect(0, 0, 200, 70, 3, 'analyseur syntaxique').attr({opacity: .3}));
@@ -865,7 +858,6 @@ while(false !== current($stack)) {
   <strong>rapidement</strong> sur les règles. En effet, les traitements sur la
   grammaire ne sont pas réservés aux AST. À l'étape précédente, avec la trace,
   nous pouvons déjà effectuer des traitements.</p>
-  </checkpoint>
 
   <h3 id="Generation" for="main-toc">Génération</h3>
 

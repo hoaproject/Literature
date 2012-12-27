@@ -156,12 +156,11 @@ $dns->run();</code></pre>
 
   <h2 id="Test" for="main-toc">Test</h2>
 
-  <checkpoint class="sticky" style="padding-top: 340px">
-  <div id="overview" class="verbatim schema"><div></div></div>
+  <div id="overview" class="verbatim schema"></div>
   <script>
   Hoa.Document.onReady(function ( ) {
 
-      var paper    = Hoa.Graph(Hoa.$('#overview div'), 800, 300);
+      var paper    = Hoa.Graph(Hoa.$('#overview'), 800, 300);
       var grid     = paper.grid(0, 0, 800, 300, 3, 3);
       var client   = grid.push(paper.rect(0, 0, 120, 290, 3, 'client'),       0, 1);
       var resolver = grid.push(paper.rect(0, 0, 170,  90, 3, 'résolveur'),    1, 0);
@@ -217,7 +216,6 @@ yeah \o/
   <code>127.0.0.1</code>. La requête <code>foo.hoa:8888</code> est capturée
   par notre serveur HTTP qui va nous répondre le contenu de
   <code>/tmp/index.html</code>.</p>
-  </checkpoint>
 
   <h2 id="En_ligne_de_commande" for="main-toc">En ligne de commande</h2>
 

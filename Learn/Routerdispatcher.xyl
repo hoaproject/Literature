@@ -36,12 +36,11 @@
 
   <h2 id="Un_peu_d-histoire" for="main-toc">Un peu d'histoire</h2>
 
-  <checkpoint class="sticky" style="padding-top: 190px">
-  <div id="overview" class="verbatim schema"><div></div></div>
+  <div id="overview" class="verbatim schema"></div>
   <script>
   Hoa.Document.onReady(function ( ) {
 
-      var paper  = Hoa.Graph(Hoa.$('#overview div'), 800, 150);
+      var paper  = Hoa.Graph(Hoa.$('#overview'), 800, 150);
       var grid   = paper.grid(0, 0, 800, 150, 4, 1);
       var client = grid.push(paper.rect(0, 0, 90, 130, 3, 'client'));
       var server = grid.push(paper.rect(0, 0, 90, 130, 3, 'serveur'));
@@ -102,7 +101,6 @@
   suivant est une requête qui exprime « je souhaite obtenir la ressource
   <code>/path/to/resource</code> » :</p>
   <pre><code>GET /path/to/resource</code></pre>
-  </checkpoint>
 
   <h2 id="Apercu" for="main-toc">Aperçu</h2>
 
