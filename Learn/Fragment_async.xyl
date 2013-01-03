@@ -29,8 +29,9 @@
 
   <p>Un document <code>fragment</code> peut contenir <strong>plusieurs</strong>
   fragments, chacun étant contenu dans des composants <code>snippet</code> et
-  identifié par un attribut <code>id</code>. Ainsi, nous pouvons avoir le
-  fragment suivant dans <code>Some.frag.xyl</code> :</p>
+  identifié par un attribut <code>id</code>. Ainsi, nous avons les fragments
+  <code>first</code> et <code>second</code> dans
+  <code>Some.fragment.xyl</code> :</p>
   <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;fragment xmlns="http://hoa-project.net/xyl/xylophone">
@@ -53,12 +54,12 @@
   <code><em>id</em></code> dans le <strong>fichier</strong>
   <code><em>filename</em></code>. Voyons plutôt avec <code>Main.xyl</code> :</p>
   <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
-&amp;lt;?xyl-fragment href="Some.frag.xyl"?>
+&amp;lt;?xyl-fragment href="Some.fragment.xyl"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>Fragments tests&amp;lt;/title>
 
-  &amp;lt;yield select="?f:Some.frag.xyl#first" />
+  &amp;lt;yield select="?f:Some.fragment.xyl#first" />
 &amp;lt;/document></code></pre>
   <p>Toutefois, il est inconfortable de toujours devoir préciser le nom du
   fichier, surtout si ce fichier est déplacé ou comporte un nom plus long. C'est
@@ -68,7 +69,7 @@
   place de <code><em>filename</em></code> dans nos attributs
   <code>select</code>. Ainsi, l'exemple précédent devient :</p>
   <pre data-line="2,7"><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
-&amp;lt;?xyl-fragment href="Some.frag.xyl" as="some"?>
+&amp;lt;?xyl-fragment href="Some.fragment.xyl" as="some"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
   &amp;lt;title>Fragments tests&amp;lt;/title>
@@ -129,11 +130,11 @@ $xyl->render();</code></pre>
 -> import('Xyl.Interpreter.Html.~');
 
 $xyl = new Hoa\Xyl(
-    new Hoa\File\Read('Some.frag.xyl'),
+    new Hoa\File\Read('Some.fragment.xyl'),
     new Hoa\Http\Response(),
     new Hoa\Xyl\Interpreter\Html()
 );
-// 1. interpretation
+// 1. interpretation.
 $xyl->interprete();
 
 // 2. get fragment.
@@ -147,41 +148,192 @@ $xyl->render($fragment);</code></pre>
   <h2 id="Asynchrone" for="main-toc">Asynchrone</h2>
 
   <p>Lorsqu'un client demande le rendu d'un document, nous (le serveur) le
-  traitons en entier puis nous lui servons. Ce dernier a alors fait une requête
-  pour le document qui engendre une nouvelle requête par ressource associée. Le
-  client change alors de document ou veut le modifier : nous allons à nouveau
-  devoir traiter le document entier, lui servir, et il va à nouveau charger
-  toutes les ressources associées. La majorité des données échangées sont
-  inutiles, et malgré que certaines ressources ont été détectées comme
-  inchangées, des requêstes ont été faites. Nous pouvons parler de construction
-  <strong>synchrone</strong> de document. Afin d'économiser des ressources,
-  aussi bien côté client que serveur, il serait intéressant d'envisager une
-  construction <strong>asynchrone</strong>.</p>
-  <p>Une construction asynchrone permet de ne reconstruire qu'une ou
-  plusieurs parties d'un document. En HTML, nous pouvons nous appuyer sur
-  <a href="http://w3.org/TR/XMLHttpRequest/">XHR</a> (pour <em lang="en">XML
-  HTTP Request</em>) qui permet de créer des requêtes HTTP depuis
-  Javascript afin d'échanger des données sous divers formats (voir la
+  traitons en entier puis nous lui servons. Ce dernier a alors fait une première
+  requête pour le document qui va engendrer une nouvelle requête pour chaque
+  ressource associée. Le client change alors de document ou veut le modifier :
+  nous allons à nouveau devoir traiter le document entier, lui servir, et il va
+  à nouveau charger toutes les ressources associées. La majorité des données
+  échangées sont inutiles, et malgré que certaines ressources ont été détectées
+  comme inchangées, des requêtes ont été faites. Nous pouvons parler de
+  <strong>construction synchrone</strong> de document. Afin d'économiser des
+  ressources, aussi bien côté client que serveur, il serait intéressant
+  d'envisager une <strong>construction asynchrone</strong>.</p>
+  <p>Une construction asynchrone permet de ne <strong>reconstruire</strong>
+  qu'une ou plusieurs parties d'un document. En HTML, nous pouvons nous appuyer
+  sur <a href="http://w3.org/TR/XMLHttpRequest/">XHR</a> (pour <em lang="en">XML
+  HTTP Request</em>) qui permet de créer des requêtes HTTP depuis Javascript
+  afin d'échanger des données sous divers formats (voir la
   <a href="http://w3.org/TR/XMLHttpRequest/#xmlhttprequestresponsetype">liste
   des formats de XHR</a>).</p>
   <p>XYL <strong>propose</strong> un support <strong>natif</strong> de
   l'asynchrone pour certains interpréteurs, mais nous allons rester concentrer
   sur l'interpréteur HTML. XYL fonctionne en deux étapes pour ce support :</p>
   <ol>
-    <li>côté serveur : mise en place d'un balisage sémantique
-    pour identifier les zones asynchrones dans le document ;</li>
-    <li>côté client : utilisation d'une bibliothèque Javascript exploitant le
-    balisage sémantique pour créer et manipuler les requêtes HTTP.</li>
+    <li>lors de l'interprétation du document : mise en place d'un balisage
+    sémantique pour identifier les zones asynchrones ;</li>
+    <li>une fois le document chez le client : utilisation d'une bibliothèque
+    Javascript exploitant le balisage sémantique pour créer et manipuler les
+    requêtes HTTP.</li>
   </ol>
   <p>Ces deux étapes permettent une séparation <strong>claire</strong> des
-  préoccupations. Si nous connaissons alors le balisage sémantique introduit par
-  la première étape, nous pouvons utiliser n'importe quelle bibliothèque
-  Javascript pour gérer la seconde étape.</p>
+  préoccupations. Si nous connaissons le balisage sémantique introduit par la
+  première étape, nous pouvons utiliser n'importe quelle bibliothèque Javascript
+  pour gérer la seconde étape.</p>
   <p>Hoa propose la bibliothèque
   <code>hoa://Library/Xyl/Javascript/Hoa.js</code> pour permettre entre autre de
   jouer ce rôle de seconde étape. C'est cette bibliothèque que nous allons
   utiliser dans nos exemples mais il est tout à fait imagineable d'en utiliser
   d'autres !</p>
+
+  <h3 id="Definir_une_zone_asynchrone" for="main-toc">Définir une zone
+  asynchrone</h3>
+
+  <p>XYL propose le composant <code>async</code> pour définir une zone
+  asynchrone. Afin d'interagir avec cette zone, il est nécessaire de lui
+  définir un identifiant grâce à l'attribut <code>id</code>. Tous les composants
+  qui peuvent entraîner une action synchrone (comme <code>a</code> ou
+  <code>button</code>) seront modifiés. Par exemple, un lien avec le composant
+  <code>a</code> effectuera sa requête de manière asynchrone.</p>
+  <p>Très souvent, il est utile de connaître quelle partie du document sera
+  impactée par la requête asynchrone. C'est précisément le rôle de l'attribut
+  <code>scope</code> du composant <code>async</code>. Nous pouvons cibler une
+  partie du document grâce à trois types d'expressions :</p>
+  <ul>
+    <li><code>?[q[uery]:]<em>expression</em></code> : où
+    <code><em>expression</em></code> est un
+    <a href="http://w3.org/TR/css3-selectors">sélecteur CSS</a> absolu (<ie />
+    sur l'ensemble du document) ;</li>
+    <li><code>?r[elative-]q[uery]:<em>expression</em></code> : où
+    <code><em>expression</em></code> est un sélecteur CSS relatif au
+    composant ;</li>
+    <li><code>?x[path]:<em>expression</em></code> : où
+    <code><em>expression</em></code> est
+    <a href="http://w3.org/TR/xpath20">expression XPath</a>.</li>
+  </ul>
+  <p>Prenons l'exemple d'une zone de navigation (composant <code>nav</code>)
+  dont les liens mettront à jour la partie <code>myArticle</code> (composant
+  <code>article</code>). Nous allons entourer ce composant <code>nav</code> d'un
+  composant <code>async</code> en lui donnant l'identifiant <code>myAsync</code>
+  afin de le manipuler plus tard. De même, nous lui précisons sa cible :
+  <code>#myArticle</code> (équivalent à <code>?q:#myArticle</code> ou encore
+  <code>?query:#myArticle</code> si nous l'exprimons avec un sélecteur CSS).
+  Nous obtenons alors le code suivant :</p>
+  <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
+
+&amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
+  &amp;lt;title>Async' tests&amp;lt;/title>
+
+  &amp;lt;async id="myAsync" scope="#myArticle">
+    &amp;lt;nav>
+      &amp;lt;ul>
+        &amp;lt;li>&amp;lt;a href="A.php">link A&amp;lt;/a>;&amp;lt;/li>
+        &amp;lt;li>&amp;lt;a href="B.php">link B&amp;lt;/a>;&amp;lt;/li>
+        &amp;lt;li>&amp;lt;a href="C.php">link C&amp;lt;/a>.&amp;lt;/li>
+      &amp;lt;/ul>
+    &amp;lt;/nav>
+  &amp;lt;/async>
+
+  &amp;lt;article id="myArticle">
+    Default
+  &amp;lt;/article>
+
+  &amp;lt;script src="hoa://Library/Xyl/Javascript/Hoa.js">&amp;lt;/script>
+&amp;lt;/document></code></pre>
+  <p>Notre zone asynchrone est prête. Elle est définie et nous savons à quelle
+  autre partie du document elle est « liée ».</p>
+  <p>Notons que nous chargeons <code>hoa://Library/Xyl/Javascript/Hoa.js</code>
+  qui sera utile pour interagir avec la zone asynchrone.</p>
+
+  <h3 id="Interagir_avec_une_zone_asynchrone" for="main-toc">Interagir avec une
+  zone asynchrone</h3>
+
+  <p>Notre objectif est le suivant : nous allons observer ce qu'il se passe dans
+  notre zone asynchrone et réagir en conséquence. Par exemple quand un lien est
+  cliqué, une requête asynchrone sera créée. Une fois cette requête terminée
+  avec succès, nous récupérerons le résultat et l'associerons à la partie du
+  document ciblée par cette zone asynchrone. C'est le comportement le plus
+  classique.</p>
+  <p>Nous allons utiliser <code>hoa://Library/Xyl/Javascript/Hoa.js</code>. Pour
+  les usages classiques, cette bibliothèque saura réagir toute seul, mais dans
+  le cadre de l'exercice, nous allons écrire un peu de code.</p>
+  <p>À l'instar de Hoa, cette bibliothèque Javascript permet de créer d'autres
+  bibliothèques Javascript simplement. Les bibliothèques sont accessibles de
+  deux manières :</p>
+  <ul>
+    <li>depuis l'espace de nom global <code>Hoa</code> en Javascript ;</li>
+    <li>depuis l'espace de nom <code>hoa</code> sur les objets du DOM.</li>
+  </ul>
+  <p>Prenons notre exemple. Nous allons sélectionner l'élément qui représente
+  notre zone asynchrone avec la fonction
+  <a href="https://developer.mozilla.org/DOM/document.getElementById"><code>document.getElementById</code></a>.
+  Sur cet élément, nous allons accéder à l'espace <code>hoa</code>, puis ensuite
+  à l'espace <code>async</code>. Ce dernier propose plusieurs fonctions, dont la
+  très classique
+  <a href="https://developer.mozilla.org/docs/DOM/element.addEventListener"><code>addEventListener</code></a>.
+  Cette fonction permet d'écouter un événement. Les événements sont les même que
+  pour
+  <a href="http://w3.org/TR/XMLHttpRequest/#xmlhttprequesteventtarget"><code>XMLHttpRequestEventTarget</code></a>
+  et
+  <a href="http://w3.org/TR/XMLHttpRequest/#xmlhttprequest"><code>XMLHttpRequest</code></a>, 
+  à savoir :</p>
+  <ul>
+    <li><code>readystatechange</code>, prend arbitrairement les valeurs
+    suivantes (préfixées par <code>STATE_</code> dans notre cas) :
+      <ul>
+        <li><code>UNSENT</code> : quand l'objet XHR a été créé ;</li>
+        <li><code>OPENED</code> : quand la requête a été ouverte (mais que les
+            en-têtes n'ont pas encore été envoyées) ;</li>
+        <li><code>HEADERS_RECEIVED</code> : quand les en-têtes finales ont été
+            reçues ;</li>
+        <li><code>LOADING</code> : quand la réponse est en cours de
+            chargement ;</li>
+        <li><code>DONE</code> : quand le transfert des données est terminé ou
+        que quelque chose a mal fonctionné.</li>
+      </ul>
+    </li>
+    <li><code>loadstart</code> : quand la requête démarre ;</li>
+    <li><code>progress</code> : pendant que les données sont envoyées et
+        chargées ;</li>
+    <li><code>abort</code> : quand la requête est interrompue ;</li>
+    <li><code>error</code> : quand la requête échoue ;</li>
+    <li><code>load</code> : quand la requête est complète et est un
+       succès ;</li>
+    <li><code>timeout</code> : quand la requête a expiré avant de
+        terminer ;</li>
+    <li><code>loadend</code> : quand la requête est complète (peu importe si
+        elle a été un succès ou un échec) ;</li>
+  </ul>
+  <p>Nous vous conseillons de lire
+  <a href="http://w3.org/TR/XMLHttpRequest/#events">le résumé des événements
+  XHR</a> pour plus de détails si vous n'êtes pas familier avec ces
+  concepts.</p>
+  <p>Notre objectif est donc d'écouter l'événement
+  <code>readystatechange</code>. Quand une requête se termine sur un succès
+  (représenté par le code HTTP 200), nous remplacerons (à l'aide de
+  <a href="https://developer.mozilla.org/DOM/element.innerHTML"><code>innerHTML</code></a>)
+  le contenu de la cible de notre zone asynchrone par la réponse de la requête :
+  c'est à dire la nouvelle partie de notre document ! Tout ça s'écrit de la
+  manière suivante :</p>
+  <pre><code class="language-javascript">document.getElementById('myAsync').hoa.async.addEventListener(
+    'readystatechange',
+    function ( evt, data ) {
+
+        if(   this.STATE_DONE != this.readyState
+           ||             200 != this.status)
+            return;
+
+        data.scoped[0].innerHTML = this.responseText;
+    }
+);</code></pre>
+  <p>Essayons notre document. Quand nous cliquons sur les liens, le contenu du
+  document change de manière asynchrone : le document n'est jamais rechargé en
+  entier.</p>
+  <p>Nous noterons également que l'adresse dans la barre du navigateur se
+  modifie automatiquement. (((lien vers History API))).</p>
+
+  <h3 id="">Main et Main.frag</h3>
+
+  <h3 id="Formulaires_asynchrones" for="main-toc">Formulaires asynchrones</h3>
 
   <ul class="prev_next">
     <li><a href="@ll:chapter=Form"><previous_chapter /> Formulaire</a></li>

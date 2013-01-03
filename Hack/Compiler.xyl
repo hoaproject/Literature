@@ -376,7 +376,7 @@ echo $dump->visit($ast);
   <code>hoa</code> propose la commande <code>compiler:pp</code>. Cette commande
   propose d'analyser une donnée par rapport à une grammaire et d'appliquer un
   visiteur si besoin sur l'AST résultant. Notons que la lecture de la donnée
-  peut se faire à travers uu
+  peut se faire à travers un
   <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)"><em lang="en">pipe</em></a> :</p>
   <pre><code class="language-shell">$ echo '[1, [1, [2, 3], 5], 8]' | hoa compiler:pp Json.pp 0 --visitor dump
 >  #array
