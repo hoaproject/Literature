@@ -54,7 +54,7 @@
   <p>Enfin, quand un fichier contient du PHP, la <strong>balise de
   fermeture</strong> <code>?&gt;</code> est omise.</p>
 
-  <h2 id="Visibilite" for="main-toc">Visilité</h2>
+  <h2 id="Visibilite" for="main-toc">Visibilité</h2>
 
   <p>La visibilité s'exprime au niveau du code à l'aide des intructions
   <code>public</code>, <code>protected</code> et <code>private</code>. Cela ne
