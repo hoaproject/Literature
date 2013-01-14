@@ -81,10 +81,10 @@ echo $bench;
 
   <p>Les marques peuvent être dans trois états différents :</p>
   <ul>
-    <li>en marche : grâce à la méthode <code>Hoa\Bench\Mark::start</code> ;</li>
-    <li>en pause : grâce à la méthode <code>Hoa\Bench\Mark::pause</code>,
+    <li>en marche, grâce à la méthode <code>Hoa\Bench\Mark::start</code> ;</li>
+    <li>en pause, grâce à la méthode <code>Hoa\Bench\Mark::pause</code>,
     uniquement si elle était en marche précédemment ;</li>
-    <li>à l'arrêt : grâce à la méthode <code>Hoa\Bench\Mark::stop</code>,
+    <li>à l'arrêt, grâce à la méthode <code>Hoa\Bench\Mark::stop</code>,
     uniquement si elle est en marche.</li>
   </ul>
   <p>Si nous démarrons puis arrêtons une marque, pour ensuite la démarrer à
@@ -119,13 +119,13 @@ echo $bench;
  */</code></pre>
   <p>D'autres opérations sont possibles, comme :</p>
   <ul>
-    <li>obtenir la durée d'exécution : grâce à la méthode
+    <li>obtenir la durée d'exécution, grâce à la méthode
     <code>Hoa\Bench\Mark::diff</code> ;</li>
-    <li>comparer la durée d'exécution entre deux marques : grâce à la méthode
+    <li>comparer la durée d'exécution entre deux marques, grâce à la méthode
     <code>Hoa\Bench\Mark::compareTo</code> ;</li>
-    <li>savoir si une marque est en cours d'exécution : grâce à la méthode
+    <li>savoir si une marque est en cours d'exécution, grâce à la méthode
     <code>Hoa\Bench\Mark::isRunning</code> ;</li>
-    <li>savoir si une marque est en pause : grâce à la méthode
+    <li>savoir si une marque est en pause, grâce à la méthode
     <code>Hoa\Bench\Mark::isPause</code>.</li>
   </ul>
   <p>Nous avons précisé qu'un objet <code>Hoa\Bench</code> permettait de
