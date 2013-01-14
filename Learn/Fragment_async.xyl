@@ -241,29 +241,45 @@ $xyl->render($fragment);</code></pre>
 &amp;lt;/document></code></pre>
   <p>Notre zone asynchrone est prête. Elle est définie et nous savons à quelle
   autre partie du document elle est « liée ».</p>
-  <p>Notons que nous chargeons <code>hoa://Library/Xyl/Javascript/Hoa.js</code>
-  qui sera utile pour interagir avec la zone asynchrone.</p>
 
   <h3 id="Interagir_avec_une_zone_asynchrone" for="main-toc">Interagir avec une
   zone asynchrone</h3>
 
+  <p>Nous allons nous pencher sur
+  <code>hoa://Library/Xyl/Javascript/Hoa.js</code>. Cette bibliothèque
+  Javascript, à l'instar de Hoa, permet de créer d'autres bibliothèques
+  Javascript simplement.</p>
+  <p>Le fait de charger cette bibliothèque va activer des mécanismes par défaut
+  qui permettent déjà d'utiliser notre zone asynchrone. En effet, si nous
+  cliquons sur les liens, nous verrons que leur contenu est chargé dans le
+  composant <code>myArticle</code>. Les parties sont bien « liées » entre elles.
+  Nous remarquons aussi que l'adresse du document change d'elle-même. Pour cela,
+  <code>Hoa.js</code> utilise
+  l'<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/history.html#the-history-interface">objet
+  <code>History</code></a> afin de
+  <a href="https://developer.mozilla.org/docs/DOM/Manipulating_the_browser_history">manipuler
+  l'historique du navigateur</a>. Si un seul objet est manquant dans tout ce
+  processus, <code>Hoa.js</code> rendra la main et nous aurons un comportement
+  ordinaire.</p>
+
+  <h4 id="Reproduire_le_comportement_par_defaut" for="main-toc">Reproduire le
+  comportement par défaut</h4>
+
+  <p>Nous allons reproduire ce comportement par défaut pour bien comprendre ce
+  qu'il se passe et comment interagir avec ces zones.</p>
+  <p>Les bibliothèques que propose <code>Hoa.js</code> sont accessibles de deux
+  manières :</p>
+  <ul>
+    <li>depuis l'espace de nom global <code>Hoa</code> en Javascript ;</li>
+    <li>depuis l'espace de nom <code>hoa</code> sur les objets du DOM.</li>
+  </ul>
   <p>Notre objectif est le suivant : nous allons observer ce qu'il se passe dans
   notre zone asynchrone et réagir en conséquence. Par exemple quand un lien est
   cliqué, une requête asynchrone sera créée. Une fois cette requête terminée
   avec succès, nous récupérerons le résultat et l'associerons à la partie du
   document ciblée par cette zone asynchrone. C'est le comportement le plus
   classique.</p>
-  <p>Nous allons utiliser <code>hoa://Library/Xyl/Javascript/Hoa.js</code>. Pour
-  les usages classiques, cette bibliothèque saura réagir toute seul, mais dans
-  le cadre de l'exercice, nous allons écrire un peu de code.</p>
-  <p>À l'instar de Hoa, cette bibliothèque Javascript permet de créer d'autres
-  bibliothèques Javascript simplement. Les bibliothèques sont accessibles de
-  deux manières :</p>
-  <ul>
-    <li>depuis l'espace de nom global <code>Hoa</code> en Javascript ;</li>
-    <li>depuis l'espace de nom <code>hoa</code> sur les objets du DOM.</li>
-  </ul>
-  <p>Prenons notre exemple. Nous allons sélectionner l'élément qui représente
+  <p>Reprenons notre exemple. Nous allons sélectionner l'élément qui représente
   notre zone asynchrone avec la fonction
   <a href="https://developer.mozilla.org/DOM/document.getElementById"><code>document.getElementById</code></a>.
   Sur cet élément, nous allons accéder à l'espace <code>hoa</code>, puis ensuite
@@ -291,16 +307,16 @@ $xyl->render($fragment);</code></pre>
         que quelque chose a mal fonctionné.</li>
       </ul>
     </li>
-    <li><code>loadstart</code> : quand la requête démarre ;</li>
-    <li><code>progress</code> : pendant que les données sont envoyées et
+    <li><code>loadstart</code>, quand la requête démarre ;</li>
+    <li><code>progress</code>, pendant que les données sont envoyées et
         chargées ;</li>
-    <li><code>abort</code> : quand la requête est interrompue ;</li>
-    <li><code>error</code> : quand la requête échoue ;</li>
-    <li><code>load</code> : quand la requête est complète et est un
+    <li><code>abort</code>, quand la requête est interrompue ;</li>
+    <li><code>error</code>, quand la requête échoue ;</li>
+    <li><code>load</code>, quand la requête est complète et est un
        succès ;</li>
-    <li><code>timeout</code> : quand la requête a expiré avant de
+    <li><code>timeout</code>, quand la requête a expiré avant de
         terminer ;</li>
-    <li><code>loadend</code> : quand la requête est complète (peu importe si
+    <li><code>loadend</code>, quand la requête est complète (peu importe si
         elle a été un succès ou un échec) ;</li>
   </ul>
   <p>Nous vous conseillons de lire
@@ -323,17 +339,76 @@ $xyl->render($fragment);</code></pre>
             return;
 
         data.scoped[0].innerHTML = this.responseText;
+
+        return;
     }
 );</code></pre>
   <p>Essayons notre document. Quand nous cliquons sur les liens, le contenu du
   document change de manière asynchrone : le document n'est jamais rechargé en
-  entier.</p>
-  <p>Nous noterons également que l'adresse dans la barre du navigateur se
-  modifie automatiquement. (((lien vers History API))).</p>
+  entier. Simple, court et efficace ! Cela ne change pas avec le comportement
+  précédent mais le fait d'ajouter notre propre événement engendre la
+  désactivation du comportement par défaut.</p>
 
-  <h3 id="">Main et Main.frag</h3>
+  <h4 id="Manipuler_plus_precisement_l-historique" for="main-toc">Manipuler plus
+  précisément l'historique</h4>
+
+  <p>Tout ce passe comme nous l'espérons mais il existe toutefois un problème
+  (avec ou sans le comportement par défaut). Quand nous revenons en arrière dans
+  l'historique, les requêtes ne sont pas rejouer. C'est tout à fait normal.
+  Rappelons-nous que lorsque nous cliquons sur un lien, l'historique du
+  navigateur est modifié et la requête asynchrone est effectué. L'historique est
+  géré comme une pile d'états. Quand nous nous déplaçons dans l'historique, des
+  états sont dépilés ou empilés.  <code>Hoa.js</code> n'a pas de comportement
+  par défaut pour réagir à ces opérations car elles sont trop spécifiques.
+  Voyons comment créer un comportement adéquate.</p>
+  <p>Notre nouvel objectif est de détecter quand  un état
+  est enlevé de l'historique, typiquement quand nous revenons en arrière ou en
+  avant. Pour cela, nous allons écouter l'événement
+  <code>popstate</code> de la même manière que pour
+  <code>readystatechange</code>. À chaque fois que cet événement sera émis, nous
+  allons déclencher l'activation de notre zone asynchrone (nous passons sur les
+  détails) :</p>
+  <pre><code class="language-javascript">document.getElementById('myAsync').hoa.addEventListener(
+    'popstate',
+    function ( evt ) {
+
+        var state = evt.state;
+        Hoa.Async.sendForm(
+            document.getElementById('myAsync'),
+            'get',
+            state.pathname,
+            {
+                link  : true
+                scoped: scope.hoa.async.getScopedElements()
+            },
+            {'Content-Type': document.contentType || 'text/html'}
+        );
+    }
+);</code></pre>
+  <p>Lorsque nous cliquons sur des liens, l'historique change, les requêtes
+  asynchrones sont effectuées, et quand nous navigons en arrière et en avant
+  dans l'historique, les requêtes asynchrones sont à nouveau effectuées.</p>
+  <p>Toutefois, quand nous cliquons plusieurs fois sur le même lien, nous allons
+  remplir autant de fois l'historique de ce nouvel état. Il serait plus
+  confortable d'éviter ce comportement. Pour cela, nous allons écouter
+  l'événement <code>pushstate</code>, représentant l'arrivée d'un nouvel état,
+  et si l'adresse du document à charger est la même que l'adresse courante,
+  alors nous allons annuler le processus (en mettant la donnée
+  <code>data.uri</code> à <code>null</code>). Voyons plutôt :</p>
+  <pre><code class="language-javascript">document.getElementById('myAsync').hoa.async.addEventListener(
+    'pushstate',
+    function ( evt, data ) {
+
+        if(window.location.pathname.substr(1) === data.uri)
+            data.uri = null;
+    }
+);</code></pre>
+  <p>Et voilà, tout fonctionne bien !</p>
 
   <h3 id="Formulaires_asynchrones" for="main-toc">Formulaires asynchrones</h3>
+
+  <h2 id="Application_Gordon-s_blog" for="main-toc">Application :
+  <em lang="en">Gordon's blog</em></h2>
 
   <ul class="prev_next">
     <li><a href="@ll:chapter=Form"><previous_chapter /> Formulaire</a></li>
