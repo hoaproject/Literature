@@ -521,12 +521,12 @@ public $mails;</code></pre>
   juste suffisamment pour démarrer.</p>
 
   <h2 id="Application_Gordon-s_blog" for="main-toc">Application :
-  <em>Gordon's blog</em></h2>
+  <em lang="en">Gordon's blog</em></h2>
 
-  <p>Nous allons ajouter des données au <em>Gordon's blog</em>. Pour cela, nous
-  allons créer une base de données, puis l'exploiter à travers notre modèle
-  <code>Application\Model\<em>*</em></code>
-  utilisés dans notre contrôleur <code>Application\Controller\Blog</code>.</p>
+  <p>Nous allons ajouter des données au <em lang="en">Gordon's blog</em>. Pour
+  cela, nous allons créer une base de données, puis l'exploiter à travers notre
+  modèle <code>Application\Model\<em>*</em></code> utilisés dans notre
+  contrôleur <code>Application\Controller\Blog</code>.</p>
 
   <h3 id="Schema_des_donnees" for="main-toc">Schéma des données</h3>
 

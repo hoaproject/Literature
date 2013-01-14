@@ -911,12 +911,12 @@ $xyl->render();</code></pre>
   pas encore finalisées. Cette section sera mise à jour en temps voulu.</p>
 
   <h2 id="Application_Gordon-s_blog" for="main-toc">Application :
-  <em>Gordon's blog</em></h2>
+  <em lang="en">Gordon's blog</em></h2>
 
-  <p>Nous allons donner au <em>Gordon's blog</em> une meilleure interface
-  graphique afin de pouvoir l'afficher dans un navigateur. Nous allons commencer
-  par déclarer les vues puis les attacher à nos données à travers notre
-  contrôleur pour enfin tester le tout.</p>
+  <p>Nous allons donner au <em lang="en">Gordon's blog</em> une meilleure
+  interface graphique afin de pouvoir l'afficher dans un navigateur. Nous allons
+  commencer par déclarer les vues puis les attacher à nos données à travers
+  notre contrôleur pour enfin tester le tout.</p>
 
   <h3 id="Document_principal" for="main-toc">Document principal</h3>
 
