@@ -116,9 +116,12 @@ port 57005</code></pre>
   <pre><code class="language-shell">$ sudo /etc/init.d/dnsmasq restart
  * Restarting DNS forwarder and DHCP server dnsmasq                         [OK]</code></pre>
 
+  <!--
+  @TODO
   <h4 id="Sous_Windows" for="main-toc">Sous Windows</h4>
 
   <p>Sous Windows, …</p>
+  -->
 
   <h3 id="Creer_son_serveur_de_resolution" for="main-toc">Créer son serveur de
   résolution</h3>
