@@ -4,8 +4,7 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
-  <h1 id="Core"><em lang="en">Hack
-  book</em><title_break /><code>Worker</code></h1>
+  <h1 id="Worker"><em lang="en">Hack book</em><title_break /><code>Worker</code></h1>
 
   <p>Les <em lang="en">workers</em> permettent de décharger une application de
   tâches <strong>lourdes</strong> ou <strong>bloquantes</strong>. La

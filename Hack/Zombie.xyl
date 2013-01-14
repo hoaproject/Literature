@@ -4,7 +4,7 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
-  <h1 id="Core"><em lang="en">Hack book</em><title_break /><code>Zombie</code></h1>
+  <h1 id="Zombie"><em lang="en">Hack book</em><title_break /><code>Zombie</code></h1>
 
   <p>Un zombie est un processus qui n'est ni actif, ni terminé : il est entre la
   <strong>vie</strong> et la <strong>mort</strong>. <code>Hoa\Zombie</code>
