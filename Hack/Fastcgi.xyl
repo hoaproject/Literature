@@ -153,26 +153,26 @@ var_dump($fastcgi->getResponseContent());
   <p>Le protocole FastCGI peut lever <strong>trois erreurs</strong> possibles en
   plus de celles ajoutées par <code>Hoa\Fastcgi\Responder</code> :</p>
   <ul>
-    <li><code>Hoa\Fastcgi\Responder\Exception\CannotMultiplex</code> quand le
+    <li><code>Hoa\Fastcgi\Exception\CannotMultiplex</code> quand le
     programme externe ne supporte pas le <strong>multiplexage</strong> :
     plusieurs requêtes à travers une seule connexion ;</li>
-    <li><code>Hoa\Fastcgi\Responder\Exception\Overloaded</code> quand le
+    <li><code>Hoa\Fastcgi\Exception\Overloaded</code> quand le
     programme externe est trop <strong>occupé</strong> et a
     <strong>rejeté</strong> la requête ;</li>
-    <li><code>Hoa\Fastcgi\Responder\Exception\UnknownRole</code> quand un rôle
+    <li><code>Hoa\Fastcgi\Exception\UnknownRole</code> quand un rôle
     (un paquet du protocole) <strong>n'est pas reconnu</strong> par le programme
     externe ;</li>
-    <li><code>Hoa\Fastcgi\Responder\Exception</code> quand une
+    <li><code>Hoa\Fastcgi\Exception</code> quand une
     <strong>erreur</strong> de connexion, de protocole ou autre intervient
     (ajouté par <code>Hoa\Fastcgi\Responder</code>).</li>
   </ul>
   <p>Le meilleur moyen de capturer toutes les exceptions est de capturer
-  <code>Hoa\Fastcgi\Responder\Exception</code> :</p>
+  <code>Hoa\Fastcgi\Exception</code> :</p>
   <pre><code class="language-php">try {
 
     $fastcgi->send(…);
 }
-catch ( Hoa\Fastcgi\Responder\Exception $e ) {
+catch ( Hoa\Fastcgi\Exception $e ) {
 
     // compute $e.
 }</code></pre>
