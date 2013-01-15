@@ -368,7 +368,7 @@ $xyl->render($fragment);</code></pre>
   <code>readystatechange</code>. À chaque fois que cet événement sera émis, nous
   allons déclencher l'activation de notre zone asynchrone (nous passons sur les
   détails) :</p>
-  <pre><code class="language-javascript">document.getElementById('myAsync').hoa.addEventListener(
+  <pre><code class="language-javascript">document.getElementById('myAsync').hoa.async.addEventListener(
     'popstate',
     function ( evt ) {
 
