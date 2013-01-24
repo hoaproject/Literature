@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xyl-use href="../Definitions.xyl"?>
+
+<definition xmlns="http://hoa-project.net/xyl/xylophone">
+<yield name="chapter">
+
+  <h1 id="Console"><em lang="en">Hack book</em><title_break /><code>Console</code></h1>
+
+  <p>Le terminal est une <strong>interface</strong> très
+  <strong>puissante</strong> qui repose sur de multiples concepts.
+  <code>Hoa\Console</code> permet d'écrire des <strong>outils</strong> adaptés à
+  ce type d'environnement.</p>
+
+  <h2 id="Table_des_matieres">Table des matières</h2>
+
+  <tableofcontents id="main-toc" />
+
+  <h2 id="Introduction" for="main-toc">Introduction</h2>
+
+  <p>Historique des terminaux. Comment est organisé <code>Hoa\Console</code>.
+  Compatibilité avec Windows (rien n'est compatible sauf si on le précise).</p>
+
+  <h2 id="Fenetre" for="main-toc">Fenêtre</h2>
+
+  <p>La classe <code>Hoa\Console\Window</code> permet de manipuler la
+  <strong>fenêtre</strong> du terminal et son <strong>contenu</strong> à travers
+  des méthodes statiques.</p>
+
+  <h3 id="Taille_et_position" for="main-toc">Taille et position</h3>
+
+  <p>Les premières opérations élémentaires concernent la <strong>taille</strong>
+  et la <strong>position</strong> de la fenêtre, grâce aux méthode
+  <code>setSize</code>, <code>getSize</code>, <code>moveTo</code> et
+  <code>getPosition</code>. La taille se définie avec les unités
+  <em>colonne</em> × <em>ligne</em> et la position se définie en pixels.
+  Ainsi :</p>
+  <pre><code class="language-php">from('Hoa')
+-> import('Console.Window');
+
+Hoa\Console\Window::setSize(80, 50);
+print_r(Hoa\Console\Window::getSize());
+print_r(Hoa\Console\Window::getPosition());
+
+/**
+ * Will output:
+ *     Array
+ *     (
+ *         [x] => 80
+ *         [y] => 50
+ *     )
+ *     Array
+ *     (
+ *         [x] => 104
+ *         [y] => 175
+ *     )
+ */</code></pre>
+  <p>Nous remarquerons que la fenêtre se redimensionne <strong>toute
+  seule</strong>. Ni la taille ni la position de la fenêtre ne sont stockées en
+  mémoire, elles sont calculées à chaque appel de la méthode
+  <code>getSize</code> et <code>getPosition</code>. Attention, l'axe <em>y</em>
+  de la position de la fenêtre se calcule depuis <strong>le bas</strong> de
+  l'écran et non pas depuis le haut de l'écran comme nous pourrions nous y
+  attendre !</p>
+  <p>Il est aussi possible d'écouter l'<strong>événement</strong>
+  <code>hoa://Event/Console/Window:resize</code> qui est lancé à chaque fois que
+  la fenêtre est redimensionnée : soit manuellement, soit avec la méthode
+  <code>setSize</code>. Nous avons besoin de deux choses pour que cet événement
+  fonctionne :</p>
+  <ol>
+    <li>l'extension <a href="http://php.net/pcntl"><code>pcntl</code></a> doit
+    être activée ;</li>
+    <li>nous devons utiliser
+    <a href="http://php.net/declare"><code>declare</code></a> pour que
+    <a href="http://php.net/pcntl_signal"><code>pcntl_signal</code></a>
+    fonctionne correctement.</li>
+  </ol>
+  <p>Pour mettre le programme en attente passive, nous allons utiliser la
+  fonction
+  <a href="http://php.net/stream_select"><code>stream_select</code></a>, c'est
+  un <strong>détail</strong> présent uniquement pour tester notre code, sinon le
+  programme se terminerait tout de suite. Ainsi :</p>
+  <pre><code class="language-php">from('Hoa')
+-> import('Console.Window', true); // make sure that it is loaded.
+
+declare(ticks = 1);
+
+event('hoa://Event/Console/Window:resize')
+    ->attach(function ( Hoa\Core\Event\Bucket $bucket ) {
+
+        $data = $bucket->getData();
+        $size = $data['size'];
+
+        echo 'New size (', $size['x'], ', ', $size['y'], ')', "\n";
+    });
+
+// Passive loop.
+while(true) {
+
+    $r = array(STDIN);
+    @stream_select($r, $w, $e, 3600);
+}</code></pre>
+  <p>Lorsque nous modifions la taille de la fenêtre, nous verrons s'afficher par
+  exemple : <samp>New size (45, 67)</samp>, et ce pour chaque redimensionnement.
+  Cet événement est intéressant si nous voulons <strong>ré-adapter</strong>
+  notre présentation.</p>
+  <p>Enfin, si vous décidez d'<strong>embêter</strong> votre utilisateur, vous
+  pouvez utiliser la méthode <code>minimize</code> qui va réduire la fenêtre,
+  amusant mais totalement <strong>inutile</strong>.</p>
+
+  <h3 id="Titre_et_label" for="main-toc">Titre et label</h3>
+
+  <p>Le <strong>titre</strong> d'une fenêtre correspond au texte affiché dans sa
+  <strong>barre</strong> supérieure, dans laquelle sont souvent placés les
+  contrôles de la fenêtre comme la maximisation, la minimisation etc. Le
+  <strong>label</strong> correspond au nom associé au <strong>processus</strong>
+  actuel. Nous trouvons les méthodes <code>setTitle</code>,
+  <code>getTitle</code> et <code>getLabel</code>, il n'est pas prévu de modifier
+  le label. Ainsi :</p>
+  <pre><code class="language-php">Hoa\Console\Window::setTitle('Foobar');
+var_dump(Hoa\Console\Window::getTitle());
+var_dump(Hoa\Console\Window::getLabel());
+
+/**
+ * Will output:
+ *     string(6) "Foobar"
+ *     string(3) "php"
+ */</code></pre>
+  <p>Encore une fois, le titre et le label ne sont pas stockés en mémoire, ils
+  sont calculés à chaque appel de méthode.</p>
+
+  <h3 id="Interagir_avec_le_contenu" for="main-toc">Interagir avec le
+  contenu</h3>
+
+  <p><code>Hoa\Console\Window</code> permet aussi de contrôler le
+  <strong>contenu</strong> de la fenêtre, ou du moins le
+  <em lang="en">viewport</em>, c'est à dire le contenu <strong>visible</strong>
+  de la fenêtre. Une seule méthode est actuellement disponible :
+  <code>scroll</code>, qui permet de <strong>déplacer</strong> le contenu vers
+  le haut ou vers le bas. Les arguments de cette méthode sont très simples :
+  <code>up</code> ou <code>↑</code> pour monter d'une ligne, et
+  <code>down</code> ou <code>↓</code> pour descendre d'une ligne. Nous pouvons
+  concaténer ces directions par un espace ou alors préciser le nombre de fois où
+  une direction sera répétée :</p>
+  <pre><code class="language-php">Hoa\Console\Window::scroll('↑', 10);</code></pre>
+  <p>En réalité, cette méthode va déplacer le contenu pour qu'il y ait
+  <em>x</em> lignes respectivement en-dessous ou au-dessus du curseur.
+  Attention, le curseur <strong>ne change pas</strong> de positions !</p>
+  <p>Même si c'est très souvent inutile, il est possible de
+  <strong>rafraîchir</strong> la fenêtre, c'est à dire de refaire un rendu
+  complet. Nous pouvons nous aider de la méthode <code>refresh</code> toujour
+  sur <code>Hoa\Console\Window</code>.</p>
+  <p>Enfin, il est possible de placer un texte dans le
+  <strong>presse-papier</strong> de l'utilisateur à l'aide de la méthode
+  <code>copy</code> :</p>
+  <pre><code class="language-php">Hoa\Console\Window::copy('Foobar');</code></pre>
+  <p>Puis si l'utilisateur colle ce qui est dans son presse-papier, il verra
+  <samp>Foobar</samp> s'afficher.</p>
+
+  <h2 id="Curseur" for="main-toc">Curseur</h2>
+
+  <p>La classe <code>Hoa\Console\Cursor</code> permet de manipuler le
+  <strong>curseur</strong> du terminal à travers des méthodes statiques.</p>
+
+  <h3 id="Deplacement" for="main-toc">Déplacement</h3>
+
+  <p>Nous allons commencer par <strong>déplacer</strong> le curseur. Il se
+  déplace partout dans le <em lang="en">viewport</em>, c'est à dire le contenu
+  <strong>visible</strong> de la fenêtre du terminal, mais nous allons écrire un
+  peu de texte et nous déplacer dedans dans un premier temps. La méthode
+  <code>move</code> sur <code>Hoa\Console\Cursor</code> permet de déplacer le
+  curseur dans plusieurs <strong>directions</strong>. Tout d'abord de manière
+  <strong>relative</strong> :</p>
+  <ul>
+    <li><code>u[p]</code> ou <code>↑</code>, pour le déplacer à la ligne
+    supérieure ;</li>
+    <li><code>r[ight]</code> ou <code>→</code>, pour le déplacer à la colonne
+    suivante ;</li>
+    <li><code>d[own]</code> ou <code>↓</code>, pour le déplacer à la ligne
+    inférieure ;</li>
+    <li><code>l[eft]</code> ou <code>←</code>, pour le déplacer à la colonne
+    précédente.</li>
+  </ul>
+  <p>Nous trouvons aussi des déplacements <strong>semi-absolus</strong> :</p>
+  <ul>
+    <li><code>U[P]</code>, pour le déplacer à la première ligne du
+    <em lang="en">viewport</em> ;</li>
+    <li><code>R[IGHT]</code>, pour le déplacer à la dernière colonne du
+    <em lang="en">viewport</em> ;</li>
+    <li><code>D[OWN]</code>, pour le déplacer à la dernière ligne du
+    <em lang="en">viewport</em> ;</li>
+    <li><code>L[EFT]</code>, pour le déplacer à la première colonne du
+    <em lang="en">viewport</em>.</li>
+  </ul>
+  <p>Ces directions peuvent concaténer par des espaces, ou alors nous pouvons
+  préciser le nombre de fois où une direction sera répétée.</p>
+  <pre><code class="language-php">from('Hoa')
+-> import('Console.Cursor');
+
+echo 'abcdef', "\n",
+     'ghijkl', "\n",
+     'mnopqr', "\n",
+     'stuvwx';
+
+sleep(1);
+Hoa\Console\Cursor::move('↑');
+sleep(1);
+Hoa\Console\Cursor::move('↑ ←');
+sleep(1);
+Hoa\Console\Cursor::move('←', 3);
+sleep(1);
+Hoa\Console\Cursor::move('DOWN');
+sleep(1);
+Hoa\Console\Cursor::move('→', 4);</code></pre>
+  <p>Lors de l'exécution, nous verrons le curseur se déplacer <strong>tout
+  seul</strong> de « lettre en lettre » toutes les secondes.</p>
+  <p>Pour réellement déplacer le curseur de manière <strong>absolue</strong>,
+  nous utiliserons la méthode <code>moveTo</code> qui prend en argument des
+  coordonnées en <em>colonne</em> × <em>ligne</em> (la numérotation commence à 1
+  et non pas à 0). Nous en profitons pour parler de la méthode
+  <code>getPosition</code> qui permet de connaître la <strong>position</strong>
+  du curseur. Ainsi, si nous voulons déplacer le curseur à la colonne 12 et à la
+  ligne 7, puis afficher ces coordonnées, nous écrirons :</p>
+  <pre><code class="language-php">Hoa\Console\Cursor::moveTo(12, 7);
+print_r(Hoa\Console\Cursor::getPosition());
+
+/**
+ * Will output:
+ *     Array(
+ *         [x] => 12
+ *         [y] => 7
+ *     )
+ */</code></pre>
+  <p>Enfin, il arrive très régulièrement que nous voulons déplacer le curseur
+  <strong>temporairement</strong> pour quelques opérations. Dans ce cas, il est
+  inutile de récupérer la position actuel, le déplacer, puis le repositionner ;
+  nous pouvons profiter des méthodes <code>save</code> et <code>restore</code>.
+  Comme leur nom l'indique, ces méthodes respectivement
+  <strong>enregistre</strong> la position du curseur puis
+  <strong>restore</strong> le curseur à la position précédemment enregistrée.
+  Ces fonctions ne manipulent pas de <strong>pile</strong>, il est impossible
+  d'enregistrer plus d'une seule position à la fois (le nouvel enregistrement
+  <strong>écrasera</strong> l'ancien). Ainsi, nous allons écrire un texte,
+  enregistrer la position du curseur, revenir en arrière et réécrire par dessus,
+  pour enfin revenir à notre position précédente :</p>
+  <pre><code class="language-php">echo 'hello world';
+
+// Save cursor position.
+Hoa\Console\Cursor::save();
+sleep(1);
+
+// Go to the begining of the line.
+Hoa\Console\Cursor::move('LEFT');
+sleep(1);
+
+// Replace “h” by “H”.
+echo 'H';
+sleep(1);
+
+// Go to “w”.
+Hoa\Console\Cursor::move('→', 5);
+sleep(1);
+
+// Replace “w” by “W”.
+echo 'W';
+sleep(1);
+
+// Back to the saved position.
+Hoa\Console\Cursor::restore();
+sleep(1);
+
+echo '!';</code></pre>
+  <p>Le résultat final sera <samp>Hello World!</samp>. Nous remarquons qu'à
+  chaque fois qu'un caractère est écrit, le curseur se
+  <strong>déplace</strong>.</p>
+
+  <h3 id="Affichage" for="main-toc">Affichage</h3>
+
+  <p>Maintenant que le déplacement est acquis, nous allons voir comment
+  <strong>nettoyer</strong> des lignes et/ou des colonnes. Pour cela, nous nous
+  appuyons sur la méthode <code>clear</code> qui prend en argument les symboles
+  suivantes (concaténés par un espace) :</p>
+  <ul>
+    <li><code>a[ll]</code> ou <code>↕</code>, pour nettoyer tout l'écran et
+    déplacer le curseur en haut à gauche du <em lang="en">viewport</em> ;</li>
+    <li><code>u[p]</code> ou <code>↑</code>, pour nettoyer toutes les lignes
+    au-dessus du curseur ;</li>
+    <li><code>r[ight]</code> ou <code>→</code>, pour nettoyer le reste de la
+    ligne à partir du curseur ;</li>
+    <li><code>d[own]</code> ou <code>↓</code>, pour nettoyer toutes les lignes
+    en-dessous du curseur ;</li>
+    <li><code>l[eft]</code> ou <code>←</code>, pour nettoyer du début de la
+    ligne jusqu'au curseur ;</li>
+    <li><code>line</code> ou <code>↔</code>, pour nettoyer toute la ligne et
+    déplacer le curseur en début de ligne.</li>
+  </ul>
+  <p>Ainsi, pour nettoyer <strong>toute une ligne</strong> :</p>
+  <pre><code class="language-php">Hoa\Console\Cursor::clear('↔');</code></pre>
+  <p>Le curseur peut aussi agir comme un <strong>pinceau</strong> et ainsi
+  écrire avec différentes <strong>couleurs</strong> ou différents
+  <strong>styles</strong> grâce à la méthode <code>colorize</code> (nous pouvons
+  tout mélanger en séparant chaque « commande » par des espaces). Commençons
+  par énumérer les styles :</p>
+  <ul>
+    <li><code>n[ormal]</code>, pour annuler tous les styles appliqués ;</li>
+    <li><code>b[old]</code>, pour écrire en gras ;</li>
+    <li><code>u[nderlined]</code>, pour avoir un texte souligné ;</li>
+    <li><code>bl[ink]</code>, pour avoir un texte qui clignote ;</li>
+    <li><code>i[nverse]</code>, pour inverser les couleurs d'avant et
+    d'arrière-plan ;</li>
+    <li><code>!b[old]</code>, pour annuler le gras ;</li>
+    <li><code>!u[nderlined]</code>, pour annuler le soulignement ;</li>
+    <li><code>!bl[ink]</code>, pour annuler le clignotement ;</li>
+    <li><code>!i[nverse]</code>, pour ne plus inverser les couleurs d'avant et
+    d'arrière-plan.</li>
+  </ul>
+  <p>Ces styles sont très classiques. Passons maintenant aux couleurs. Tout
+  d'abord, nous devons préciser si nous appliquons une couleur sur
+  l'<strong>avant-plan</strong> du texte, soit le texte lui-même, ou alors sur
+  son <strong>arrière-plan</strong>. Pour cela, nous allons nous aider
+  respectivement de la syntaxe <code>f[ore]g[round](<em>color</em>)</code> et
+  <code>b[ack]g[round](<em>color</em>)</code>. La valeur de
+  <code><em>color</em></code> peut être :</p>
+  <ul>
+    <li><code>default</code>, pour reprendre la couleur par défaut du
+    plan ;</li>
+    <li><code>black</code>, <code>red</code>, <code>green</code>,
+    <code>yellow</code>, <code>blue</code>, <code>magenta</code>,
+    <code>cyan</code> ou <code>white</code>, respectivement pour noir, rouge,
+    vert, jaune, bleu, magenta, cyan ou blanc ;</li>
+    <li>un numéro en <code>0</code> et <code>256</code>, correspond au numéro de
+    la couleur dans la palette des 256 couleurs ;</li>
+    <li><code>#<em>rrggbb</em></code> où <code><em>rrggbb</em></code> est un
+    nombre en hexadécimal correspondant au numéro de la couleur dans la palette
+    des 2<sup>64</sup> couleurs.</li>
+  </ul>
+  <p>Les terminaux manipulent <strong>une</strong> des deux palettes : 8
+  couleurs ou 256 couleurs. Chaque couleur est <strong>indexée</strong> à partir
+  de 0. Les noms des couleurs sont <strong>transformées</strong> vers leur index
+  respectif. Quand une couleur est précisée en hexadécimal, elle est
+  <strong>rapportée</strong> à la couleur la plus proche dans la palette
+  comportant 256 couleurs.</p>
+  <p>Ainsi, si nous voulons écrire <code>Hello</code> en jaune sur fond presque
+  rouge (<code>#932e2e</code>) et en plus souligné, puis <code> world</code>
+  mais non-souligné :</p>
+  <pre><code class="language-php">Hoa\Console\Cursor::colorize('fg(yellow) bg(#932e2e) underlined');
+echo 'Hello';
+Hoa\Console\Cursor::colorize('!underlined');
+echo ' world';</code></pre>
+  <p>Enfin, il est possible de modifier les palettes de couleurs grâce à la
+  méthode <code>changeColor</code>, mais c'est à utiliser avec
+  <strong>précautions</strong>, cela peut perturber l'utilisateur. Cette méthode
+  prend en premier argument l'index de la couleur et second argument sa valeur
+  en hexadécimal. Par exemple, <code>fg(yellow)</code> correspond à l'index
+  <code>33</code>, et nous voulons que ce soit maintenant totalement bleu :</p>
+  <pre><code class="language-php">Hoa\Console\Cursor::changeColor(33, 0xf00);</code></pre>
+  <p>Toutefois, la palette de 256 couleurs est suffisamment
+  <strong>complète</strong> pour ne pas avoir besoin de modifier les
+  couleurs.</p>
+
+  <h3 id="Style" for="main-toc">Style</h3>
+
+  <p>Le curseur n'est pas forcément toujours visible. Lors de certaines
+  opérations, nous pouvons le <strong>cacher</strong>, effectuer nos
+  déplacements, puis le rendre à nouveau <strong>visible</strong>. Les méthodes
+  <code>hide</code> et <code>show</code>, toujours sur
+  <code>Hoa\Console\Cursor</code>, sont là pour ça :</p>
+  <pre><code class="language-php">echo 'Visible', "\n";
+sleep(5);
+
+echo 'Invisible', "\n";
+Hoa\Console\Cursor::hide();
+sleep(5);
+
+echo 'Visible', "\n";
+Hoa\Console\Cursor::show();
+sleep(5);</code></pre>
+  <p>Il existe aussi trois <strong>types</strong> de curseurs, que nous pouvons
+  choisir avec la méthode <code>setStyle</code> :</p>
+  <ul>
+    <li><code>b[lock]</code> ou <code>▋</code>, pour un curseur en forme de
+    bloc ;</li>
+    <li><code>u[nderline]</code> ou <code>_</code>, pour un curseur en forme de
+    trait de soulignement ;</li>
+    <li><code>v[ertical]</code> ou <code>|</code>, pour un curseur en forme de
+    barre vertical.</li>
+  </ul>
+  <p>Cette méthode prend en second argument un booléen indiquant si le curseur
+  doit <strong>clignoter</strong> (valeur par défaut) ou pas. Ainsi, nous allons
+  faire tous les styles :</p>
+  <pre><code class="language-php">echo 'Block/steady: ';
+Hoa\Console\Cursor::setStyle('▋', false);
+sleep(3);
+
+echo "\n", 'Vertical/blink: ';
+Hoa\Console\Cursor::setStyle('|', true);
+sleep(3);
+
+// etc.</code></pre>
+  <p>Souvent le curseur indique des <strong>zones</strong> ou éléments
+  d'<strong>interactions</strong> différents, comme le pointeur de la
+  souris.</p>
+
+  <h3 id="Son" for="main-toc">Son</h3>
+
+  <p>Le curseur est aussi capable d'émettre un petit « bip », souvent pour
+  <strong>attirer</strong> l'attention de l'utilisateur. Nous allons utiliser la
+  méthode éponyme <code>bip</code> :</p>
+  <pre><code class="language-php">Hoa\Console\Cursor::bip();</code></pre>
+  <p>Il n'y a qu'une seule <strong>tonalité</strong> de disponible.</p>
+
+  <h2 id="Lecture_en_ligne" for="main-toc">Lecture en ligne</h2>
+
+  <p>Une manière d'<strong>interagir</strong> avec les utilisateurs est de lire
+  le flux <code>STDIN</code>, à savoir le flux d'entrée. Cette
+  <strong>lecture</strong> est par défaut très basique : impossible d'effacer,
+  impossible d'utiliser les flèches, impossible d'utiliser des raccourcis etc.
+  C'est pourquoi il existe la « lecture en ligne », ou
+  <em lang="en">readline</em> en anglais, qui reste une lecture sur le flux
+  <code>STDIN</code>, mais plus <strong>évoluée</strong>. La bibliothèque
+  <code>Hoa\Console\Readline</code> propose plusieurs fonctionnalités que nous
+  allons décrire.</p>
+
+  <h3 id="Usage_basique" for="main-toc">Usage basique</h3>
+
+  <p>Pour <strong>lire une ligne</strong> (c'est à dire une entrée de
+  l'utilisateur), nous allons instancier la classe
+  <code>Hoa\Console\Readline</code> et appeler dessus la méthode
+  <code>readLine</code>. Chaque appel de cette méthode va
+  attendre que l'utilisateur <strong>saisisse</strong> une donnée puis appuye
+  sur <kbd>↵</kbd>. À ce moment là, la méthode retournera la saisie de
+  l'utilisateur. Cette méthode prend aussi en argument un
+  <strong>préfixe</strong>, c'est à dire une donnée à afficher avant la saisie
+  de la ligne. Il arrive que le terme <em>prompt</em> soit aussi utilisé dans la
+  littérature, les deux notions sont identiques.</p>
+  <p>Ainsi, nous allons écrire un programme qui va lire les entrées de
+  l'utilisateur et faire un écho. Le programme terminera si l'utilisateur saisie
+  <samp>quit</samp> :</p>
+  <pre><code class="language-php">from('Hoa')
+-> import('Console.Readline.~');
+
+$rl = new Hoa\Console\Readline();
+
+do {
+
+    $line = $rl->readLine('> ');
+    echo '&amp;lt; ', $line, "\n\n";
+
+} while('quit' !== $line);</code></pre>
+  <p>Maintenant, détaillons les services que nous offre
+  <code>Hoa\Console\Readline</code>.</p>
+  <p>Nous sommes capables de nous <strong>déplacer</strong> (comprendre,
+  déplacer le curseur) dans la ligne à l'aide des touches <kbd>←</kbd> et
+  <kbd>→</kbd>. Nous pouvons à tout moment <strong>effacer</strong> un caractère
+  en arrière avec la touche <kbd>Backspace</kbd> ou tous les caractères jusqu'au
+  début du mot avec <kbd>Ctrl</kbd> + <kbd>W</kbd> (où <kbd>W</kbd> signifie
+  <em lang="en">word</em>). Nous pouvons également nous déplacer avec des
+  <strong>raccourcis</strong> claviers communs à beaucoup de logiciels :</p>
+  <ul>
+    <li><kbd>Ctrl</kbd> + <kbd>A</kbd>, pour se déplacer en début de
+    ligne ;</li>
+    <li><kbd>Ctrl</kbd> + <kbd>E</kbd>, pour se déplacer en fin de ligne ;</li>
+    <li><kbd>Ctrl</kbd> + <kbd>B</kbd>, pour se déplacer au début du mot courant
+    (<kbd>B</kbd> pour <em lang="en">backward</em>) ;</li>
+    <li><kbd>Ctrl</kbd> + <kbd>F</kbd>, pour se déplacer en fin du mot courant
+    (<kbd>F</kbd> pour <em lang="en">forward</em>).</li>
+  </ul>
+  <p>Nous avons aussi accès à l'<strong>historique</strong> lorsque nous
+  appuyons sur les touches <kbd>↑</kbd> et <kbd>↓</kbd>, respectivement pour
+  chercher en arrière et avant dans l'historique. La touche <kbd>⇥</kbd>
+  déclenche l'<strong>auto-complétion</strong> si elle est définie. Et enfin, la
+  touche <kbd>↵</kbd> retourne la saisie.</p>
+  <p>Il existe aussi la classe <code>Hoa\Console\Readline\Password</code> qui
+  permet d'avoir un lecteur de ligne avec exactement les mêmes services mais
+  les caractères <strong>ne s'impriment pas</strong> à l'écran, très utile pour
+  un <strong>mot de passe</strong> :</p>
+  <pre><code class="language-php">from('Hoa')
+-> import('Console.Readline.Password');
+
+$rl  = new Hoa\Console\Readline\Password();
+$pwd = $rl->readLine('Password: ');
+
+echo 'Your password is: ', $pwd, "\n";</code></pre>
+
+  <h3 id="Raccourcis" for="main-toc">Raccourcis</h3>
+
+  <p>Pour comprendre comment créer des raccourcis, il faut un tout petit peu
+  comprendre le fonctionnement <strong>interne</strong> de
+  <code>Hoa\Console\Readline</code>, et il est très simple. À chaque fois que
+  nous appuyons sur une ou plusieurs touches, une <strong>chaîne</strong> de
+  caractères représentant cette <strong>combinaison</strong> est envoyée et
+  reçue par notre lecteur. Il regarde si une action est associée à cette
+  chaîne : si oui, il l'exécute, si non, il en utilise une par défaut qui
+  consiste à afficher la chaîne telle quelle. Chaque action retourne un
+  <strong>état</strong> pour le lecteur (qui sont des constantes sur
+  <code>Hoa\Console\Readline</code>) :</p>
+  <ul>
+    <li><code>STATE_CONTINUE</code>, pour continuer la lecture ;</li>
+    <li><code>STATE_BREAK</code>, pour arrêter la lecture ;</li>
+    <li><code>STATE_NO_ECHO</code>, pour ne pas afficher la lecture.</li>
+  </ul>
+  <p>Ainsi, si une action retourne <code class="language-php">STATE_CONTINUE |
+  STATE_NO_ECHO</code>, la lecture continuera mais la chaîne qui vient d'être
+  reçue ne sera pas affichée. Autre exemple, l'action associée à la touche
+  <kbd>↵</kbd> retourne l'état <code>STATE_BREAK</code>.</p>
+  <p>Pour <strong>ajouter</strong> des actions, nous utilisons la méthode
+  <code>addMapping</code> (ou <code>addMappings</code> pour en ajouter
+  plusieurs). Elle facilite l'ajout grâce à une syntaxe dédiée :</p>
+  <ul>
+    <li><code>\e[<em>…</em></code>, pour les séquences commençant par le
+    caractère <kbd>Esc</kbd> ;</li>
+    <li><code>\C-<em>…</em></code>, pour les séquences commençant par le
+    caractère <kbd>Ctrl</kbd> ;</li>
+    <li><code><em>x</em></code>, n'importe quels caractères.</li>
+  </ul>
+  <p>Par exemple, si nous voulons afficher <code>z</code> à la place de
+  <code>a</code>, nous écrirons :</p>
+  <pre><code class="language-php">$rl->addMapping('a', 'z');</code></pre>
+  <p>Plus compliqué maintenant, nous pouvons utiliser un
+  <em lang="en">callable</em> en second paramètre de
+  <code>addMapping</code>. Ce <em lang="en">callable</em> va recevoir l'instance
+  de <code>Hoa\Console\Readline</code> en seul argument. Plusieurs méthodes sont
+  là pour aider à <strong>manipuler</strong> le lecteur (gestion de
+  l'historique, de la ligne etc.). Par exemple, à chaque fois que nous
+  appuyerons sur <kbd>Ctrl</kbd> + <kbd>R</kbd>, nous inverserons la casse de la
+  ligne :</p>
+  <pre><code class="language-php">$rl = new Hoa\Console\Readline();
+
+// Add mapping.
+$rl->addMapping('\C-R', function ( Hoa\Console\Readline $self ) {
+
+    // Clear the line.
+    Hoa\Console\Cursor::clear('↔');
+    echo $self->getPrefix();
+
+    // Get the line text.
+    $line = $self->getLine();
+
+    // New line.
+    $new  = null;
+
+    // Loop over all characters.
+    for($i = 0, $max = $self->getLineLength(); $i &amp;lt; $max; ++$i) {
+
+        $char = mb_substr($line, $i, 1);
+
+        if($char === $lower = mb_strtolower($char))
+            $new .= mb_strtoupper($char);
+        else
+            $new .= $lower;
+    }
+
+    // Set the new line.
+    $self->setLine($new);
+
+    // Set the buffer (and let the readline echoes or not).
+    $self->setBuffer($new);
+
+    // The readline will continue to read.
+    return $self::STATE_CONTINUE;
+});
+
+// Try!
+var_dump($rl->readLine('> '));</code></pre>
+  <p>Il ne faut pas hésiter à regarder comment sont implémenter les raccourcis
+  précédemment énoncés pour se donner des idées.</p>
+
+  <h3 id="Auto-completion" for="main-toc">Auto-complétion</h3>
+
+  <p>Un outil également très utile lorsque nous écrivons un lecteur de ligne est
+  l'<strong>auto-complétion</strong>. Elle se déclenche en appuyant sur la
+  touche <kbd>⇥</kbd> si un auto-compléteur a été défini à l'aide de la méthode
+  <code>setAutocompleter</code>.</p>
+  <p>Tous les auto-compléteurs doivent implémenter l'interface
+  <code>Hoa\Console\Readline\Autocompleter</code>. Quelqu'uns sont déjà présents
+  pour nous <strong>aider</strong> dans notre développement, comme
+  <code>Hoa\Console\Readline\Autocompleter\Word</code> qui va auto-compléter à
+  partir d'une <strong>liste de mots</strong>. Par exemple :</p>
+  <pre><code class="language-php">$rl = new Hoa\Console\Readline();
+$rl->setAutocompleter(new Hoa\Console\Readline\Autocompleter\Word(array(
+    'hoa',
+    'console',
+    'readline',
+    'autocompleter',
+    'autocompletion',
+    'password',
+    'awesome'
+)));
+var_dump($rl->readLine('> '));</code></pre>
+  <p>Essayons d'écrire ce que nous voulons, puis où nous le souhaitons, appuyons
+  sur <kbd>⇥</kbd>. Si le texte à gauche du curseur commence par <code>h</code>,
+  alors nous verrons <samp>hoa</samp> s'écrire <strong>d'un coup</strong> car
+  l'auto-compléteur n'a pas de choix (il retourne une chaîne). Si
+  l'auto-compléteur ne trouve aucun mot adapté, il ne se passera
+  <strong>rien</strong> (il retournera <code>null</code>).  Et enfin, s'il
+  trouve <strong>plusieurs mots</strong> (il retournera un tableau), alors un
+  <strong>menu</strong> s'affichera. Essayons d'auto-compléter simplement
+  <code>a</code> : le menu proposera <code>autocompleter</code>,
+  <samp>autocompletion</samp> et <samp>awesome</samp>. Soit nous continuons à
+  taper et le menu va <strong>disparaître</strong>, soit nous pouvons nous
+  <strong>déplacer</strong> dans le menu avec les touches <kbd>⇥</kbd>,
+  <kbd>↑</kbd>, <kbd>→</kbd>, <kbd>↓</kbd> et <kbd>←</kbd>, puis <kbd>↵</kbd>
+  pour <strong>sélectionner</strong> un mot. Le comportement est assez
+  <strong>naturel</strong>.</p>
+
+  <h2 id="Lecture_d-options" for="main-toc">Lecture d'options</h2>
+
+  <h3 id="Analyser_les_options" for="main-toc">Analyser les options</h3>
+
+  <h3 id="Lire_les_options" for="main-toc">Lire les options</h3>
+
+  <h2 id="Processus" for="main-toc">Processus</h2>
+
+  <h2 id="Conclusion" for="main-toc">Conclusion</h2>
+
+</yield>
+</definition>
