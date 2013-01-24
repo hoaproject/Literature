@@ -559,14 +559,14 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   très bien aux outils d'<strong>extraction</strong> de données (comme les bases
   de données).</p>
 
-  <h3 id="Inner-binding" for="main-toc"><em>Inner-binding</em></h3>
+  <h3 id="Inner-binding" for="main-toc"><em lang="en">Inner-binding</em></h3>
 
   <p>Nous avons vu l'attribut <code>bind</code> qui permet de lier le
   <strong>contenu</strong> d'un composant avec des données, mais nous pouvons
   également lier le contenu d'un <strong>attribut</strong> avec des données. Ce
   mécanisme s'appelle le <strong>liage-interne</strong> (ou
-  <strong><em>inner-binding</em></strong>). Sa syntaxe est la même que pour un
-  liage normal sauf que nous y ajoutons des parenthèses, soit :
+  <strong><em lang="en">inner-binding</em></strong>). Sa syntaxe est la même que
+  pour un liage normal sauf que nous y ajoutons des parenthèses, soit :
   <code>(?[p[ath]:]<em>aTreeName</em>)</code>. Comme tous les composants sont
   liables, <strong>tous</strong> les attributs de tous les composants le sont
   également. Ainsi, nous pouvons modifier notre document existant en déplaçant
