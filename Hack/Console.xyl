@@ -104,8 +104,8 @@ while(true) {
   Cet événement est intéressant si nous voulons <strong>ré-adapter</strong>
   notre présentation.</p>
   <p>Enfin, si vous décidez d'<strong>embêter</strong> votre utilisateur, vous
-  pouvez utiliser la méthode <code>minimize</code> qui va réduire la fenêtre,
-  amusant mais totalement <strong>inutile</strong>.</p>
+  pouvez utiliser la méthode <code>minimize</code> qui va réduire la fenêtre.
+  Amusant mais totalement <strong>inutile</strong>.</p>
 
   <h3 id="Titre_et_label" for="main-toc">Titre et label</h3>
 
@@ -191,8 +191,8 @@ var_dump(Hoa\Console\Window::getLabel());
     <li><code>L[EFT]</code>, pour le déplacer à la première colonne du
     <em lang="en">viewport</em>.</li>
   </ul>
-  <p>Ces directions peuvent concaténer par des espaces, ou alors nous pouvons
-  préciser le nombre de fois où une direction sera répétée.</p>
+  <p>Ces directions peuvent être concaténées par des espaces, ou alors nous
+  pouvons préciser le nombre de fois où une direction sera répétée.</p>
   <pre><code class="language-php">from('Hoa')
 -> import('Console.Cursor');
 
@@ -339,8 +339,8 @@ echo '!';</code></pre>
   respectif. Quand une couleur est précisée en hexadécimal, elle est
   <strong>rapportée</strong> à la couleur la plus proche dans la palette
   comportant 256 couleurs.</p>
-  <p>Ainsi, si nous voulons écrire <code>Hello</code> en jaune sur fond presque
-  rouge (<code>#932e2e</code>) et en plus souligné, puis <code> world</code>
+  <p>Ainsi, si nous voulons écrire <samp>Hello</samp> en jaune sur fond presque
+  rouge (<code>#932e2e</code>) et en plus souligné, puis <samp> world</samp>
   mais non-souligné :</p>
   <pre><code class="language-php">Hoa\Console\Cursor::colorize('fg(yellow) bg(#932e2e) underlined');
 echo 'Hello';
@@ -349,9 +349,10 @@ echo ' world';</code></pre>
   <p>Enfin, il est possible de modifier les palettes de couleurs grâce à la
   méthode <code>changeColor</code>, mais c'est à utiliser avec
   <strong>précautions</strong>, cela peut perturber l'utilisateur. Cette méthode
-  prend en premier argument l'index de la couleur et second argument sa valeur
-  en hexadécimal. Par exemple, <code>fg(yellow)</code> correspond à l'index
-  <code>33</code>, et nous voulons que ce soit maintenant totalement bleu :</p>
+  prend en premier argument l'index de la couleur et en second argument sa
+  valeur en hexadécimal. Par exemple, <code>fg(yellow)</code> correspond à
+  l'index <code>33</code>, et nous voulons que ce soit maintenant totalement
+  bleu :</p>
   <pre><code class="language-php">Hoa\Console\Cursor::changeColor(33, 0xf00);</code></pre>
   <p>Toutefois, la palette de 256 couleurs est suffisamment
   <strong>complète</strong> pour ne pas avoir besoin de modifier les
@@ -433,7 +434,7 @@ sleep(3);
   de la ligne. Il arrive que le terme <em>prompt</em> soit aussi utilisé dans la
   littérature, les deux notions sont identiques.</p>
   <p>Ainsi, nous allons écrire un programme qui va lire les entrées de
-  l'utilisateur et faire un écho. Le programme terminera si l'utilisateur saisie
+  l'utilisateur et faire un écho. Le programme terminera si l'utilisateur saisit
   <samp>quit</samp> :</p>
   <pre><code class="language-php">from('Hoa')
 -> import('Console.Readline.~');
@@ -487,12 +488,11 @@ echo 'Your password is: ', $pwd, "\n";</code></pre>
   comprendre le fonctionnement <strong>interne</strong> de
   <code>Hoa\Console\Readline</code>, et il est très simple. À chaque fois que
   nous appuyons sur une ou plusieurs touches, une <strong>chaîne</strong> de
-  caractères représentant cette <strong>combinaison</strong> est envoyée et
-  reçue par notre lecteur. Il regarde si une action est associée à cette
-  chaîne : si oui, il l'exécute, si non, il en utilise une par défaut qui
-  consiste à afficher la chaîne telle quelle. Chaque action retourne un
-  <strong>état</strong> pour le lecteur (qui sont des constantes sur
-  <code>Hoa\Console\Readline</code>) :</p>
+  caractères représentant cette <strong>combinaison</strong> est reçue par notre
+  lecteur. Il regarde si une action est associée à cette chaîne : si oui, il
+  l'exécute, si non, il en utilise une par défaut qui consiste à afficher la
+  chaîne telle quelle. Chaque action retourne un <strong>état</strong> pour le
+  lecteur (qui sont des constantes sur <code>Hoa\Console\Readline</code>) :</p>
   <ul>
     <li><code>STATE_CONTINUE</code>, pour continuer la lecture ;</li>
     <li><code>STATE_BREAK</code>, pour arrêter la lecture ;</li>
@@ -503,8 +503,8 @@ echo 'Your password is: ', $pwd, "\n";</code></pre>
   reçue ne sera pas affichée. Autre exemple, l'action associée à la touche
   <kbd>↵</kbd> retourne l'état <code>STATE_BREAK</code>.</p>
   <p>Pour <strong>ajouter</strong> des actions, nous utilisons la méthode
-  <code>addMapping</code> (ou <code>addMappings</code> pour en ajouter
-  plusieurs). Elle facilite l'ajout grâce à une syntaxe dédiée :</p>
+  <code>addMapping</code>. Elle facilite l'ajout grâce à une syntaxe
+  dédiée :</p>
   <ul>
     <li><code>\e[<em>…</em></code>, pour les séquences commençant par le
     caractère <kbd>Esc</kbd> ;</li>
@@ -561,7 +561,7 @@ $rl->addMapping('\C-R', function ( Hoa\Console\Readline $self ) {
 
 // Try!
 var_dump($rl->readLine('> '));</code></pre>
-  <p>Il ne faut pas hésiter à regarder comment sont implémenter les raccourcis
+  <p>Il ne faut pas hésiter à regarder comment sont implémentés les raccourcis
   précédemment énoncés pour se donner des idées.</p>
 
   <h3 id="Auto-completion" for="main-toc">Auto-complétion</h3>
