@@ -22,7 +22,9 @@
 
   <h2 id="Fenetre" for="main-toc">Fenêtre</h2>
 
-  <p>La classe <code>Hoa\Console\Window</code> permet de manipuler la
+  <p>La fenêtre d'un terminal doit être vue comme un <strong>canevas</strong> de
+  <strong>colonnes</strong> et de <strong>lignes</strong>. La classe
+  <code>Hoa\Console\Window</code> permet de manipuler la
   <strong>fenêtre</strong> du terminal et son <strong>contenu</strong> à travers
   des méthodes statiques.</p>
 
@@ -158,7 +160,9 @@ var_dump(Hoa\Console\Window::getLabel());
 
   <h2 id="Curseur" for="main-toc">Curseur</h2>
 
-  <p>La classe <code>Hoa\Console\Cursor</code> permet de manipuler le
+  <p>À l'intérieur d'une fenêtre, nous avons un curseur qui peut être vu comme
+  la <strong>pointe</strong> d'un stylo. La classe
+  <code>Hoa\Console\Cursor</code> permet de manipuler le
   <strong>curseur</strong> du terminal à travers des méthodes statiques.</p>
 
   <h3 id="Deplacement" for="main-toc">Déplacement</h3>
@@ -604,7 +608,78 @@ var_dump($rl->readLine('> '));</code></pre>
 
   <h2 id="Lecture_d-options" for="main-toc">Lecture d'options</h2>
 
+  <p>Une grande force des programmes en ligne de commande est leur flexibilité.
+  Ils sont dédiés à une seule petite tâche et nous pouvons les paramétrer grâce
+  aux options qu'ils exposent. La lecture de ces options doit être simple et
+  rapide car c'est une tâche répétitive et délicate. La classe
+  <code>Hoa\Console\Parser</code> et <code>Hoa\Console\GetOption</code>
+  fonctionnement en duo afin de répondre à cette problématique.</p>
+
   <h3 id="Analyser_les_options" for="main-toc">Analyser les options</h3>
+
+  <p>Nous allons commencer par utiliser <code>Hoa\Console\Parser</code> qui
+  permet d'analyser les options données à un programme. Peu importe les options
+  que nous voulons, nous nous contentons de les analyser, puis nous les
+  traiterons.</p>
+  <p>Il suffit d'appeler la méthode <code>parse</code> :</p>
+  <pre><code class="language-php">$parser = new Hoa\Console\Parser();
+$parser->parse('-s --long=value input');
+
+print_r($parser->getSwitches());
+print_r($parser->getInputs());
+
+/**
+ * Will output:
+ *     Array
+ *     (
+ *         [s] => 1
+ *         [long] => value
+ *     )
+ *     Array
+ *     (
+ *         [0] => input
+ *     )
+ */</code></pre>
+  <p>Étudions un peu de quoi est constitué une ligne de commande. Nous avons
+  deux catégories : les options (<em lang="en">switches</em>) et les entrées
+  (<em lang="en">inputs</em>). Les entrées sont tout ce qui n'est pas une
+  option. Et une option peut avoir deux formes :</p>
+  <ul>
+    <li>courte si elle n'a qu'un seul caractère ;</li>
+    <li>longue si elle en a plusieurs.</li>
+  </ul>
+  <p>Ainsi, <code>-s</code> est une option courte, et <code>--long</code> est
+  une option longue. Mais il faut aussi considérer le nombre de tirets devant
+  l'option : avec deux tirets, ce sera toujours une option longue, avec un seul
+  tiret, ça dépend … Il y a deux écoles qui se différencient avec un seul
+  paramètre : <em lang="en">long only</em>. Prenons un exemple :
+  <code>-abc</code> est considéré comme <code>-a -b -c</code> si le paramètre
+  <em lang="en">long only</em> est définie à <code>false</code>, sinon c'est
+  considéré comme <code>--abc</code>. Majoritairement, ce paramètre est définie
+  à <code>false</code> par défaut et <code>Hoa\Console\Parser</code> s'est rangé
+  du côté de la majorité. Pour modifier ce paramètre, il faut utiliser la
+  méthode <code>setLongOnly</code>, voyons plutôt :</p>
+  <pre><code class="language-php">$parser->parse('-abc');
+print_r($parser->getSwitches());
+
+$parser->setLongOnly(true);
+
+$parser->parse('-abc');
+print_r($parser->getSwitches());
+
+/**
+ * Will output:
+ *     Array
+ *     (
+ *         [a] => 1
+ *         [b] => 1
+ *         [c] => 1
+ *     )
+ *     Array
+ *     (
+ *         [abc] => 1
+ *     )
+ */</code></pre>
 
   <h3 id="Lire_les_options" for="main-toc">Lire les options</h3>
 
