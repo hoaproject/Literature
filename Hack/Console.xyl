@@ -619,9 +619,8 @@ var_dump($rl->readLine('> '));</code></pre>
 
   <p>Nous allons commencer par utiliser <code>Hoa\Console\Parser</code> qui
   permet d'analyser les options données à un programme. Peu importe les options
-  que nous voulons, nous nous contentons de les analyser, puis nous les
-  traiterons.</p>
-  <p>Il suffit d'appeler la méthode <code>parse</code> :</p>
+  que nous voulons précisémment, nous nous contentons de les analyser pour
+  l'instant. Pour cela, il suffit d'appeler la méthode <code>parse</code> :</p>
   <pre><code class="language-php">$parser = new Hoa\Console\Parser();
 $parser->parse('-s --long=value input');
 
@@ -640,30 +639,33 @@ print_r($parser->getInputs());
  *         [0] => input
  *     )
  */</code></pre>
-  <p>Étudions un peu de quoi est constitué une ligne de commande. Nous avons
+  <p>Étudions un peu de quoi est constituée une ligne de commande. Nous avons
   deux catégories : les options (<em lang="en">switches</em>) et les entrées
   (<em lang="en">inputs</em>). Les entrées sont tout ce qui n'est pas une
-  option. Et une option peut avoir deux formes :</p>
+  option. Une option peut avoir deux formes :</p>
   <ul>
     <li>courte si elle n'a qu'un seul caractère ;</li>
     <li>longue si elle en a plusieurs.</li>
   </ul>
   <p>Ainsi, <code>-s</code> est une option courte, et <code>--long</code> est
-  une option longue. Mais il faut aussi considérer le nombre de tirets devant
-  l'option : avec deux tirets, ce sera toujours une option longue, avec un seul
-  tiret, ça dépend … Il y a deux écoles qui se différencient avec un seul
+  une option longue. Toutefois, il faut aussi considérer le nombre de tirets
+  devant l'option : avec deux tirets, ce sera toujours une option longue, avec
+  un seul tiret, ça dépend. Il y a deux écoles qui se différencient avec un seul
   paramètre : <em lang="en">long only</em>. Prenons un exemple :
   <code>-abc</code> est considéré comme <code>-a -b -c</code> si le paramètre
-  <em lang="en">long only</em> est définie à <code>false</code>, sinon c'est
-  considéré comme <code>--abc</code>. Majoritairement, ce paramètre est définie
-  à <code>false</code> par défaut et <code>Hoa\Console\Parser</code> s'est rangé
-  du côté de la majorité. Pour modifier ce paramètre, il faut utiliser la
-  méthode <code>setLongOnly</code>, voyons plutôt :</p>
-  <pre><code class="language-php">$parser->parse('-abc');
+  <em lang="en">long only</em> est définie à <code>false</code>, sinon ce sera
+  équivalent à une option longue, comme <code>--abc</code>. Majoritairement, ce
+  paramètre est définie à <code>false</code> par défaut et
+  <code>Hoa\Console\Parser</code> s'est rangé du côté de la majorité. Pour
+  modifier ce paramètre, il faut utiliser la méthode <code>setLongOnly</code>,
+  voyons plutôt :</p>
+  <pre><code class="language-php">// long only is set to false.
+$parser->parse('-abc');
 print_r($parser->getSwitches());
 
 $parser->setLongOnly(true);
 
+// long only is set to true.
 $parser->parse('-abc');
 print_r($parser->getSwitches());
 
@@ -680,8 +682,308 @@ print_r($parser->getSwitches());
  *         [abc] => 1
  *     )
  */</code></pre>
+  <p>Une option peut être de deux sortes : booléenne ou valuées. Si aucune
+  valeur ne lui est associée, elle est considérée comme booléen. Ainsi,
+  <code>-s</code> vaut <code>true</code>, mais <code>-s -s</code> vaut
+  <code>false</code>, et du coup <code>-s -s -s</code> vaut <code>true</code> et
+  ainsi de suite. Une option booléen fonctionne un interrupteur. Une option
+  valuée a une valeur associée, soit par un espace, soit par un signe d'égalité
+  (symbole <code>=</code>). Voici une liste non-exhaustive des possibilités avec
+  la valeur associée (nous utilisons une option courte mais ça peut être une
+  option longue) :</p>
+  <ul>
+    <li><code>-x=value</code> : <code>value</code> ;</li>
+    <li><code>-x=va\ lue</code> : <code>va lue</code> ;</li>
+    <li><code>-x="va lue"</code> : <code>va lue</code> ;</li>
+    <li><code>-x="va l\"ue"</code> : <code>va l"ue</code> ;</li>
+    <li><code>-x value</code> : <code>value</code> ;</li>
+    <li><code>-x va\ lue</code> : <code>va lue</code> ;</li>
+    <li><code>-x "value"</code> : <code>value</code> ;</li>
+    <li><code>-x "va lue"</code> : <code>va lue</code> ;</li>
+    <li><code>-x va\ l"ue</code> : <code>va l"ue</code> ;</li>
+    <li><code>-x 'va "l"ue'</code> : <code>va "l"ue</code> ;</li>
+    <li>etc.</li>
+  </ul>
+  <p>Les simples (symbole <code>'</code>) et doubles (symbole <code>"</code>)
+  guillemets sont supportés. Mais attention, il y a des cas particuliers qui ne
+  sont pas toujours standards :</p>
+  <ul>
+    <li><code>-x=-value</code> : <code>-value</code> ;</li>
+    <li><code>-x "-value"</code> : <code>-value</code> ;</li>
+    <li><code>-x \-value</code> : <code>-value</code> ;</li>
+    <li><code>-x -value</code> : équivaux à deux options booléens
+    <code>-x</code> et <code>-value</code> ;</li>
+    <li><code>-x=-7</code> : <code>-7</code> ;</li>
+    <li>etc.</li>
+  </ul>
+  <p><em>À l'instar</em> des options booléens qui fonctionnent comme des
+  interrupteurs, les options valuées réécrivent leurs valeurs si elles sont
+  déclarées plusieurs fois. Ainsi avec <code>-a=b -a=c</code>, <code>-a</code>
+  vaudra <code>c</code>.</p>
+  <p>Enfin, il y a des valeurs qui sont considérées comme spéciales. Nous en
+  distingons deux :</p>
+  <ul>
+    <li>les listes, à l'aide de la virgule comme séparateur :
+    <code>-x=a,b,c</code> ;</li>
+    <li>les intervalles, à l'aide du symbole <code>:</code> (sans espace
+    autour) : <code>-x=1:7</code>.</li>
+  </ul>
+  <p>Sans aucune manipulation, ces valeurs ne seront pas considérées comme
+  spéciales. Il faudra utiliser la méthode
+  <code>Hoa\Console\Parser::parseSpecialValue</code>, nous allons le voir
+  très prochainement.</p>
+  <p>Par défaut, toutes les options sont considérées comme des options booléens,
+  et c'est seulement lors de leurs lectures que nous associerons les valeurs
+  car nous connaîtrons le type exact des options.</p>
 
-  <h3 id="Lire_les_options" for="main-toc">Lire les options</h3>
+  <h3 id="Lire_les_options_et_les_entrees" for="main-toc">Lire les options et
+  les entrées</h3>
+
+  <p>Nous savons analyser les options mais ce n'est pas suffisant pour les lire
+  correctement. Il faut leur donner une petite sémantique : qu'attendent-elles,
+  qu'elles sont leur nature etc. Pour cela, nous allons nous aider de la classe
+  <code>Hoa\Console\GetOption</code>. Une option est caractérisée par :</p>
+  <ul>
+    <li>un nom long ;</li>
+    <li>un nom court ;</li>
+    <li>un type, donné par une des constantes de
+    <code>Hoa\Console\GetOption</code>, parmi :
+      <ul>
+        <li><code>NO_ARGUMENT</code> si l'option est booléen ;</li>
+        <li><code>REQUIRED_ARGUMENT</code> si l'option attend une valeur ;</li>
+        <li><code>OPTIONAL_ARGUMENT</code> si l'option peut avoir une
+        valeur.</li>
+      </ul>
+    </li>
+  </ul>
+  <p>Ces trois informations sont obligatoires. Elles doivent être donné au
+  constructeur de <code>Hoa\Console\GetOption</code> en premier argument. Le
+  second argument est l'analyseur d'options (l'analyse doit être préalablement
+  effectuée). Ainsi nous décrivons deux options : <code>extract</code> qui est
+  une option booléen, et <code>directory</code> qui est une option valuée :</p>
+  <pre><code class="language-php">from('Hoa')
+-> import('Console.Parser')
+-> import('Console.GetOption');
+
+$parser = new Hoa\Console\Parser();
+$parser->parse('-x --directory=value inputA inputB inputC');
+
+$options = new Hoa\Console\GetOption(
+    array(
+        //    long name                    type                  short name
+        //        ↓                         ↓                         ↓
+        array('extract',   Hoa\Console\GetOption::NO_ARGUMENT,       'x'),
+        array('directory', Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'd')
+    ),
+    $parser
+);</code></pre>
+  <p>Nous pouvons maintenir lire nos options ! Le lecteur d'options fonctionne
+  comme un itérateur, ou plutôt une pipette, à l'aide de la méthode
+  <code>getOption</code>. Cette méthode retourne le nom court de l'option lue et
+  assignera la valeur de l'option (un booléen ou une chaîne de caractères) à son
+  premier argument passé en référence. Quand la pipette est vide, la méthode
+  <code>getOption</code> retourne <code>false</code>. La manière la plus simple
+  pour lire les options est de définir des valeurs par défaut pour nos options,
+  puis d'utiliser <code>getOption</code>, ainsi :</p>
+  <pre><code class="language-php">$extract   = false;
+$directory = '.';
+
+while(false !== $c = $options->getOption($v)) switch($c) {
+
+    case 'x':
+        $extract = $v;
+      break;
+
+    case 'd':
+        $directory = $v;
+      break;
+}
+
+var_dump($extract, $directory);
+
+/**
+ * Will output:
+ *     bool(true)
+ *     string(5) "value"
+ */</code></pre>
+  <p>Cela se lit : « tant que nous avons une option à lire, nous récupérons
+  son nom court dans <code>$c</code> et sa valeur dans <code>$v</code>, puis
+  nous regardons quoi en faire ».</p>
+  <p>Pour lire les entrées, nous utiliserons la méthode
+  <code>Hoa\Console\Parser::listInputs</code> dont tous les arguments (au
+  nombre de 26) sont tous passés en référence. Ainsi :</p>
+  <pre><code class="language-php">$parser->listInputs($inputA, $inputB, $inputC);
+
+var_dump($inputA, $inputB, $inputC);
+
+/**
+ * Will output:
+ *     string(6) "inputA"
+ *     string(6) "inputB"
+ *     string(6) "inputC"
+ */</code></pre>
+  <p>Attention, cette façon de procéder implique que les entrées sont ordonnées
+  (comme c'est pratiquement toujours le cas). Mais aussi, lire les entrées sans
+  avoir préalablement donné l'analyseur à <code>Hoa\Console\GetOption</code>
+  peut produire des résultats imprévues (car par défaut, toutes les options sont
+  considérées comme booléennes). Si nous voulons toutes les entrées et les
+  analyser manuellement si elles ne sont pas ordonnées, nous pouvons utiliser la
+  méthode <code>Hoa\Console\Parser::getInputs</code> qui retournera toutes les
+  entrées.</p>
+
+  <h3 id="Options_speciales_ou_ambigues" for="main-toc">Options spéciales ou
+  ambiguës</h3>
+
+  <p>Revenons sur la méthode <code>Hoa\Console\Parser::parseSpecialValue</code>.
+  Elle prend deux arguments : une valeur et un tableau de mot-clés. Voyons
+  plutôt. Nous reprenons notre exemple et modifions le cas pour l'option
+  <code>d</code> :</p>
+  <pre data-line="7-9"><code class="language-php">while(false !== $c = $options->getOption($v)) switch($c) {
+
+    case 'x':
+        $extract = $v;
+      break;
+
+    case 'd':
+        $directory = $parser->parseSpecialValue($v, array('HOME' => '/tmp'));
+      break;
+}
+
+print_r($directory);</code></pre>
+  <p>Si nous essayons avec <code>-d=a,b,HOME,c,d</code>, alors <code>-d</code>
+  aura la valeur suivante :</p>
+  <pre><code class="language-php">/**
+ * Array
+ * (
+ *     [0] => a
+ *     [1] => b
+ *     [2] => /tmp
+ *     [3] => c
+ *     [4] => d
+ * )
+ */</code></pre>
+  <p>Enfin, quand une option lue n'existe pas mais qu'elle est très proche d'une
+  option existante à quelques fautes près (par exemple <code>--dirzctory</code>
+  au lieu de <code>--directory</code>), nous pouvons utiliser le cas
+  <code>__ambiguous</code> pour la capturer et la traiter :</p>
+  <pre data-line="11-13"><code class="language-php">while(false !== $c = $options->getOption($v)) switch($c) {
+
+    case 'x':
+        $extract = $v;
+      break;
+
+    case 'd':
+        $directory = $parser->parseSpecialValue($v, array('HOME' => '/tmp'));
+      break;
+
+    case '__ambiguous':
+        print_r($v);
+      break;
+}</code></pre>
+  <p>La valeur (dans <code>$v</code>) est un tableau avec trois entrées. Par
+  exemple avec <code>--dirzctory</code>, nous obtenons :</p>
+  <pre><code class="language-php">/**
+ * Array
+ * (
+ *     [solutions] => Array
+ *         (
+ *             [0] => directory
+ *         )
+ * 
+ *     [value] => y
+ *     [option] => dirzctory
+ * )
+ */</code></pre>
+  <p>La clé <code>solutions</code> propose toutes les options similaires,
+  la <code>value</code> donne la valeur de l'option et <code>option</code> le
+  nom original lu. C'est à l'utilisateur de décider quoi faire à partir de ces
+  informations. Nous pouvons utiliser la méthode
+  <code>Hoa\Console\GetOption::resolveOptionAmbiguity</code> en lui donnant la
+  valeur placée <code>$v</code> si une solution existe :</p>
+  <pre><code class="language-php">    case '__ambiguous':
+        $options->resolveOptionAmbiguity($v);
+      break;
+</code></pre>
+  <p>Il est quand même préférable d'avertir l'utilisateur et de lui demander son
+  avis, cela peut parfois être dangereux.</p>
+
+  <h3 id="Integrer_un_routeur_et_un_dispatcheur" for="main-toc">Intégrer un
+  routeur et un dispatcheur</h3>
+
+  <p>Jusqu'à maintenant, nous forcions des options et des entrées à l'analyseur.
+  <code>Hoa\Router\Cli</code> permet d'extraire des données depuis un programme
+  en ligne de commande. Une méthode nous intéresse :
+  <code>Hoa\Router\Cli::getURI</code>, qui va nous fournir toutes les options et
+  les entrées que nous pourrons alors donner à notre analyseur. Ainsi :</p>
+  <pre data-line="8"><code class="language-php">from('Hoa')
+-> import('Router.Cli')
+-> import('Console.Parser')
+-> import('Console.GetOption');
+
+$router = new Hoa\Router\Cli();
+$parser = new Hoa\Console\Parser();
+$parser->parse($router->getURI());
+
+// …</code></pre>
+  <p>Il est maintenant possible d'interpréter les options que nous donnons à
+  notre propre programme. Si vous avez écrit les tests dans un fichier nommé
+  <code>Test.php</code>, alors vous pourrez écrire :</p>
+  <pre><code class="language-shell">$ php Test.php -x -d=a,b,HOME,c,d inputA inputB
+bool(true)
+Array
+(
+    [0] => a
+    [1] => b
+    [2] => /tmp
+    [3] => c
+    [4] => d
+)
+string(6) "inputA"
+string(6) "inputB"
+NULL</code></pre>
+  <p>L'option <code>-x</code> vaut bien <code>true</code>, l'option
+  <code>-d</code> vaut un tableau (car nous l'avons analysé avec la méthode
+  <code>Hoa\Console\Parser::parseSpecialValue</code>), et nous avons
+  <code>inputA</code>, <code>inputB</code> et <code>null</code> en entrées.</p>
+  <p>C'est un bon début, et nous pourrions nous arrêter là dans la plupart des
+  cas. Mais il est possible d'aller plus loin en mettant en place un
+  dispatcheur : écrire des commandes dans plusieurs fonctions ou classes et les
+  appeler en fonction des options et entrées données à notre programme. Nous
+  vous conseillons de regarder le code source de
+  <code>hoa://Library/Core/Bin/Hoa.php</code> pour vous aider, ainsi que le
+  chapitre de <a href="@lh:chapter=Router"><code>Hoa\Router</code></a> et
+  <a href="@lh:chapter=Dispatcher"><code>Hoa\Dispatcher</code></a>. Un exemple
+  rapide :</p>
+  <pre><code class="language-php">from('Hoa')
+-> import('Router.Cli')
+-> import('Dispatcher.Basic')
+-> import('Console.Dispatcher.Kit');
+
+$core = Hoa\Core::getInstance();
+$core->getParameters()
+     ->setParameter('root.application', __DIR__ . DS . 'Application');
+$core->setProtocol();
+
+try {
+
+    $router = new Hoa\Router\Cli();
+    $router->get(
+        'g',
+        '(?&amp;lt;_call>\w+)(?&amp;lt;_tail>.*?)',
+        null,
+        'main'
+    );
+
+    $dispatcher = new Hoa\Dispatcher\Basic();
+    $dispatcher->setKitName('Hoa\Console\Dispatcher\Kit');
+    exit($dispatcher->dispatch($router));
+}
+catch ( Hoa\Core\Exception $e ) {
+
+    echo $e->raise(true);
+    exit($e->getCode() + 1);
+}
+  </code></pre>
 
   <h2 id="Processus" for="main-toc">Processus</h2>
 
