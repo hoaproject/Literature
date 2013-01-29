@@ -997,10 +997,9 @@ NULL</code></pre>
 -> import('Console.Dispatcher.Kit');
 
 // Where is our Application/ directory?
-$core = Hoa\Core::getInstance();
-$core->getParameters()
-     ->setParameter('root.application', __DIR__ . DS . 'Application');
-$core->setProtocol();
+Hoa\Core::getInstance()->initialize(array(
+    'root.application' => '(:cwd:)/Application'
+));
 
 try {
 
