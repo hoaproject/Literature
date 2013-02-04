@@ -62,7 +62,7 @@
   par défaut, le <a href="http://en.wikipedia.org/wiki/MS-DOS">MS-DOS</a>, ne
   respecte aucun standard. Dans ce cas, oubliez le standard ECMA-48 et
   tournez-vous vers
-  <a href="http://msdn.microsoft.com/en-us/library/ms682087.aspx"
+  <a href="http://msdn.microsoft.com/library/ms682087.aspx"
      title="Console Reference">la bibliothèque <code>Wincon</code></a>. Il est
   souvent recommandé d'utiliser une machine Unix <strong>virtuelle</strong> et
   un <strong>émulateur</strong> de terminal, comme
