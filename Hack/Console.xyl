@@ -22,7 +22,7 @@
   textuelle existe depuis l'origine des ordinateurs, alors appelés
   <strong>terminaux</strong>. Cette interface, malgré son aspect « brut », est
   fonctionnellement très <strong>puissante</strong> grâce à plusieurs concepts
-  comme par exemple la ligne des commandes ou les <em lang="en">pipes</em>.
+  comme par exemple la ligne de commande ou les <em lang="en">pipes</em>.
   Aujourd'hui, elle est encore très utilisée car elle est souvent plus rapide
   pour exécuter des tâches <strong>complexes</strong> qu'une interface
   graphique. Elle peut être aussi très facilement utilisée à travers des réseaux
@@ -43,7 +43,7 @@
   <strong>standards</strong>, comme
   l'<a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-048.pdf">ECMA-48</a>
   qui spécifie la communication avec le système à travers des suites de
-  caractères ASCII et de codes de contrôle (aussi appelés séquences
+  caractères ASCII et des codes de contrôle (aussi appelés séquences
   d'échappement), ce afin de manipuler la fenêtre, le curseur ou des
   périphériques de la machine. D'autres fonctionnalités sont aussi standards
   comme la manière de lire des options depuis un programme, très
@@ -203,7 +203,7 @@ var_dump(Hoa\Console\Window::getLabel());
   <pre><code class="language-php">Hoa\Console\Window::scroll('↑', 10);</code></pre>
   <p>En réalité, cette méthode va déplacer le contenu pour qu'il y ait
   <em>x</em> lignes respectivement en-dessous ou au-dessus du curseur.
-  Attention, le curseur <strong>ne change pas</strong> de positions !</p>
+  Attention, le curseur <strong>ne change pas</strong> de position !</p>
   <p>Même si c'est très souvent inutile, il est possible de
   <strong>rafraîchir</strong> la fenêtre, c'est à dire de refaire un rendu
   complet. Nous pouvons nous aider de la méthode <code>refresh</code> toujour
@@ -396,7 +396,7 @@ echo '!';</code></pre>
   </ul>
   <p>Les terminaux manipulent <strong>une</strong> des deux palettes : 8
   couleurs ou 256 couleurs. Chaque couleur est <strong>indexée</strong> à partir
-  de 0. Les noms des couleurs sont <strong>transformées</strong> vers leur index
+  de 0. Les noms des couleurs sont <strong>transformés</strong> vers leur index
   respectif. Quand une couleur est précisée en hexadécimal, elle est
   <strong>rapportée</strong> à la couleur la plus proche dans la palette
   comportant 256 couleurs.</p>
@@ -409,7 +409,7 @@ Hoa\Console\Cursor::colorize('!underlined');
 echo ' world';</code></pre>
   <p>Enfin, il est possible de modifier les palettes de couleurs grâce à la
   méthode <code>changeColor</code>, mais c'est à utiliser avec
-  <strong>précautions</strong>, cela peut perturber l'utilisateur. Cette méthode
+  <strong>précaution</strong>, cela peut perturber l'utilisateur. Cette méthode
   prend en premier argument l'index de la couleur et en second argument sa
   valeur en hexadécimal. Par exemple, <code>fg(yellow)</code> correspond à
   l'index <code>33</code>, et nous voulons que ce soit maintenant totalement
@@ -535,7 +535,7 @@ do {
   <p>Il existe aussi la classe <code>Hoa\Console\Readline\Password</code> qui
   permet d'avoir un lecteur de lignes avec exactement les mêmes services mais
   les caractères <strong>ne s'impriment pas</strong> à l'écran, très utile pour
-  un <strong>mot de passe</strong> :</p>
+  lire un <strong>mot de passe</strong> :</p>
   <pre><code class="language-php">from('Hoa')
 -> import('Console.Readline.Password');
 
@@ -572,7 +572,7 @@ echo 'Your password is: ', $pwd, "\n";</code></pre>
     caractère <kbd>Esc</kbd> ;</li>
     <li><code>\C-<em>…</em></code>, pour les séquences commençant par le
     caractère <kbd>Ctrl</kbd> ;</li>
-    <li><code><em>x</em></code>, n'importe quels caractères.</li>
+    <li><code><em>x</em></code>, n'importe quel caractère.</li>
   </ul>
   <p>Par exemple, si nous voulons afficher <code>z</code> à la place de
   <code>a</code>, nous écrirons :</p>
@@ -635,8 +635,8 @@ var_dump($rl->readLine('> '));</code></pre>
   <p>Tous les auto-compléteurs doivent implémenter l'interface
   <code>Hoa\Console\Readline\Autocompleter</code>. Quelqu'uns sont déjà présents
   pour nous <strong>aider</strong> dans notre développement, comme
-  <code>Hoa\Console\Readline\Autocompleter\Word</code> qui va auto-compléter à
-  partir d'une <strong>liste de mots</strong>. Par exemple :</p>
+  <code>Hoa\Console\Readline\Autocompleter\Word</code> qui va auto-compléter la
+  saisie à partir d'une <strong>liste de mots</strong>. Par exemple :</p>
   <pre><code class="language-php">$rl = new Hoa\Console\Readline();
 $rl->setAutocompleter(new Hoa\Console\Readline\Autocompleter\Word(array(
     'hoa',
@@ -747,7 +747,7 @@ print_r($parser->getSwitches());
   considérée comme booléenne. Ainsi, <code>-s</code> vaut <code>true</code>,
   mais <code>-s -s</code> vaut <code>false</code>, et du coup <code>-s -s
   -s</code> vaut <code>true</code> et ainsi de suite. Une option booléenne
-  fonctionne un <strong>interrupteur</strong>. Une option valuée a une valeur
+  fonctionne en <strong>interrupteur</strong>. Une option valuée a une valeur
   associée, soit par un espace, soit par un signe d'égalité (symbole
   <code>=</code>). Voici une liste non-exhaustive des possibilités avec la
   valeur associée (nous utilisons une option courte mais ça peut être une option
@@ -772,7 +772,7 @@ print_r($parser->getSwitches());
     <li><code>-x=-value</code> : <code>-value</code> ;</li>
     <li><code>-x "-value"</code> : <code>-value</code> ;</li>
     <li><code>-x \-value</code> : <code>-value</code> ;</li>
-    <li><code>-x -value</code> : équivaux à deux options booléennes
+    <li><code>-x -value</code> : équivaut à deux options booléennes
     <code>-x</code> et <code>-value</code> ;</li>
     <li><code>-x=-7</code> : <code>-7</code> ;</li>
     <li>etc.</li>
@@ -799,7 +799,7 @@ print_r($parser->getSwitches());
 
   <p>Nous savons analyser les options mais ce n'est pas suffisant pour les lire
   correctement. Il faut leur donner une petite <strong>sémantique</strong> :
-  qu'attendent-elles, qu'elles sont leur nature etc. Pour cela, nous allons nous
+  qu'attendent-elles, quelle est leur nature etc. Pour cela, nous allons nous
   aider de la classe <code>Hoa\Console\GetOption</code>. Une option est
   caractérisée par :</p>
   <ul>
@@ -883,7 +883,7 @@ var_dump($extract, $directory);
   nous regardons quoi en faire ».</p>
   <p>Pour lire les entrées, nous utiliserons la méthode
   <code>Hoa\Console\Parser::listInputs</code> dont tous les arguments (au
-  nombre de 26) sont tous passés en <strong>référence</strong>. Ainsi :</p>
+  nombre de 26) sont passés en <strong>référence</strong>. Ainsi :</p>
   <pre><code class="language-php">$parser->listInputs($inputA, $inputB, $inputC);
 
 var_dump($inputA, $inputB, $inputC);
@@ -897,7 +897,7 @@ var_dump($inputA, $inputB, $inputC);
   <p>Attention, cette façon de procéder implique que les entrées sont
   <strong>ordonnées</strong> (comme c'est pratiquement toujours le cas). Mais
   aussi, lire les entrées sans avoir préalablement donné l'analyseur à
-  <code>Hoa\Console\GetOption</code> peut produire des résultats imprévues (car
+  <code>Hoa\Console\GetOption</code> peut produire des résultats imprévus (car
   par défaut, toutes les options sont considérées comme booléennes). Si nous
   voulons toutes les entrées et les analyser manuellement si elles ne sont pas
   ordonnées, nous pouvons utiliser la méthode
@@ -908,7 +908,7 @@ var_dump($inputA, $inputB, $inputC);
   ambiguës</h3>
 
   <p>Revenons sur la méthode <code>Hoa\Console\Parser::parseSpecialValue</code>.
-  Elle prend deux arguments : une valeur et un tableau de mot-clés. Voyons
+  Elle prend deux arguments : une valeur et un tableau de mots-clés. Voyons
   plutôt. Nous reprenons notre exemple et modifions le cas pour l'option
   <code>d</code> :</p>
   <pre data-line="7-9"><code class="language-php">while(false !== $c = $options->getOption($v)) switch($c) {
@@ -963,7 +963,7 @@ print_r($directory);</code></pre>
  *         (
  *             [0] => directory
  *         )
- * 
+ *
  *     [value] => y
  *     [option] => dirzctory
  * )
@@ -978,8 +978,9 @@ print_r($directory);</code></pre>
         $options->resolveOptionAmbiguity($v);
       break;
 </code></pre>
-  <p>Il est quand même préférable d'<strong>avertir</strong> l'utilisateur et de
-  lui demander son avis, cela peut parfois être <strong>dangereux</strong>.</p>
+  <p>Il est quand même préférable d'<strong>avertir</strong> l'utilisateur qu'il
+  y a une ambiguïté et de lui demander son avis. Il peut parfois être
+  <strong>dangereux</strong> de prendre la décision à sa place.</p>
 
   <h3 id="Integrer_un_routeur_et_un_dispatcheur" for="main-toc">Intégrer un
   routeur et un dispatcheur</h3>
@@ -1019,7 +1020,7 @@ NULL</code></pre>
   <p>L'option <code>-x</code> vaut bien <code>true</code>, l'option
   <code>-d</code> vaut un tableau (car nous l'avons analysé avec la méthode
   <code>Hoa\Console\Parser::parseSpecialValue</code>), et nous avons
-  <code>inputA</code>, <code>inputB</code> et <code>null</code> en entrées.</p>
+  <code>inputA</code>, <code>inputB</code> et <code>null</code> en entrée.</p>
   <p>C'est un bon début, et nous pourrions nous arrêter là dans la plupart des
   cas. Mais il est possible d'aller plus loin en mettant en place un
   <strong>dispatcheur</strong> : écrire des commandes dans plusieurs fonctions
@@ -1145,7 +1146,7 @@ class Foo extends \Hoa\Console\Dispatcher\Kit {
   <code>resolveOptionAmbiguity</code> qui demande une confirmation à
   l'utilisateur, l'accès au routeur à travers l'attribut <code>$router</code>
   etc. Les kits offrent des <strong>services</strong> à l'application, ils
-  <strong>aggrègent</strong> des services offèrent pas les bibliothèques.
+  <strong>aggrègent</strong> des services offerts pas les bibliothèques.
   Maintenant testons :</p>
   <pre><code class="language-shell">$ php Test.php foo -x -d=1:3
 extract:   bool(true)
@@ -1192,7 +1193,7 @@ directory: Array
   mécanisme est le même.</p>
   <p>Il est très important de savoir que ces flux sont tous
   <strong>asynchrones</strong> les uns par rapport aux autres. Aucun flux n'a
-  une impact sur un autre, il n'y a aucun lien entre eux et c'est important pour
+  un impact sur un autre, il n'y a aucun lien entre eux et c'est important pour
   la suite.</p>
   <p>Au niveau de PHP, il est possible d'accéder à ces flux en utilisant
   respectivement les URI suivants : <code>php://stdin</code>,
@@ -1257,7 +1258,7 @@ while(false !== $line = fgets(STDIN))
   c'est un nombre, et le transformer en caractère qui sera affiché sur la sortie
   standard. Nous aimerions exécuter ce programme en lui donnant nous-même une
   liste de nombres (comme le programme <code>seq</code>) et en observant le
-  résultat qui produira.</p>
+  résultat qu'il produira.</p>
   <p>Une instance de la classe <code>Hoa\Console\Processus</code> représente un
   <strong>processus</strong>. Lors de l'instanciation, nous devons
   préciser :</p>
@@ -1266,7 +1267,7 @@ while(false !== $line = fgets(STDIN))
     <li>ses <strong>options</strong> ;</li>
     <li>la <strong>description</strong> des <em lang="en">pipes</em>.</li>
   </ul>
-  <p>Il y a d'autres argument mais nous les verrons plus tard.</p>
+  <p>Il y a d'autres arguments mais nous les verrons plus tard.</p>
   <p>La description des <em lang="en">pipes</em> a la forme d'un tableau où
   chaque clé représente le numéro du <em lang="en">pipe</em> (plus généralement,
   c'est le <code><em>i</em></code> de <code>php://fd/<em>i</em></code>) et la
@@ -1318,8 +1319,8 @@ while(false !== $line = fgets(STDIN))
   <ul>
     <li><code>start</code>, quand le processus est démarré ;</li>
     <li><code>stop</code>, quand le processus est arrêté ;</li>
-    <li><code>input</code>, quand les flux en lectures sont prêts ;</li>
-    <li><code>output</code>, quand les flux en écritures sont prêts ;</li>
+    <li><code>input</code>, quand les flux en lecture sont prêts ;</li>
+    <li><code>output</code>, quand les flux en écriture sont prêts ;</li>
     <li><code>timeout</code>, quand le processus s'exécute depuis trop
     longtemps.</li>
   </ul>
@@ -1388,7 +1389,7 @@ $processus->run();
   <em lang="en">pipes</em> dès que possible.</p>
   <p>Enfin, pour <strong>exécuter</strong> le processus, nous utilisons la
   méthode <code>Hoa\Console\Processus::run</code> d'arité nulle.</p>
-  <p>Dans notre exemple, nous écrivons toutes les donnes d'un coup. Mais nous
+  <p>Dans notre exemple, nous écrivons toutes les données d'un coup. Mais nous
   pouvons envoyer les données dès qu'elles sont disponibles, ce qui est plus
   performant car le processus n'attend pas un gros paquet de données mais peut
   les traiter au fur et à mesure. Modifions notre exemple pour écrire une donnée
@@ -1455,7 +1456,7 @@ $processus->run();
   <a href="http://php.net/getcwd">la fonction <code>getcwd</code></a>.
   L'environnement se définit par un tableau que nous retrouvons par exemple en
   exécutant <code>/usr/bin/env</code>. C'est dans cet environnement qu'est
-  présent le <code>PATH</code> par exemple. Ces données sont données en
+  présent le <code>PATH</code> par exemple. Ces données sont passées en
   quatrième et cinquième arguments du constructeur de
   <code>Hoa\Console\Processus</code>. Ainsi :</p>
   <pre><code class="language-php">$processus = new Hoa\Console\Processus(
@@ -1549,7 +1550,7 @@ $processus->run();
   <code>Hoa\Console\Processus</code> : <code>SIGHUP</code>, <code>SIGINT</code>,
   <code>SIGQUIT</code>, <code>SIGABRT</code>, <code>SIGKILL</code>,
   <code>SIGALRM</code>, <code>SIGTERM</code> (par défaut). Plusieurs
-  <strong>signaux</strong> peuvent être envoyés au processus pour qu'ils
+  <strong>signaux</strong> peuvent être envoyés aux processus pour qu'ils
   s'arrêtent. Pour avoir le détail, voir
   <a href="http://freebsd.org/cgi/man.cgi?query=signal"
      title="signal(3), FreeBSD Library Functions Manual">la page
@@ -1621,7 +1622,7 @@ Login: Password: Hmm, no password.</code></pre>
   <a href="http://freebsd.org/cgi/man.cgi?query=pty"
      title="pty(3), FreeBSD Library Functions Manual" >dans FreeBSD</a>).
   Malheureusement ces fonctions ne sont pas disponibles dans PHP pour des
-  raisons de techniques. Il n'y a pas de solutions possibles en PHP pur, mais il
+  raisons techniques. Il n'y a pas de solution possible en PHP pur, mais il
   est toujours envisageable d'utiliser un programme <strong>externe</strong>,
   écrit par exemple en C.</p>
 
