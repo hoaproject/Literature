@@ -17,8 +17,65 @@
 
   <h2 id="Introduction" for="main-toc">Introduction</h2>
 
-  <p>Historique des terminaux. Comment est organisé <code>Hoa\Console</code>.
-  Compatibilité avec Windows (rien n'est compatible sauf si on le précise).</p>
+  <p>De nos jours, nous comptons deux types d'interfaces :
+  <strong>textuelle</strong> et <strong>graphique</strong>. L'interfaces
+  textuelle existe depuis l'origine des ordinateurs, alors appelés
+  <strong>terminaux</strong>. Cette interface, malgré son aspect « brut », est
+  fonctionnellement très <strong>puissante</strong> grâce à plusieurs concepts
+  comme par exemple la ligne des commandes ou les <em lang="en">pipes</em>.
+  Aujourd'hui, elle est encore très utilisée car elle est souvent plus rapide
+  pour exécuter des tâches <strong>complexes</strong> qu'une interface
+  graphique. Elle peut être aussi très facilement utilisée à travers des réseaux
+  ou sur des machines à faibles ressources. Bref, cette interface est toujours
+  <strong>incontournable</strong>.</p>
+  <p>Du point de vue de l'utilisateur, il y a trois niveaux à considérer :</p>
+  <ul>
+    <li>l'<strong>interface</strong> : afficher et éditer du texte, manipuler la
+    fenêtre, le curseur etc. ;</li>
+    <li>le <strong>programme</strong> : interagir avec l'utilisateur avec un
+    maximum de confort, utiliser la ligne de commande à son plein potentiel,
+    construire des programmes adaptés à ce type d'interface ;</li>
+    <li>l'<strong>interaction</strong> avec d'autres programmes : interagir
+    automatiquement et communiquer avec d'autres programmes.</li>
+  </ul>
+  <p>La bibliothèque <code>Hoa\Console</code> propose des outils pour répondre à
+  ces trois niveaux de problématique. Pour cela, elle se base sur des
+  <strong>standards</strong>, comme
+  l'<a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-048.pdf">ECMA-48</a>
+  qui spécifie la communication avec le système à travers des suites de
+  caractères ASCII et de codes de contrôle (aussi appelés séquences
+  d'échappement), ce afin de manipuler la fenêtre, le curseur ou des
+  périphériques de la machine. D'autres fonctionnalités sont aussi standards
+  comme la manière de lire des options depuis un programme, très
+  <strong>inspirée</strong> de systèmes comme
+  <a href="http://linux.org/">Linux</a>, <a href="http://freebsd.org/">FreeBSD</a> ou
+  encore <a href="https://en.wikipedia.org/wiki/UNIX_System_V">System V</a>.
+  D'ailleurs, si vous êtes familiés avec plusieurs bibliothèques C, vous ne
+  serez pas déroutés. Et <em>a contrario</em>, si vous apprenez à utiliser
+  <code>Hoa\Console</code>, vous ne serez pas perdus en retournant sur des
+  langages de plus bas niveaux comme le C.</p>
+  <p>Avant de commmencer, nous aimerions ajouter une petite note
+  <strong>uniquement</strong> à propos de la gestion de la fenêtre et du
+  curseur. Aujourd'hui, nous avons le choix entre <strong>plusieurs</strong>
+  terminaux par système et certains sont plus complets que d'autres. Par
+  exemple, <a href="https://windows.microsoft.com/">Windows</a> et son terminal
+  par défaut, le <a href="http://en.wikipedia.org/wiki/MS-DOS">MS-DOS</a>, ne
+  respecte aucun standard. Dans ce cas, oubliez le standard ECMA-48 et
+  tournez-vous vers
+  <a href="http://msdn.microsoft.com/en-us/library/ms682087.aspx"
+     title="Console Reference">la bibliothèque <code>Wincon</code></a>. Il est
+  souvent recommandé d'utiliser une machine Unix <strong>virtuelle</strong> et
+  un <strong>émulateur</strong> de terminal, comme
+  <a href="http://ttssh2.sourceforge.jp/">TeraTerm</a>, très complet. Même sur
+  des systèmes proches de la famille BSD, les terminaux distribués par défaut ne
+  supportent pas tous les standards. C'est le cas de Mac OS X, où nous vous
+  conseillons d'utiliser <a href="http://iterm2.com">iTerm2</a> au lieu de
+  Terminal. Enfin, sur d'autres systèmes de la famille Linux ou BSD, nous
+  conseillons
+  <a href="http://software.schmorp.de/pkg/rxvt-unicode.html">urxvt</a>. Pour
+  les autres fonctionnalités, comme la lecture en ligne, la lecture d'options,
+  les processus etc., <code>Hoa\Console</code> est parfaitement
+  <strong>compatible</strong> et fonctionnel.</p>
 
   <h2 id="Fenetre" for="main-toc">Fenêtre</h2>
 
@@ -69,18 +126,18 @@ print_r(Hoa\Console\Window::getPosition());
   <code>setSize</code>. Nous avons besoin de deux choses pour que cet événement
   fonctionne :</p>
   <ol>
-    <li>l'extension <a href="http://php.net/pcntl"><code>pcntl</code></a> doit
+    <li><a href="http://php.net/pcntl">l'extension <code>pcntl</code></a> doit
     être activée ;</li>
     <li>nous devons utiliser
-    <a href="http://php.net/declare"><code>declare</code></a> pour que
-    <a href="http://php.net/pcntl_signal"><code>pcntl_signal</code></a>
-    fonctionne correctement.</li>
+    <a href="http://php.net/declare">la structure <code>declare</code></a> pour
+    que <a href="http://php.net/pcntl_signal">la fonction
+    <code>pcntl_signal</code></a> fonctionne correctement.</li>
   </ol>
-  <p>Pour mettre le programme en attente passive, nous allons utiliser la
-  fonction
-  <a href="http://php.net/stream_select"><code>stream_select</code></a>, c'est
-  un <strong>détail</strong> présent uniquement pour tester notre code, sinon le
-  programme se terminerait tout de suite. Ainsi :</p>
+  <p>Pour mettre le programme en attente passive, nous allons utiliser
+  <a href="http://php.net/stream_select">la fonction
+  <code>stream_select</code></a>, c'est un <strong>détail</strong> présent
+  uniquement pour tester notre code, sinon le programme se terminerait tout de
+  suite. Ainsi :</p>
   <pre><code class="language-php">from('Hoa')
 -> import('Console.Window', true); // make sure that it is loaded.
 
@@ -236,9 +293,9 @@ print_r(Hoa\Console\Cursor::getPosition());
  */</code></pre>
   <p>Enfin, il arrive très régulièrement que nous voulons déplacer le curseur
   <strong>temporairement</strong> pour quelques opérations. Dans ce cas, il est
-  inutile de récupérer la position actuel, le déplacer, puis le repositionner ;
-  nous pouvons profiter des méthodes <code>save</code> et <code>restore</code>.
-  Comme leur nom l'indique, ces méthodes respectivement
+  inutile de récupérer la position actuelle, le déplacer, puis le
+  repositionner ; nous pouvons profiter des méthodes <code>save</code> et
+  <code>restore</code>. Comme leur nom l'indique, ces méthodes respectivement
   <strong>enregistre</strong> la position du curseur puis
   <strong>restore</strong> le curseur à la position précédemment enregistrée.
   Ces fonctions ne manipulent pas de <strong>pile</strong>, il est impossible
@@ -282,7 +339,7 @@ echo '!';</code></pre>
   <p>Maintenant que le déplacement est acquis, nous allons voir comment
   <strong>nettoyer</strong> des lignes et/ou des colonnes. Pour cela, nous nous
   appuyons sur la méthode <code>clear</code> qui prend en argument les symboles
-  suivantes (concaténés par un espace) :</p>
+  suivants (concaténés par un espace) :</p>
   <ul>
     <li><code>a[ll]</code> ou <code>↕</code>, pour nettoyer tout l'écran et
     déplacer le curseur en haut à gauche du <em lang="en">viewport</em> ;</li>
@@ -411,7 +468,7 @@ sleep(3);
   <strong>attirer</strong> l'attention de l'utilisateur. Nous allons utiliser la
   méthode éponyme <code>bip</code> :</p>
   <pre><code class="language-php">Hoa\Console\Cursor::bip();</code></pre>
-  <p>Il n'y a qu'une seule <strong>tonalité</strong> de disponible.</p>
+  <p>Il n'y a qu'une seule <strong>tonalité</strong> disponible.</p>
 
   <h2 id="Lecture_en_ligne" for="main-toc">Lecture en ligne</h2>
 
@@ -430,9 +487,9 @@ sleep(3);
   <p>Pour <strong>lire une ligne</strong> (c'est à dire une entrée de
   l'utilisateur), nous allons instancier la classe
   <code>Hoa\Console\Readline</code> et appeler dessus la méthode
-  <code>readLine</code>. Chaque appel de cette méthode va
-  attendre que l'utilisateur <strong>saisisse</strong> une donnée puis appuye
-  sur <kbd>↵</kbd>. À ce moment là, la méthode retournera la saisie de
+  <code>readLine</code>. Chaque appel de cette méthode va attendre que
+  l'utilisateur <strong>saisisse</strong> une donnée puis appuye sur
+  <kbd title="Enter">↵</kbd>. À ce moment là, la méthode retournera la saisie de
   l'utilisateur. Cette méthode prend aussi en argument un
   <strong>préfixe</strong>, c'est à dire une donnée à afficher avant la saisie
   de la ligne. Il arrive que le terme <em>prompt</em> soit aussi utilisé dans la
@@ -471,11 +528,12 @@ do {
   </ul>
   <p>Nous avons aussi accès à l'<strong>historique</strong> lorsque nous
   appuyons sur les touches <kbd>↑</kbd> et <kbd>↓</kbd>, respectivement pour
-  chercher en arrière et avant dans l'historique. La touche <kbd>⇥</kbd>
-  déclenche l'<strong>auto-complétion</strong> si elle est définie. Et enfin, la
-  touche <kbd>↵</kbd> retourne la saisie.</p>
+  chercher en arrière et avant dans l'historique. La touche
+  <kbd title="Tabulation">⇥</kbd> déclenche l'<strong>auto-complétion</strong>
+  si elle est définie. Et enfin, la touche <kbd title="Enter">↵</kbd> retourne
+  la saisie.</p>
   <p>Il existe aussi la classe <code>Hoa\Console\Readline\Password</code> qui
-  permet d'avoir un lecteur de ligne avec exactement les mêmes services mais
+  permet d'avoir un lecteur de lignes avec exactement les mêmes services mais
   les caractères <strong>ne s'impriment pas</strong> à l'écran, très utile pour
   un <strong>mot de passe</strong> :</p>
   <pre><code class="language-php">from('Hoa')
@@ -505,7 +563,7 @@ echo 'Your password is: ', $pwd, "\n";</code></pre>
   <p>Ainsi, si une action retourne <code class="language-php">STATE_CONTINUE |
   STATE_NO_ECHO</code>, la lecture continuera mais la chaîne qui vient d'être
   reçue ne sera pas affichée. Autre exemple, l'action associée à la touche
-  <kbd>↵</kbd> retourne l'état <code>STATE_BREAK</code>.</p>
+  <kbd title="Enter">↵</kbd> retourne l'état <code>STATE_BREAK</code>.</p>
   <p>Pour <strong>ajouter</strong> des actions, nous utilisons la méthode
   <code>addMapping</code>. Elle facilite l'ajout grâce à une syntaxe
   dédiée :</p>
@@ -570,10 +628,10 @@ var_dump($rl->readLine('> '));</code></pre>
 
   <h3 id="Auto-completion" for="main-toc">Auto-complétion</h3>
 
-  <p>Un outil également très utile lorsque nous écrivons un lecteur de ligne est
-  l'<strong>auto-complétion</strong>. Elle se déclenche en appuyant sur la
-  touche <kbd>⇥</kbd> si un auto-compléteur a été défini à l'aide de la méthode
-  <code>setAutocompleter</code>.</p>
+  <p>Un outil également très utile lorsque nous écrivons un lecteur de lignes
+  est l'<strong>auto-complétion</strong>. Elle se déclenche en appuyant sur la
+  touche <kbd title="Tabulation">⇥</kbd> si un auto-compléteur a été défini à
+  l'aide de la méthode <code>setAutocompleter</code>.</p>
   <p>Tous les auto-compléteurs doivent implémenter l'interface
   <code>Hoa\Console\Readline\Autocompleter</code>. Quelqu'uns sont déjà présents
   pour nous <strong>aider</strong> dans notre développement, comme
@@ -591,19 +649,20 @@ $rl->setAutocompleter(new Hoa\Console\Readline\Autocompleter\Word(array(
 )));
 var_dump($rl->readLine('> '));</code></pre>
   <p>Essayons d'écrire ce que nous voulons, puis où nous le souhaitons, appuyons
-  sur <kbd>⇥</kbd>. Si le texte à gauche du curseur commence par <code>h</code>,
-  alors nous verrons <samp>hoa</samp> s'écrire <strong>d'un coup</strong> car
-  l'auto-compléteur n'a pas de choix (il retourne une chaîne). Si
-  l'auto-compléteur ne trouve aucun mot adapté, il ne se passera
+  sur <kbd title="Tabulation">⇥</kbd>. Si le texte à gauche du curseur commence
+  par <code>h</code>, alors nous verrons <samp>hoa</samp> s'écrire <strong>d'un
+  coup</strong> car l'auto-compléteur n'a pas de choix (il retourne une chaîne).
+  Si l'auto-compléteur ne trouve aucun mot adapté, il ne se passera
   <strong>rien</strong> (il retournera <code>null</code>).  Et enfin, s'il
   trouve <strong>plusieurs mots</strong> (il retournera un tableau), alors un
   <strong>menu</strong> s'affichera. Essayons d'auto-compléter simplement
   <code>a</code> : le menu proposera <code>autocompleter</code>,
   <samp>autocompletion</samp> et <samp>awesome</samp>. Soit nous continuons à
   taper et le menu va <strong>disparaître</strong>, soit nous pouvons nous
-  <strong>déplacer</strong> dans le menu avec les touches <kbd>⇥</kbd>,
-  <kbd>↑</kbd>, <kbd>→</kbd>, <kbd>↓</kbd> et <kbd>←</kbd>, puis <kbd>↵</kbd>
-  pour <strong>sélectionner</strong> un mot. Le comportement est assez
+  <strong>déplacer</strong> dans le menu avec les touches
+  <kbd title="Tabulation">⇥</kbd>, <kbd>↑</kbd>, <kbd>→</kbd>, <kbd>↓</kbd> et
+  <kbd>←</kbd>, puis <kbd title="Enter">↵</kbd> pour
+  <strong>sélectionner</strong> un mot. Le comportement est assez
   <strong>naturel</strong>.</p>
 
   <h2 id="Lecture_d-options" for="main-toc">Lecture d'options</h2>
@@ -614,14 +673,14 @@ var_dump($rl->readLine('> '));</code></pre>
   <strong>options</strong> qu'ils exposent. La <strong>lecture</strong> de ces
   options doit être simple et rapide car c'est une tâche répétitive et délicate.
   La classe <code>Hoa\Console\Parser</code> et
-  <code>Hoa\Console\GetOption</code> fonctionnement en <strong>duo</strong> afin
+  <code>Hoa\Console\GetOption</code> fonctionnent en <strong>duo</strong> afin
   de répondre à cette problématique.</p>
 
   <h3 id="Analyser_les_options" for="main-toc">Analyser les options</h3>
 
   <p>Nous allons commencer par utiliser <code>Hoa\Console\Parser</code> qui
   permet d'<strong>analyser</strong> les options données à un programme. Peu
-  importe les options que nous voulons précisémment, nous nous contentons de les
+  importe les options que nous voulons précisément, nous nous contentons de les
   analyser pour l'instant. Commençons par utiliser la méthode
   <code>parse</code> :</p>
   <pre><code class="language-php">$parser = new Hoa\Console\Parser();
@@ -692,7 +751,7 @@ print_r($parser->getSwitches());
   associée, soit par un espace, soit par un signe d'égalité (symbole
   <code>=</code>). Voici une liste non-exhaustive des possibilités avec la
   valeur associée (nous utilisons une option courte mais ça peut être une option
-  longue, et cela fonctionne aussi sur Windows) :</p>
+  longue) :</p>
   <ul>
     <li><code>-x=value</code> : <code>value</code> ;</li>
     <li><code>-x=va\ lue</code> : <code>va lue</code> ;</li>
@@ -749,8 +808,8 @@ print_r($parser->getSwitches());
     <li>un <strong>type</strong>, donné par une des constantes de
     <code>Hoa\Console\GetOption</code>, parmi :
       <ul>
-        <li><code>NO_ARGUMENT</code> si l'option est booléen ;</li>
-        <li><code>REQUIRED_ARGUMENT</code> si l'option attend une valeur ;</li>
+        <li><code>NO_ARGUMENT</code> si l'option est booléenne ;</li>
+        <li><code>REQUIRED_ARGUMENT</code> si l'option est valuée ;</li>
         <li><code>OPTIONAL_ARGUMENT</code> si l'option peut avoir une
         valeur.</li>
       </ul>
@@ -760,8 +819,8 @@ print_r($parser->getSwitches());
   être données au constructeur de <code>Hoa\Console\GetOption</code> en premier
   argument. Le second argument est l'analyseur d'options (l'analyse doit être
   <strong>préalablement</strong> effectuée). Ainsi nous décrivons deux options :
-  <code>extract</code> qui est une option booléen, et <code>directory</code> qui
-  est une option valuée :</p>
+  <code>extract</code> qui est une option booléenne, et <code>directory</code>
+  qui est une option valuée :</p>
   <pre><code class="language-php">from('Hoa')
 -> import('Console.Parser')
 -> import('Console.GetOption');
@@ -778,7 +837,7 @@ $options = new Hoa\Console\GetOption(
     ),
     $parser
 );</code></pre>
-  <p>Nous pouvons maintenir lire nos options ! Le lecteur d'options fonctionne
+  <p>Nous pouvons maintenant lire nos options ! Le lecteur d'options fonctionne
   comme un itérateur, ou plutôt une <strong>pipette</strong>, à l'aide de la
   méthode <code>getOption</code>. Cette méthode retourne le nom court de
   l'option lue et assignera la valeur de l'option (un booléen ou une chaîne de
@@ -788,11 +847,11 @@ $options = new Hoa\Console\GetOption(
   <strong>répandue</strong>, vous ne serez pas déroutés en la voyant autre part
   (exemples
   <a href="http://kernel.org/doc/man-pages/online/pages/man3/getopt.3.html#EXAMPLE"
-     title="Linux Programmer's Manual"><code>dans Linux</code></a>,
+     title="getopt(3), Linux Programmer's Manual">dans Linux</a>,
   <a href="http://freebsd.org/cgi/man.cgi?query=getopt&amp;sektion=3#EXAMPLES"
-     title="FreeBSD Library Functions Manual"><code>dans FreeBSD</code></a> et
+     title="getopt(3), FreeBSD Library Functions Manual">dans FreeBSD</a> ou
   <a href="http://developer.apple.com/library/Mac/#documentation/Darwin/Reference/ManPages/man3/getopt.3.html"
-     title="BSD Library Functions Manual"><code>dans Mac OS X</code></a> — même
+     title="getopt(3), BSD Library Functions Manual">dans Mac OS X</a> — même
   base de code —). La manière la plus simple pour lire les options est de
   définir des valeurs par défaut pour nos options, puis d'utiliser
   <code>getOption</code>, ainsi :</p>
@@ -1102,7 +1161,480 @@ directory: Array
 
   <h2 id="Processus" for="main-toc">Processus</h2>
 
+  <p>Dans notre contexte, un <strong>processus</strong> est un programme
+  classique qui s'exécute dans un <strong>terminal</strong>. Ce qui est
+  intéressant, c'est qu'un tel programme <strong>communique</strong> avec le
+  reste de son <strong>environnement</strong> grâce à des
+  <strong>tuyaux</strong>, ou <em lang="en">pipes</em> en anglais, numérotés à
+  partir de zéro. Certains ont même des noms et sont standards :</p>
+  <ul>
+    <li><code>STDIN</code> (<code>0</code>) pour lire des
+    <strong>entrées</strong> (<em lang="en">standard input</em>) ;</li>
+    <li><code>STDOUT</code> (<code>1</code>) pour écrire des
+    <strong>sorties</strong> (<em lang="en">standard output</em>) ;</li>
+    <li><code>STDERR</code> (<code>2</code>) pour écrire des
+    <strong>erreurs</strong> (<em lang="en">standard error</em>).</li>
+  </ul>
+  <p>Quand un processus s'exécute dans un terminal, <code>STDIN</code> utilise
+  le <strong>clavier</strong> comme source de données, et <code>STDOUT</code>
+  comme <code>STDERR</code> sont reliés à la <strong>fenêtre</strong> d'un
+  terminal. Mais quand un processus est exécuté dans un
+  <strong>sous-terminal</strong>, c'est à dire exécuté à partir d'un autre
+  processus, <code>STDIN</code> n'est pas relié au clavier, tout comme
+  <code>STDOUT</code> et <code>STDERR</code> ne sont pas reliés à l'écran.
+  C'est le processus parent qui va écrire et lire sur ces flux pour
+  <strong>interagir</strong> avec le « sous »-processus. Ce mécanisme s'appelle
+  la <strong>redirection</strong> de flux, nous l'utilisons très souvent quand
+  nous écrivons une ligne de commande (voir
+  <a href="http://gnu.org/software/bash/manual/bashref.html#Redirections">section
+  <em lang="en">Redirections</em> du <em lang="en">Bash Reference
+  Manual</em></a>). Ce que nous allons faire utilise une autre syntaxe mais le
+  mécanisme est le même.</p>
+  <p>Il est très important de savoir que ces flux sont tous
+  <strong>asynchrones</strong> les uns par rapport aux autres. Aucun flux n'a
+  une impact sur un autre, il n'y a aucun lien entre eux et c'est important pour
+  la suite.</p>
+  <p>Au niveau de PHP, il est possible d'accéder à ces flux en utilisant
+  respectivement les URI suivants : <code>php://stdin</code>,
+  <code>php://stdout</code> et <code>php://stderr</code>. Mais nous avons aussi
+  les constantes éponymes <code>STDIN</code>, <code>STDOUT</code> et
+  <code>STDERR</code>. Elles sont définies comme suit (exemple avec
+  <code>STDIN</code>) :</p>
+  <pre><code class="language-php">define('STDIN', fopen('php://stdin', 'r'));</code></pre>
+  <p>Ces flux ne sont disponibles que si le programme s'exécute en ligne de
+  commande. Rappelons-nous également que les <em lang="en">pipes</em> sont
+  identifiés par des numéros. Nous pouvons alors utiliser
+  <code>php://fd/0</code> pour se référer à <code>STDIN</code>,
+  <code>php://fd/1</code> pour <code>STDOUT</code> etc. L'URI
+  <code>php://fd/<em>i</em></code> permet d'accéder au fichier ayant le
+  <strong>descripteur</strong> <code><em>i</em></code>.</p>
+
+  <h3 id="Execution_tres_basique" for="main-toc">Exécution très basique</h3>
+
+  <p>La classe <code>Hoa\Console\Processus</code> propose une manière très
+  <strong>rapide</strong> d'exécuter un processus et d'obtenir le résultat de
+  <code>STDOUT</code>. C'est le cas le plus commun. Ainsi, nous allons utiliser
+  la méthode statique <code>execute</code> :</p>
+  <pre><code class="language-php">from('Hoa')
+-> import('Console.Processus');
+
+var_dump(Hoa\Console\Processus::execute('id -u -n'));
+
+/**
+ * Could output:
+ *     string(3) "hoa"
+ */</code></pre>
+  <p>Nous n'avons aucun contrôle sur les <em lang="en">pipes</em> et même si ça
+  convient dans la plupart des cas, ce n'est pas suffisant quand nous souhaitons
+  un minimum d'interaction avec le processus.</p>
+
+  <h3 id="Lecture_et_ecriture" for="main-toc">Lecture et écriture</h3>
+
+  <p>Voyons comment <strong>interagir</strong> avec un processus. Nous allons
+  considérer le programme <code>LittleProcessus.php</code> suivant :</p>
+  <pre><code class="language-php">&amp;lt;?php
+
+$range = range('a', 'z');
+
+while(false !== $line = fgets(STDIN))
+    echo '> ', $range[intval($line)], "\n";</code></pre>
+  <p>Pour tester et comprendre son fonctionnement, écrivons la ligne de commande
+  suivante et entrons au clavier <code>3</code>, puis <code>4</code> :</p>
+  <pre><code class="language-shell">$ php LittleProcessus.php
+3
+> d
+4
+> e
+</code></pre>
+  <p>Nous pouvons aussi écrire :</p>
+  <pre><code class="language-shell">$ seq 0 4 | php LittleProcessus.php
+> a
+> b
+> c
+> d
+> e</code></pre>
+  <p>Notre programme va lire chaque ligne sur l'entrée standard, considérer que
+  c'est un nombre, et le transformer en caractère qui sera affiché sur la sortie
+  standard. Nous aimerions exécuter ce programme en lui donnant nous-même une
+  liste de nombres (comme le programme <code>seq</code>) et en observant le
+  résultat qui produira.</p>
+  <p>Une instance de la classe <code>Hoa\Console\Processus</code> représente un
+  <strong>processus</strong>. Lors de l'instanciation, nous devons
+  préciser :</p>
+  <ul>
+    <li>le <strong>nom</strong> du processus ;</li>
+    <li>ses <strong>options</strong> ;</li>
+    <li>la <strong>description</strong> des <em lang="en">pipes</em>.</li>
+  </ul>
+  <p>Il y a d'autres argument mais nous les verrons plus tard.</p>
+  <p>La description des <em lang="en">pipes</em> a la forme d'un tableau où
+  chaque clé représente le numéro du <em lang="en">pipe</em> (plus généralement,
+  c'est le <code><em>i</em></code> de <code>php://fd/<em>i</em></code>) et la
+  valeur est encore un tableau décrivant la nature du <em lang="en">pipe</em>,
+  soit un « vrai » <em lang="en">pipe</em>, soit un fichier, avec leur mode de
+  lecture ou d'écriture (parmi <code>r</code>, <code>w</code> ou
+  <code>a</code>). Illustrons avec un exemple :</p>
+  <pre><code class="language-php">$processus = new Hoa\Console\Processus(
+    'php',
+    array('LittleProcessus.php'),
+    array(
+        // STDIN.
+        0 => array('pipe', 'r'),
+        // STDOUT.
+        1 => array('file', '/tmp/output', 'a')
+    )
+);</code></pre>
+  <p>Dans ce cas, <code>STDIN</code> est un <em lang="en">pipe</em> et
+  <code>STDOUT</code> est le fichier <code>/tmp/output</code>. Si nous ne
+  précisions pas de descripteur, ce sera équivalent à écrire :</p>
+  <pre><code class="language-php">$processus = new Hoa\Console\Processus(
+    'php',
+    array('LittleProcessus.php'),
+    array(
+        // STDIN.
+        0 => array('pipe', 'r'),
+        // STDOUT.
+        1 => array('pipe', 'w'),
+        // STDERR.
+        2 => array('pipe', 'w')
+    )
+);</code></pre>
+  <p>Chaque <em lang="en">pipe</em> est reconnu comme un <strong>flux</strong>
+  et peut être manipulé comme tel. Quand un <em lang="en">pipe</em> est en
+  <strong>lecture</strong> (avec le mode <code>r</code>), cela signifie que le
+  processus va <strong>lire</strong> dessus. Donc nous, le processus parent,
+  nous allons <strong>écrire</strong> sur ce <em lang="en">pipe</em>.  Prenons
+  l'exemple de <code>STDIN</code> : le processus lit sur <code>STDIN</code> ce
+  que le clavier a écrit dessus. Et inversement, quand un
+  <em lang="en">pipe</em> est en <strong>écriture</strong> (avec le mode
+  <code>w</code>), cela signifie que nous allons <strong>lire</strong> dessus.
+  Prenons l'exemple de <code>STDOUT</code> : l'écran va lire ce que le processus
+  lui a écrit.</p>
+  <p>La classe <code>Hoa\Console\Processus</code> étend la classe
+  <a href="@lh:chapter=Stream"><code>Hoa\Stream</code></a>, et de ce fait, nous
+  avons tous les outils nécessaires pour lire et écrire sur les
+  <em lang="en">pipes</em> de notre choix. Cette classe propose aussi plusieurs
+  <strong>écouteurs</strong> :</p>
+  <ul>
+    <li><code>start</code>, quand le processus est démarré ;</li>
+    <li><code>stop</code>, quand le processus est arrêté ;</li>
+    <li><code>input</code>, quand les flux en lectures sont prêts ;</li>
+    <li><code>output</code>, quand les flux en écritures sont prêts ;</li>
+    <li><code>timeout</code>, quand le processus s'exécute depuis trop
+    longtemps.</li>
+  </ul>
+  <p>Prenons directement un exemple. Nous allons exécuter le processus
+  <code>php LittleProcessus.php</code> et attacher des fonctions aux écouteurs
+  suivants : <code>input</code> pour écrire une série de chiffres et
+  <code>output</code> pour lire le résultat.</p>
+
+
+  <pre><code class="language-php">$processus = new Hoa\Console\Processus('php LittleProcessus.php');
+$processus->on('input', function ( $bucket ) {
+
+    $source = $bucket->getSource();
+    $data   = $bucket->getData();
+
+    echo 'INPUT (', $data['pipe'], ')', "\n";
+
+    $source->writeAll(
+        implode("\n", range($i = mt_rand(0, 21), $i + 4)) . "\n"
+    );
+
+    return false;
+});
+$processus->on('output', function ( $bucket ) {
+
+    $data = $bucket->getData();
+
+    echo 'OUTPUT (', $data['pipe'], ') ', $data['line'], "\n";
+
+    return;
+});
+$processus->run();
+
+/**
+ * Could output:
+ *     INPUT (0)
+ *     OUTPUT (1) > s
+ *     OUTPUT (1) > t
+ *     OUTPUT (1) > u
+ *     OUTPUT (1) > v
+ *     OUTPUT (1) > w
+ */</code></pre>
+  <p>Maintenant, rentrons dans le détail pour bien comprendre les choses.</p>
+  <p>Quand un flux en <strong>lecture</strong> est <strong>prêt</strong>, alors
+  l'écouteur <code>input</code> se déclenche. Une seule donnée est envoyée :
+  <code>pipe</code> qui contient le numéro du <em lang="en">pipe</em> (le
+  <code><em>i</em></code> de <code>php://fd/<em>i</em></code>). Quand un flux en
+  <strong>écriture</strong> est prêt, alors l'écouteur <code>output</code> se
+  déclenche. Deux données sont envoyées : <code>pipe</code> (comme pour
+  <code>input</code>) et <code>line</code> qui est la <strong>ligne
+  reçue</strong>.</p>
+  <p>Nous voyons dans la fonction attachée à l'écouteur <code>input</code> que
+  nous écrivons une suite de nombres concaténés par <code>\n</code> (un nombre
+  par ligne). Pour cela, nous utilisons la méthode <code>writeAll</code>. Par
+  défaut, les méthodes d'écriture écrivent sur le <em lang="en">pipe</em>
+  <code>0</code>. Pour changer ce comportement, il faudra donner le numéro de
+  <em lang="en">pipe</em> en second argument des méthodes d'écriture. Pareil
+  pour les méthodes de lecture mais le <em lang="en">pipe</em> par défaut est
+  <code>1</code>.</p>
+  <p>Quand un <em lang="en">callable</em> attaché à un écouteur retourne
+  <code>false</code>, le <em lang="en">pipe</em> qui a déclenché cet appel sera
+  <strong>fermé</strong> juste après. Dans notre cas, la méthode attachée à
+  <code>input</code> retourne <code>false</code> juste après avoir écrit, nous
+  n'avons plus besoin de ce <em lang="en">pipe</em>. Il est important pour des
+  raisons de <strong>performances</strong> de fermer les
+  <em lang="en">pipes</em> dès que possible.</p>
+  <p>Enfin, pour <strong>exécuter</strong> le processus, nous utilisons la
+  méthode <code>Hoa\Console\Processus::run</code> d'arité nulle.</p>
+  <p>Dans notre exemple, nous écrivons toutes les donnes d'un coup. Mais nous
+  pouvons envoyer les données dès qu'elles sont disponibles, ce qui est plus
+  performant car le processus n'attend pas un gros paquet de données mais peut
+  les traiter au fur et à mesure. Modifions notre exemple pour écrire une donnée
+  à chaque fois que <code>STDIN</code> est prêt :</p>
+  <pre><code class="language-php">$processus->on('input', function ( $bucket ) {
+
+    static $i = null;
+    static $j = 5;
+
+    if(null === $i)
+        $i = mt_rand(0, 20);
+
+    $data = $bucket->getData();
+
+    echo 'INPUT (', $data['pipe'],')', "\n";
+
+    $source = $bucket->getSource();
+    $source->writeLine($i++);
+    usleep(50000);
+
+    if(0 >= $j--)
+        return false;
+
+    return;
+});</code></pre>
+  <p>Nous initialisons deux variables : <code class="language-php">$i</code> et
+  <code class="language-php">$j</code>, qui portent le nombre à envoyer et le
+  nombre maximum de données à envoyer. Nous introduisons une latence volontaire
+  avec <code class="language-php">usleep(50000)</code> pour laisser le temps à
+  <code>STDOUT</code> d'être prêt, ceci afin de mieux illustrer notre exemple.
+  Dans ce cas, la sortie serait :</p>
+  <pre><code class="language-php">/** Could output:
+ *     INPUT (0)
+ *     OUTPUT (1) > h
+ *     INPUT (0)
+ *     OUTPUT (1) > i
+ *     INPUT (0)
+ *     OUTPUT (1) > j
+ *     INPUT (0)
+ *     OUTPUT (1) > k
+ *     INPUT (0)
+ *     OUTPUT (1) > l
+ *     INPUT (0)
+ *     OUTPUT (1) > m
+ */</code></pre>
+  <p>Le processus est en attente d'une entrée et lit les données dès qu'elles
+  arrivent. Une fois que nous avons envoyé toutes les données, nous fermons le
+  <em lang="en">pipe</em>.</p>
+  <p>Le processus se <strong>ferme</strong> de lui-même. Nous avons la méthode
+  <code>Hoa\Console\Processus::getExitCode</code> pour connaître le
+  <strong>code</strong> de retour du processus. Attention, un code
+  <code>0</code> représente un <strong>succès</strong>.  Comme l'erreur est
+  répandue, il existe la méthode
+  <code>Hoa\Console\Processus::isSuccessful</code> pour savoir si le processus
+  s'est exécuté avec succès ou pas.</p>
+
+  <h3 id="Condition_d-execution" for="main-toc">Condition d'exécution</h3>
+
+  <p>Le processus s'exécute dans un <strong>dossier</strong> particulier et un
+  <strong>environnement</strong> particulier. Le dossier est appelé
+  <em lang="en">current working directory</em>, souvent abbrégé
+  <abbr lang="en">cwd</abbr>. Il définit le dossier où sera exécuté le
+  processus. Nous pouvons le retrouver en PHP avec
+  <a href="http://php.net/getcwd">la fonction <code>getcwd</code></a>.
+  L'environnement se définit par un tableau que nous retrouvons par exemple en
+  exécutant <code>/usr/bin/env</code>. C'est dans cet environnement qu'est
+  présent le <code>PATH</code> par exemple. Ces données sont données en
+  quatrième et cinquième arguments du constructeur de
+  <code>Hoa\Console\Processus</code>. Ainsi :</p>
+  <pre><code class="language-php">$processus = new Hoa\Console\Processus(
+    'php',
+    null, /* no option         */
+    null, /* use default pipes */
+    '/tmp',
+    array(
+        'FOO'  => 'bar',
+        'BAZ'  => 'qux',
+        'PATH' => '/usr/bin:/bin'
+    )
+);
+$processus->on('input', function ( Hoa\Core\Event\Bucket $bucket ) {
+
+    $bucket->getSource()->writeAll(
+        '&amp;lt;?php' . "\n" .
+        'var_dump(getcwd());' . "\n" .
+        'print_r($_ENV);'
+    );
+
+    return false;
+});
+$processus->on('output', function ( Hoa\Core\Event\Bucket $bucket ) {
+
+    $data = $bucket->getData();
+    echo '> ', $data['line'], "\n";
+
+    return;
+});
+$processus->run();
+
+/**
+ * Will output:
+ *     > string(12) "/tmp"
+ *     > Array
+ *     > (
+ *     >     [FOO] => bar
+ *     >     [PATH] => /usr/bin:/bin
+ *     >     [PWD] => /tmp
+ *     >     [BAZ] => qux
+ *     >     [_] => /usr/bin/php
+ *     >
+ *     > )
+ */
+</code></pre>
+  <p>Si le <em lang="en">current working directory</em> n'est pas précisé, nous
+  utiliserons le même que le programme. Si aucun environnement n'est précisé, le
+  processus utilisera celui de son parent.</p>
+  <p>Nous pouvons aussi imposer un <strong>temps maximum</strong> de
+  <strong>réponse</strong> en seconde au processus (défini à 30 secondes par
+  défaut). C'est le dernier argument du constructeur. Nous pouvons utiliser la
+  méthode <code>Hoa\Console\Processus::setTimeout</code>. Pour savoir quand ce
+  temps est atteint, nous devons utiliser l'écouteur <code>timeout</code>.
+  Aucune action ne sera faite automatiquement. Nous pouvons par exemple terminer
+  le processus grâce à la méthode <code>Hoa\Console\Processus::terminate</code>.
+  Ainsi :</p>
+  <pre><code class="language-php">$processus = new Hoa\Console\Processus('php');
+
+// 3 seconds is enough…
+$processus->setTimeout(3);
+
+// Sleep 10 seconds.
+$processus->on('input', function ( Hoa\Core\Event\Bucket $bucket ) {
+
+    $bucket->getSource()->writeAll('&amp;lt;?php sleep(10);');
+
+    return false;
+});
+
+// Terminate the processus on timeout.
+$processus->on('timeout', function ( Hoa\Core\Event\Bucket $bucket ) {
+
+    echo 'TIMEOUT, terminate', "\n";
+    $bucket->getSource()->terminate();
+
+    return;
+});
+
+$processus->run();
+
+/**
+ * Will output (after 3 secondes):
+ *     TIMEOUT, terminate
+ */</code></pre>
+  <p>Aucun action n'est réalisée automatiquement car elles peuvent être
+  nombreuses. Nous pouvons peut-être débloquer le processus, le fermer pour en
+  ouvrir un autre, émettre des rapports etc.</p>
+  <p>À propos de la méthode <code>terminate</code>, elle peut prendre plusieurs
+  valeurs différentes, définies par les constantes de
+  <code>Hoa\Console\Processus</code> : <code>SIGHUP</code>, <code>SIGINT</code>,
+  <code>SIGQUIT</code>, <code>SIGABRT</code>, <code>SIGKILL</code>,
+  <code>SIGALRM</code>, <code>SIGTERM</code> (par défaut). Plusieurs
+  <strong>signaux</strong> peuvent être envoyés au processus pour qu'ils
+  s'arrêtent. Pour avoir le détail, voir
+  <a href="http://freebsd.org/cgi/man.cgi?query=signal"
+     title="signal(3), FreeBSD Library Functions Manual">la page
+     <code>signal</code></a>.</p>
+
+  <h3 id="Processus_interactifs_et_pseudo-terminaux" for="main-toc">Processus
+  interactifs et pseudo-terminaux</h3>
+
+  <p>Cette section est un peu plus technique mais explique un
+  <strong>problème</strong> qui peut arriver avec certains processus dits
+  <strong>interactifs</strong>.</p>
+  <p>La classe <code>Hoa\Console\Processus</code> permet d'automatiser
+  l'interaction avec des processus très facilement. Toutefois, ce n'est pas
+  toujours possible de créer cette automatisation, à cause du comportement du
+  processus. Nous allons illustrer le problème en écrivant le fichier
+  <code>Interactive.php</code> :</p>
+  <pre><code class="language-php">&amp;lt;?php
+
+echo 'Login: ';
+
+if(false === $login = fgets(STDIN)) {
+
+    fwrite(STDERR, 'Hmm, no login.' . "\n");
+    exit(1);
+}
+
+echo 'Password: ';
+
+if(false === $password = fgets(STDIN)) {
+
+    fwrite(STDERR, 'Hmm, no password.' . "\n");
+    exit(2);
+}
+
+echo 'Result:', "\n\t", $login, "\t", $password;</code></pre>
+  <p>Exécutons ce processus pour voir ce qu'il fait :</p>
+  <pre><code class="language-shell">$ php Interactive.php
+Login: myLogin
+Password: myPassword
+Result:
+    myLogin
+    myPassword</code></pre>
+  <p>Et maintenant, automatisons l'exécution de ce processus :</p>
+  <pre><code class="language-shell">$ echo 'myLogin\nmyPassword' > data
+$ php Interactive.php &amp;lt; data
+Login: Password: Result:
+    myLogin
+    myPassword</code></pre>
+  <p>Excellent. Nous pourrions avoir le même résultat avec
+  <code>Hoa\Console\Processus</code> sans problème. Maintenant, si notre
+  processus veut s'assurer que <code>STDIN</code> est vide entre deux entrées,
+  il peut ajouter :</p>
+  <pre data-line-offset="8" data-line="11"><code class="language-php">}
+
+fseek(STDIN, 0, SEEK_END);
+
+echo 'Password: ';</code></pre>
+  <p>Et alors dans ce cas, si nous essayons d'automatiser l'exécution :</p>
+  <pre><code class="language-shell">$ php Interactive.php &amp;lt; data
+Login: Password: Hmm, no password.</code></pre>
+  <p>C'est un comportement tout à fait normal, mais
+  <code>Hoa\Console\Processus</code> ne peut rien faire pour remédier à ce
+  problème.</p>
+  <p>La solution serait d'utiliser un
+  <a href="https://en.wikipedia.org/wiki/Pseudo_terminal">pseudo-terminal</a> en
+  utilisant les fonctions PTY (voir
+  <a href="http://kernel.org/doc/man-pages/online/pages/man7/pty.7.html"
+     title="pty(7), Linux Programmer's Manual">dans Linux</a> ou
+  <a href="http://freebsd.org/cgi/man.cgi?query=pty"
+     title="pty(3), FreeBSD Library Functions Manual" >dans FreeBSD</a>).
+  Malheureusement ces fonctions ne sont pas disponibles dans PHP pour des
+  raisons de techniques. Il n'y a pas de solutions possibles en PHP pur, mais il
+  est toujours envisageable d'utiliser un programme <strong>externe</strong>,
+  écrit par exemple en C.</p>
+
   <h2 id="Conclusion" for="main-toc">Conclusion</h2>
+
+  <p>La bibliothèque <code>Hoa\Console</code> offre des outils
+  <strong>complets</strong> pour écrire des programmes adaptés à une interface
+  <strong>textuelle</strong>, que ce soit l'interaction avec la fenêtre ou le
+  curseur, l'interaction avec l'utilisateur grâce à un lecteur de lignes très
+  personnalisable (avec de l'auto-complétion ou des raccourcis), la lecture
+  d'options pour les programmes eux-mêmes, la construction de programmes
+  élaborés, ou encore l'exécution, l'interaction et la communication avec des
+  processus.</p>
 
 </yield>
 </definition>
