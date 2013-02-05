@@ -53,55 +53,11 @@
   <h2 id="Creer_une_application" for="main-toc">Créer une
   application</h2>
 
-  <p>Créer une application est très simple. Hoa propose deux mécanismes : le
-  premier à travers <a href="http://mercurial.selenic.com/">Mercurial</a>, le
-  second à travers une <a href="http://php.net/phar">archive exécutable
-  Phar</a>. Ainsi, première solution :</p>
+  <p>Créer une application revient à clôner le dépôt
+  <a href="http://git-scm.com/">Git</a> Embryo :</p>
   <pre><code class="language-shell">$ mkdir -p ~/Development/MyApp/
 $ cd !!$
-$ hg clone http://hg.hoa-project.net/Framework .
-$ hoa tree --list-directory
-~/Development/MyApp/
-|-- Application/
-|   |-- Public/
-|-- Data/
-|   |-- Bin/
-|   |   |-- Command/
-|   |-- Etc/
-|   |   |-- Configuration/
-|   |   |-- Locale/
-|   |-- Lost+found/
-|   |-- Module/
-|   |-- Temporary/
-|   |-- Variable/
-|   |   |-- Cache/
-|   |   |-- Database/
-|   |   |-- Log/
-|   |   |-- Private/
-|   |   |-- Run/
-|   |   |-- Test/
-|   |   |   |-- Dictionary/
-|   |   |   |-- Repository/
-|-- Stub/</code></pre>
-  <p>Ou alors avec une archive exécutable :</p>
-  <pre><code class="language-shell">$ mkdir -p ~/Development/MyApp/
-$ cd !!$
-$ wget http://download.hoa-project.net/Framework/Hoa_Framework.next.phar
-$ php Hoa_Framework.next.phar
-Usage   : Hoa_Framework.next.phar &amp;lt;options>
-Options :
-    -m, --metadata  : Print all metadata.
-    -s, --signature : Print signature.
-    -p, --phar      : Phar informations.
-    -e, --extract   : Extract application in the current directory.
-    -h, --help      : This help.
-    -?, --help      : This help.
-$ php Hoa_Framework.next.phar --extract
-Extracted in ~/Development/MyApp</code></pre>
-  <p>Nous retrouvons l'architecture du dossier <code>Data/</code> que propose
-  l'abstraction <code>hoa://</code>, tout comme pour le dossier
-  <code>Application/</code>. Nous noterons que Hoa est <strong>absent</strong>
-  du framework !</p>
+$ git clone http://git.hoa-project.net/Embryo.git .</code></pre>
   <p>Nous allons maintenant préciser à l'application où se trouve Hoa et créer
   notre propre script dédié à notre application.</p>
 
