@@ -54,10 +54,14 @@
   application</h2>
 
   <p>Créer une application revient à clôner le dépôt
-  <a href="http://git-scm.com/">Git</a> Embryo :</p>
+  <code>Embryo.git</code> :</p>
   <pre><code class="language-shell">$ mkdir -p ~/Development/MyApp/
 $ cd !!$
 $ git clone http://git.hoa-project.net/Embryo.git .</code></pre>
+  <p>Nous retrouvons l'architecture du dossier <code>Data/</code> que propose
+  l'abstraction <code>hoa://</code>, tout comme pour le dossier
+  <code>Application/</code>. Nous noterons que Hoa est <strong>absent</strong>
+  du framework !</p>
   <p>Nous allons maintenant préciser à l'application où se trouve Hoa et créer
   notre propre script dédié à notre application.</p>
 
