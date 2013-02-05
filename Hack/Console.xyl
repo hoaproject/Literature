@@ -1548,7 +1548,7 @@ $processus->run();
   valeurs différentes, définies par les constantes de
   <code>Hoa\Console\Processus</code> : <code>SIGHUP</code>, <code>SIGINT</code>,
   <code>SIGQUIT</code>, <code>SIGABRT</code>, <code>SIGKILL</code>,
-  <code>SIGALRM</code>, <code>SIGTERM</code> (par défaut). Plusieurs
+  <code>SIGALRM</code> et <code>SIGTERM</code> (par défaut). Plusieurs
   <strong>signaux</strong> peuvent être envoyés au processus pour qu'ils
   s'arrêtent. Pour avoir le détail, voir
   <a href="http://freebsd.org/cgi/man.cgi?query=signal"
