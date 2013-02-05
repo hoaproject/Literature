@@ -747,8 +747,8 @@ print_r($parser->getSwitches());
   considérée comme booléenne. Ainsi, <code>-s</code> vaut <code>true</code>,
   mais <code>-s -s</code> vaut <code>false</code>, et du coup <code>-s -s
   -s</code> vaut <code>true</code> et ainsi de suite. Une option booléenne
-  fonctionne en <strong>interrupteur</strong>. Une option valuée a une valeur
-  associée, soit par un espace, soit par un signe d'égalité (symbole
+  fonctionne comme un <strong>interrupteur</strong>. Une option valuée a une
+  valeur associée, soit par un espace, soit par un signe d'égalité (symbole
   <code>=</code>). Voici une liste non-exhaustive des possibilités avec la
   valeur associée (nous utilisons une option courte mais ça peut être une option
   longue) :</p>
@@ -882,8 +882,8 @@ var_dump($extract, $directory);
   son nom court dans <code>$c</code> et sa valeur dans <code>$v</code>, puis
   nous regardons quoi en faire ».</p>
   <p>Pour lire les entrées, nous utiliserons la méthode
-  <code>Hoa\Console\Parser::listInputs</code> dont tous les arguments (au
-  nombre de 26) sont passés en <strong>référence</strong>. Ainsi :</p>
+  <code>Hoa\Console\Parser::listInputs</code> dont tous les arguments (au nombre
+  de 26) sont passés en <strong>référence</strong>. Ainsi :</p>
   <pre><code class="language-php">$parser->listInputs($inputA, $inputB, $inputC);
 
 var_dump($inputA, $inputB, $inputC);
