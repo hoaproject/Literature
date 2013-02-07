@@ -16,8 +16,8 @@
 
   <h2 id="Introduction" for="main-toc">Introduction</h2>
 
-  <p><code>Hoa\Bench</code> propose deux manières d'analyser son application :
-  avec PHP lui-même, ou alors avec
+  <p><code>Hoa\Bench</code> propose deux manières d'<strong>analyser</strong>
+  son application : avec PHP lui-même, ou alors avec
   <a href="http://opensolaris.org/os/community/dtrace/">DTrace</a>, grâce à des
   programmes présents dans le dossier
   <code>hoa://Library/Bench/Dtrace/</code>.</p>
@@ -25,9 +25,9 @@
   <h2 id="Placer_des_marques" for="main-toc">Placer des marques</h2>
 
   <p>La bibliothèque <code>Hoa\Bench</code> fonctionne de manière très
-  intuitive : il suffit de placer des marques dans notre programme et c'est
-  tout. À chaque fois qu'une marque est exécutée, elle récolte des informations
-  que nous pouvons exploiter par la suite.</p>
+  intuitive : il suffit de placer des <strong>marques</strong> dans notre
+  programme et c'est tout. À chaque fois qu'une marque est exécutée, elle
+  récolte des informations que nous pouvons exploiter par la suite.</p>
   <p>Il y a deux classes à considérer : <code>Hoa\Bench</code> qui permet de
   regroupe un ensemble de marques, et <code>Hoa\Bench\Mark</code> qui représente
   une seule marque.</p>
@@ -171,10 +171,10 @@ if(isset($bench->foo))
 
   <p>La bibliothèque <code>Hoa\Bench</code> fournit également des programmes
   DTrace dans le dossier <code>hoa://Library/Bench/Dtrace/</code>. DTrace permet
-  de générer des traces afin de détecter des problèmes en temps réel dans un
-  environnement de production. Il est
-  intégré au niveau du noyau et au niveau applicatif, ce qui lui assure
-  d'excellentes performances. DTrace utilise
+  de générer des <strong>traces</strong> afin de détecter des problèmes en temps
+  réel dans un environnement de production. Il est intégré au niveau du noyau et
+  au niveau applicatif, ce qui lui assure d'excellentes
+  <strong>performances</strong>. DTrace utilise
   <a href="https://wikis.oracle.com/display/DTrace/Documentation">le langage
   D</a>. Nous conseillons également la lecture de
   <a href="http://dtracebook.com/">DTraceBook</a>. Attention, DTrace n'est pas
