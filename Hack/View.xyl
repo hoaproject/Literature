@@ -25,7 +25,7 @@
   fonctionnalités afin de pouvoir intégrer une vue à n'importe quelle autre
   bibliothèque.</p>
 
-  <h2 id="Un_seul_interface" for="main-toc">Un seul interface</h2>
+  <h2 id="Une_seule_interface" for="main-toc">Une seule interface</h2>
 
   <p>Le mécanisme d'une vue est presque toujours le même. Nous avons des
   <strong>données</strong> que nous voulons <strong>agencer</strong> et
@@ -33,11 +33,11 @@
   <strong>ressoures</strong> qu'il faut être capable de localiser. Enfin, le
   <strong>rendu</strong> est le mécanisme permettant d'obtenir un résultat
   (données agencées, ressources liées etc.). Nous arrivons à un total de quatre
-  notions : des données, un routeur, un « agenceur » et un canal de sortie où
-  écrire le résultat.</p>
+  notions : des données, un routeur, un « agenceur » et un canal de sortie dans
+  lequel écrire le résultat.</p>
   <p>La bibliothèque <code>Hoa\View</code> ne propose qu'une seule
   <strong>interface</strong> : <code>Hoa\View\Viewable</code>. Cette dernière
-  définit quatre méthodes correspondants aux quatre notions précédentes :</p>
+  définit une méthode pour chacune des quatres notions précédentes :</p>
   <ul>
     <li><code>getOutputStream</code>, le flux dans lequel écrire la vue ;</li>
     <li><code>getData</code>, les données à agencer ;</li>
@@ -66,10 +66,170 @@
   <p>Hoa propose <a href="@lh:chapter=Xyl">la bibliothèque
   <code>Hoa\Xyl</code></a> qui utilise <code>Hoa\View\Viewable</code>, mais elle
   est un peu compliquée au premier abord (ce qui ne vous empêche pas d'aller y
-  jeter un œil !), c'est pourquoi nous allons donner un exemple plus simple et
+  jeter un œil !). C'est pourquoi nous allons donner un exemple plus simple et
   plus basique.</p>
+  <p>Commençons par définir ce que nous voulons. Nous voulons écrire ce que nous
+  voulons avec du <code>code PHP imbriqué</code>. Nous pouvons gérer une vue
+  mais aussi des <strong>sous-vues</strong>. Nous voulons
+  <strong>isoler</strong> les données par vues (une vue n'aura pas accès aux
+  données d'une autre vue). Nos données seront basées sur
+  <a href="http://php.net/reserved.classes">la classe <code>StdClass</code></a>
+  pour plus de simplicité. Commençons par écrire la classe
+  <code>SuperView</code> :</p>
+  <pre data-line="52"><code class="language-php">from('Hoa')
+-> import('View.~able')
+-> import('Http.Response')
+-> import('Router.Http');
+
+class SuperView implements Hoa\View\Viewable {
+
+    protected $_in     = null;
+    protected $_out    = null;
+    protected $_data   = null;
+    protected $_router = null;
+
+    public function __construct (                        $in,
+                                  Hoa\Stream\IStream\Out $out,
+                                  Hoa\Router             $router = null,
+                                  StdClass               $data   = null ) {
+
+        if(null === $data)
+            $data = new StdClass();
+
+        $this->_in     = $in;
+        $this->_out    = $out;
+        $this->_data   = $data;
+        $this->_router = $router;
+
+        return;
+    }
+
+    public function getOutputStream ( ) {
+
+        return $this->_out;
+    }
+
+    public function getData ( ) {
+
+        return $this->_data;
+    }
+
+    public function render ( ) {
+
+        $data   = $this->getData();
+        $router = $this->getRouter();
+
+        ob_start();
+        $__level = ob_get_level();
+
+        require $this->_in;
+
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        $this->getOutputStream()->writeAll($content);
+
+        return;
+    }
+
+    public function getRouter ( ) {
+
+        return $this->_router;
+    }
+}</code></pre>
+  <p>Très classique. Notre constructeur demande un fichier à lire, un flux de
+  sortie, un routeur qui est optionel, tout comme des données. Nous retrouvons
+  nos méthodes <code>getOutputStream</code>, <code>getData</code>,
+  <code>render</code> et <code>getRouter</code>. La méthode <code>render</code>
+  va inclure le fichier <code class="language-php">$in</code> en ayant
+  préalablement mis à sa disposition deux variables (en plus de
+  <code class="language-php">$this</code>), à savoir
+  <code class="language-php">$data</code> et
+  <code class="language-php">$router</code>, pour lui faciliter l'écriture.
+  Enfin, la ligne 52 utilise le flux de sortie pour écrire les données.</p>
+  <p>Testons en écrivant un fichier <code>Test.php</code> :</p>
+  <pre data-line="9,17"><code class="language-php">// Output.
+$output = new Hoa\Http\Response();
+
+// Router.
+$router = new Hoa\Router\Http();
+$router->get('a', '/Foo\.html');
+
+// View.
+$superview      = new SuperView('Out.phtml', $output, $router);
+
+// Data.
+$data           = $superview->getData();
+$data->title    = 'foobar';
+$data->foo      = (object) array('bar' => 'baz', 'qux' => 'hop');
+
+// Render.
+$superview->render();</code></pre>
+  <p>Et enfin, écrivons notre fichier <code>Out.phtml</code> :</p>
+  <pre><code class="language-markup">&amp;lt;h1>&amp;lt;?php echo $data->title; ?>&amp;lt;/h1></code></pre>
+  <p>Observons maintenant le résultat de l'exécution de
+  <code>Test.php</code> :</p>
+  <pre><code class="language-shell">$ php Test.php
+&amp;lt;h1>foobar&amp;lt;/h1></code></pre>
+  <p>Excellent. Maintenant ajoutons le moyen de créer des
+  <strong>sous-vues</strong> avec la méthode <code>import</code> par exemple.
+  Ainsi, nous ajoutons dans la classe <code>SuperView</code> :</p>
+  <pre><code class="language-php">    public function import ( $in, $data = null ) {
+
+        $new = new static(
+            $in,
+            $this->getOutputStream(),
+            $this->getRouter(),
+            $data
+        );
+        $new->render();
+
+        return;
+    }</code></pre>
+  <p>Modifions <code>Out.phtml</code> pour qu'il utilise <code>Sub.phtml</code>
+  qui sera une nouvelle vue. Nous lui donnerons aussi une partie des
+  données (uniquement <code>foo</code>) :</p>
+  <pre><code class="language-markup">&amp;lt;h1>foobar&amp;lt;/h1>
+
+&amp;lt;?php $this->import('Sub.phtml', $data->foo); ?></code></pre>
+  <p>Et dans <code>Sub.phtml</code>, nous pouvons utiliser nos données comme bon
+  nous semble. En bonus, nous allons utiliser le routeur pour créer un lien.
+  Ainsi :</p>
+  <pre><code class="language-markup">
+&amp;lt;p>Sub-view! This is a link:
+   &amp;lt;a href="&amp;lt;?php echo $router->unroute('a'); ?>">click click&amp;lt;/a>!&amp;lt;/p>
+
+&amp;lt;ul>
+&amp;lt;?php foreach($data as $key => $value): ?>
+    &amp;lt;li>&amp;lt;?php echo $key, ' => ', $value; ?>&amp;lt;/li>
+&amp;lt;?php endforeach; ?>
+&amp;lt;/ul></code></pre>
+  <p>Exécutons à nouveau <code>Test.php</code> pour voir le résultat :</p>
+  <pre><code class="language-shell">$ php Test.php
+&amp;lt;h1>foobar&amp;lt;/h1>
+
+&amp;lt;p>Sub-view! This is a link:
+   &amp;lt;a href="/Foo.html">click click&amp;lt;/a>!&amp;lt;/p>
+
+&amp;lt;ul>
+    &amp;lt;li>bar => baz&amp;lt;/li>
+    &amp;lt;li>qux => hop&amp;lt;/li>
+&amp;lt;/ul></code></pre>
+  <p>Notre sous-vue est en place, avec notre lien et nos données isolées (nous
+  itérons sur toutes les données sans pour autant avoir les données de
+  <code>title</code>, uniquement celles de <code>foo</code>).</p>
+  <p>Cette classe <code>SuperView</code> est très basique mais les
+  <strong>performances</strong> sont intéressantes car le résultat du rendu est
+  envoyé <strong>directement</strong> dans le flux de sortie, donc aucune grosse
+  chaîne de caractères n'est retournée. Ça devient intéressant quand nous
+  manipulons beaucoup de sous-vues imbriquées par exemple.</p>
 
   <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
+  <p>La bibliothèque <code>Hoa\View</code> ne définit qu'une seule
+  <strong>interface</strong> avec quatre <strong>propriétés</strong>. À l'usage,
+  nous nous rendons compte que ces propriétés sont <strong>suffisantes</strong>
+  pour décrire et manipuler plusieurs systèmes de vue qui peuvent être très
+  <strong>complexes</strong>.</p>
 </yield>
 </definition>
