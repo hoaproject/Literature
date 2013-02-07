@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xyl-use href="../Definitions.xyl"?>
+
+<definition xmlns="http://hoa-project.net/xyl/xylophone">
+<yield name="chapter">
+
+  <h1 id="View"><em lang="en">Hack book</em><title_break /><code>View</code></h1>
+
+  <p>Les <strong>vues</strong> sont des systèmes <strong>complexes</strong> et
+  très <strong>variés</strong>. <code>Hoa\View</code> propose une interface
+  capable de répondre à la majorité des besoins à travers un mécanisme
+  <strong>souple</strong> et <strong>extensible</strong>.</p>
+
+  <h2 id="Table_des_matieres">Table des matières</h2>
+
+  <tableofcontents id="main-toc" />
+
+  <h2 id="Introduction" for="main-toc">Introduction</h2>
+
+  <p>Une <strong>vue</strong> est un mécanisme permettant d'agencer des
+  <strong>données</strong> graphiques pour l'utilisateur. Ce sont des systèmes
+  très <strong>différents</strong> les uns des autres et peuvent parfois être
+  très <strong>compliqués</strong>. La bibliothèque <code>Hoa\View</code>
+  propose une seule interface qui regroupe l'<strong>essentiel</strong> des
+  fonctionnalités afin de pouvoir intégrer une vue à n'importe quelle autre
+  bibliothèque.</p>
+
+  <h2 id="Un_seul_interface" for="main-toc">Un seul interface</h2>
+
+  <p>Le mécanisme d'une vue est presque toujours le même. Nous avons des
+  <strong>données</strong> que nous voulons <strong>agencer</strong> et
+  <strong>afficher</strong> à l'utilisateur. Une vue utilise aussi des
+  <strong>ressoures</strong> qu'il faut être capable de localiser. Enfin, le
+  <strong>rendu</strong> est le mécanisme permettant d'obtenir un résultat
+  (données agencées, ressources liées etc.). Nous arrivons à un total de quatre
+  notions : des données, un routeur, un « agenceur » et un canal de sortie où
+  écrire le résultat.</p>
+  <p>La bibliothèque <code>Hoa\View</code> ne propose qu'une seule
+  <strong>interface</strong> : <code>Hoa\View\Viewable</code>. Cette dernière
+  définit quatre méthodes correspondants aux quatre notions précédentes :</p>
+  <ul>
+    <li><code>getOutputStream</code>, le flux dans lequel écrire la vue ;</li>
+    <li><code>getData</code>, les données à agencer ;</li>
+    <li><code>render</code>, notre « agenceur », ce qui va déclencher le
+    rendu ;</li>
+    <li><code>getRouter</code>, pour localiser des ressources et autres
+    documents.</li>
+  </ul>
+  <p>Et c'est tout !</p>
+  <p>Plus précisément, la méthode <code>getOutputStream</code> doit retourner un
+  flux implémentant l'interface <code>Hoa\Stream\IStream\Out</code> (voir
+  <a href="@lh:chapter=Stream">la bibliothèque <code>Hoa\Stream</code></a>). Ça
+  peut être un fichier, une chaîne de caractères, une réponse HTTP … La méthode
+  <code>getData</code> doit préférablement retourner un objet
+  <code>Hoa\Core\Data</code> (voir <a href="@lh:chapter=Core">la bibliothèque
+  <code>Hoa\Core</code></a>). La méthode <code>render</code> ne doit rien
+  retourner. Et la méthode <code>getRouter</code> doit retourner un routeur de
+  type <code>Hoa\Router</code> (voir <a href="@lh:chapter=Router">la
+  bibliothèque <code>Hoa\Router</code></a>). Même si ça peut paraître évident,
+  cela montre que les outils sont là et qu'ils sont bien découpés. Vous pouvez
+  écrire la vue que vous désirez avec vos propres outils ou avec des outils déjà
+  existants.</p>
+
+  <h2 id="Exemple" for="main-toc">Exemple</h2>
+
+  <p>Hoa propose <a href="@lh:chapter=Xyl">la bibliothèque
+  <code>Hoa\Xyl</code></a> qui utilise <code>Hoa\View\Viewable</code>, mais elle
+  est un peu compliquée au premier abord (ce qui ne vous empêche pas d'aller y
+  jeter un œil !), c'est pourquoi nous allons donner un exemple plus simple et
+  plus basique.</p>
+
+  <h2 id="Conclusion" for="main-toc">Conclusion</h2>
+
+</yield>
+</definition>
