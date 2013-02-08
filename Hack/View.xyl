@@ -17,18 +17,18 @@
 
   <h2 id="Introduction" for="main-toc">Introduction</h2>
 
-  <p>Une <strong>vue</strong> est un mécanisme permettant d'agencer des
-  <strong>données</strong> graphiques pour l'utilisateur. Ce sont des systèmes
-  très <strong>différents</strong> les uns des autres et peuvent parfois être
-  très <strong>compliqués</strong>. La bibliothèque <code>Hoa\View</code>
-  propose une seule interface qui regroupe l'<strong>essentiel</strong> des
-  fonctionnalités afin de pouvoir intégrer une vue à n'importe quelle autre
-  bibliothèque.</p>
+  <p>Une <strong>vue</strong> est un mécanisme permettant d'agencer
+  graphiquement des <strong>données</strong> à l'utilisateur. Il existe
+  plusieurs approches, assez <strong>différentes</strong> les unes des autres et
+  qui peuvent parfois être très <strong>compliquées</strong>. La bibliothèque
+  <code>Hoa\View</code> propose une seule interface qui regroupe
+  l'<strong>essentiel</strong> des fonctionnalités afin de pouvoir intégrer une
+  vue à n'importe quelle autre bibliothèque.</p>
 
   <h2 id="Une_seule_interface" for="main-toc">Une seule interface</h2>
 
-  <p>Le mécanisme d'une vue est presque toujours le même. Nous avons des
-  <strong>données</strong> que nous voulons <strong>agencer</strong> et
+  <p>Le mécanisme principal d'une vue est presque toujours le même. Nous avons
+  des <strong>données</strong> que nous voulons <strong>agencer</strong> et
   <strong>afficher</strong> à l'utilisateur. Une vue utilise aussi des
   <strong>ressoures</strong> qu'il faut être capable de localiser. Enfin, le
   <strong>rendu</strong> est le mécanisme permettant d'obtenir un résultat
