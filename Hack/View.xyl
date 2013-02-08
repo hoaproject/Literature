@@ -76,7 +76,7 @@
   <a href="http://php.net/reserved.classes">la classe <code>StdClass</code></a>
   pour plus de simplicité. Commençons par écrire la classe
   <code>SuperView</code> :</p>
-  <pre data-line="52"><code class="language-php">from('Hoa')
+  <pre data-line="49"><code class="language-php">from('Hoa')
 -> import('View.~able')
 -> import('Http.Response')
 -> import('Router.Http');
@@ -120,10 +120,7 @@ class SuperView implements Hoa\View\Viewable {
         $router = $this->getRouter();
 
         ob_start();
-        $__level = ob_get_level();
-
         require $this->_in;
-
         $content = ob_get_contents();
         ob_end_clean();
 
@@ -146,7 +143,7 @@ class SuperView implements Hoa\View\Viewable {
   <code class="language-php">$this</code>), à savoir
   <code class="language-php">$data</code> et
   <code class="language-php">$router</code>, pour lui faciliter l'écriture.
-  Enfin, la ligne 52 utilise le flux de sortie pour écrire les données.</p>
+  Enfin, la ligne 49 utilise le flux de sortie pour écrire les données.</p>
   <p>Testons en écrivant un fichier <code>Test.php</code> :</p>
   <pre data-line="9,17"><code class="language-php">// Output.
 $output = new Hoa\Http\Response();
