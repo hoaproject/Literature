@@ -20,62 +20,77 @@
   <p>Une <strong>vue</strong> est un mécanisme permettant d'agencer
   graphiquement des <strong>données</strong> à l'utilisateur. Il existe
   plusieurs approches, assez <strong>différentes</strong> les unes des autres et
-  qui peuvent parfois être très <strong>compliquées</strong>. La bibliothèque
+  qui peuvent parfois être très <strong>complexes</strong>. La bibliothèque
   <code>Hoa\View</code> propose une seule interface qui regroupe
   l'<strong>essentiel</strong> des fonctionnalités afin de pouvoir intégrer une
   vue à n'importe quelle autre bibliothèque.</p>
 
   <h2 id="Une_seule_interface" for="main-toc">Une seule interface</h2>
 
-  <p>Le mécanisme principal d'une vue est presque toujours le même. Nous avons
-  des <strong>données</strong> que nous voulons <strong>agencer</strong> et
-  <strong>afficher</strong> à l'utilisateur. Une vue utilise aussi des
-  <strong>ressoures</strong> qu'il faut être capable de localiser. Enfin, le
-  <strong>rendu</strong> est le mécanisme permettant d'obtenir un résultat
-  (données agencées, ressources liées etc.). Nous arrivons à un total de quatre
-  notions : des données, un routeur, un « agenceur » et un canal de sortie dans
-  lequel écrire le résultat.</p>
+  <p>Le mécanisme principal d'une vue est presque toujours le même :</p>
+  <ul>
+    <li>Nous avons des <strong>données</strong> que nous voulons
+    <strong>agencer</strong> et <strong>afficher</strong> à l'utilisateur ;</li>
+    <li>Une vue utilise aussi des <strong>ressoures</strong>
+    qu'il faut être capable de localiser.</li>
+    <li> Enfin, le <strong>rendu</strong> est le mécanisme permettant d'obtenir
+    un résultat (données agencées, ressources liées etc.).</li>
+  </ul>
+  <p>Nous arrivons à un total de quatre notions : des données, un « agenceur »,
+  un routeur et un canal de sortie dans lequel écrire le résultat.</p>
   <p>La bibliothèque <code>Hoa\View</code> ne propose qu'une seule
   <strong>interface</strong> : <code>Hoa\View\Viewable</code>. Cette dernière
   définit une méthode pour chacune des quatres notions précédentes :</p>
   <ul>
-    <li><code>getOutputStream</code>, le flux dans lequel écrire la vue ;</li>
     <li><code>getData</code>, les données à agencer ;</li>
-    <li><code>render</code>, notre « agenceur », ce qui va déclencher le
-    rendu ;</li>
     <li><code>getRouter</code>, pour localiser des ressources et autres
     documents.</li>
+    <li><code>render</code>, notre « agenceur », ce qui va déclencher le
+    rendu ;</li>
+    <li><code>getOutputStream</code>, le flux dans lequel écrire la vue ;</li>
   </ul>
   <p>Et c'est tout !</p>
-  <p>Plus précisément, la méthode <code>getOutputStream</code> doit retourner un
-  flux implémentant l'interface <code>Hoa\Stream\IStream\Out</code> (voir
-  <a href="@lh:chapter=Stream">la bibliothèque <code>Hoa\Stream</code></a>). Ça
-  peut être un fichier, une chaîne de caractères, une réponse HTTP … La méthode
-  <code>getData</code> doit préférablement retourner un objet
-  <code>Hoa\Core\Data</code> (voir <a href="@lh:chapter=Core">la bibliothèque
-  <code>Hoa\Core</code></a>). La méthode <code>render</code> ne doit rien
-  retourner. Et la méthode <code>getRouter</code> doit retourner un routeur de
-  type <code>Hoa\Router</code> (voir <a href="@lh:chapter=Router">la
-  bibliothèque <code>Hoa\Router</code></a>). Même si ça peut paraître évident,
-  cela montre que les outils sont là et qu'ils sont bien découpés. Vous pouvez
-  écrire la vue que vous désirez avec vos propres outils ou avec des outils déjà
-  existants.</p>
+  <p>Pour être plus précis, voici les retours attendus pour chacune de ces méthodes :
+  </p>
+  <ul>
+    <li><code>getData</code> doit préférablement retourner un objet
+    <code>Hoa\Core\Data</code> (voir <a href="@lh:chapter=Core">la bibliothèque
+    <code>Hoa\Core</code></a>). Il est néanmoins possible de retourner un objet
+    quelconque.</li>
+    <li><code>getRouter</code> doit retourner un routeur de
+    type <code>Hoa\Router</code> (voir <a href="@lh:chapter=Router">la
+    bibliothèque <code>Hoa\Router</code></a>).</li>
+    <li><code>render</code> ne doit rien retourner.</li>
+    <li><code>getOutputStream</code> doit retourner un
+    flux implémentant l'interface <code>Hoa\Stream\IStream\Out</code> (voir
+    <a href="@lh:chapter=Stream">la bibliothèque <code>Hoa\Stream</code></a>).
+    Ça peut être un fichier, une chaîne de caractères, une réponse HTTP…</li>
+  </ul>
+  <p>Même si cette approche peut sembler simple, voire simpliste au premier abord,
+  Cette simple interface couvre l'ensemble des besoins, et vous permet d'écrire
+  la vue que vous désirez avec vos propres outils ou avec des outils déjà existants.
+  </p>
 
   <h2 id="Exemple" for="main-toc">Exemple</h2>
 
-  <p>Hoa propose <a href="@lh:chapter=Xyl">la bibliothèque
-  <code>Hoa\Xyl</code></a> qui utilise <code>Hoa\View\Viewable</code>, mais elle
-  est un peu compliquée au premier abord (ce qui ne vous empêche pas d'aller y
+  <p><a href="@lh:chapter=Xyl">La bibliothèque <code>Hoa\Xyl</code></a> 
+  utilise <code>Hoa\View\Viewable</code>, mais elle est un peu complexe
+  pour servir de premier exemple (ce qui ne vous empêche pas d'aller y
   jeter un œil !). C'est pourquoi nous allons donner un exemple plus simple et
   plus basique.</p>
-  <p>Commençons par définir ce que nous voulons. Nous voulons écrire ce que nous
-  voulons avec du <code>code PHP imbriqué</code>. Nous pouvons gérer une vue
-  mais aussi des <strong>sous-vues</strong>. Nous voulons
-  <strong>isoler</strong> les données par vues (une vue n'aura pas accès aux
-  données d'une autre vue). Nos données seront basées sur
-  <a href="http://php.net/reserved.classes">la classe <code>StdClass</code></a>
-  pour plus de simplicité. Commençons par écrire la classe
-  <code>SuperView</code> :</p>
+  <p>Commençons par définir ce que nous voulons : Nous souhaitons mettre
+  en place un mécaniseme de vues et de <strong>sous-vues</strong>
+  répondant aux caractéristiques suivantes :</p>
+  <ul>
+    <li>Une vue principale pilote le rendu ;</li>
+    <li>Cette vue principale peut inclure des <strong>sous-vues</strong> ;</li>
+    <li>Les données seront <strong>isolées</strong>, ce qui veut dire qu'une 
+    vue n'aura pas accès aux données d'une autre vue ;</li>
+    <li>Nos données seront basées sur 
+    <a href="http://php.net/reserved.classes">la classe <code>StdClass</code></a>
+    pour plus de simplicité.</li>
+  </ul>
+  <p>Commençons par écrire la classe <code>SuperView</code> (notre vue « principale ») :</p>
   <pre data-line="49"><code class="language-php">from('Hoa')
 -> import('View.~able')
 -> import('Http.Response')
@@ -173,7 +188,7 @@ $superview->render();</code></pre>
   Ainsi, nous ajoutons dans la classe <code>SuperView</code> :</p>
   <pre><code class="language-php">    public function import ( $in, $data = null ) {
 
-        $new = new static(
+        $new = new SuperView(
             $in,
             $this->getOutputStream(),
             $this->getRouter(),
@@ -183,14 +198,17 @@ $superview->render();</code></pre>
 
         return;
     }</code></pre>
-  <p>Modifions <code>Out.phtml</code> pour qu'il utilise <code>Sub.phtml</code>
-  qui sera une nouvelle vue. Nous lui donnerons aussi une partie des
-  données (uniquement <code>foo</code>) :</p>
-  <pre><code class="language-markup">&amp;lt;h1>foobar&amp;lt;/h1>
+  <p>Nous voyons apparaitre nos vues imbriquées.
+  Modifions <code>Out.phtml</code> pour qu'il utilise <code>Sub.phtml</code>
+  qui sera une nouvelle vue. À cette sous-vue, nous ne donnerons qu'une partie
+  des données (uniquement <code>foo</code>) :</p>
+  <pre><code class="language-markup">&amp;lt;h1>&amp;lt;?php echo $data->title; ?>&amp;lt;/h1>
 
 &amp;lt;?php $this->import('Sub.phtml', $data->foo); ?></code></pre>
   <p>Et dans <code>Sub.phtml</code>, nous pouvons utiliser nos données comme bon
-  nous semble. En bonus, nous allons utiliser le routeur pour créer un lien.
+  nous semble. En bonus, nous allons utiliser le routeur pour créer un lien
+  (pour rappel, notre routeur définissait la route <code>a </code>
+  vers le fichier <code>/foo.html</code>).<br/>
   Ainsi :</p>
   <pre><code class="language-markup">
 &amp;lt;p>Sub-view! This is a link:
@@ -217,15 +235,16 @@ $superview->render();</code></pre>
   <code>title</code>, uniquement celles de <code>foo</code>).</p>
   <p>Cette classe <code>SuperView</code> est très basique mais les
   <strong>performances</strong> sont intéressantes car le résultat du rendu est
-  envoyé <strong>directement</strong> dans le flux de sortie, donc aucune grosse
-  chaîne de caractères n'est retournée. Ça devient intéressant quand nous
+  envoyé <strong>directement</strong> dans le flux de sortie, sans jamais
+  manipuler aucune grosse chaîne de caractères.
+  Cela devient particulièrement intéressant quand nous
   manipulons beaucoup de sous-vues imbriquées par exemple.</p>
 
   <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
   <p>La bibliothèque <code>Hoa\View</code> ne définit qu'une seule
-  <strong>interface</strong> avec quatre <strong>propriétés</strong>. À l'usage,
-  nous nous rendons compte que ces propriétés sont <strong>suffisantes</strong>
+  <strong>interface</strong> avec quatre <strong>méthodes</strong>. À l'usage,
+  nous nous rendons compte que ces méthodes sont <strong>suffisantes</strong>
   pour décrire et manipuler plusieurs systèmes de vue qui peuvent être très
   <strong>complexes</strong>.</p>
 </yield>
