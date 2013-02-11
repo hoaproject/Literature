@@ -41,106 +41,29 @@
 
   <h3 id="Installer_Hoa" for="main-toc">Installer Hoa</h3>
 
+  <p>Nous allons installer Hoa directement depuis les sources qui sont gérées par
+  <a href="http://git-scm.com">Git</a>. <strong>Central</strong> est le dépôt
+  qui rassemble toutes les bibliothèques qui composent Hoa. Il est disponible à
+  l'adresse <code>http://git.hoa-project.net/Central.git</code> ou sur le mirroir
+  <a href="http://github.com/hoaproject">Github</a> à l'adresse
+  <code>https://github.com/hoaproject/Central.git</code>.</p>
+
   <p>L'emplacement où est installé Hoa n'a aucune influence sur le
   fonctionnement de l'application. D'une manière plus générale, Hoa est conçu
   pour être installé une fois et être utilisé par plusieurs applications. Nous
   conseillons donc de l'installer dans le répertoire <code>/usr/local/lib/
   </code> qui est le répertoire habituel des bibliothèques utilisateur sous
   Unix, ou son équivalent <code>C:\Program Files\</code> sous Windows.</p>
-  <p>PHP fournit son propre système d'archive : <a
-  href="http://php.net/phar">PHP Archive (Phar)</a>, afin de distribuer plus
-  uniformément ses programmes écrits en PHP (ou avec d'autres langages). Ce
-  format est devenu standard avant PHP 5.3.3, qui est la version minimum pour
-  utiliser Hoa. Il est donc naturel de le proposer.</p>
-  <p>Ce format d'archive est disponible
-  <a href="@ll:chapter=Install#Installer_Hoa">parmi d'autres</a>, par ailleurs,
-  l'archive est exécutable :</p>
-  <tabs class="plain">
-    <tablist>
-      <tab for="tunix_execute_phar" selected="true">Unix</tab>
-      <tab for="twindows_execute_phar">Windows</tab>
-    </tablist>
 
-    <tabpanel id="tunix_execute_phar">
-      <pre><code class="language-shell">$ mkdir -p /usr/local/lib/hoa
-$ cd /usr/local/lib/hoa
-$ wget http://download.hoa-project.net/Central/Hoa.next.phar
-$ php Hoa.next.phar
-Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
-Options :
-    -m, - -metadata  : Print all metadata.
-    -t, - -test      : Test if Hoa is in this Phar.
-    -s, - -signature : Print signature.
-    -p, - -phar      : Phar informations.
-    -e, - -extract   : Extract Hoa in the current directory.
-    -h, - -help      : This help.
-    -?, - -help      : This help.</code></pre>
-    </tabpanel>
-
-    <tabpanel id="twindows_execute_phar">
-      <pre><code class="language-shell">// dans une invite de commande démarrée en tant qu'Administrateur
-> mkdir "Program Files\Hoa"
-> cd "Program Files\Hoa"
-// télécharger http://download.hoa-project.net/Central/Hoa.next.phar
-> php Hoa.next.phar
-Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
-Options :
-    -m, - -metadata  : Print all metadata.
-    -t, - -test      : Test if Hoa is in this Phar.
-    -s, - -signature : Print signature.
-    -p, - -phar      : Phar informations.
-    -e, - -extract   : Extract Hoa in the current directory.
-    -h, - -help      : This help.
-    -?, - -help      : This help.</code></pre>
-    </tabpanel>
-  </tabs>
-  <p>Si le résultat obtenu n'est pas celui escompté, il faudra modifier le
-  paramètre <code>detect_unicode</code> dans votre fichier
-  <code>php.ini</code> pour le passer à <code>0</code>. Ou sinon,
-  directement :</p>
-  <tabs class="plain">
-    <tablist>
-      <tab for="tunix_detect_unicode" selected="true">Unix</tab>
-      <tab for="twindows_detect_unicode">Windows</tab>
-    </tablist>
-
-    <tabpanel id="tunix_detect_unicode">
-      <pre><code class="language-shell">$ php -d detect_unicode=0 Hoa.next.phar
-Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
-Options :
-    …</code></pre>
-    </tabpanel>
-    <tabpanel id="twindows_detect_unicode">
-      <pre><code class="language-shell">> php -d detect_unicode=0 Hoa.next.phar
-Usage   : Hoa.next.phar &amp;lt;options&amp;gt;
-Options :
-    …</code></pre>
-    </tabpanel>
-  </tabs>
-  <p>Il est conseillé d'extraire Hoa avec l'option <code>-e</code> ou
-  <code>--extract</code>. Cela va extraire Hoa au même niveau que
-  l'archive :</p>
-  <tabs class="plain">
-    <tablist>
-      <tab for="tunix_extract_hoa" selected="true">Unix</tab>
-      <tab for="twindows_extract_hoa">Windows</tab>
-    </tablist>
-
-    <tabpanel id="tunix_extract_hoa">
-      <pre><code class="language-shell">$ php Hoa.next.phar --extract
-Extracted in /usr/local/lib/hoa</code></pre>
-    </tabpanel>
-
-    <tabpanel id="twindows_extract_hoa">
-      <pre><code class="language-shell">> php Hoa.next.phar --extract
-Extracted in C:\Program Files\Hoa</code></pre>
-    </tabpanel>
-  </tabs>
+  <p>Pour respecter cette recommandation, il faudra user d'un lien symbolique
+  lors de l'installation, par exemple :</p>
+  <pre><code class="language-shell">$ git clone http://git.hoa-project.net/Central.git /usr/local/Hoa.central
+$ ln -s /usr/local/Hoa.central/Hoa /usr/local/lib/Hoa</code></pre>
 
   <h3 id="Creer_notre_application" for="main-toc">Créer notre application</h3>
 
   <p>Maintenant que Hoa est installé, nous allons pouvoir installer une
-  application au moyen d'une autre archive Phar, celle de base pour l'aspect
+  application au moyen d'un autre dépôt Git, celui de base pour l'aspect
   framework d'Hoa :</p>
   <tabs class="plain">
     <tablist>
@@ -150,34 +73,12 @@ Extracted in C:\Program Files\Hoa</code></pre>
 
     <tabpanel id="tunix_install_framework">
       <pre><code class="language-shell">$ cd ~/Development/GordonsApp/
-$ wget http://download.hoa-project.net/Framework/Hoa_Framework.next.phar
-$ php Hoa_Framework.next.phar
-Usage   : Hoa_Framework.next.phar &amp;lt;options>
-Options :
-    -m, --metadata  : Print all metadata.
-    -s, --signature : Print signature.
-    -p, --phar      : Phar informations.
-    -e, --extract   : Extract application in the current directory.
-    -h, --help      : This help.
-    -?, --help      : This help.
-$ php Hoa_Framework.next.phar --extract
-Extracted in ~/Development/GordonsApp</code></pre>
+$ git clone http://git.hoa-project.net/Embryo.git .</code></pre>
     </tabpanel>
 
     <tabpanel id="twindows_install_framework">
       <pre><code class="language-shell">> cd %UserProfile%\Development\GordonsApp\
-// télécharger http://download.hoa-project.net/Framework/Hoa_Framework.next.phar
-> php Hoa_Framework.next.phar
-Usage   : Hoa_Framework.next.phar &amp;lt;options>
-Options :
-    -m, --metadata  : Print all metadata.
-    -s, --signature : Print signature.
-    -p, --phar      : Phar informations.
-    -e, --extract   : Extract application in the current directory.
-    -h, --help      : This help.
-    -?, --help      : This help.
-> php Hoa_Framework.next.phar --extract
-Extracted in C:\Users\MyUser\Development\GordonsApp</code></pre>
+> git clone http://git.hoa-project.net/Embryo.git .</code></pre>
     </tabpanel>
   </tabs>
 

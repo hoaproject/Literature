@@ -228,7 +228,7 @@ Waiting for connection… ▋</code></pre>
   serveur n'est utile que pour du développement, tout comme Bhoa. Nous pouvons
   l'utiliser de cette manière, depuis le dossier
   <code>Application/Public/</code> de notre application :</p>
-  <pre><code class="language-shell">$ php -S 127.0.0.1:8888 -r .
+  <pre><code class="language-shell">$ php -S 127.0.0.1:8888 -t .
 PHP x.y.z Development Server started at …
 Listening on 127.0.0.1:8888
 Document root is …/Public
