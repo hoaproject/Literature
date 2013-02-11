@@ -758,7 +758,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   puissant. L'<strong>abstraction</strong> des données par leur caractère
   symbolique empêche des regressions.</p>
 
-  <h2 id="Acces_ressources" for="main-toc">Accès aux ressources</h2>
+  <h2 id="Acces_aux_ressources" for="main-toc">Accès aux ressources</h2>
 
   <p>Un système d'interface graphique doit faciliter l'accès aux
   <strong>ressources</strong> manipulées par une vue : des feuilles de style,
