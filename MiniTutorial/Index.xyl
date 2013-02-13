@@ -44,9 +44,10 @@
   <p>Nous allons installer Hoa directement depuis les sources qui sont gérées par
   <a href="http://git-scm.com">Git</a>. <strong>Central</strong> est le dépôt
   qui rassemble toutes les bibliothèques qui composent Hoa. Il est disponible à
-  l'adresse <code>http://git.hoa-project.net/Central.git</code> ou sur le mirroir
-  <a href="http://github.com/hoaproject">Github</a> à l'adresse
-  <code>https://github.com/hoaproject/Central.git</code>.</p>
+  l'adresse
+  <a href="http://git.hoa-project.net/Central.git">http://git.hoa-project.net/Central.git</code></a>
+  ou sur le mirroir
+  <a href="http://github.com/hoaproject/Central.git">Github</a>.</p>
 
   <p>L'emplacement où est installé Hoa n'a aucune influence sur le
   fonctionnement de l'application. D'une manière plus générale, Hoa est conçu
@@ -56,7 +57,7 @@
   Unix, ou son équivalent <code>C:\Program Files\</code> sous Windows.</p>
 
   <p>Pour respecter cette recommandation, il faudra user d'un lien symbolique
-  lors de l'installation, par exemple :</p>
+  lors de l'installation, par exemple :</p>
   <pre><code class="language-shell">$ git clone http://git.hoa-project.net/Central.git /usr/local/Hoa.central
 $ ln -s /usr/local/Hoa.central/Hoa /usr/local/lib/Hoa</code></pre>
 
@@ -64,7 +65,7 @@ $ ln -s /usr/local/Hoa.central/Hoa /usr/local/lib/Hoa</code></pre>
 
   <p>Maintenant que Hoa est installé, nous allons pouvoir installer une
   application au moyen d'un autre dépôt Git, celui de base pour l'aspect
-  framework d'Hoa :</p>
+  framework d'Hoa :</p>
   <tabs class="plain">
     <tablist>
       <tab for="tunix_install_framework" selected="true">Unix</tab>
@@ -206,7 +207,7 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
   ne nécessite aucune configuration. Bhoa jouant le rôle de serveur HTTP, il a
   besoin de communiquer avec PHP qui lui se charge interpréter les pages.
   Bhoa utilise PHP FastCGI pour exécuter PHP, nous allons donc devoir le
-  démarrer sur le port standard (9000) :</p>
+  démarrer sur le port standard (9000) :</p>
   <tabs class="plain">
     <tablist>
       <tab for="tunix_start_phpcgi" selected="true">Unix</tab>
@@ -329,7 +330,7 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
   transmises à un dispatcheur. Enfin, le dispatcheur appellera le contrôleur
   qui traitera la requête.</p>
 
-  <p>Dans notre blog, nous voulons disposer de 2 actions :</p>
+  <p>Dans notre blog, nous voulons disposer de 2 actions :</p>
   <ul>
     <li>afficher la liste des articles ;</li>
     <li>afficher un article en particulier.</li>
@@ -337,7 +338,7 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
   <p>Puisque c'est le routeur qui fera l'aiguillage, nous devons créer 2 routes
   dans le fichier <code>Application/Public/index.php</code>.
   Ainsi, ce fichier contiendra le routeur HTTP et le dispatcheur vers des
-  contrôleurs, ainsi que les 2 routes suivantes :</p>
+  contrôleurs, ainsi que les 2 routes suivantes :</p>
   <ul>
     <li><code>i</code> pour afficher la liste des articles</li>
     <li><code>a</code> pour afficher un article en particulier.</li>
@@ -346,7 +347,7 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
   </code> et la règle <code>a</code> depuis <code>/article-<em>id</em>.html</code>.
   Nous allons avoir un contrôleur qui sera une classe avec deux méthodes, une
   pour chaque action. Nous remplaçons le <code>echo</code> du fichier
-  <code>Application/Public/index.php</code> par le code suivant :</p>
+  <code>Application/Public/index.php</code> par le code suivant :</p>
   <pre><code class="language-php">from('Hoa')
 -> import('Dispatcher.Basic')
 -> import('Router.Http');
@@ -431,7 +432,7 @@ in hoa://Library/Router/Http.php at line 490.</code></pre>
   <code>Hoa\Router\Exception\NotFound</code> sera levée lors du dispatche. Nous
   pouvons capturer cette exception et réagir en conséquence, par exemple en
   indiquant qu'une erreur s'est produite, en modifiant la fin du fichier
-  <code>Application/Public/index.php</code> ainsi :</p>
+  <code>Application/Public/index.php</code> ainsi :</p>
   <pre><code class="language-php">try {
 
     $dispatcher->dispatch($router);
@@ -730,7 +731,7 @@ class Article extends \Hoa\Model {
 }</code></pre>
 
   <p>Nous devons également inclure les classes des modèles que nous utilisons
-  en ajoutant, tout en haut de notre contrôleur :</p>
+  en ajoutant, tout en haut de notre contrôleur :</p>
   <pre><code class="language-php">namespace {
 
 from('Application')
@@ -886,7 +887,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
 
   <p>Chaque page sera un <em>overlay</em> par rapport au document principal,
   nous y préciserons donc un identifiant auquel ceux-ci pourront venir
-  s'attacher. Ainsi le document principal s'écrira :</p>
+  s'attacher. Ainsi le document principal s'écrira :</p>
   <pre><code class="language-markup">&amp;lt;?xml version="1.0" encoding="utf-8"?>
 
 &amp;lt;document xmlns="http://hoa-project.net/xyl/xylophone">
