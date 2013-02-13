@@ -41,14 +41,13 @@
 
   <h3 id="Installer_Hoa" for="main-toc">Installer Hoa</h3>
 
-  <p>Nous allons installer Hoa directement depuis les sources qui sont gérées par
-  <a href="http://git-scm.com">Git</a>. <strong>Central</strong> est le dépôt
-  qui rassemble toutes les bibliothèques qui composent Hoa. Il est disponible à
-  l'adresse
-  <a href="http://git.hoa-project.net/Central.git">http://git.hoa-project.net/Central.git</code></a>
+  <p>Nous allons installer Hoa directement depuis les sources qui sont gérées
+  par <a href="http://git-scm.com">Git</a>. <strong>Central</strong> est le
+  dépôt qui rassemble toutes les bibliothèques qui composent Hoa. Il est
+  disponible à l'adresse
+  <a href="http://git.hoa-project.net/Central.git">http://git.hoa-project.net/Central.git</a>
   ou sur le mirroir
   <a href="http://github.com/hoaproject/Central.git">Github</a>.</p>
-
   <p>L'emplacement où est installé Hoa n'a aucune influence sur le
   fonctionnement de l'application. D'une manière plus générale, Hoa est conçu
   pour être installé une fois et être utilisé par plusieurs applications. Nous
