@@ -368,18 +368,19 @@ $xyl->render($fragment);</code></pre>
   <code>readystatechange</code>. À chaque fois que cet événement sera émis, nous
   allons déclencher l'activation de notre zone asynchrone (nous passons sur les
   détails) :</p>
-  <pre><code class="language-javascript">document.getElementById('myAsync').hoa.async.addEventListener(
+  <pre><code class="language-javascript">var myAsync = document.getElementById('myAsync');
+myAsync.hoa.async.addEventListener(
     'popstate',
     function ( evt ) {
 
         var state = evt.state;
         Hoa.Async.sendForm(
-            document.getElementById('myAsync'),
+            myAsync,
             'get',
             state.pathname,
             {
                 link  : true,
-                scoped: scope.hoa.async.getScopedElements()
+                scoped: myAsync.hoa.async.getScopedElements()
             },
             {'Content-Type': document.contentType || 'text/html'}
         );
@@ -395,7 +396,7 @@ $xyl->render($fragment);</code></pre>
   et si l'adresse du document à charger est la même que l'adresse courante,
   alors nous allons annuler le processus (en mettant la donnée
   <code>data.uri</code> à <code>null</code>). Voyons plutôt :</p>
-  <pre><code class="language-javascript">document.getElementById('myAsync').hoa.async.addEventListener(
+  <pre><code class="language-javascript">myAsync.hoa.async.addEventListener(
     'pushstate',
     function ( evt, data ) {
 
