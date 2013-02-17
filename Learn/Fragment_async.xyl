@@ -378,7 +378,7 @@ $xyl->render($fragment);</code></pre>
             'get',
             state.pathname,
             {
-                link  : true
+                link  : true,
                 scoped: scope.hoa.async.getScopedElements()
             },
             {'Content-Type': document.contentType || 'text/html'}
