@@ -1111,7 +1111,7 @@ foreach($sampler as $i => $data)
   compilateurs LL(1)</h2>
 
   <p>La documentation pour le compilateur LL(1), à travers la classe
-  <code>Hoa\Compiler\Ll1</code> n'est pas encore écrite  L'objectif est
+  <code>Hoa\Compiler\Ll1</code> n'est pas encore écrite. L'objectif est
   différent de <code>Hoa\Compiler\Llk</code> : il n'existe pas de langage
   intermédiaire, les automates sont codés en dur avec des tableaux et ce type de
   compilateurs est orienté haute performance. C'est pourquoi son comportement
