@@ -1107,24 +1107,6 @@ foreach($sampler as $i => $data)
     </ul></dd>
   </dl>
 
-  <h3 id="Integration_avec_des_outils" for="main-toc">Intégration avec des
-  outils</h3>
-
-  <h4 id="Vim" for="main-toc">Vim</h4>
-
-  <p>Le langage PP a été intégré à l'<a href="http://vim.org/">éditeur Vim</a>.
-  Nous trouverons tout ce qui est nécessaire dans le
-  <a href="http://hg.hoa-project.net/Util">dépôt <code>/Util</code></a> de Hoa.
-  Deux fichiers sont intéressants :</p>
-  <ul>
-    <li><code>.vim/syntax/pp.vim</code> pour le support de la syntaxe ;</li>
-    <li><code>.vim/colors/pp.vim</code> pour la colorisation syntaxique.</li>
-  </ul>
-
-  <h4 id="PHPStorm" for="main-toc">PHPStorm</h4>
-
-  <p>À venir.</p>
-
   <h2 id="Compilateur_de_compilateurs_LL1" for="main-toc">Compilateur de
   compilateurs LL(1)</h2>
 
