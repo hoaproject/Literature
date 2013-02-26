@@ -66,9 +66,9 @@
   <strong>requête</strong>. La majorité des requêtes sur le Web sont exprimées
   sous le format <strong>HTTP</strong> (pour <em>HyperText Transfer
   Protocol</em>). Seulement trois versions d'HTTP ont été écrites :
-  <a href="http://tools.ietf.org/html/rfc1945">RFC1945</a> pour HTTP1.0,
-  <a href="http://tools.ietf.org/html/rfc2068">RFC2068</a> pour HTTP1.1 et
-  <a href="http://tools.ietf.org/html/rfc2616">RFC2616</a> pour la version
+  <a href="https://tools.ietf.org/html/rfc1945">RFC1945</a> pour HTTP1.0,
+  <a href="https://tools.ietf.org/html/rfc2068">RFC2068</a> pour HTTP1.1 et
+  <a href="https://tools.ietf.org/html/rfc2616">RFC2616</a> pour la version
   finale d'HTTP1.1, que nous utilisons actuellement partout. La personne qui
   émet une requête est un <strong>client</strong> (souvent un navigateur Web).
   Cette requête est envoyée à un <strong>serveur</strong>, qui connait votre
@@ -81,10 +81,10 @@
   <p>Un protocole standard a été défini pour faciliter la communication entre le
   serveur HTTP et le programme qui va réceptionner la requête. Nous appellons ce
   protocole : <strong>CGI</strong> (pour <em>Common Interface Gateway</em>),
-  définie par la <a href="http://tools.ietf.org/html/rfc3875">RFC3875</a>.
+  définie par la <a href="https://tools.ietf.org/html/rfc3875">RFC3875</a>.
   Toutefois, ce protocole n'était plus suffisant pour répondre aux nombres
-  grandissants de requêtes sur les serveurs. C'est pourquoi, <a
-  href="http://fastcgi.com/">FastCGI</a> (pour <em>Fast Common Gateway
+  grandissants de requêtes sur les serveurs. C'est pourquoi,
+  <a href="http://fastcgi.com/">FastCGI</a> (pour <em>Fast Common Gateway
   Interface</em>) a été créé.</p>
   <p>PHP fonctionne derrière FastCGI pour recevoir les communications du serveur
   HTTP. La requête HTTP reçue fournit toutes les informations nécessaires pour
@@ -97,7 +97,7 @@
   d'ajouter nos propres méthodes mais l'objectif ici n'est pas de faire un cours
   sur HTTP.  À chaque méthode est associée une <strong>URI</strong> (pour
   <em>Uniform Resource Identifier</em>), standardisée par la
-  <a href="http://tools.ietf.org/html/rfc3986">RFC3986</a>. Ainsi, l'exemple
+  <a href="https://tools.ietf.org/html/rfc3986">RFC3986</a>. Ainsi, l'exemple
   suivant est une requête qui exprime « je souhaite obtenir la ressource
   <code>/path/to/resource</code> » :</p>
   <pre><code>GET /path/to/resource</code></pre>
@@ -192,7 +192,7 @@ Welcome Alyx!</code></pre>
   règle à accepter <strong>plusieurs méthodes</strong>.</p>
   <p>Le motif s'exprime sous forme d'une expression régulière qui s'appliquera
   sur le <strong>chemin</strong> de l'URI (voir la
-  <a href="http://tools.ietf.org/html/rfc3986#section-3">section 3, <em>Syntax
+  <a href="https://tools.ietf.org/html/rfc3986#section-3">section 3, <em>Syntax
   Components</em>, de la RFC3986</a>). Note : nous sommes également capable
   d'étendre le motif aux <strong>sous-domaines</strong>.</p>
   <p>Pour écrire une règle, nous utilisons la méthode
