@@ -514,10 +514,11 @@ do {
   <p>Nous sommes capables de nous <strong>déplacer</strong> (comprendre,
   déplacer le curseur) dans la ligne à l'aide des touches <kbd>←</kbd> et
   <kbd>→</kbd>. Nous pouvons à tout moment <strong>effacer</strong> un caractère
-  en arrière avec la touche <kbd>Backspace</kbd> ou tous les caractères jusqu'au
-  début du mot avec <kbd>Ctrl</kbd> + <kbd>W</kbd> (où <kbd>W</kbd> signifie
-  <em lang="en">word</em>). Nous pouvons également nous déplacer avec des
-  <strong>raccourcis</strong> claviers communs à beaucoup de logiciels :</p>
+  en arrière avec la touche <kbd title="Backspace">⌫</kbd> ou tous les
+  caractères jusqu'au début du mot avec <kbd>Ctrl</kbd> + <kbd>W</kbd> (où
+  <kbd>W</kbd> signifie <em lang="en">word</em>). Nous pouvons également nous
+  déplacer avec des <strong>raccourcis</strong> claviers communs à beaucoup de
+  logiciels :</p>
   <ul>
     <li><kbd>Ctrl</kbd> + <kbd>A</kbd>, pour se déplacer en début de
     ligne ;</li>
