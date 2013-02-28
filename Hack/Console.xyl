@@ -1455,7 +1455,7 @@ $processus->run();
   <em lang="en">pipes</em>, c'est à dire si c'est une utilisation
   <strong>directe</strong>, un <strong><em lang="en">pipe</em></strong> ou une
   <strong>redirection</strong>. Nous allons nous aider de la classe
-  <code>Hoa\Console</code> et à ses méthodes statiques <code>isDirect</code>,
+  <code>Hoa\Console</code> et de ses méthodes statiques <code>isDirect</code>,
   <code>isPipe</code> et <code>isRedirection</code> pour obtenir ces
   informations.</p>
   <p>Prenons un exemple pour comprendre plus rapidement. Écrivons le fichier
@@ -1496,7 +1496,7 @@ is redirection: bool(true)</code></pre>
   <strong>redirection</strong>, c'est à dire qu'il est <strong>redirigé</strong>
   dans le fichier <code>/tmp/foo</code> (que nous affichons juste après).
   L'opération peut se faire sur <code>STDIN</code>, <code>STDERR</code> ou
-  n'importe quelles autres ressources.</p>
+  n'importe quelle autre ressource.</p>
   <p>Connaître le type des <em lang="en">pipes</em> peut permettre des
   comportements différents selon le <strong>contexte</strong>. Par exemple,
   <code>Hoa\Console\Readline</code> lit sur <code>STDIN</code>. Si son type est
