@@ -10,6 +10,6 @@
   <yield name="next_chapter">↪</yield>
 
   <yield name="draft">
-    <p class="warning">Ce chapitre est un brouillon.</p>
+    <p class="warning">Ce chapitre est en cours de rédaction.</p>
   </yield>
 </definition>
