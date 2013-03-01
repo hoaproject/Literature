@@ -4,6 +4,8 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
+  <draft />
+
   <h1 id="Form">Manuel d'apprentissage<title_break />Formulaire</h1>
 
   <ul class="prev_next">

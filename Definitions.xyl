@@ -8,4 +8,8 @@
   <yield name="previous_chapter">↩</yield>
 
   <yield name="next_chapter">↪</yield>
+
+  <yield name="draft">
+    <p class="warning">Ce chapitre est un brouillon.</p>
+  </yield>
 </definition>
