@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xyl-use href="../Definitions.xyl"?>
+
+<definition xmlns="http://hoa-project.net/xyl/xylophone">
+<yield name="chapter">
+
+  <draft />
+
+  <h1 id="Websocket"><em lang="en">Hack book</em><title_break /><code>Websocket</code></h1>
+
+  <p>Le protocole WebSocket permet une communication bidirectionnelle entre un
+  client et un serveur. La bibliothèque <code>Hoa\Websocket</code> permet de
+  créer un serveur WebSocket.</p>
+
+  <h2 id="Table_des_matieres">Table des matières</h2>
+
+  <tableofcontents id="main-toc" />
+
+  <h2 id="Introduction" for="main-toc">Introduction</h2>
+
+  <h2 id="Ecrire_un_serveur" for="main-toc">Écrire un serveur</h2>
+
+  <p>La classe <code>Hoa\Websocket\Server</code> permet de manipuler le
+  protocole WebSocket. La communication s'effectue à travers un serveur de
+  socket. Nous utiliserons la classe <code>Hoa\Socket\Server</code> (de la
+  bibliothèque <a href="@lh:chapter=Socket"><code>Hoa\Socket</code></a>) pour
+  remplir ce rôle.</p>
+  <p>Le protocole WebSocket fonctionne en TCP, ainsi nous allons démarrer un
+  serveur WebSocket en local sur le port 8889 :</p>
+  <pre><code class="language-php">from('Hoa')
+-> import('Socket.Server')
+-> import('Websocket.Server');
+
+$server = new Hoa\Websocket\Server(
+    new Hoa\Socket\Server('tcp://127.0.0.1:8889')
+);</code></pre>
+  <p>Maintenant, voyons comment interagir avec ce serveur.</p>
+
+  <h3 id="Connexions_et_messages" for="main-toc">Connexions et messages</h3>
+
+  <p>La classe <code>Hoa\Websocket\Server</code> propose quatre écouteurs :</p>
+  <ul>
+    <li><code>open</code>, quand une nouvelle connexion est ouverte ;</li>
+    <li><code>message</code>, quand un message arrive sur le serveur ;</li>
+    <li><code>error</code>, quand une erreur s'est produite ;</li>
+    <li><code>close</code>, quand une connexion se ferme.</li>
+  </ul>
+  <p>Pour l'écouteur <code>message</code>, il n'y a qu'une seule donnée
+  associée : <code>message</code>, qui contient sans surprise le message
+  provenant du client. Pour l'écouteur <code>error</code>, nous trouvons la
+  donnée <code>exception</code> qui contient une exception (pas nécessairement
+  <code>Hoa\Websocket\Exception</code>, cela peut-être par exemple
+  <code>Hoa\Socket\Exception</code>). Les autres écouteurs n'ont pas de données
+  associées.</p>
+  <p>Dans l'écouteur <code>message</code>, nous voulons renvoyer au client tous
+  les messages qu'il nous aura envoyé, de façon à créer un écho. Pour cela, nous
+  allons utiliser la méthode <code>Hoa\Websocket\Server::send</code>.</p>
+  <p>Une fois que nos écouteurs sont positionnés, nous pouvons démarrer le
+  serveur à l'aide de la méthode <code>Hoa\Websocket\Server::run</code>.
+  Ainsi :</p>
+  <pre data-line="13"><code class="language-php">$server->on('open', function ( Hoa\Core\Event\Bucket $bucket ) {
+
+    echo 'new connection', "\n";
+
+    return;
+});
+
+$server->on('message', function ( Hoa\Core\Event\Bucket $bucket ) {
+
+    $data = $bucket->getData();
+
+    echo 'message: ', $data['message'], "\n";
+    $bucket->getSource()->send($data['message']);
+
+    return;
+});
+
+$server->on('close', function ( Hoa\Core\Event\Bucket $bucket ) {
+
+    echo 'end of connection', "\n";
+
+    return;
+});
+
+$server->run();</code></pre>
+  <p>Nous allons maintenant tester notre serveur en créant un client très
+  simple :</p>
+  <pre data-line="6,45"><code class="language-markup">&amp;lt;input type="text" id="input" placeholder="Message…" />
+&amp;lt;hr />
+&amp;lt;pre id="output">&amp;lt;/pre>
+
+&amp;lt;script>
+  var host   = 'ws://127.0.0.1:8889';
+  var socket = null;
+  var input  = document.getElementById('input');
+  var output = document.getElementById('output');
+  var print  = function ( message ) {
+
+      var samp       = document.createElement('samp');
+      samp.innerHTML = message + '\n';
+      output.appendChild(samp);
+
+      return;
+  };
+
+  input.addEventListener('keyup', function ( evt ) {
+
+      if(13 === evt.keyCode) {
+
+          var msg = input.value;
+
+          if(!msg)
+              return;
+
+          try {
+
+              socket.send(msg);
+              input.value = '';
+              input.focus();
+          }
+          catch ( e ) {
+
+              console.log(e);
+          }
+
+          return;
+      }
+  });
+
+  try {
+
+      socket = new WebSocket(host);
+      socket.onopen = function ( ) {
+
+          print('connection is opened');
+          input.focus();
+
+          return;
+      };
+      socket.onmessage = function ( msg ) {
+
+          print(msg.data);
+
+          return;
+      };
+      socket.onclose = function ( ) {
+
+          print('connection is closed');
+
+          return;
+      };
+  }
+  catch ( e ) {
+
+      console.log(e);
+  }
+&amp;lt;/script></code></pre>
+  <p>À la ligne 6, nous déclarons l'adresse du serveur WebSocket en utilisant le
+  protocole <code>ws</code>. À la ligne 45, nous utilisons
+  l'<a href="https://developer.mozilla.org/en-US/docs/WebSockets">objet
+  <code>WebSocket</code></a>, et nous lui attachons des écouteurs, fortement
+  semblables à ceux de <code>Hoa\Websocket\Socket</code> !</p>
+  <p>Pour tester, il suffit de démarrer le serveur :</p>
+  <pre><code class="language-shell">$ php Server.php</code></pre>
+  <p>Puis, d'ouvrir le client avec son navigateur préféré. À chaque message
+  envoyé au serveur, il nous revient à l'identique, nous avons bien un écho.</p>
+
+  <h3 id="Diffusions_des_messages" for="main-toc">Diffusions des messages</h3>
+
+  <p>Pour l'instant, le client parle avec le serveur et le serveur lui répond,
+  mais ça ne reste qu'un dialogue. Le serveur a pourtant toutes les connexions
+  en mémoire, nous sommes donc capable de diffuser le message à tous les clients
+  connectés.</p>
+  <p>Le serveur de socket <code>Hoa\Socket\Server</code> travaille avec des
+  nœuds, c'est à dire un objet qui représente une connexion ouverte. Dans un
+  écouteur, pour connaître le nœud courant qui a déclenché l'appel à cet
+  écouteur, nous devons appeler la méthode
+  <code>Hoa\Websocket\Server::getServer</code> pour obtenir le serveur de
+  socket, puis <code>Hoa\Socket\Server::getCurrentNode</code>. Similairement,
+  nous avons la méthode <code>Hoa\Socket\Server::getNodes</code> pour itérer sur
+  tous les nœuds.</p>
+  <p>Depuis le serveur, pour envoyer un message sur le client, nous avons
+  utilisé la méthode <code>Hoa\Websocket\Server::send</code>. Cette méthode a en
+  réalité deux arguments : le premier est le message et le second est le nœud
+  qui va recevoir le message. Par défaut, c'est le nœud courant.</p>
+  <p>Notre objectif sera alors le suivant : quand nous recevons un message, nous
+  allons itérer tous les nœuds et l'envoyer sur chacun si ce n'est pas le nœud
+  courant. Autrement dit, c'est diffusion très classique.</p>
+  <pre><code class="language-php">$server->on('message', function ( Hoa\Core\Event\Bucket $bucket ) {
+
+    $data        = $bucket->getData();
+    $message     = $data['message'];
+
+    $self        = $bucket->getSource();
+    $currentNode = $self->getServer()->getCurrentNode();
+    $nodes       = $self->getServer()->getNodes();
+
+    foreach($nodes as $node)
+        if($node !== $currentNode)
+            $self->send($message, $node);
+
+    return;
+});</code></pre>
+
+  <h2 id="Noeud_personnalise" for="main-toc">Nœud personnalisé</h2>
+
+
+  <h2 id="Conclusion" for="main-toc">Conclusion</h2>
+
+</yield>
+</definition>
