@@ -8,9 +8,9 @@
 
   <h1 id="Websocket"><em lang="en">Hack book</em><title_break /><code>Websocket</code></h1>
 
-  <p>Le protocole WebSocket permet une communication bidirectionnelle entre un
-  client et un serveur. La bibliothèque <code>Hoa\Websocket</code> permet de
-  créer un serveur WebSocket.</p>
+  <p>Le protocole WebSocket permet une communication bidirectionnelle et
+  full-duplex entre un client et un serveur. La bibliothèque
+  <code>Hoa\Websocket</code> permet de créer un serveur WebSocket.</p>
 
   <h2 id="Table_des_matieres">Table des matières</h2>
 
@@ -18,13 +18,74 @@
 
   <h2 id="Introduction" for="main-toc">Introduction</h2>
 
-  <h3 id="Full-duplex" for="main-toc">Full-duplex</h3>
+  <p>Le protocole WebSocket est <strong>standardisé</strong> dans la <a
+  href="https://tools.ietf.org/html/rfc6455">RFC6455</a>. Il permet à un client
+  et à un serveur de communiquer ensemble. Cette communication est
+  <strong>bidirectionnelle</strong>, cela signifie que le client peut envoyer
+  des messages au serveur, et <strong>inversement</strong>. Le serveur n'envoie
+  pas uniquement des réponses il peut envoyer un message
+  <strong>spontanément</strong>. Cela change des habitudes du Web et de son
+  protocole HTTP. Le protocole WebSocket est également
+  <strong>full-duplex</strong>, c'est à dire que les données sont échangées
+  <strong>simultanément</strong> dans les <strong>deux</strong> sens : ce n'est
+  parce que le serveur a envoyé une donnée qui est en cours d'acheminement que
+  le client ne peut pas envoyer de données à son tour. Le protocole WebSocket
+  permet alors une forte <strong>interactivité</strong> entre le client et le
+  serveur. Le client sera très souvent un navigateur. Notons que le schéma URI
+  (voir la <a href="https://tools.ietf.org/html/rfc3986">RFC3986</a>) du
+  protocole WebSocket est <code>ws://</code>.</p>
+  <p>Le protocole WebSocket commence par une phase de
+  <em lang="en">handshake</em> afin de permettre, par la suite, les échanges de
+  messages sous forme de <em lang="en">frames</em>.</p>
 
-  <h3 id="Handshake" for="main-toc"><em lang="en">Handshake</em></h3>
+  <h3 id="Handshake_et_challenge" for="main-toc"><em lang="en">Handshake</em> et
+  <em lang="en">challenge</em></h3>
 
-  <h3 id="Frame" for="main-toc"><em lang="en">Frame</em></h3>
+  <p>Pour <strong>démarrer</strong> une communication avec le protocole
+  WebSocket, le client doit envoyer une requête HTTP sur le serveur en lui
+  demandant de changer de protocole. Dans cette requête, le client insère un
+  <strong><em lang="en">challenge</em></strong>, une sorte de petite énigme, que
+  le serveur doit résoudre. S'il l'a résolu correctement, alors la communication
+  démarrera.</p>
+  <p>Le fait de commencer par une requête HTTP n'est pas annodin. Cela permet au
+  protocole WebSocket d'emprunter le même chemin que les requêtes HTTP, et
+  ainsi, par exemple, traverser les proxys, les pare-feu etc. Cela facilite
+  également le déploiement de ce protocole : pas besoin de lui réserver un port
+  particulier, pas besoin d'avoir une configuration serveur particulière etc.
+  Cela permet également d'utiliser une connexion <strong>sécurisée</strong>, à
+  travers SSL. Dans ce cas, nous utilisons le schéma URI
+  <code>wss://</code>.</p>
+
+  <h3 id="Frame_et_opcode" for="main-toc"><em lang="en">Frame</em> et
+  <em>opcode</em></h3>
+
+  <p>Les messages qui sont échangés entre le client et le serveur ne se font pas
+  verbatim. En réalité, le message est <strong>encapsulé</strong> dans une <em
+  lang="en">frame</em> : un <strong>paquet</strong> de bits qui a une forme
+  particulière.  Dans ce cas, nous trouverons des informations concernant le
+  type du message, sa taille, des codes de vérifications etc. Nous trouverons un
+  schéma explicatif dans la
+  <a href="https://tools.ietf.org/html/rfc6455#section-5.2">section 5.2,
+  <em lang="en">Base Framing Protocol</em></a> de la spécification du protocole
+  pour les plus curieux.</p>
+  <p>Le <strong>type</strong> du message est appelé <em lang="en">opcode</em>.
+  C'est l'information la plus importante. Nous retrouverons ce terme dans ce
+  chapitre plusieurs fois. Des constantes existent dans la classe
+  <code>Hoa\Websocket\Server</code> pour simplifier leur utilisation.</p>
 
   <h3 id="Historique" for="main-toc">Historique</h3>
+
+  <p>Il existe deux versions du protocole WebSocket dans la nature : la version
+  standard et la version non-standard. La version standard est celle décrite
+  dans la RFC6455. La dernière version non-standard porte le petit nom de
+  <em>draft-ietf-hybi-thewebsocketprotocol-00</em> (ou
+  <em>draft-hixie-thewebsocketprotocol-76</em>). Cette version non-standard a
+  plusieurs problèmes de sécurité importants mais elle est utilisée dans des
+  langages comme Flash. Heureusement, elle disparaît de plus en plus et laisse
+  la place à la RFC6455.</p>
+  <p>La bibliothèque <code>Hoa\Websocket</code> supporte ces deux versions. Elle
+  permet à des clients supportant des versions différentes du protocole de
+  communiquer quand même.</p>
 
   <h2 id="Ecrire_un_serveur" for="main-toc">Écrire un serveur</h2>
 
