@@ -477,6 +477,11 @@ $server->run();</code></pre>
   <p>Les fonctions <a href="http://php.net/pack"><code>pack</code></a> et
   <a href="http://php.net/unpack"><code>unpack</code></a> seront des alliés
   précieux dans ce cas.</p>
+  <p>Notons que les messages binaires peuvent également être
+  <strong>fragmentés</strong>. Il faut utiliser l'<em>opcode</em>
+  <code>OPCODE_BINARY_FRAME</code> à la place de <code>OPCODE_TEXT_FRAME</code>
+  puis continuer avec <code>OPCODE_CONTINUATION_FRAME</code> comme nous l'avons
+  appris.</p>
 
   <h2 id="Noeud_personnalise" for="main-toc">Nœud personnalisé</h2>
 
