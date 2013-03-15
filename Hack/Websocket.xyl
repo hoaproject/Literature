@@ -8,9 +8,10 @@
 
   <h1 id="Websocket"><em lang="en">Hack book</em><title_break /><code>Websocket</code></h1>
 
-  <p>Le protocole WebSocket permet une communication bidirectionnelle et
-  full-duplex entre un client et un serveur. La bibliothèque
-  <code>Hoa\Websocket</code> permet de créer un serveur WebSocket.</p>
+  <p>Le protocole WebSocket permet une communication
+  <strong>bidirectionnelle</strong> et <strong>full-duplex</strong> entre un
+  client et un serveur. La bibliothèque <code>Hoa\Websocket</code> permet de
+  créer un <strong>serveur</strong> WebSocket.</p>
 
   <h2 id="Table_des_matieres">Table des matières</h2>
 
@@ -479,8 +480,63 @@ $server->run();</code></pre>
 
   <h2 id="Noeud_personnalise" for="main-toc">Nœud personnalisé</h2>
 
+  <p>La classe <code>Hoa\Socket\Server</code> travaille avec des
+  <strong>nœuds</strong> : des objets qui représentent une
+  <strong>connexion</strong> ouverte. La classe de base pour représenter un nœud
+  est <code>Hoa\Socket\Node</code>. La bibliothèque <code>Hoa\Websocket</code>
+  propose son propre nœud : <code>Hoa\Websocket\Node</code>. Nous pouvons encore
+  <strong>étendre</strong> cette classe pour ajouter et manipuler des
+  <strong>informations</strong> sur une connexion.</p>
+  <p>Par exemple, dans le cas d'une messagerie, nous pourrions stocker le pseudo
+  du client :</p>
+  <pre><code class="language-php">from('Hoa')
+-> import('Websocket.Node');
+
+class ChatNode extends Hoa\Websocket\Node {
+
+    protected $_pseudo = null;
+
+
+    public function setPseudo ( $pseudo ) {
+
+        $old           = $this->_pseudo;
+        $this->_pseudo = $pseudo;
+
+        return $old;
+    }
+
+    public function getPseudo ( ) {
+
+        return $this->_pseudo;
+    }
+}</code></pre>
+  <p>Pour préciser au serveur de socket d'<strong>utiliser</strong> notre classe
+  de nœud, nous devons utiliser la méthode
+  <code>Hoa\Socket\Server::setNodeName</code> de cette manière :</p>
+  <pre><code class="language-php">$socket = new Hoa\Socket\Server('tcp://127.0.0.1:8889');
+$socket->setNodeName('ChatNode');
+$server = new Hoa\Websocket\Server($socket);</code></pre>
+  <p>Et après, dans nos écouteurs, nous pourrons utiliser notre méthode
+  <code>getPseudo</code> par exemple :</p>
+  <pre><code class="language-php">$server->on('message', function ( Hoa\Core\Event\Bucket $bucket ) {
+
+    $node = $bucket->getSource()->getServer()->getCurrentNode();
+
+    var_dump($node->getPseudo());
+
+    // …
+});</code></pre>
+  <p>Si vous mettez en place un <strong>protocole</strong> en utilisant le canal
+  des WebSockets entre vos clients et votre serveur, les nœuds personnalisés
+  seront très utiles pour stocker quelques informations utiles et
+  récurrentes.</p>
 
   <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
+  <p>La bibliothèque <code>Hoa\Websocket</code> permet de créer un
+  <strong>serveur</strong> WebSocket pour plus d'<strong>interactivité</strong>
+  dans vos applications. Le serveur est facilement extensible avec la notion de
+  <strong>nœud</strong>, qui facilite le stockage et la manipulation de données
+  utiles pour créer son propre protocole.</p>
 </yield>
 </definition>
