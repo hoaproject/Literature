@@ -43,8 +43,8 @@
   <em lang="en">challenge</em></h3>
 
   <p>Pour <strong>démarrer</strong> une communication avec le protocole
-  WebSocket, le client doit envoyer une requête HTTP au serveur en lui
-  demandant de changer de protocole. Dans cette requête, le client insère un
+  WebSocket, le client doit envoyer une requête HTTP au serveur en lui demandant
+  de changer de protocole. Dans cette requête, le client insère un
   <strong><em lang="en">challenge</em></strong>, une sorte de petite énigme, que
   le serveur doit résoudre. S'il l'a résolu correctement, alors la communication
   démarrera.</p>
@@ -264,10 +264,10 @@ $server->run();</code></pre>
   <code>Hoa\Websocket\Server::send</code>. Nous allons nous intéresser à ses
   premiers arguments : le message et le nœud qui va recevoir le message. Par
   défaut, nous l'aurons deviné, c'est le nœud courant. Après avoir vu comment
-  faire une <em>echo</em>, nous allons maintenant voir comment faire un <em>relais</em>.
-  Notre objectif sera alors le suivant : quand nous recevrons un message, 
-  nous allons itérer sur tous les nœuds et renvoyer le message sur chacun des 
-  nœuds s'il n'est pas le nœud courant :</p>
+  faire une <em>echo</em>, nous allons maintenant voir comment faire un
+  <em>relais</em>. Notre objectif sera alors le suivant : quand nous recevrons
+  un message, nous allons itérer sur tous les nœuds et renvoyer le message sur
+  chacun des nœuds s'il n'est pas le nœud courant :</p>
   <pre><code class="language-php">$server->on('message', function ( Hoa\Core\Event\Bucket $bucket ) {
 
     $data        = $bucket->getData();
@@ -341,10 +341,9 @@ $server->run();</code></pre>
 
   <p>Nous avons deux façons d'envoyer des messages : soit en un seul morceau si
   nous avons le message en <strong>entier</strong>, soit en
-  <strong>plusieurs</strong> morceaux. Notre
-  message peut aussi contenir autre chose que du texte, il peut contenir une
-  donnée <strong>binaire</strong>. Dans ce cas, nous parlons de message
-  binaire.</p>
+  <strong>plusieurs</strong> morceaux. Notre message peut aussi contenir autre
+  chose que du texte, il peut contenir une donnée <strong>binaire</strong>. Dans
+  ce cas, nous parlons de message binaire.</p>
 
   <h3 id="Fragmentation" for="main-toc">Fragmentation</h3>
 
@@ -389,10 +388,10 @@ $server->run();</code></pre>
   <p>L'utilisateur final derrière le client ne recevra pas des messages
   fragmentés, mais le message en entier une fois que le dernier fragment aura
   été reçu. Côté serveur, cela nous évite de surcharger la mémoire avec des
-  données « en transit » et aussi de surcharger le réseau avec un gros
-  message. Nous envoyons les données dès que nous les avons et c'est le client
-  qui s'occupe de <strong>reconstituer</strong> le message. Le serveur opère de
-  la même façon lorsqu'il reçoit un message fragmenté. Entre deux fragments, le
+  données « en transit » et aussi de surcharger le réseau avec un gros message.
+  Nous envoyons les données dès que nous les avons et c'est le client qui
+  s'occupe de <strong>reconstituer</strong> le message. Le serveur opère de la
+  même façon lorsqu'il reçoit un message fragmenté. Entre deux fragments, le
   serveur peut aussi traiter d'autres tâches. Bref, c'est plus intéressant
   d'utiliser les fragments plutôt que de temporiser le message.</p>
   <p>Passons à un exemple. Nous allons envoyer le message <code>foobarbaz</code>
@@ -440,9 +439,10 @@ $server->run();</code></pre>
   <p>Tous les messages échangés doivent être au format <strong>UTF-8</strong>
   (voir la <a href="https://tools.ietf.org/html/rfc3629">RFC3629</a>). Si les
   messages provenant du client ne sont pas conformes,
-  <code>Hoa\Websocket\Server</code> fermera la connexion de façon appropriée, <!-- FIXME: code ed fermeture? -->
-  nous n'avons rien à faire de spécial. Par conséquent, tous les messages reçus
-  dans nos écouteurs sont au bon encodage.</p>
+  <code>Hoa\Websocket\Server</code> fermera la connexion de façon appropriée
+  avec le code <code>Hoa\Websocket\Server::CLOSE_MESSAGE_ERROR</code>, nous
+  n'avons rien à faire de spécial. Par conséquent, tous les messages reçus dans
+  nos écouteurs sont au bon encodage.</p>
   <p>En revanche, <code>Hoa\Websocket\Server</code> vérifie que les messages à
   <strong>destination</strong> du client sont dans le bon encodage. Si
   l'encodage n'est pas approprié, alors une exception
