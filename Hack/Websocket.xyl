@@ -306,7 +306,7 @@ $server->run();</code></pre>
 
         $bucket->getSource()->close(
             Hoa\Websocket\Server::CLOSE_NORMAL,
-            'Thank you but my heart is always taken, bye bye!'
+            'Thank you but my heart is already taken, bye bye!'
         );
 
         return;
@@ -451,7 +451,7 @@ $server->run();</code></pre>
   alors de messages binaires.  Nous allons toujours utiliser la méthode
   <code>Hoa\Websocket\Server::send</code> mais avec l'<em>opcode</em>
   <code>OPCODE_BINARY_FRAME</code>. Cela n'a de sens que dans l'écouteur
-  <code>binary-message</code>, c'est à dire dans un « dialogue binaire » entre
+  <code>binary-message</code>, c'est à dire dans un « échange binaire » entre
   le client et le serveur. Nous pouvons imaginer le client qui envoie des
   coordonnées et le serveur qui lui en redonne d'autres (échange fort probable
   pour un jeu de plateau par exemple) :</p>
