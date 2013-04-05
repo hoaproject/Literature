@@ -251,40 +251,34 @@ $server->run();</code></pre>
   <p>Pour l'instant, le client parle avec le serveur et le serveur lui répond,
   mais ça ne reste qu'un <strong>dialogue</strong>. Le serveur a pourtant toutes
   les connexions en mémoire, nous sommes donc capable de
-  <strong>diffuser</strong> le message à tous les clients connectés.</p>
-  <p>Le serveur de socket <code>Hoa\Socket\Server</code> travaille avec des
-  <strong>nœuds</strong>, c'est à dire un objet qui représente une connexion
-  ouverte. Dans un écouteur, pour connaître le nœud <strong>courant</strong> qui
-  a déclenché l'appel à cet écouteur, nous devons appeler la méthode
-  <code>Hoa\Websocket\Server::getServer</code> pour obtenir le serveur de
-  socket, puis <code>Hoa\Socket\Server::getCurrentNode</code>. Similairement,
-  nous avons la méthode <code>Hoa\Socket\Server::getNodes</code> pour obtenir
-  tous les nœuds.</p>
-  <p>Pour envoyer un message sur le client, nous avons utilisé la méthode
-  <code>Hoa\Websocket\Server::send</code>. Nous allons nous intéresser à ses
-  premiers arguments : le message et le nœud qui va recevoir le message. Par
-  défaut, nous l'aurons deviné, c'est le nœud courant. Après avoir vu comment
-  faire une <em>echo</em>, nous allons maintenant voir comment faire un
-  <em>relais</em>. Notre objectif sera alors le suivant : quand nous recevrons
-  un message, nous allons itérer sur tous les nœuds et renvoyer le message sur
-  chacun des nœuds s'il n'est pas le nœud courant :</p>
-  <pre><code class="language-php">$server->on('message', function ( Hoa\Core\Event\Bucket $bucket ) {
+  <strong>diffuser</strong> le message à tous les clients connectés. Pour cela,
+  nous allons utiliser la méthode <code>Hoa\Websocket\Server::broadcast</code>
+  qui va envoyer un message à tous les autres clients connectés, ainsi :</p>
+  <pre data-line="6"><code class="language-php">$server->on('message', function ( Hoa\Core\Event\Bucket $bucket ) {
 
-    $data        = $bucket->getData();
-    $message     = $data['message'];
+    $data = $bucket->getData();
 
-    $self        = $bucket->getSource();
-    $currentNode = $self->getServer()->getCurrentNode();
-    $nodes       = $self->getServer()->getNodes();
-
-    foreach($nodes as $node)
-        if($node !== $currentNode)
-            $self->send($message, $node);
+    echo 'message: ', $data['message'], "\n";
+    $bucket->getSource()->broadcast($data['message');
 
     return;
 });</code></pre>
-  <p>Et voilà ! Redémarrons le serveur, et ouvrons plusieurs clients. Chaque
-  message envoyé sera diffusé à <strong>tous</strong> les autres !</p>
+  <p>Et voilà ! C'est aussi simple que ça. Redémarrons le serveur, et ouvrons
+  plusieurs clients. Chaque message envoyé sera diffusé à <strong>tous</strong>
+  les autres ! Notre exemple est devenu un outil de <strong>messagerie
+  instantannée</strong>.</p>
+  <p>Il faut comprendre que le serveur de socket <code>Hoa\Socket\Server</code>
+  travaille avec des <strong>nœuds</strong>, c'est à dire un objet qui
+  représente une connexion ouverte. Dans un écouteur, pour connaître le nœud
+  <strong>courant</strong> qui a déclenché l'appel à cet écouteur, nous devons
+  appeler la méthode <code>Hoa\Websocket\Server::getConnection</code> pour
+  obtenir le serveur de socket, puis
+  <code>Hoa\Socket\Server::getCurrentNode</code>.  Similairement, nous avons la
+  méthode <code>Hoa\Socket\Server::getNodes</code> pour obtenir tous les nœuds.
+  La méthode <code>Hoa\Websocket\Server::broadcast</code> vient en réalité de la
+  bibliothèque <code>Hoa\Socket</code> et cache cette complexité. Il est
+  préférable d'utiliser cette méthode pour des raisons de
+  <strong>performance</strong> et de compatibilité.</p>
 
   <h3 id="Fermeture" for="main-toc">Fermeture</h3>
 
@@ -312,7 +306,7 @@ $server->run();</code></pre>
 
         $bucket->getSource()->close(
             Hoa\Websocket\Server::CLOSE_NORMAL,
-            'Thank you but my heart is always taken, bye bye!'
+            'Thank you but my heart is already taken, bye bye!'
         );
 
         return;
@@ -457,7 +451,7 @@ $server->run();</code></pre>
   alors de messages binaires.  Nous allons toujours utiliser la méthode
   <code>Hoa\Websocket\Server::send</code> mais avec l'<em>opcode</em>
   <code>OPCODE_BINARY_FRAME</code>. Cela n'a de sens que dans l'écouteur
-  <code>binary-message</code>, c'est à dire dans un « dialogue binaire » entre
+  <code>binary-message</code>, c'est à dire dans un « échange binaire » entre
   le client et le serveur. Nous pouvons imaginer le client qui envoie des
   coordonnées et le serveur qui lui en redonne d'autres (échange fort probable
   pour un jeu de plateau par exemple) :</p>
@@ -527,7 +521,7 @@ $server = new Hoa\Websocket\Server($socket);</code></pre>
   <code>getPseudo</code> par exemple :</p>
   <pre><code class="language-php">$server->on('message', function ( Hoa\Core\Event\Bucket $bucket ) {
 
-    $node = $bucket->getSource()->getServer()->getCurrentNode();
+    $node = $bucket->getSource()->getConnection()->getCurrentNode();
 
     var_dump($node->getPseudo());
 
