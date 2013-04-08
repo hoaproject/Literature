@@ -4,8 +4,6 @@
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
 
-  <draft />
-
   <h1 id="Websocket"><em lang="en">Hack book</em><title_break /><code>Websocket</code></h1>
 
   <p>Le protocole WebSocket permet une communication
