@@ -78,10 +78,11 @@
   standard et la version non-standard. La version standard est celle décrite
   dans la RFC6455. La dernière version non-standard porte le petit nom de
   <em>draft-ietf-hybi-thewebsocketprotocol-00</em> (ou
-  <em>draft-hixie-thewebsocketprotocol-76</em>). Cette version non-standard a
-  plusieurs problèmes de sécurité importants mais elle est utilisée dans des
-  langages comme Flash. Heureusement, elle disparaît de plus en plus et laisse
-  la place à la RFC6455.</p>
+  <em>draft-hixie-thewebsocketprotocol-76</em>), abrégé
+  <a href="https://tools.ietf.org/wg/hybi/draft-ietf-hybi-thewebsocketprotocol/">Hybi00</a>.
+  Cette version non-standard a plusieurs problèmes de sécurité importants mais
+  elle est utilisée dans des langages comme Flash. Heureusement, elle disparaît
+  de plus en plus et laisse la place à la RFC6455.</p>
   <p>La bibliothèque <code>Hoa\Websocket</code> supporte ces deux versions. Elle
   permet à des clients supportant des versions différentes du protocole de
   communiquer quand même.</p>
