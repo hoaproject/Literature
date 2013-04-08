@@ -421,6 +421,8 @@ $server->run();</code></pre>
         true // the end!
     );
     echo 'sent baz, over', "\n";
+
+    return;
 });</code></pre>
   <p>Les instructions <a href="http://php.net/sleep"><code>sleep</code></a>
   permettent d'émuler une latence réseau ou quelque chose du genre. À chaque
@@ -469,6 +471,8 @@ $server->run();</code></pre>
         null,
         Hoa\Websocket\Server::OPCODE_BINARY_FRAME
     );
+
+    return;
 });</code></pre>
   <p>Les fonctions <a href="http://php.net/pack"><code>pack</code></a> et
   <a href="http://php.net/unpack"><code>unpack</code></a> seront des alliés
