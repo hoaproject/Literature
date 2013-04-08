@@ -514,9 +514,10 @@ class ChatNode extends Hoa\Websocket\Node {
   <p>Pour préciser au serveur de socket d'<strong>utiliser</strong> notre classe
   de nœud, nous devons utiliser la méthode
   <code>Hoa\Socket\Server::setNodeName</code> de cette manière :</p>
-  <pre><code class="language-php">$socket = new Hoa\Socket\Server('tcp://127.0.0.1:8889');
-$socket->setNodeName('ChatNode');
-$server = new Hoa\Websocket\Server($socket);</code></pre>
+  <pre><code class="language-php">$server = new Hoa\Websocket\Server(
+    new Hoa\Socket\Server('tcp://127.0.0.1:8889')
+);
+$server->getConnection()->setNodeName('ChatNode');</code></pre>
   <p>Et après, dans nos écouteurs, nous pourrons utiliser notre méthode
   <code>getPseudo</code> par exemple :</p>
   <pre><code class="language-php">$server->on('message', function ( Hoa\Core\Event\Bucket $bucket ) {
