@@ -99,7 +99,7 @@
   <p>Nous donnons un exemple de fichier <code>composer.json</code> pour
   installer la bibliothèque <code>Hoa\Router</code> dans sa toute dernière
   version :</p>
-  <pre><code language="json">{
+  <pre><code class="language-json">{
     "require": {
         "hoa/router": "master"
     },
