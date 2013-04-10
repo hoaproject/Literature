@@ -69,8 +69,9 @@
   pour les plus curieux.</p>
   <p>Le <strong>type</strong> du message est appelé <em lang="en">opcode</em>.
   C'est l'information la plus importante. Nous retrouverons ce terme dans ce
-  chapitre plusieurs fois. Des constantes existent dans la classe
-  <code>Hoa\Websocket\Server</code> pour simplifier leur utilisation.</p>
+  chapitre plusieurs fois. Des constantes pour chaque <em lang="en">opcode</em>
+  existent dans la  classe <code>Hoa\Websocket\Server</code> afin de simplifier
+  leur utilisation.</p>
 
   <h3 id="Historique" for="main-toc">Historique</h3>
 
@@ -137,7 +138,7 @@ $server = new Hoa\Websocket\Server(
   pour le <strong>code</strong> et <code>reason</code> qui explique la
   <strong>raison</strong> de cette fermeture avec un message court.  Nous
   trouverons les codes de fermetures standards sous forme de constantes
-  <code>CLOSE_<em>*</em></code> sur la classe <code>Hoa\Websocket\Server</code>.
+  <code>CLOSE_<em>*</em></code> dans la classe <code>Hoa\Websocket\Server</code>.
   Par exemple, <code>Hoa\Websocket\Server::CLOSE_NORMAL</code> symbolise une
   fermeture de connexion normale, sans erreur, alors que
   <code>Hoa\Websocket\Server::CLOSE_MESSAGE_ERROR</code> symbolise une fermeture
@@ -146,9 +147,9 @@ $server = new Hoa\Websocket\Server(
 
   <h3 id="Echanges_de_messages" for="main-toc">Échanges de messages</h3>
 
-  <p>Attaquons maintenant notre exemple. Dans l'écouteur <code>message</code>,
-  nous voulons <strong>renvoyer</strong> au client tous les messages qu'il nous
-  envoie, de façon à créer un <strong>écho</strong>. Pour cela, nous allons
+  <p>Complétons notre exemple pour, dans l'écouteur <code>message</code>,
+  <strong>renvoyer</strong> au client tous les messages qu'il nous
+  envoie de façon à créer un <strong>écho</strong>. Pour cela, nous allons
   utiliser la méthode <code>Hoa\Websocket\Server::send</code>. Une fois que
   notre écouteur est positionné, nous pouvons démarrer le serveur à l'aide de la
   méthode <code>Hoa\Websocket\Server::run</code>. Ainsi :</p>
@@ -163,7 +164,7 @@ $server = new Hoa\Websocket\Server(
 });
 
 $server->run();</code></pre>
-  <p>Nous allons maintenant tester notre serveur en créant un client très
+  <p>Nous allons maintenant tester notre serveur en créant un client HTML très
   simple :</p>
   <pre data-line="6,45"><code class="language-markup">&amp;lt;input type="text" id="input" placeholder="Message…" />
 &amp;lt;hr />
@@ -385,7 +386,7 @@ $server->run();</code></pre>
   Nous envoyons les données dès que nous les avons et c'est le client qui
   s'occupe de <strong>reconstituer</strong> le message. Le serveur opère de la
   même façon lorsqu'il reçoit un message fragmenté. Entre deux fragments, le
-  serveur peut aussi traiter d'autres tâches. Bref, c'est plus intéressant
+  serveur peut aussi traiter d'autres tâches. Il est donc plus intéressant
   d'utiliser les fragments plutôt que de temporiser le message.</p>
   <p>Passons à un exemple. Nous allons envoyer le message <code>foobarbaz</code>
   fragmenté en trois parties. Nous pouvons imaginer que nous lisons ces données
@@ -426,7 +427,7 @@ $server->run();</code></pre>
   <p>Les instructions <a href="http://php.net/sleep"><code>sleep</code></a>
   permettent d'émuler une latence réseau ou quelque chose du genre. À chaque
   appel de la méthode <code>send</code>, les données sont
-  <strong>effectivement</strong> envoyées sur le client, ce n'est pas un tampon
+  <strong>effectivement</strong> envoyées au client, ce n'est pas un tampon
   côté serveur.</p>
 
   <h3 id="Encodage" for="main-toc">Encodage</h3>
@@ -533,8 +534,7 @@ $server->getConnection()->setNodeName('ChatNode');</code></pre>
 });</code></pre>
   <p>Si vous mettez en place un <strong>protocole</strong> en utilisant le canal
   des WebSockets entre vos clients et votre serveur, les nœuds personnalisés
-  seront très utiles pour stocker quelques informations utiles et
-  récurrentes.</p>
+  seront très utiles pour stocker quelques informations récurrentes.</p>
 
   <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
