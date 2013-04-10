@@ -548,7 +548,14 @@ $dispatcher->dispatch($router);</code></pre>
   <code>Application\Controller\Blog</code>, avec deux méthodes :
   <code>IndexAction</code> et <code>ArticleAction</code>, respectivement pour la
   règle <code>i</code> et <code>a</code>. Ainsi :</p>
-  <pre><code class="language-php">namespace Application\Controller {
+  <pre><code class="language-php">namespace {
+
+from('Hoa')
+-> import('Dispatcher.Kit');
+
+}
+
+namespace Application\Controller {
 
 class Blog extends \Hoa\Dispatcher\Kit {
 
