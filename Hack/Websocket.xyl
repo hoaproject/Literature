@@ -70,7 +70,7 @@
   <p>Le <strong>type</strong> du message est appelé <em lang="en">opcode</em>.
   C'est l'information la plus importante. Nous retrouverons ce terme dans ce
   chapitre plusieurs fois. Des constantes pour chaque <em lang="en">opcode</em>
-  existent dans la  classe <code>Hoa\Websocket\Server</code> afin de simplifier
+  existent dans la classe <code>Hoa\Websocket\Server</code> afin de simplifier
   leur utilisation.</p>
 
   <h3 id="Historique" for="main-toc">Historique</h3>
@@ -138,9 +138,10 @@ $server = new Hoa\Websocket\Server(
   pour le <strong>code</strong> et <code>reason</code> qui explique la
   <strong>raison</strong> de cette fermeture avec un message court.  Nous
   trouverons les codes de fermetures standards sous forme de constantes
-  <code>CLOSE_<em>*</em></code> dans la classe <code>Hoa\Websocket\Server</code>.
-  Par exemple, <code>Hoa\Websocket\Server::CLOSE_NORMAL</code> symbolise une
-  fermeture de connexion normale, sans erreur, alors que
+  <code>CLOSE_<em>*</em></code> dans la classe
+  <code>Hoa\Websocket\Server</code>. Par exemple,
+  <code>Hoa\Websocket\Server::CLOSE_NORMAL</code> symbolise une fermeture de
+  connexion normale, sans erreur, alors que
   <code>Hoa\Websocket\Server::CLOSE_MESSAGE_ERROR</code> symbolise une fermeture
   de connexion suite à un message mal formé. Cet écouteur est déclenché après
   que la connexion ait été fermée.</p>
@@ -148,11 +149,11 @@ $server = new Hoa\Websocket\Server(
   <h3 id="Echanges_de_messages" for="main-toc">Échanges de messages</h3>
 
   <p>Complétons notre exemple pour, dans l'écouteur <code>message</code>,
-  <strong>renvoyer</strong> au client tous les messages qu'il nous
-  envoie de façon à créer un <strong>écho</strong>. Pour cela, nous allons
-  utiliser la méthode <code>Hoa\Websocket\Server::send</code>. Une fois que
-  notre écouteur est positionné, nous pouvons démarrer le serveur à l'aide de la
-  méthode <code>Hoa\Websocket\Server::run</code>. Ainsi :</p>
+  <strong>renvoyer</strong> au client tous les messages qu'il nous envoie de
+  façon à créer un <strong>écho</strong>. Pour cela, nous allons utiliser la
+  méthode <code>Hoa\Websocket\Server::send</code>. Une fois que notre écouteur
+  est positionné, nous pouvons démarrer le serveur à l'aide de la méthode
+  <code>Hoa\Websocket\Server::run</code>. Ainsi :</p>
   <pre data-line="6"><code class="language-php">$server->on('message', function ( Hoa\Core\Event\Bucket $bucket ) {
 
     $data = $bucket->getData();
@@ -427,8 +428,8 @@ $server->run();</code></pre>
   <p>Les instructions <a href="http://php.net/sleep"><code>sleep</code></a>
   permettent d'émuler une latence réseau ou quelque chose du genre. À chaque
   appel de la méthode <code>send</code>, les données sont
-  <strong>effectivement</strong> envoyées au client, ce n'est pas un tampon
-  côté serveur.</p>
+  <strong>effectivement</strong> envoyées au client, ce n'est pas un tampon côté
+  serveur.</p>
 
   <h3 id="Encodage" for="main-toc">Encodage</h3>
 
