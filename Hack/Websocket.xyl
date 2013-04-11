@@ -239,7 +239,7 @@ $server->run();</code></pre>
 &amp;lt;/script></code></pre>
   <p>À la ligne 6, nous déclarons l'adresse du serveur WebSocket en utilisant le
   protocole <code>ws</code>. À la ligne 45, nous utilisons
-  l'<a href="https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/WebSocket">objet
+  l'<a href="https://developer.mozilla.org/docs/WebSockets/WebSockets_reference/WebSocket">objet
   <code>WebSocket</code></a>, et nous lui attachons des écouteurs, fortement
   semblables à ceux de <code>Hoa\Websocket\Socket</code> !</p>
   <p>Pour tester, il suffit de démarrer le serveur :</p>
