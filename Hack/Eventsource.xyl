@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xyl-use href="../Definitions.xyl"?>
+
+<definition xmlns="http://hoa-project.net/xyl/xylophone">
+<yield name="chapter">
+
+  <draft />
+
+  <h1 id="Eventsource"><em lang="en">Hack book</em><title_break /><code>Eventsource</code></h1>
+
+  <p>EventSource, ou <em lang="en">Server-Sent Events</em>, est une technologie
+  permettant à un <strong>serveur</strong> HTTP <strong>d'envoyer</strong> des
+  <strong>événements</strong> sur un client. La bibliothèque
+  <code>Hoa\Eventsource</code> permet de créer un serveur EventSource.</p>
+
+  <h2 id="Table_des_matieres">Table des matières</h2>
+
+  <tableofcontents id="main-toc" />
+
+  <h2 id="Introduction" for="main-toc">Introduction</h2>
+
+  <p>La technologie EventSource permet à un <strong>serveur</strong> d'envoyer
+  des <strong>événements</strong> (ou <strong>notifications</strong> selon le
+  vocabulaire utilisé) à un client. La connexion est initiée par le client et
+  seul le serveur peut écrire dessus, c'est donc une communication
+  <strong>unidirectionnelle</strong>. Pour une communication bidirectionnelle,
+  il faudra se tourner vers
+  <a href="@lh:chapter=Websocket"><code>Hoa\Websocket</code></a>. Cette
+  technologie se base sur le mode <em lang="en">chunked</em> d'HTTP permettant
+  au serveur d'envoyer une réponse morceau après morceau (voir la
+  <a href="https://tools.ietf.org/html/rfc2616#section-3.6.1">section 3.6.1,
+  <em>Chunked Transfer Coding</em> de la RFC2616</a>). C'est technologie est un
+  <a href="http://w3.org/TR/eventsource/"
+     title="Voir la spécification d'EventSource">standard du W3C</a>.</p>
+  <p>Ces événements sont constitués de <strong>données</strong> et
+  potentiellement d'<strong>identifiants</strong>.</p>
+
+  <h2 id="Flux_d-evenements" for="main-toc">Flux d'événements</h2>
+
+  <p>La classe <code>Hoa\Eventsource\Server</code> permet de créer un serveur
+  EventSource. Pour le <strong>démarrer</strong>, il suffit d'instancier la
+  classe et cela indiquera au client de laisser la connexion
+  <strong>ouverte</strong> et d'écouter le serveur. Ainsi, dans
+  <code>Server.php</code> :</p>
+  <pre><code class="language-php">from('Hoa')
+-> import('Eventsource.Server');
+
+$server = new Hoa\Eventsource\Server();</code></pre>
+  <p>Écrivons rapidement un client HTML pour exécuter notre serveur, dans
+  <code>index.html</code>. Nous allons uniquement utiliser
+  l'<a href="https://developer.mozilla.org/docs/Server-sent_events/EventSource">objet
+  <code>EventSource</code></a> et écrire des <strong>écouteurs</strong> pour
+  <code>open</code> et <code>message</code> :</p>
+  <pre><code class="language-markup">&amp;lt;pre id="output">&amp;lt;/pre>
+&amp;lt;script>
+var output = document.getElementById('output');
+
+try {
+
+    var source       = new EventSource('Server.php');
+    source.onopen    = function ( ) {
+
+        output.appendChild(document.createElement('hr'));
+
+        return;
+    };
+    source.onmessage = function ( evt ) {
+
+        var samp = document.createElement('samp');
+        samp.innerHTML = evt.data + '\n';
+        output.appendChild(samp);
+
+        return;
+    };
+}
+catch ( e ) {
+
+    console.log(e);
+}
+&amp;lt;/script></code></pre>
+  <p>Nous allons maintenant voir comment envoyer des événements et les données
+  associées.</p>
+
+  <h3 id="Donnees_et_evenements" for="main-toc">Données et événements</h3>
+
+  <p>Pour <strong>envoyer</strong> des données, nous allons utiliser la méthode
+  <code>Hoa\Eventsource\Server::send</code>, qui prend en premier argument la
+  donnée à envoyer. Cette donnée peut contenir des retours à la ligne de
+  plusieurs natures : <code>\n</code>, <code>\r</code> et même
+  <code>\r\n</code>. Ainsi, dans notre serveur, nous allons écrire une infinité
+  de message et ce, toutes les secondes :</p>
+  <pre><code class="language-php">while(true) {
+
+    $server->send(time());
+    sleep(1);
+}</code></pre>
+  <p>Nous pouvons observer le résultat en ouvrant le client dans notre
+  navigateur préféré. Attention à bien démarrer un serveur HTTP.</p>
+  <p>Toutes les données arrivent sur le client sans <strong>distinction</strong>
+  particulière. Pour l'instant, les données sont plus des messages que des
+  événements. Ce que nous aimerions faire, c'est que les données soient
+  <strong>triées</strong>, c'est à dire qu'elles soient
+  <strong>associés</strong> à des noms d'événement. Par exemple, nous aimerions
+  que toutes nos données soient associées à l'événement <code>tick</code>,
+  alors nous écrirons :</p>
+  <pre data-line="3"><code class="language-php">while(true) {
+
+    $server->tick->send(time());
+    sleep(1);
+}</code></pre>
+  <p>Nous appelons un <strong>attribut</strong> du nom de notre événement, puis
+  notre méthode <code>Hoa\Eventsource\Server::send</code>. Si l'événement porte
+  un nom plus compliqué, nous pouvons utiliser la syntaxe
+  <code class="language-php">$server->{'ti-ck'}->send(time());</code>.</p>
+  <p>Si nous précisons un nom d'événement pour nos données, nous devons modifier
+  le client en conséquence en utilisant <code>addEventListener</code> au lieu de
+  <code>onmessage</code> :</p>
+  <pre data-line-offset="11" data-line="14"><code class="language-javascript">        return;
+    };
+    source.addEventListener('tick', function ( evt ) {
+
+        var samp = document.createElement('samp');
+        samp.innerHTML = evt.data + '\n';</code></pre>
+  <p>Relançons notre client. Le message arrive bien sur un événement
+  <strong>particulier</strong>. Nous ne sommes pas limités , ni en nombre de
+  données, ni en nombre d'événements.</p>
+
+  <h3 id="Reconnection" for="main-toc">Reconnection</h3>
+
+  <p>Lorsque le client se <strong>déconnecte</strong> (parce qu'il perd la
+  connexion au réseau par exemple), il va essayer de se
+  <strong>reconnecter</strong> après un certain temps (la spécification
+  conseille autour de quelques secondes). Nous pouvons modifier ce comportement
+  depuis le serveur en utilisant la méthode
+  <code>Hoa\Eventsource\Server::setReconnectionTime</code> et en lui donnant un
+  nombre de millisecondes. Nous pouvons utiliser cette méthode quand nous le
+  souhaitons et plusieurs fois. Ainsi, nous allons demander au serveur de se
+  reconnecter après 10 secondes exactement :</p>
+  <pre><code class="language-php">$server->setReconnectionTime(10000);</code></pre>
+  <p>Un temps négatif n'aura aucun effet.</p>
+  <p>Cette méthode a un intérêt tout particulier lorsque nous savons
+  <strong>quand</strong> va arriver un prochain événement (pour des flux de
+  nouvelles, pour des jeux ou autre). Nous pouvons alors déconnecter le serveur
+  en ayant demander au client de se reconnecter dans un certain temps pour
+  recevoir un nouvel événement.  Pendant que le serveur est déconnecté, cela
+  <strong>décharge</strong> le serveur HTTP d'une connexion, ce qui n'est pas
+  négligeable.</p>
+
+  <h3 id="Identifiant" for="main-toc">Identifiant</h3>
+
+  <p>Quand nous envoyons des données sur le client, nous pouvons lui envoyer des
+  <strong>identifiants</strong>. Le client va se rappeler du
+  <strong>dernier</strong> identifiant reçu et le renverra au serveur lors d'une
+  <strong>reconnection</strong>. Cela permet de marquer des
+  <strong>étapes</strong>. Pour connaître le dernier identifiant reçu par le
+  client, nous utiliserons la méthode
+  <code>Hoa\Eventsource\Server::getLastId</code>, et pour envoyer un nouvel
+  identifiant au client, nous utiliserons le second argument de la méthode
+  <code>Hoa\Eventsource\Server::send</code>.</p>
+  <p>Prenons un exemple. Notre serveur ne fera plus une boucle infinie mais
+  bornée aléatoirement. Une fois arrivé la fin du programme, le serveur va
+  quitter, donc couper la connexion. Le client va se reconnecter automatiquement
+  et donner le dernier identifiant qu'il aura reçu. Notre serveur va
+  auto-incrémenter l'identifiant et l'écrire dans une donnée pour la voir
+  apparaître dans le client (le client n'expose pas les identifiants) :</p>
+  <pre><code class="language-php">$id = $server->getLastId() ?: 0;
+$server->tick->send('last ID is ' . $id);
+++$id;
+
+for($i = mt_rand(2, 5); $i >= 0; --$i) {
+
+    $server->tick->send(time(), $id);
+    sleep(1);
+}</code></pre>
+  <p>L'identifiant n'est pas forcément un nombre : c'est une chaîne de
+  caractères. Si l'identifiant est nul ou vide, cela va
+  <strong>réinitialiser</strong> le dernier identifiant du client à sa valeur
+  d'origine.</p>
+
+  <h2 id="Type_et_acceptation" for="main-toc">Type et acceptation</h2>
+
+  <p>Le <strong>type</strong> d'un serveur EventSource est donné par la
+  constante <code>Hoa\Eventsource\Server::MIME_TYPE</code>, soit
+  <code>text/event-stream</code>. Pour que le serveur s'exécute, le client doit
+  <strong>accepté</strong> ce type, c'est à dire que l'en-tête HTTP
+  <code>Accept</code> doit être présente et doit contenir
+  <code>text/event-stream</code>. Si ce n'est pas le cas, le serveur enverra le
+  code 406 en status (voir la
+  <a href="https://tools.ietf.org/html/rfc2616#section-10.4.7">section 10.4.7,
+  <em lang="en">406 Not Acceptable</em> de la RFC2616</a>). En plus, il lèvera
+  une exception <code>Hoa\Eventsource\Exception</code> depuis son constructeur.
+  Il est possible de la capturer et d'afficher notre propre erreur, comme
+  ceci :</p>
+  <pre><code class="language-php">try {
+
+    $server = new Hoa\Eventsource\Server();
+}
+catch ( Hoa\Eventsource\Exception $e ) {
+
+    echo 'You must send a request with ',
+         '“Accept: ', Hoa\Eventsource\Server::MIME_TYPE, '”.', "\n";
+    exit;
+}
+
+// …</code></pre>
+  <p>Nous pouvons tester ce comportement avec
+  <a href="http://curl.haxx.se/">cURL</a>. Dans le premier cas, nous n'acceptons
+  que <code>text/html</code> :</p>
+  <pre data-line="10,16"><code class="language-shell">$ curl -H 'Accept: text/html' http://127.0.0.1:8888/Server.php --verbose
+* About to connect() to 127.0.0.1 port 8888 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 (127.0.0.1) port 8888 (#0)
+> GET /Server.php HTTP/1.1
+> User-Agent: curl/a.b.c (…) libcurl/d.e.f
+> Host: 127.0.0.1:8888
+> Accept: text/html
+>
+&amp;lt; HTTP/1.1 406 Not Acceptable
+&amp;lt; Date: …
+&amp;lt; Server: …
+&amp;lt; Content-Type: text/plain
+&amp;lt; Content-Length: 62
+&amp;lt;
+You must send a request with “Accept: text/event-stream”.
+* Connection #0 to host 127.0.0.1 left intact
+* Closing connection #0</code></pre>
+  <p>Dans le second cas, nous acceptons <code>text/event-stream</code> :</p>
+  <pre><code class="language-shell">$ curl -H 'Accept: text/event-stream' http://127.0.0.1:8888/Server.php --verbose
+* About to connect() to 127.0.0.1 port 8888 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 (127.0.0.1) port 8888 (#0)
+> GET /Server.php HTTP/1.1
+> User-Agent: curl/a.b.c (…) libcurl/d.e.f
+> Host: 127.0.0.1:8888
+> Accept: text/event-stream
+>
+&amp;lt; HTTP/1.1 200 OK
+&amp;lt; Date: …
+&amp;lt; Server: …
+&amp;lt; Transfer-Encoding: identity, chunked
+&amp;lt; Cache-Control: no-cache
+&amp;lt; Content-Type: text/event-stream
+&amp;lt;
+data: last ID is 0
+
+data: 1365685831
+id: 1
+
+data: 1365685832
+id: 1
+
+data: 1365685833
+id: 1
+
+* Connection #0 to host 127.0.0.1 left intact
+* Closing connection #0</code></pre>
+  <p>Le serveur <code>Hoa\Eventsource\Server</code> comprend aussi
+  <code>*/*</code> dans l'en-tête <code>Accept</code>, c'est à dire tous les
+  types.</p>
+
+  <h2 id="Exemple" for="main-toc">Exemple</h2>
+
+  <!-- css live editing -->
+
+  <h2 id="Conclusion" for="main-toc">Conclusion</h2>
+
+  <p>La bibliothèque <code>Hoa\Eventsource</code> permet de créer des
+  <strong>serveurs</strong> EventSource. Ces derniers permettent
+  d'<strong>envoyer</strong> des <strong>événements</strong> sur un client.  La
+  communication est <strong>unidirectionnelle</strong> ; pour une communication
+  bidirectionnelle, il faudra se tourner vers
+  <a href="@lh:chapter=Websocket"><code>Hoa\Websocket</code></a>.</p>
+
+</yield>
+</definition>
