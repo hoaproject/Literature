@@ -66,7 +66,7 @@ try {
     };
     source.onmessage = function ( evt ) {
 
-        var samp = document.createElement('samp');
+        var samp       = document.createElement('samp');
         samp.innerHTML = evt.data + '\n';
         output.appendChild(samp);
 
@@ -119,7 +119,7 @@ catch ( e ) {
     };
     source.addEventListener('tick', function ( evt ) {
 
-        var samp = document.createElement('samp');
+        var samp       = document.createElement('samp');
         samp.innerHTML = evt.data + '\n';</code></pre>
   <p>Relançons notre client. Le message arrive bien sur un événement
   <strong>particulier</strong>. Nous ne sommes pas limités , ni en nombre de
