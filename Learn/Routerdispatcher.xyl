@@ -174,11 +174,11 @@ Welcome Alyx!</code></pre>
   <p>Une règle est définie par un <strong><em>t</em>-uplet</strong> :</p>
   <ul>
     <li>visibilité : ne pas en tenir compte pour ce chapitre ;</li>
+    <li>identifant : l'identifiant (unique) de la règle ;</li>
     <li>méthodes HTTP : un tableau des méthodes qui permettent d'atteindre la
     règle, parmi <code>GET</code>, <code>POST</code>, <code>PUT</code>,
     <code>PATCH</code>, <code>DELETE</code>, <code>HEAD</code> et
     <code>OPTIONS</code> ;</li>
-    <li>identifant : l'identifiant (unique) de la règle ;</li>
     <li>motif : une expression régulière définissant la forme de la règle ;</li>
     <li><em>call</em> et <em>able</em> : composantes définissants une action que
     nous pouvons appeler ;</li>
@@ -203,7 +203,7 @@ Welcome Alyx!</code></pre>
 -> import('Router.Http');
 
 $router = new Hoa\Router\Http();
-$router->addRule($methods, $id, $pattern, $call, $able, $variables);</code></pre>
+$router->addRule($id, $methods, $pattern, $call, $able, $variables);</code></pre>
   <p>Le dernier argument <code>$variables</code> est évidemment optionnel
   puisqu'il sert à déclarer de nouvelles variables ou des valeurs par défaut
   pour les variables. Parfois, les arguments <code>$call</code> et
@@ -211,7 +211,7 @@ $router->addRule($methods, $id, $pattern, $call, $able, $variables);</code></pre
   contexte.</p>
   <p>Si nous devions exprimer la règle <code>u</code> de notre aperçu, on aurait
   ceci :</p>
-  <pre><code class="language-php">$router->addRule(array('get'), 'u', '/hello', function ( ) { … });</code></pre>
+  <pre><code class="language-php">$router->addRule('u', array('get'), '/hello', function ( ) { … });</code></pre>
   <p>Par soucis de simplicité, nous pouvons ne pas utiliser la méthode
   <code>Hoa\Router\Http::addRule</code> mais invoquer un peu de magie ! En
   effet, l'écriture qui va suivre est strictement identique à la
@@ -219,16 +219,16 @@ $router->addRule($methods, $id, $pattern, $call, $able, $variables);</code></pre
   <pre><code class="language-php">$router->get('u', '/hello', function ( ) { … });</code></pre>
   <p>Voici comment opère la magie : les appels vers une méthode
   <code><em>method</em>[_<em>method</em>]*(…)</code> seront redirigés vers la
-  méthode <code>addRule(array('<em>method</em>'[, '<em>method</em>']*),
+  méthode <code>addRule(…, array('<em>method</em>'[, '<em>method</em>']*),
   …)</code>. Voyons plutôt des exemples d'équivalences :</p>
   <pre><code class="language-php">$router->get(…);
-$router->addRule(array('get'), …);
+$router->addRule(…, array('get'), …);
 
 $router->get_post(…);
-$router->addRule(array('get', 'post'), …);
+$router->addRule(…, array('get', 'post'), …);
 
 $router->put_delete_get(…);
-$router->addRule(array('put', 'delete', 'get'), …);
+$router->addRule(…, array('put', 'delete', 'get'), …);
 
 // etc.</code></pre>
   <p>L'ordre des règle a une importance, car les règles sont filtrées puis
