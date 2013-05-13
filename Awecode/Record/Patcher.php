@@ -112,7 +112,7 @@ class Patcher {
         $time     = time();
         $previous = null;
 
-        foreach($this->_timeline as $i => &$keyframe) {
+        foreach($this->_timeline as &$keyframe) {
 
             echo $keyframe['diff'], "\n";
 
