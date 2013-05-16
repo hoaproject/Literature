@@ -3,8 +3,8 @@ from bpy import ops as o
 from bpy import context as ctx
 import os
 
-workspace  = os.getenv('POPCODE_WORKSPACE')
-out        = os.getenv('POPCODE_OUT')
+workspace  = os.getenv('AWECODE_WORKSPACE')
+out        = os.getenv('AWECODE_OUT')
 dom        = parse(workspace + 'Description.xml')
 main_strip = dom.getElementsByTagName('source')[0].getAttribute('href')
 
@@ -17,10 +17,12 @@ def after ( id ):
 def add_movie ( id, filepath, frame_start, transition ):
 
     o.sequencer.movie_strip_add(
-        filepath    = filepath,
-        frame_start = frame_start,
-        channel     = len(strips) + 1,
-        overlap     = True
+        filepath     = filepath,
+        filter_movie = True,
+        frame_start  = frame_start,
+        channel      = len(strips) + 1,
+        overlap      = True,
+        sound        = True
     )
     strips[id]        = ctx.selected_sequences[0]
     strips[id].select = False
@@ -57,32 +59,42 @@ add_movie(
     id          = 'screencast',
     filepath    = main_strip,
     frame_start = after('cinematic'),
-    transition  = 'cinematic'
+    transition  = 'cinematic',
 )
 
-add_movie(
-    id          = 'credits',
-    filepath    = workspace + 'Credits.avi',
-    frame_start = after('screencast'),
-    transition  = 'screencast'
-)
+#add_movie(
+#    id          = 'credits',
+#    filepath    = workspace + 'Credits.avi',
+#    frame_start = after('screencast'),
+#    transition  = 'screencast'
+#)
 
 # Cross fingers.
 scene                             = ctx.scene
 scene.frame_start                 = 0
-scene.frame_end                   = after('credits')
+#scene.frame_end                   = after('credits')
+scene.frame_end                   = after('screencast')
 render                            = scene.render
 render.filepath                   = out
 render.use_antialiasing           = True
-render.antialiasing_samples       = '8'
-render.fps                        = 24
+render.antialiasing_samples       = '16'
+render.fps                        = 30
+
 render.image_settings.file_format = 'H264'
+render.image_settings.color_mode  = 'RGB'
+render.ffmpeg.format              = 'H264'
+#render.ffmpeg.use_lossless_output = True
 render.ffmpeg.codec               = 'H264'
 render.ffmpeg.format              = 'H264'
+#render.ffmpeg.audio_channels      = 'STEREO'
+render.ffmpeg.audio_codec         = 'MP3'
+
 render.pixel_filter_type          = 'CATMULLROM'
 render.resolution_x               = 1280
 render.resolution_y               = 720
 render.resolution_percentage      = 100
+render.threads                    = 4
+render.threads_mode               = 'FIXED'
 o.render.render(animation = True)
 
 

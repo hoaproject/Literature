@@ -7,7 +7,7 @@ if [[ "x" = "x$blender" ]]; then
     exit 1
 fi
 
-workspace=/tmp/popcode.hoa/$RANDOM/
+workspace=/tmp/awecode.hoa/$RANDOM/
 description="(empty)"
 theme="(empty)"
 out=$workspace"Final.avi"
@@ -20,7 +20,7 @@ function usage() {
 
     echo >&2 "Usage:\n"
     echo >&2 "    $0 -d=<description.xml> -t=<theme> [-o=<out.format>]\c"
-    echo >&2 " [-T=<threads>] [-1] [-2] [-3]"
+    echo >&2 "[-T=<threads>] [-1] [-2] [-3]"
 }
 
 while getopts d:t:o:T123h opt; do
@@ -51,8 +51,8 @@ fi
 
 mkdir -p $workspace
 
-export POPCODE_WORKSPACE=$workspace
-export POPCODE_OUT=$out
+export AWECODE_WORKSPACE=$workspace
+export AWECODE_OUT=$out
 
 cp $description $workspace
 
