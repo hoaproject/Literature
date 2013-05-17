@@ -104,9 +104,6 @@ class Patcher {
         echo "\n\n", 'Ready to set the timeline? (y/n)', "\n";
         while('y' !== $this->_readline->readLine('> '));
 
-        echo "\n", 'Start by pressing Enter', "\n";
-        $this->_readline->readLine();
-
         $start    = 0;
         $end      = 0;
         $time     = time();
@@ -116,7 +113,7 @@ class Patcher {
 
             echo $keyframe['diff'], "\n";
 
-            $this->_readline->readLine();
+            $this->_readline->readLine('start: ');
 
             $keyframe['start'] = time() - $time;
 
