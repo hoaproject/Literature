@@ -5,8 +5,8 @@ import os
 
 workspace  = os.getenv('AWECODE_WORKSPACE')
 out        = os.getenv('AWECODE_OUT')
-dom        = parse(workspace + 'Description.xml')
-main_strip = dom.getElementsByTagName('source')[0].getAttribute('href')
+#dom        = parse(workspace + 'Description.xml')
+#main_strip = dom.getElementsByTagName('source')[0].getAttribute('href')
 
 transition_padding = 20
 strips             = dict() # of bpy.types.Sequence
@@ -50,16 +50,19 @@ def add_movie ( id, filepath, frame_start, transition ):
 # Here we go.
 add_movie(
     id          = 'cinematic',
-    filepath    = workspace + 'Title.avi',
+    #filepath    = workspace + 'Title.avi',
+    filepath    = '/tmp/compil/Final_720p.mov',
     frame_start = 0,
     transition  = False
 )
 
 add_movie(
     id          = 'screencast',
-    filepath    = main_strip,
+    #filepath    = main_strip,
+    filepath    = '/tmp/compil/Screencast.mov',
     frame_start = after('cinematic'),
-    transition  = 'cinematic',
+    #transition  = 'cinematic',
+    transition  = False
 )
 
 #add_movie(
@@ -72,9 +75,11 @@ add_movie(
 # Cross fingers.
 scene                             = ctx.scene
 scene.frame_start                 = 0
-scene.frame_end                   = after('credits')
+#scene.frame_end                   = after('credits')
+scene.frame_end                   = after('screencast')
 render                            = scene.render
-render.filepath                   = out
+#render.filepath                   = out
+render.filepath                   = '/tmp/compil/Out-'
 render.use_antialiasing           = True
 render.antialiasing_samples       = '16'
 render.fps                        = 30
@@ -83,8 +88,8 @@ render.image_settings.file_format = 'H264'
 render.image_settings.color_mode  = 'RGB'
 render.image_settings.compression = 0
 render.image_settings.quality     = 100
-render.ffmpeg.format              = 'H264'
-render.ffmpeg.use_lossless_output = True
+render.ffmpeg.format              = 'AVI'
+#render.ffmpeg.use_lossless_output = True
 render.ffmpeg.codec               = 'H264'
 render.ffmpeg.gopsize             = 0
 render.ffmpeg.video_bitrate       = 8000
