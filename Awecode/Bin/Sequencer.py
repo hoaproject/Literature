@@ -72,8 +72,7 @@ add_movie(
 # Cross fingers.
 scene                             = ctx.scene
 scene.frame_start                 = 0
-#scene.frame_end                   = after('credits')
-scene.frame_end                   = after('screencast')
+scene.frame_end                   = after('credits')
 render                            = scene.render
 render.filepath                   = out
 render.use_antialiasing           = True
@@ -82,12 +81,17 @@ render.fps                        = 30
 
 render.image_settings.file_format = 'H264'
 render.image_settings.color_mode  = 'RGB'
+render.image_settings.compression = 0
+render.image_settings.quality     = 100
 render.ffmpeg.format              = 'H264'
-#render.ffmpeg.use_lossless_output = True
+render.ffmpeg.use_lossless_output = True
 render.ffmpeg.codec               = 'H264'
-render.ffmpeg.format              = 'H264'
-#render.ffmpeg.audio_channels      = 'STEREO'
+render.ffmpeg.gopsize             = 0
+render.ffmpeg.video_bitrate       = 8000
+render.ffmpeg.audio_channels      = 'STEREO'
 render.ffmpeg.audio_codec         = 'MP3'
+render.ffmpeg.audio_volume        = 1.0
+render.ffmpeg.audio_bitrate       = 320
 
 render.pixel_filter_type          = 'CATMULLROM'
 render.resolution_x               = 1280
