@@ -48,11 +48,10 @@ if [[ -z "$output" ]]; then
     exit 3
 fi
 
-$ffmpeg -i $input1 -qscale:v 1 $workspace/intermediate1.mpg
-$ffmpeg -i $input2 -qscale:v 1 $workspace/intermediate2.mpg
-$ffmpeg -i concat:"$workspace/intermediate1.mpg|$workspace/intermediate2.mpg" \
-        -c copy $workspace/intermediate_all.mpg
-$ffmpeg -i $workspace/intermediate_all.mpg -qscale:v 2 $output
+$ffmpeg -i $input1 -c copy -bsf h264_mp4toannexb $workspace/intermediate1.ts
+$ffmpeg -i $input2 -c copy -bsf h264_mp4toannexb $workspace/intermediate2.ts
+$ffmpeg -i concat:"$workspace/intermediate1.ts|$workspace/intermediate2.ts" \
+        -c copy -bsf aac_adtstoasc $output
 
 echo "[done]"
 echo "    workspace: $workspace"
