@@ -1,6 +1,6 @@
 <?php
 
-require '/usr/local/lib/hoa/Core/Core.php';
+require '/usr/local/lib/Hoa/Core/Core.php';
 
 from('Hoa')
 -> import('Console.Processus')
