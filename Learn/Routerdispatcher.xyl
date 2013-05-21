@@ -219,8 +219,9 @@ $router->addRule($id, $methods, $pattern, $call, $able, $variables);</code></pre
   <pre><code class="language-php">$router->get('u', '/hello', function ( ) { … });</code></pre>
   <p>Voici comment opère la magie : les appels vers une méthode
   <code><em>method</em>[_<em>method</em>]*(…)</code> seront redirigés vers la
-  méthode <code>addRule(…, array('<em>method</em>'[, '<em>method</em>']*),
-  …)</code>. Voyons plutôt des exemples d'équivalences :</p>
+  méthode
+  <code>addRule(…, array('<em>method</em>'[, '<em>method</em>']*), …)</code>.
+  Voyons plutôt des exemples d'équivalences :</p>
   <pre><code class="language-php">$router->get(…);
 $router->addRule(…, array('get'), …);
 

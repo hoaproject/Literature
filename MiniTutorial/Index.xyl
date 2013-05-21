@@ -286,11 +286,11 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
 |   |-- Public/      —   son dossier public (visible depuis l'extérieur)
 |-- Data/            — données de l'application
 |   |-- Bin/         —   scripts (étend Hoa/Bin/)
-|   |-- Etc/         —   configurations, locales …
+|   |-- Etc/         —   configurations, locales…
 |   |-- Lost+found/  —   perdus ou trouvés (toujours vide normalement !)
 |   |-- Module/      —   bibliothèques utilisateurs réservéees à l'application
 |   |-- Temporary/   —   fichiers et dossiers temporaires
-|   |-- Variable/    —   caches, bases de données, logs, tests …</code></pre>
+|   |-- Variable/    —   caches, bases de données, logs, tests…</code></pre>
     </tabpanel>
     <tabpanel id="twindows_tree">
       <pre><code class="language-shell">> gordonsapp tree --list-directory --depth 2
@@ -299,11 +299,11 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
 |   |-- Public/      —   son dossier public (visible depuis l'extérieur)
 |-- Data/            — données de l'application
 |   |-- Bin/         —   scripts (étend Hoa/Bin/)
-|   |-- Etc/         —   configurations, locales …
+|   |-- Etc/         —   configurations, locales…
 |   |-- Lost+found/  —   perdus ou trouvés (toujours vide normalement !)
 |   |-- Module/      —   bibliothèques utilisateurs réservéees à l'application
 |   |-- Temporary/   —   fichiers et dossiers temporaires
-|   |-- Variable/    —   caches, bases de données, logs, tests …</code></pre>
+|   |-- Variable/    —   caches, bases de données, logs, tests…</code></pre>
     </tabpanel>
   </tabs>
   <p>Une application est réellement constituée de deux dossiers :

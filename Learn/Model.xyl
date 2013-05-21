@@ -41,14 +41,14 @@
   <ul>
     <li>DDL (pour <em>Data Definition Language</em>) permet d'ajouter, de
     modifier ou de supprimer des définitions de tables (<code>CREATE
-    TABLE</code>, <code>ALTER TABLE</code>, <code>DROP TABLE</code> …) ;</li>
+    TABLE</code>, <code>ALTER TABLE</code>, <code>DROP TABLE</code>…) ;</li>
     <li>DML (pour <em>Data Manipulation Language</em>) permet de sélectionner,
     d'insérer, de mettre à jour ou de supprimer des données d'une table
     (<code>INSERT</code>, <code>DELETE</code>, <code>UPDATE</code>,
-    <code>SELECT</code> …) ;</li>
+    <code>SELECT</code>…) ;</li>
     <li>DCL (pour <em>Data Control Language</em>) permet de gérer les droits
     d'accès aux données (<code>GRANT</code>, <code>DENY</code>,
-    <code>REVOKE</code> …).</li>
+    <code>REVOKE</code>…).</li>
   </ul>
   <p>La structure des données est appelée un <strong>schéma</strong>.</p>
   <p>Dans une application, pour communiquer avec un gestionnaire de bases de

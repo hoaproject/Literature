@@ -79,7 +79,7 @@ remotes/origin/master</code></pre>
 Maintenance = relecture, évolution, traduction et factorisation.
 Relecture : tu vas relire 300 fois ton chapitre. C'est chiant. Faut que ça reste clair même après 300 lectures ;-).
 Évolution : ta doc' va évoluer, il faut expliquer des concepts « atomiques », sinon tu vas faire évoluer plusieurs chapitres en même temps et tu vas très vite perdre en cohérence.
-Traduction : ça implique des versions qui évoluent en parallèle, c'est très dur, alors autant ne pas mettre de notion temporelle (en ce moment, pour l'instant, plus tard …). -->
+Traduction : ça implique des versions qui évoluent en parallèle, c'est très dur, alors autant ne pas mettre de notion temporelle (en ce moment, pour l'instant, plus tard…). -->
 
   <h2 id="test-the-code" for="main-toc">Tests</h2>
   <p>Que vous écriviez de la documentation, que vous corrigiez des bugs, ou que vous ajoutiez de nouvelles fonctionnalités, il faudra toujours prendre le temps de tester vos changements.</p>

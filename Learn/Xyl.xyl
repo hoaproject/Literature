@@ -762,7 +762,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
 
   <p>Un système d'interface graphique doit faciliter l'accès aux
   <strong>ressources</strong> manipulées par une vue : des feuilles de style,
-  des médias (images, vidéos, …), des polices, des scripts etc. Dans Hoa il
+  des médias (images, vidéos…), des polices, des scripts etc. Dans Hoa il
   existe plusieurs mécanismes que nous connaissons déjà bien, comme le routeur
   ou le protocole <code>hoa://</code>. Étudions comment XYL les utilise.</p>
 
