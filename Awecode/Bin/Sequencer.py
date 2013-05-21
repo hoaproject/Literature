@@ -5,8 +5,8 @@ import os
 
 workspace  = os.getenv('AWECODE_WORKSPACE')
 out        = os.getenv('AWECODE_OUT')
-#dom        = parse(workspace + 'Description.xml')
-#main_strip = dom.getElementsByTagName('source')[0].getAttribute('href')
+dom        = parse(workspace + 'Description.xml')
+main_strip = dom.getElementsByTagName('source')[0].getAttribute('href')
 
 transition_padding = 20
 strips             = dict() # of bpy.types.Sequence
@@ -50,16 +50,14 @@ def add_movie ( id, filepath, frame_start, transition ):
 # Here we go.
 add_movie(
     id          = 'cinematic',
-    #filepath    = workspace + 'Title.avi',
-    filepath    = '/tmp/compil/Final_720p.mov',
+    filepath    = workspace + 'Title.avi',
     frame_start = 0,
     transition  = False
 )
 
 add_movie(
     id          = 'screencast',
-    #filepath    = main_strip,
-    filepath    = '/tmp/compil/Screencast.mov',
+    filepath    = main_strip,
     frame_start = after('cinematic'),
     #transition  = 'cinematic',
     transition  = False
@@ -78,8 +76,7 @@ scene.frame_start                 = 0
 #scene.frame_end                   = after('credits')
 scene.frame_end                   = after('screencast')
 render                            = scene.render
-#render.filepath                   = out
-render.filepath                   = '/tmp/compil/Out-'
+render.filepath                   = out
 render.use_antialiasing           = True
 render.antialiasing_samples       = '16'
 render.fps                        = 30
@@ -105,20 +102,3 @@ render.resolution_percentage      = 100
 render.threads                    = 4
 render.threads_mode               = 'FIXED'
 o.render.render(animation = True)
-
-
-###
-# Misc
-###
-
-#ctx.scene.sequence_editor.active_strip
-
-# Add an image.
-#o.sequencer.image_strip_add(
-#    directory   = '/tmp',
-#    files       = [{'name': 'Title.jpg'}],
-#    frame_start = 0,
-#    frame_end   = 48,
-#    channel     = 1,
-#    overlap     = True
-#)

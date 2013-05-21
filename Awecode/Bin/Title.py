@@ -4,7 +4,7 @@ from bpy import context as ctx
 from bpy import data
 import os
 
-workspace = os.getenv('POPCODE_WORKSPACE')
+workspace = os.getenv('AWECODE_WORKSPACE')
 
 def getText ( nodes ):
     out = []
