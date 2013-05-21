@@ -111,10 +111,9 @@ class Patcher {
 
         foreach($this->_timeline as &$keyframe) {
 
-            echo $keyframe['diff'], "\n";
-
+            echo "\n", '-------------------------', "\n",
+                 $keyframe['diff'], "\n";
             $this->_readline->readLine('start: ');
-
             $keyframe['start'] = time() - $time;
 
             if(null === $previous) {
