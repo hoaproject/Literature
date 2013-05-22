@@ -101,7 +101,7 @@
   version :</p>
   <pre><code class="language-json">{
     "require": {
-        "hoa/router": "master"
+        "hoa/router": "dev-master"
     },
     "minimum-stability": "dev"
 }</code></pre>
