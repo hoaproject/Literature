@@ -610,7 +610,7 @@ class Comment extends \Hoa\Model {
     protected $_posted;
 
     /**
-     * @invariant content: string(boundinteger(1, 4096));
+     * @invariant content: string(default, default, boundinteger(1, 4096));
      */
     protected $_content;
 
@@ -649,7 +649,7 @@ class Article extends \Hoa\Model {
     protected $_id;
 
     /**
-     * @invariant title: string(boundinteger(1, 255));
+     * @invariant title: string(default, default, boundinteger(1, 255));
      */
     protected $_title;
 
@@ -662,7 +662,7 @@ class Article extends \Hoa\Model {
     protected $_posted;
 
     /**
-     * @invariant content: string(boundinteger(1));
+     * @invariant content: string(default, default, boundinteger(1));
      */
     protected $_content;
 
