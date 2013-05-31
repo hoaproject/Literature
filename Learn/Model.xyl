@@ -185,7 +185,7 @@ $connexion = Hoa\Database\Dal::getLastInstance();</code></pre>
   utiliserons la méthode <code>Hoa\Database\DalStatement::fetchAll</code>.
   Ainsi :</p>
   <pre><code class="language-php">$dal       = Hoa\Database\Dal::getLastInstance();
-$statement = $dal->query('SELECT * FROM foo LIMIT 2');
+$statement = $dal->query('SELECT * FROM user LIMIT 2');
 print_r($statement->fetchAll());
 
 // Will output:
@@ -228,7 +228,7 @@ print_r($statement->fetchAll());
   préfixés par deux-points (symbole « <code>:</code> ») et ne doivent pas
   contenir d'espaces.  Voyons plutôt :</p>
   <pre><code class="language-php">$dal       = Hoa\Database\Dal::getLastInstance();
-$statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
+$statement = $dal->prepare('SELECT * FROM user LIMIT :my_limit');
 $limit     = 2;
 $statement->execute(array('my_limit' => $limit));
 print_r($statement->fetchAll());</code></pre>
@@ -237,7 +237,7 @@ print_r($statement->fetchAll());</code></pre>
   <code>Hoa\Database\Dal::bindParameter</code> qui permet de faire des choses
   intéressantes. Nous ne verrons que deux des quatres arguments disponibles, qui
   permettent d'associer une valeur à un paramètre :</p>
-  <pre><code class="language-php">$statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
+  <pre><code class="language-php">$statement = $dal->prepare('SELECT * FROM user LIMIT :my_limit');
 $limit     = 2;
 $statement->bindParameter('my_limit', $limit);
 $statement->execute();</code></pre>
@@ -245,7 +245,7 @@ $statement->execute();</code></pre>
   est passée en <strong>référence</strong> ! Ce qui signifie que nos paramètres
   sont modifiables en modifiant simplement la valeur de cette variable sans
   avoir besoin d'appeler à nouveau la méthode <code>bindParameter</code> :</p>
-  <pre><code class="language-php">$statement = $dal->prepare('SELECT * FROM foo LIMIT :my_limit');
+  <pre><code class="language-php">$statement = $dal->prepare('SELECT * FROM user LIMIT :my_limit');
 $limit     = 1;
 $statement->bindParameter('my_limit', $limit);
 ++$limit; // $limit and :my_limit are now set to 2.
