@@ -377,7 +377,7 @@ class User extends Hoa\Model {
   <p>Nous pouvons tester ce modèle de cette façon :</p>
   <pre><code class="language-php">$user = new User();
 $user->open(array('id' => 1));
-var_dump($user->firsname);
+var_dump($user->firstname);
 
 /**
  * Will output:
