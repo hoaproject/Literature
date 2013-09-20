@@ -80,7 +80,7 @@
   renverra alors au client.</p>
   <p>Un protocole standard a été défini pour faciliter la communication entre le
   serveur HTTP et le programme qui va réceptionner la requête. Nous appellons ce
-  protocole : <strong>CGI</strong> (pour <em>Common Interface Gateway</em>),
+  protocole : <strong>CGI</strong> (pour <em>Common Gateway Interface</em>),
   définie par la <a href="https://tools.ietf.org/html/rfc3875">RFC3875</a>.
   Toutefois, ce protocole n'était plus suffisant pour répondre aux nombres
   grandissants de requêtes sur les serveurs. C'est pourquoi,

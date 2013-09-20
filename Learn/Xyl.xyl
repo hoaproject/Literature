@@ -885,7 +885,7 @@ $xyl->render();</code></pre>
   publique mais <strong>privée</strong>. Cela implique que cette règle ne sera
   jamais choisie pour faire du routage mais uniquement pour du
   <strong>déroutage</strong>.</p>
-  <p>Enfin : il est préférable d'utiliser l'abstraction qu'offre le protcole
+  <p>Enfin : il est préférable d'utiliser l'abstraction qu'offre le protocole
   <code>hoa://</code> car il ajoute le thème et peut-être d'autres choses à
   l'avenir.  Pour modifier le thème, il existe la méthode <code>setTheme</code>
   sur <code>Hoa\Xyl</code>. Nous privilégierons toujours la méthode
