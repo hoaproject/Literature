@@ -273,10 +273,10 @@ $router->addRule(…, array('put', 'delete', 'get'), …);
   correspond à notre requête. Chaque routeur a une méthode <code>route</code> où
   tous ses arguments doivent avoir une valeur par défaut. Dans le cas du routeur
   HTTP, les arguments sont l'URI et le préfixe (comprendre, la base) de notre
-  URI. Ses valeurs par défaut sont automatiques déduites à partir des données
+  URI. Ses valeurs par défaut sont automatiquement déduites à partir des données
   provenant du serveur. Une fois le routage terminé, nous utilisons la méthode
   <code>getTheRule</code> pour obtenir <em>la</em> règle qui a servi à extraire
-  nos données de notre requête. Nous précisions que les constantes
+  nos données de notre requête. Nous précisons que les constantes
   <code>Hoa\Router::RULE_<em>*</em></code> existent pour manipuler le
   <em>t</em>-uplet représentant une règle. Ainsi, à partir de notre
   exemple :</p>
