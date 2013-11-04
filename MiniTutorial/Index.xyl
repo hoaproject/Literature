@@ -347,11 +347,7 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
   Nous allons avoir un contrôleur qui sera une classe avec deux méthodes, une
   pour chaque action. Nous remplaçons le <code>echo</code> du fichier
   <code>Application/Public/index.php</code> par le code suivant :</p>
-  <pre><code class="language-php">from('Hoa')
--> import('Dispatcher.Basic')
--> import('Router.Http');
-
-$dispatcher = new Hoa\Dispatcher\Basic();
+  <pre><code class="language-php">$dispatcher = new Hoa\Dispatcher\Basic();
 $router     = new Hoa\Router\Http();
 $router->get('i', '/', 'blog', 'index')
        ->get('a', '/article-(?&amp;lt;id>\d+)\.html', 'blog', 'article');
@@ -363,14 +359,7 @@ $dispatcher->dispatch($router);</code></pre>
   la classe <code>Application\Controller\Blog</code>, avec deux méthodes :
   <code>IndexAction</code> et <code>ArticleAction</code>, respectivement pour
   les règles <code>i</code> et <code>a</code>. Ainsi :</p>
-  <pre><code class="language-php">namespace {
-
-from('Hoa')
--> import('Dispatcher.Kit');
-
-}
-
-namespace Application\Controller {
+  <pre><code class="language-php">namespace Application\Controller {
 
 class Blog extends \Hoa\Dispatcher\Kit {
 
@@ -531,15 +520,7 @@ $ sqlite3 -init Blog.sql -echo Blog.sqlite</code></pre>
   <p>Nous commençons par écrire l'entité <code>Comment</code> comme étant la
   classe <code>Application\Model\Comment</code> en fonction de notre
   schéma :</p>
-  <pre><code class="language-php">namespace {
-
-from('Hoa')
--> import('Model.~')
--> import('Database.Dal');
-
-}
-
-namespace Application\Model {
+  <pre><code class="language-php">namespace Application\Model {
 
 class Comment extends \Hoa\Model {
 
@@ -585,20 +566,12 @@ class Comment extends \Hoa\Model {
   <p>Nous avons écrit les contraintes de validation à travers Praspel, un
   langage d'annotation (nous pouvons compléter ou remplacer Praspel avec les
   méthodes <code>validate<em>Name</em></code>). Nous avons également défini le
-  lien vers nos données avec la méthode <code>Hoa\Model::setMappingLayer</code>.
-  Maintenant voyons l'entité <code>Article</code> comme étant la classe
+  lien vers nos données avec la méthode
+  <code>Hoa\Model\Model::setMappingLayer</code>. Maintenant voyons l'entité
+  <code>Article</code> comme étant la classe
   <code>Application\Model\Article</code> toujours en fonction de notre
   schéma :</p>
-  <pre><code class="language-php">namespace {
-
-from('Hoa')
--> import('Model.~')
--> import('Model.Exception')
--> import('Database.Dal');
-
-}
-
-namespace Application\Model {
+  <pre><code class="language-php">namespace Application\Model {
 
 class Article extends \Hoa\Model {
 
@@ -736,28 +709,13 @@ class Article extends \Hoa\Model {
     return;
 }</code></pre>
 
-  <p>Nous devons également inclure les classes des modèles que nous utilisons
-  en ajoutant, tout en haut de notre contrôleur :</p>
-  <pre><code class="language-php">namespace {
-
-from('Application')
--> import('Model.Article')
--> import('Model.Comment');
-
-}</code></pre>
-
   <h3 id="Testons" for="main-toc">Testons !</h3>
 
   <p>N'oublions pas de modifier notre fichier d'amorçage <code>index.php</code>
   pour lui ajouter la connexion à notre base de données qui sera exploitée par
   notre modèle (à l'aide de la méthode <code>getLastInstance</code> de
   <code>Hoa\Database\Dal</code>) ; ainsi :</p>
-  <pre><code class="language-php">from('Hoa')
--> import('Database.Dal')
--> import('Dispatcher.Basic')
--> import('Router.Http');
-
-Hoa\Database\Dal::initializeParameters(array(
+  <pre><code class="language-php">Hoa\Database\Dal::initializeParameters(array(
     'connection.list.default.dal' => Hoa\Database\Dal::PDO,
     'connection.list.default.dsn' => 'sqlite:hoa://Data/Variable/Database/Blog.sqlite',
     'connection.autoload'         => 'default'
@@ -868,12 +826,13 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   changer de gestionnaire de bases de données <strong>sans modifier</strong> le
   code de notre application. De plus, les données sont manipulées par notre
   application à travers un <strong>modèle</strong> les réprésentant (à l'aide de
-  <code>Hoa\Model</code>). Si les données viennent à changer d'emplacement ou de
-  <strong>format</strong>, mettre à jour le modèle sera la seule tâche à faire.
-  Elle peut nécessiter une quantité de travail non négligeable mais la tâche est
-  <strong>isolée</strong> : seul le modèle sera à modifier, pas le reste de
-  l'application. Enfin, <code>Hoa\Model</code> peut servir à l'élaboration
-  d'outils de gestion de données plus complexes de par sa conception.</p>
+  <code>Hoa\Model</code>). Si les données viennent à changer d'emplacement
+  ou de <strong>format</strong>, mettre à jour le modèle sera la seule tâche à
+  faire. Elle peut nécessiter une quantité de travail non négligeable mais la
+  tâche est <strong>isolée</strong> : seul le modèle sera à modifier, pas le
+  reste de l'application. Enfin, <code>Hoa\Model</code> peut servir à
+  l'élaboration d'outils de gestion de données plus complexes de par sa
+  conception.</p>
 
   <h2 id="Les_vues" for="main-toc">Les vues</h2>
 
@@ -1034,16 +993,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   <p>Avant de tester, nous devons modifier notre fichier d'amorçage
   <code>index.php</code> pour préciser à notre dispatcheur en second argument
   qu'il doit utiliser <code>Hoa\Xyl</code> comme vue :</p>
-  <pre><code class="language-php">from('Hoa')
--> import('Database.Dal')
--> import('Dispatcher.Basic')
--> import('Router.Http')
--> import('Xyl.~')
--> improt('Xyl.Interpreter.Html.~')
--> import('File.Read')
--> import('Http.Response');
-
-Hoa\Database\Dal::initializeParameters(array(
+  <pre><code class="language-php">Hoa\Database\Dal::initializeParameters(array(
     'connection.list.default.dal' => Hoa\Database\Dal::PDO,
     'connection.list.default.dsn' => 'sqlite:hoa://Data/Variable/Database/Blog.sqlite',
     'connection.autoload'         => 'default'
