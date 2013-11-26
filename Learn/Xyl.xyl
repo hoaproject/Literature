@@ -141,13 +141,7 @@
   Notre flux de sortie sera représenté par la classe
   <code>Hoa\Http\Response</code>. Ainsi, créons le fichier
   <code>index.php</code> :</p>
-  <pre><code class="language-php">from('Hoa')
--> import('File.Read')
--> import('Http.Response')
--> import('Xyl.~')
--> import('Xyl.Interpreter.Html.~');
-
-$xyl = new Hoa\Xyl(
+  <pre><code class="language-php">$xyl = new Hoa\Xyl(
     new Hoa\File\Read('Main.xyl'),
     new Hoa\Http\Response(),
     new Hoa\Xyl\Interpreter\Html()
@@ -776,14 +770,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   à notre instance de XYL. La règle aura pour identifiant <code>blog</code> et
   n'aura aucune action (<ie /> <em>callable</em>) attachée — nous voulons juste
   écrire un lien, c'est à dire le <strong>dérouter</strong> — , ainsi :</p>
-  <pre><code class="language-php">from('Hoa')
--> import('Router.Http')
--> import('File.Read')
--> import('Http.Response.~')
--> import('Xyl.~')
--> import('Xyl.Interpreter.Html.~');
-
-$router = new Hoa\Router\Http();
+  <pre><code class="language-php">$router = new Hoa\Router\Http();
 $router->get('blog', '/Blog/(?&amp;lt;id>\d+)-(?&amp;lt;title>[^\.]+)\.html');
 
 $xyl    = new Hoa\Xyl(
@@ -1071,16 +1058,7 @@ $xyl->render();</code></pre>
   <p>Avant de tester, nous devons modifier notre fichier d'amorçage
   <code>index.php</code> pour préciser à notre dispatcheur en second argument
   qu'il doit utiliser <code>Hoa\Xyl</code> comme vue :</p>
-  <pre><code class="language-php">from('Hoa')
--> import('Database.Dal')
--> import('Dispatcher.Basic')
--> import('Router.Http')
--> import('Xyl.~')
--> import('Xyl.Interpreter.Html.~')
--> import('File.Read')
--> import('Http.Response');
-
-Hoa\Database\Dal::initializeParameters(array(
+  <pre><code class="language-php">Hoa\Database\Dal::initializeParameters(array(
     'connection.list.default.dal' => Hoa\Database\Dal::PDO,
     'connection.list.default.dsn' => 'sqlite:hoa://Data/Variable/Database/Blog.sqlite',
     'connection.autoload'         => 'default'

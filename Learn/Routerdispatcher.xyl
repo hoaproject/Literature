@@ -107,11 +107,7 @@
   <p>Un aperçu est ici utile pour faire quelques essais avant de détailler le
   fonctionnement. Nous écrivons l'exemple suivant dans le fichier
   <code>Application/Public/index.php</code> :</p>
-  <pre><code class="language-php">from('Hoa')
--> import('Router.Http')
--> import('Dispatcher.Basic');
-
-$router = new Hoa\Router\Http();
+  <pre><code class="language-php">$router = new Hoa\Router\Http();
 $router
     ->get('u', '/hello', function ( ) {
 
@@ -199,10 +195,7 @@ Welcome Alyx!</code></pre>
   <code>Hoa\Router\Http::addRule</code> qui ajoute une règle avec une visibilité
   publique, <ie /> nous ne nous occuperons pas de la visibilité, elle sera gérée
   toute seule. Ainsi :</p>
-  <pre><code class="language-php">from('Hoa')
--> import('Router.Http');
-
-$router = new Hoa\Router\Http();
+  <pre><code class="language-php">$router = new Hoa\Router\Http();
 $router->addRule($id, $methods, $pattern, $call, $able, $variables);</code></pre>
   <p>Le dernier argument <code>$variables</code> est évidemment optionnel
   puisqu'il sert à déclarer de nouvelles variables ou des valeurs par défaut
@@ -439,12 +432,7 @@ $router->get('u', '/(?&amp;lt;controller>hello|bye)');</code></pre>
   dispatcheur grâce à la méthode <code>Hoa\Dispatcher::setKitName</code>.  Par
   exemple, nous créons un kit qui va ajouter une méthode
   <code>listRequestKeys</code> se basant sur le routeur HTTP :</p>
-  <pre><code class="language-php">from('Hoa')
--> import('Dispatcher.Kit')
--> import('Dispatcher.Basic')
--> import('Router.Http');
-
-class MyKit extends Hoa\Dispatcher\Kit {
+  <pre><code class="language-php">class MyKit extends Hoa\Dispatcher\Kit {
 
     public function listRequestKeys ( ) {
 
@@ -533,11 +521,7 @@ Array
   règle <code>a</code> depuis <code>/article-<em>id</em>.html</code>. Nous
   allons avoir un contrôleur qui sera une classe avec deux méthodes, une pour
   chaque action :</p>
-  <pre><code class="language-php">from('Hoa')
--> import('Dispatcher.Basic')
--> import('Router.Http');
-
-$dispatcher = new Hoa\Dispatcher\Basic();
+  <pre><code class="language-php">$dispatcher = new Hoa\Dispatcher\Basic();
 $router     = new Hoa\Router\Http();
 $router->get('i', '/', 'blog', 'index')
        ->get('a', '/article-(?&amp;lt;id>\d+)\.html', 'blog', 'article');
@@ -549,14 +533,7 @@ $dispatcher->dispatch($router);</code></pre>
   <code>Application\Controller\Blog</code>, avec deux méthodes :
   <code>IndexAction</code> et <code>ArticleAction</code>, respectivement pour la
   règle <code>i</code> et <code>a</code>. Ainsi :</p>
-  <pre><code class="language-php">namespace {
-
-from('Hoa')
--> import('Dispatcher.Kit');
-
-}
-
-namespace Application\Controller {
+  <pre><code class="language-php">namespace Application\Controller {
 
 class Blog extends \Hoa\Dispatcher\Kit {
 

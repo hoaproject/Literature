@@ -82,13 +82,7 @@
   même document mais pas entre plusieurs documents.</p>
   <p>Enfin, faire le rendu de <code>Main.xyl</code> est tout ce qu'il y a de
   plus classique et nous pourrons observer le placement du fragment :</p>
-  <pre><code class="language-php">from('Hoa')
--> import('File.Read')
--> import('Http.Response')
--> import('Xyl.~')
--> import('Xyl.Interpreter.Html.~');
-
-$xyl = new Hoa\Xyl(
+  <pre><code class="language-php">$xyl = new Hoa\Xyl(
     new Hoa\File\Read('Main.xyl'),
     new Hoa\Http\Response(),
     new Hoa\Xyl\Interpreter\Html()
@@ -125,13 +119,7 @@ $xyl->render();</code></pre>
   <p>Cependant, être capable de récupérer un fragment pour en faire son rendu
   nécessite <strong>préalablement</strong> d'interpréter le document, grâce à la
   méthode <code>Hoa\Xyl::interprete</code>. Ainsi :</p>
-  <pre><code class="language-php">from('Hoa')
--> import('File.Read')
--> import('Http.Response')
--> import('Xyl.~')
--> import('Xyl.Interpreter.Html.~');
-
-$xyl = new Hoa\Xyl(
+  <pre><code class="language-php">$xyl = new Hoa\Xyl(
     new Hoa\File\Read('Some.fragment.xyl'),
     new Hoa\Http\Response(),
     new Hoa\Xyl\Interpreter\Html()

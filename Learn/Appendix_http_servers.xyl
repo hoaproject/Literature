@@ -245,12 +245,6 @@ Press Ctrl-C to quit.
 
 require_once '/usr/local/lib/Hoa/Core/Core.php';
 
-from('Hoa')
--> import('Router.Http')
--> import('Dispatcher.Basic')
--> import('File.Read')
--> import('Mime.~');
-
 $router = new Hoa\Router\Http();
 $router
     ->any('a', '.*', function ( Hoa\Dispatcher\Kit $_this ) {

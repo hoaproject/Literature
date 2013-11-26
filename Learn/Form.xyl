@@ -70,13 +70,7 @@
   premier temps, affichons simplement le formulaire, puis nous verrons comment
   récupérer les données par la suite. Ainsi, dans un fichier
   <code>index.php</code> :</p>
-  <pre><code class="language-php">from('Hoa')
--> import('File.Read')
--> import('Http.Response')
--> import('Xyl.~')
--> import('Xyl.Interpreter.Html.~');
-
-$xyl = new Hoa\Xyl(
+  <pre><code class="language-php">$xyl = new Hoa\Xyl(
     new Hoa\File\Read('Form.xyl'),
     new Hoa\Http\Response(),
     new Hoa\Xyl\Interpreter\Html()
