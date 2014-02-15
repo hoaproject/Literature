@@ -593,7 +593,7 @@ catch ( Hoa\Core\Exception $e ) {
 }
 catch ( Hoa\Core\Exception $e ) {
 
-    echo $e->getMessage(), "\n",.
+    echo $e->getMessage(), "\n",
          $e->getFormattedMessage();
 
     /**
@@ -986,7 +986,7 @@ Hello world!</code></pre>
     permettent cette modularité et cette extensibilité.</li>
   </ul>
   <p>Nous verrons plus en détail dans les prochains chapitres pourquoi Hoa est
-  réellement structuré : les bibliothèques ne sont pas écrites pas hasard et
+  réellement structuré : les bibliothèques ne sont pas écrites par hasard et
   elles offrent beaucoup de possibilités.</p>
 
   <ul class="prev_next">
