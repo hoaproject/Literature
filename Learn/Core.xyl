@@ -587,7 +587,7 @@ catch ( Hoa\Core\Exception $e ) {
      */
 }</code></pre>
   <p>Avec un message formaté :</p>
-  <pre><code class="language-php">try { 
+  <pre><code class="language-php">try {
 
     throw new Hoa\Core\Exception('Hello %s.', 42, 'Gordon');
 }
@@ -767,7 +767,7 @@ catch ( Hoathis\Exercise\Exception $e ) {
   <pre><code class="language-php">from('Hoa')
 -> import('Registry.~');
 
-Hoa\Registry::set('foo', 'bar');
+Hoa\\Registry\Registry::set('foo', 'bar');
 var_dump(
     resolve('hoa://Library/Registry#foo')
 );

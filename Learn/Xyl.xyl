@@ -127,7 +127,7 @@
 
   <h3 id="Interpretation" for="main-toc">Interprétation</h3>
 
-  <p>Pour interpréter XYL, nous avons besoin de la classe <code>Hoa\Xyl</code>
+  <p>Pour interpréter XYL, nous avons besoin de la classe <code>Hoa\Xyl\Xyl</code>
   qui va préparer nos documents ainsi que nos données, et lancer le rendu de
   notre interprétation. XYL a besoin au minimum de :</p>
   <ul>
@@ -139,12 +139,12 @@
   <p>Nous allons commencer avec l'interpréteur HTML qui est le plus simple à
   déployer, représenté par la classe <code>Hoa\Xyl\Interpreter\Html</code>.
   Notre flux de sortie sera représenté par la classe
-  <code>Hoa\Http\Response</code>. Ainsi, créons le fichier
+  <code>Hoa\Http\Response\Response</code>. Ainsi, créons le fichier
   <code>index.php</code> :</p>
-  <pre><code class="language-php">$xyl = new Hoa\Xyl(
+  <pre><code class="language-php">$xyl = new Hoa\Xyl\Xyl(
     new Hoa\File\Read('Main.xyl'),
-    new Hoa\Http\Response(),
-    new Hoa\Xyl\Interpreter\Html()
+    new Hoa\Http\Response\Response(),
+    new Hoa\Xyl\Interpreter\Html\Html()
 );
 $xyl->render();</code></pre>
   <p>Il suffit maintenant d'exécuter ce fichier PHP pour observer le
@@ -187,11 +187,11 @@ $xyl->render();</code></pre>
   observons que notre document a changé de style.</p>
   <p>Nous pouvons déclarer <strong>dynamiquement</strong> une feuille de style
   en utilisant la méthode <code>addStylesheet</code> de la classe
-  <code>Hoa\Xyl</code>. Ainsi, le code suivant produira le même résultat :</p>
-  <pre data-line="6"><code class="language-php">$xyl = new Hoa\Xyl(
+  <code>Hoa\Xyl\Xyl</code>. Ainsi, le code suivant produira le même résultat :</p>
+  <pre data-line="6"><code class="language-php">$xyl = new Hoa\Xyl\Xyl(
     new Hoa\File\Read('Main.xyl'),
-    new Hoa\Http\Response(),
-    new Hoa\Xyl\Interpreter\Html()
+    new Hoa\Http\Response\Response(),
+    new Hoa\Xyl\Interpreter\Html\Html()
 );
 $xyl->addStylesheet('UI.css');
 $xyl->render();</code></pre>
@@ -217,7 +217,7 @@ $xyl->render();</code></pre>
   tête de n'importe quel document XYL et avec son attribut <code>href</code>
   pour préciser l'emplacement de notre <em lang="en">overlay</em>. De même, pour
   une déclaration dynamique, nous avons la méthode <code>addOverlay</code> sur
-  la classe <code>Hoa\Xyl</code>. Ainsi, nous déclarons
+  la classe <code>Hoa\Xyl\Xyl</code>. Ainsi, nous déclarons
   l'<em lang="en">overlay</em> contenu dans le fichier
   <code>Extension.xyl</code> à notre document auquel nous avons ajouté un
   composant portant l'identifiant <code>extensions</code> et accueillant déjà
@@ -471,8 +471,8 @@ $xyl->render();</code></pre>
     <li>un auteur <code>author</code>.</li>
   </ul>
   <p>Avec une instance de <code>Hoa\Core\Data</code> que nous récupérons avec la
-  méthode <code>Hoa\Xyl::getData</code>, nous avons :</p>
-  <pre><code class="language-php">$xyl  = new Hoa\Xyl(…);
+  méthode <code>Hoa\Xyl\Xyl::getData</code>, nous avons :</p>
+  <pre><code class="language-php">$xyl  = new Hoa\Xyl\Xyl(…);
 $data = $xyl->getData();
 
 $data->article->id     = 0;
@@ -711,7 +711,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   <code>&amp;amp;lt;?xyl-use?></code> en tête de n'importe quels documents XYL
   et avec son attribut <code>href</code> pour préciser l'emplacement de notre
   bibliothèque graphique. De même, pour une déclaration dynamique, nous avons la
-  méthode <code>addUse</code> sur la classe <code>Hoa\Xyl</code>. Une
+  méthode <code>addUse</code> sur la classe <code>Hoa\Xyl\Xyl</code>. Une
   bibliothèque peut bien sûr inclure d'autres bibliothèques et ainsi de suite.
   Une bibliothèque peut également déclarer des feuilles de style mais pas des
   <em lang="en">overlays</em>. Ainsi, si nous <strong>externalisons</strong> nos
@@ -763,7 +763,7 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   <h3 id="Routeur_et_liens" for="main-toc">Routeur et liens</h3>
 
   <p>Nous avons appris qu'une vue au sens de <code>Hoa\View\Viewable</code>
-  comporte un <strong>routeur</strong>. Comme <code>Hoa\Xyl</code> implémente
+  comporte un <strong>routeur</strong>. Comme <code>Hoa\Xyl\Xyl</code> implémente
   cette interface, nous pouvons définir et utiliser un routeur au sein de nos
   documents XYL.</p>
   <p>Nous allons commencer par écrire une règle sur un routeur HTTP et le donner
@@ -773,10 +773,10 @@ $data->article[1]->author->name    = 'A. Vance';</code></pre>
   <pre><code class="language-php">$router = new Hoa\Router\Http();
 $router->get('blog', '/Blog/(?&amp;lt;id>\d+)-(?&amp;lt;title>[^\.]+)\.html');
 
-$xyl    = new Hoa\Xyl(
+$xyl    = new Hoa\Xyl\Xyl(
     new Hoa\File\Read('Main.xyl'),
-    new Hoa\Http\Response(),
-    new Hoa\Xyl\Interpreter\Html(),
+    new Hoa\Http\Response\Response(),
+    new Hoa\Xyl\Interpreter\Html\Html(),
     $router
 );
 $xyl->render();</code></pre>
@@ -875,8 +875,8 @@ $xyl->render();</code></pre>
   <p>Enfin : il est préférable d'utiliser l'abstraction qu'offre le protocole
   <code>hoa://</code> car il ajoute le thème et peut-être d'autres choses à
   l'avenir.  Pour modifier le thème, il existe la méthode <code>setTheme</code>
-  sur <code>Hoa\Xyl</code>. Nous privilégierons toujours la méthode
-  <code>Hoa\Xyl::resolve</code> pour résoudre un chemin exprimé avec le
+  sur <code>Hoa\Xyl\Xyl</code>. Nous privilégierons toujours la méthode
+  <code>Hoa\Xyl\Xyl::resolve</code> pour résoudre un chemin exprimé avec le
   protocole <code>hoa://</code> dans un contexte XYL au lieu d'utiliser
   simplement la fonction <code>resolve</code> (aliase de
   <code>Hoa\Core\Protocol::resolve</code>) car le thème sera pris en
@@ -1073,10 +1073,10 @@ try {
 
     $dispatcher->dispatch(
         $router,
-        new Hoa\Xyl(
+        new Hoa\Xyl\Xyl(
             new Hoa\File\Read('hoa://Application/View/Main.xyl'),
-            new Hoa\Http\Response(),
-            new Hoa\Xyl\Interpreter\Html(),
+            new Hoa\Http\Response\Response(),
+            new Hoa\Xyl\Interpreter\Html\Html(),
             $router
         )
     );

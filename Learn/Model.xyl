@@ -285,10 +285,10 @@ $statement->execute();</code></pre>
   objet de PHP en choisissant de représenter chaque <strong>entité</strong> du
   modèle par une <strong>classe</strong>, et ainsi, les données sont portées par
   les attributs de classes. Toute entitée aura comme parent la classe
-  <code>Hoa\Model</code> pour profiter de ses services. Par exemple pour
+  <code>Hoa\Model\Model</code> pour profiter de ses services. Par exemple pour
   représenter un utilisateur qui a un identifiant, un prénom, un nom et un âge,
   nous aurions :</p>
-  <pre><code class="language-php">class User extends Hoa\Model {
+  <pre><code class="language-php">class User extends Hoa\Model\Model {
 
     public $_id;
     public $_firstname;
@@ -326,7 +326,7 @@ var_dump($user->id);
   entre les données extraites et notre modèle grâce à la méthode
   <code>map</code> qui reconnaît des données de plusieurs formes courantes et
   arrive à les associer à nos attributs :</p>
-  <pre><code class="language-php">class User extends Hoa\Model {
+  <pre><code class="language-php">class User extends Hoa\Model\Model {
 
     public $_id;
     public $_firstname;
@@ -451,7 +451,7 @@ $user->birthday = 65537; // an exception is thrown.</code></pre>
   automatiquement.</p>
   <p>Même si nous n'expliquons pas Praspel dans le détail, nous allons montrer
   comment valider notre modèle :</p>
-  <pre><code class="language-php">class User extends Hoa\Model {
+  <pre><code class="language-php">class User extends Hoa\Model\Model {
 
     /**
      * @invariant id: boundinteger(1);
@@ -565,7 +565,7 @@ $ sqlite3 -init Blog.sql -echo Blog.sqlite</code></pre>
   schéma :</p>
   <pre><code class="language-php">namespace Application\Model {
 
-class Comment extends \Hoa\Model {
+class Comment extends \Hoa\Model\Model {
 
     /**
      * @invariant id: boundinteger(0);
@@ -613,7 +613,7 @@ class Comment extends \Hoa\Model {
   schéma :</p>
   <pre><code class="language-php">namespace Application\Model {
 
-class Article extends \Hoa\Model {
+class Article extends \Hoa\Model\Model {
 
     /**
      * @invariant id: boundinteger(0);

@@ -70,10 +70,10 @@
   premier temps, affichons simplement le formulaire, puis nous verrons comment
   récupérer les données par la suite. Ainsi, dans un fichier
   <code>index.php</code> :</p>
-  <pre><code class="language-php">$xyl = new Hoa\Xyl(
+  <pre><code class="language-php">$xyl = new Hoa\Xyl\Xyl(
     new Hoa\File\Read('Form.xyl'),
-    new Hoa\Http\Response(),
-    new Hoa\Xyl\Interpreter\Html()
+    new Hoa\Http\Response\Response(),
+    new Hoa\Xyl\Interpreter\Html\Html()
 );
 $xyl->render();</code></pre>
   <p>Avec ceci, le formulaire s'affichera. Nous connaissons déjà très bien cette
@@ -86,20 +86,20 @@ $xyl->render();</code></pre>
     <li>vérifier s'il est valide ;</li>
     <li>liéer les données avec notre liste.</li>
   </ul>
-  <p>Précédemment, nous avons vu la méthode <code>Hoa\Xyl::render</code> sans
+  <p>Précédemment, nous avons vu la méthode <code>Hoa\Xyl\Xyl::render</code> sans
   préciser réellement ce qu'elle faisait. Sans rentrer dans le détail, nous
   pouvons dire qu'elle travaille en deux étapes :</p>
   <ol>
     <li>interprétation : assemblage du document principal ;</li>
     <li>rendu : liage des données et rendu.</li>
   </ol>
-  <p>La méthode <code>Hoa\Xyl::render</code> est suffisamment intelligente pour
+  <p>La méthode <code>Hoa\Xyl\Xyl::render</code> est suffisamment intelligente pour
   savoir si l'interprétation a déjà été faite ou pas, et si ce n'est pas le cas,
   le faire automatiquement.</p>
   <p>Être capable de récupérer un formulaire pour le manipuler nécessite
   <strong>préalablement</strong> d'interpréter le document, grâce à la méthode
-  <code>Hoa\Xyl::interprete</code>. Puis, pour récupérer notre formulaire, nous
-  allons utiliser la méthode <code>Hoa\Xyl::getElement</code> qui prend en
+  <code>Hoa\Xyl\Xyl::interprete</code>. Puis, pour récupérer notre formulaire, nous
+  allons utiliser la méthode <code>Hoa\Xyl\Xyl::getElement</code> qui prend en
   argument l'identifiant d'un élément. Ensuite, une fois que nous l'aurons, nous
   pourrons appeler les méthodes
   <code>Hoa\Xyl\Interpreter\Html\Form::hasBeenSent</code> et
@@ -109,10 +109,10 @@ $xyl->render();</code></pre>
   été validées. Enfin, si toutes ces contraintes sont respectées, alors nous
   récupérerons les données avec la méthode
   <code>Hoa\Xyl\Interpreter\Html\Form::getData</code> ; ainsi :</p>
-  <pre data-line="6-12"><code class="language-php">$xyl = new Hoa\Xyl(
+  <pre data-line="6-12"><code class="language-php">$xyl = new Hoa\Xyl\Xyl(
     new Hoa\File\Read('Form.xyl'),
-    new Hoa\Http\Response(),
-    new Hoa\Xyl\Interpreter\Html()
+    new Hoa\Http\Response\Response(),
+    new Hoa\Xyl\Interpreter\Html\Html()
 );
 $xyl->interprete();
 $data = $xyl->getData();

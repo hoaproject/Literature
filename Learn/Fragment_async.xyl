@@ -82,10 +82,10 @@
   même document mais pas entre plusieurs documents.</p>
   <p>Enfin, faire le rendu de <code>Main.xyl</code> est tout ce qu'il y a de
   plus classique et nous pourrons observer le placement du fragment :</p>
-  <pre><code class="language-php">$xyl = new Hoa\Xyl(
+  <pre><code class="language-php">$xyl = new Hoa\Xyl\Xyl(
     new Hoa\File\Read('Main.xyl'),
-    new Hoa\Http\Response(),
-    new Hoa\Xyl\Interpreter\Html()
+    new Hoa\Http\Response\Response(),
+    new Hoa\Xyl\Interpreter\Html\Html()
 );
 $xyl->render();</code></pre>
   <p>Le fragment apparaît bien à l'endroit où nous le souhaitons.</p>
@@ -114,15 +114,15 @@ $xyl->render();</code></pre>
 
   <p>Il est intéressant de pouvoir faire le rendu d'un fragment de manière
   <strong>isolée</strong>. Pour cela, nous devons récupérer le fragment en
-  question, à l'aide de la méthode <code>Hoa\Xyl::getSnippet</code> puis en
-  faire son rendu avec la méthode <code>Hoa\Xyl::render</code>.</p>
+  question, à l'aide de la méthode <code>Hoa\Xyl\Xyl::getSnippet</code> puis en
+  faire son rendu avec la méthode <code>Hoa\Xyl\Xyl::render</code>.</p>
   <p>Cependant, être capable de récupérer un fragment pour en faire son rendu
   nécessite <strong>préalablement</strong> d'interpréter le document, grâce à la
-  méthode <code>Hoa\Xyl::interprete</code>. Ainsi :</p>
-  <pre><code class="language-php">$xyl = new Hoa\Xyl(
+  méthode <code>Hoa\Xyl\Xyl::interprete</code>. Ainsi :</p>
+  <pre><code class="language-php">$xyl = new Hoa\Xyl\Xyl(
     new Hoa\File\Read('Some.fragment.xyl'),
-    new Hoa\Http\Response(),
-    new Hoa\Xyl\Interpreter\Html()
+    new Hoa\Http\Response\Response(),
+    new Hoa\Xyl\Interpreter\Html\Html()
 );
 // 1. interpretation.
 $xyl->interprete();
@@ -280,7 +280,7 @@ $xyl->render($fragment);</code></pre>
   pour
   <a href="http://w3.org/TR/XMLHttpRequest/#xmlhttprequesteventtarget"><code>XMLHttpRequestEventTarget</code></a>
   et
-  <a href="http://w3.org/TR/XMLHttpRequest/#xmlhttprequest"><code>XMLHttpRequest</code></a>, 
+  <a href="http://w3.org/TR/XMLHttpRequest/#xmlhttprequest"><code>XMLHttpRequest</code></a>,
   à savoir :</p>
   <ul>
     <li><code>readystatechange</code>, prend arbitrairement les valeurs

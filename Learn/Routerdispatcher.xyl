@@ -270,7 +270,7 @@ $router->addRule(…, array('put', 'delete', 'get'), …);
   provenant du serveur. Une fois le routage terminé, nous utilisons la méthode
   <code>getTheRule</code> pour obtenir <em>la</em> règle qui a servi à extraire
   nos données de notre requête. Nous précisons que les constantes
-  <code>Hoa\Router::RULE_<em>*</em></code> existent pour manipuler le
+  <code>Hoa\Router\Router::RULE_<em>*</em></code> existent pour manipuler le
   <em>t</em>-uplet représentant une règle. Ainsi, à partir de notre
   exemple :</p>
   <pre><code class="language-php">$router->route('/root/hello_gordon', '/root');
@@ -429,7 +429,7 @@ $router->get('u', '/(?&amp;lt;controller>hello|bye)');</code></pre>
   n'importe quel objet de type <code>Hoa\View\Viewable</code>) et des données
   (de type <code>Hoa\Core\Data</code>). La création d'un kit se fait
   automatiquement, tout ce qui est nécessaire est de fournir le nom du kit au
-  dispatcheur grâce à la méthode <code>Hoa\Dispatcher::setKitName</code>.  Par
+  dispatcheur grâce à la méthode <code>Hoa\Dispatcher\Dispatcher::setKitName</code>.  Par
   exemple, nous créons un kit qui va ajouter une méthode
   <code>listRequestKeys</code> se basant sur le routeur HTTP :</p>
   <pre><code class="language-php">class MyKit extends Hoa\Dispatcher\Kit {
@@ -438,7 +438,7 @@ $router->get('u', '/(?&amp;lt;controller>hello|bye)');</code></pre>
 
         $theRule = $this->router->getTheRule();
 
-        return array_keys($theRule[Hoa\Router::RULE_VARIABLES]['_request']);
+        return array_keys($theRule[Hoa\Router\Router::RULE_VARIABLES]['_request']);
     }
 }
 

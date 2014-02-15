@@ -1008,10 +1008,10 @@ try {
 
     $dispatcher->dispatch(
         $router,
-        new Hoa\Xyl(
+        new Hoa\Xyl\Xyl(
             new Hoa\File\Read('hoa://Application/View/Main.xyl'),
-            new Hoa\Http\Response(),
-            new Hoa\Xyl\Interpreter\Html(),
+            new Hoa\Http\Response\Response(),
+            new Hoa\Xyl\Interpreter\Interpreter\Html\Html(),
             $router
         )
     );

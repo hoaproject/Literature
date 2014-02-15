@@ -255,7 +255,7 @@ $router
         if(!empty($uri) &amp;amp;&amp;amp; true === file_exists($file)) {
 
             $stream = new Hoa\File\Read($file);
-            $mime   = new Hoa\Mime($stream);
+            $mime   = new Hoa\Mime\Mime($stream);
 
             header('Content-Type: ' . $mime->getMime());
             echo $stream->readAll();

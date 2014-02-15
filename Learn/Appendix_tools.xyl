@@ -122,9 +122,9 @@ What exception would you like to select? (in [1-1], q[uit] to quit, h[elp] to ge
 ➜  1. {main}                                                 ….php @ 5
 (#1) > code
  1.    &amp;lt;?php
- 2.    
+ 2.
  3.    require '/usr/local/lib/hoa/Core/Core.php';
- 4.    
+ 4.
  5. ➜  dump('foobar');
 (#1) > quit
 ▋</blockcode>
@@ -133,7 +133,7 @@ What exception would you like to select? (in [1-1], q[uit] to quit, h[elp] to ge
 
 require '/usr/local/lib/hoa/Core/Core.php';
 
-Hoa\Core::startDebugger();
+Hoa\Core\Core::startDebugger();
 
 function f ( ) {
 
@@ -146,7 +146,7 @@ function g ( ) {
 }
 
 g();</blockcode>
-      <p>L'instruction <code>Hoa\Core::startDebugger()</code> est obligatoire
+      <p>L'instruction <code>Hoa\Core\Core::startDebugger()</code> est obligatoire
       pour démarrer le debugger. La fonction <code>dump</code> le fait
       d'elle-même, mais pas les exceptions.</p>
       <p>Quand on exécute notre fichier, l'exception est affichée en tant
@@ -194,7 +194,7 @@ Waiting for connection… ▋</blockcode>
       contenu du répertoire. Par exemple, créons un fichier
       <code>index.php</code> :</p>
       <blockcode class="language-php">&lt;?php
-      
+
 echo 'Hello world!';</blockcode>
       <p>On vérifie que notre fichier s'exécute comme il faut :</p>
       <blockcode class="language-shell">$ curl 127.0.0.1:8888
@@ -212,7 +212,7 @@ Hello world!</blockcode>
       <blockcode class="language-shell">✔ GET /index.php</blockcode>
       <p>Enfin, notons l'options <code>--debug</code> qui démarre le debugger de
       Hoa sans avoir besoin d'appeler la méthode
-      <code>Hoa\Core::startDebugger</code>.</p>
+      <code>Hoa\Core\Core::startDebugger</code>.</p>
       <p>Bhoa <strong>démarre très vite</strong> et est <strong>rapidement prêt
       à l'emploi</strong>. On peut définir n'importe quelle racine avec l'option
       <code>--root</code>, définir quoi écouter avec l'option
