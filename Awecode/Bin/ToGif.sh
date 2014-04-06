@@ -17,6 +17,7 @@ fi
 workspace=/tmp/awecode.hoa/$RANDOM/
 input=""
 output=""
+frame_rate=10
 
 mkdir -p $workspace
 
@@ -26,10 +27,11 @@ function usage() {
     echo >&2 "    $0 -i=<input> -o=<output>"
 }
 
-while getopts i:o:h opt; do
+while getopts i:o:r:h opt; do
     case $opt in
         i)   input=$OPTARG;;
         o)   output=$OPTARG;;
+        r)   frame_rate=$OPTARG;;
         h)   usage; exit 2;;
         [?]) usage; exit 2;;
     esac
@@ -47,7 +49,7 @@ if [[ -z "$output" ]]; then
     exit 3
 fi
 
-$ffmpeg -i $input -r 10 $workspace/temp%03d.gif
+$ffmpeg -i $input -r $frame_rate $workspace/temp%03d.gif
 $convert -delay 5 -loop 0 $workspace/temp*.gif $workspace/output.gif
 $convert -layers Optimize $workspace/output.gif $output
 
