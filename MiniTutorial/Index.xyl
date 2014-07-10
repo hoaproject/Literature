@@ -57,7 +57,7 @@
 
   <p>Pour respecter cette recommandation, il faudra user d'un lien symbolique
   lors de l'installation, par exemple :</p>
-  <pre><code class="language-shell">$ git clone http://git.hoa-project.net/Central.git /usr/local/Hoa.central
+  <pre><code class="language-shell">$ git clone http://git.hoa-project.net/Central.git /usr/local/lib/Hoa.central
 $ ln -s /usr/local/Hoa.central/Hoa /usr/local/lib/Hoa</code></pre>
 
   <h3 id="Creer_notre_application" for="main-toc">Créer notre application</h3>
