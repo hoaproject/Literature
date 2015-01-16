@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xyl-use href="../../../View/Shared/Definition/Code.xyl"?>
+<?xyl-overlay href="../../../View/Shared/Overlay/Code.xyl"?>
 
 <overlay xmlns="http://hoa-project.net/xyl/xylophone">
-<yield id="yContent">
+<yield id="main_content">
 
   <h1 id="Mini_tutoriel">Mini-tutoriel</h1>
 
@@ -199,14 +201,15 @@ Hello you! I'm your first Hoa-based application \o/.</code></pre>
   <p>Mais il faut admettre que ce n'est pas très drôle. Nous pouvons utiliser un
   serveur HTTP avec PHP pour accéder à notre application via un navigateur
   Internet. Si vous possédez déjà un serveur HTTP avec PHP vous pouvez vous
-  référer à l'annexe <a href="@ll:chapter=Appendix_http_servers">Configuration
-  des serveurs HTTP </a> pour découvrir la configuration nécessaire à Hoa. Pour
-  le développement nous vous conseillons d'utiliser Bhoa, qui est un petit
-  serveur HTTP embarqué réservé au développement (pas à la production !) et qui
-  ne nécessite aucune configuration. Bhoa jouant le rôle de serveur HTTP, il a
-  besoin de communiquer avec PHP qui lui se charge interpréter les pages.
-  Bhoa utilise PHP FastCGI pour exécuter PHP, nous allons donc devoir le
-  démarrer sur le port standard (9000) :</p>
+  référer à l'annexe
+  <a href="@learn:chapter=Appendix_http_servers">Configuration des serveurs
+  HTTP</a> pour découvrir la configuration nécessaire à Hoa. Pour le
+  développement nous vous conseillons d'utiliser Bhoa, qui est un petit serveur
+  HTTP embarqué réservé au développement (pas à la production !) et qui ne
+  nécessite aucune configuration. Bhoa jouant le rôle de serveur HTTP, il a
+  besoin de communiquer avec PHP qui lui se charge interpréter les pages.  Bhoa
+  utilise PHP FastCGI pour exécuter PHP, nous allons donc devoir le démarrer sur
+  le port standard (9000) :</p>
   <tabs class="plain">
     <tablist>
       <tab for="tunix_start_phpcgi" selected="true">Unix</tab>
@@ -451,8 +454,8 @@ Your page seems to be not found /o\.</code></pre>
 Your page seems to be not found /o\.</code></pre>
     </tabpanel>
   </tabs>
-  <p>Le <a href="@ll:chapter=Routerdispatcher">chapitre Router + Dispatcher = ♥
-  </a> du manuel d'apprentissage vous permettra de comprendre en détail ces
+  <p>Le <a href="@learn:chapter=Routerdispatcher">chapitre Router + Dispatcher =
+  ♥ </a> du manuel d'apprentissage vous permettra de comprendre en détail ces
   deux outils.</p>
 
   <h2 id="Modele_de_donnees" for="main-toc">Modèle de données</h2>
@@ -657,7 +660,7 @@ class Article extends \Hoa\Model {
   contraintes et des relations (à travers l'attribut <code>comments</code>).
   Enfin, nous avons la méthode <code>getShortList</code> qui exploite l'entité
   sans la modifier.</p>
-  <p>Le <a href="@ll:chapter=Model">chapitre Modèle</a> du manuel
+  <p>Le <a href="learn:chapter=Model">chapitre Modèle</a> du manuel
   d'apprentissage vous permettra d'aller plus loin avec le modèle. En attendant
   nous allons exploiter notre modèle dans notre contrôleur.</p>
 
@@ -847,7 +850,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
 
   <p>Notre document principal sera <code>Application/View/Main.xyl</code> et
   accueillera nos différentes pages. Nous utilisons pour celà les
-  <em>overlays</em>. Les <a href="@ll:chapter=Xyl#Overlay"><em>overlays</em></a>
+  <em>overlays</em>. Les <a href="@learn:chapter=Xyl#Overlay"><em>overlays</em></a>
   sont des composants que nous pouvons insérer dans un document.</p>
 
   <p>Chaque page sera un <em>overlay</em> par rapport au document principal,
@@ -894,7 +897,7 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   <p>Nous avons une liste qui va s'accrocher sur les arbres
   <code>articles</code> et les feuilles de ces arbres vont servir à afficher la
   date, le lien et le titre des articles. Ce mécanisme est appelé le
-  <a href="@ll:chapter=Xyl#Binding_et_yielding"><em>binding</em></a>. Pour
+  <a href="@learn:chapter=Xyl#Binding_et_yielding"><em>binding</em></a>. Pour
   écrire le lien, nous utilisons la règle <code>a</code> définit dans notre
   routeur pour accéder à un article.</p>
 
@@ -1047,7 +1050,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
   …</code></pre>
   <p>Si nous retournons sur notre application, nous verrons que les styles sont
   appliqués ! Vous trouverez plus de détails sur l'utilisation des ressources
-  dans le <a href="@ll:chapter=Xyl#Ressources_de_l-application_et_theme">
+  dans le <a href="@learn:chapter=Xyl#Ressources_de_l-application_et_theme">
   chapitre XYL</a> du manuel d'apprentissage.</p>
 
   <h2 id="Conclusion" for="main-toc">Conclusion</h2>
@@ -1057,7 +1060,7 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
   framework.</p>
 
   <p>Le détail du fonctionnement et l'esprit des bibliothèques mises en œuvre
-  ici sont présentés dans le <a href="@l#Manuel_d-apprentissage">
+  ici sont présentés dans le <a href="@literature#Manuel_d-apprentissage">
   manuel d'apprentissage</a> avec des exemples détaillés. Le
   <em>Gordon's blog</em> est l'exemple fil rouge du manuel d'apprentissage.</p>
 
