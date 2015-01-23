@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xyl-use href="../Definitions.xyl"?>
+<?xyl-use href="../../../View/Shared/Definition/Code.xyl"?>
+<?xyl-overlay href="../../../View/Shared/Overlay/Code.xyl"?>
 
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
@@ -7,8 +9,8 @@
   <h1 id="Core">Manuel d'apprentissage<title_break />Exploration du noyau</h1>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Install"><previous_chapter /> Installation</a></li>
-    <li><a href="@ll:chapter=Embryo">Squelette d'application
+    <li><a href="@learn:chapter=Install"><previous_chapter /> Installation</a></li>
+    <li><a href="@learn:chapter=Embryo">Squelette d'application
         <next_chapter /></a></li>
   </ul>
 
@@ -990,8 +992,8 @@ Hello world!</code></pre>
   elles offrent beaucoup de possibilités.</p>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Install"><previous_chapter /> Installation</a></li>
-    <li><a href="@ll:chapter=Embryo">Squelette d'application
+    <li><a href="@learn:chapter=Install"><previous_chapter /> Installation</a></li>
+    <li><a href="@learn:chapter=Embryo">Squelette d'application
         <next_chapter /></a></li>
   </ul>
 

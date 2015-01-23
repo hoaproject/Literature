@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xyl-use href="../Definitions.xyl"?>
+<?xyl-use href="../../../View/Shared/Definition/Code.xyl"?>
+<?xyl-overlay href="../../../View/Shared/Overlay/Code.xyl"?>
 
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
@@ -9,7 +11,7 @@
   Hoa</title>
 
   <ulist class="prev_next">
-    <item><link href="@l"><previous_chapter /> Sommaire</link></item>
+    <item><link href="@literature"><previous_chapter /> Sommaire</link></item>
   </ulist>
 
   <p>Dans cet annexe, on va aborder les <strong>outils</strong> que propose Hoa.
@@ -297,7 +299,7 @@ Function [ &amp;&lt;internal:standard> function array_search ] {
 </section1>
 
 <ulist class="prev_next">
-  <item><link href="@l"><previous_chapter /> Sommaire</link></item>
+  <item><link href="@literature"><previous_chapter /> Sommaire</link></item>
 </ulist>
 
 </yield>

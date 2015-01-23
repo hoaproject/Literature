@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xyl-use href="../Definitions.xyl"?>
+<?xyl-use href="../../../View/Shared/Definition/Code.xyl"?>
+<?xyl-overlay href="../../../View/Shared/Overlay/Code.xyl"?>
 
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
@@ -9,8 +11,8 @@
   <h1 id="Form">Manuel d'apprentissage<title_break />Formulaire</h1>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Xyl"><previous_chapter /> XYL</a></li>
-    <li><a href="@ll:chapter=Fragment_async">Fragment et asynchrone
+    <li><a href="@learn:chapter=Xyl"><previous_chapter /> XYL</a></li>
+    <li><a href="@learn:chapter=Fragment_async">Fragment et asynchrone
     <next_chapter /></a></li>
   </ul>
 
@@ -245,7 +247,7 @@ $xyl->render();</code></pre>
   <p>Les validations précédemment vues ne concernent qu'une seule donnée à la
   fois mais pourtant il peut exister des <strong>dépendances</strong> entre
   toutes ses données. Ce niveau de validation appartient théoriquement au
-  <a href="@ll:chapter=Model">modèle</a>. Des erreurs peuvent en remonter et
+  <a href="@learn:chapter=Model">modèle</a>. Des erreurs peuvent en remonter et
   elles doivent pouvoir s'afficher sur la vue (le plus souvent, à travers un
   contrôleur). Nous allons voir comment lever nos propres erreurs
   manuellement.</p>
@@ -262,8 +264,8 @@ $xyl->render();</code></pre>
   <em lang="en">Gordon's blog</em></h2>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Xyl"><previous_chapter /> XYL</a></li>
-    <li><a href="@ll:chapter=Fragment_async">Fragment et asynchrone
+    <li><a href="@learn:chapter=Xyl"><previous_chapter /> XYL</a></li>
+    <li><a href="@learn:chapter=Fragment_async">Fragment et asynchrone
     <next_chapter /></a></li>
   </ul>
 

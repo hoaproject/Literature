@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xyl-use href="../Definitions.xyl"?>
+<?xyl-use href="../../../View/Shared/Definition/Code.xyl"?>
+<?xyl-overlay href="../../../View/Shared/Overlay/Code.xyl"?>
 
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
@@ -8,7 +10,7 @@
   <title>Manuel d'apprentissage<title_break />Une histoire de flux</title>
 
   <ulist class="prev_next">
-    <item><link href="@ll:chapter=(!title)"
+    <item><link href="@learn:chapter=(!title)"
                 sref="hoa://Application/External/Literature/Learn/Routerdispatcher.xyl"
                 sref-title="//__current_ns:section1/@id"><previous_chapter /> Router + Dispatcher = ♥</link></item>
   </ulist>
@@ -25,7 +27,7 @@
 </section1>
 
 <ulist class="prev_next">
-  <item><link href="@ll:chapter=(!title)"
+  <item><link href="@learn:chapter=(!title)"
               sref="hoa://Application/External/Literature/Learn/Routerdispatcher.xyl"
               sref-title="//__current_ns:section1/@id"><previous_chapter /> Router + Dispatcher = ♥</link></item>
 </ulist>

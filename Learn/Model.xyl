@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xyl-use href="../Definitions.xyl"?>
+<?xyl-use href="../../../View/Shared/Definition/Code.xyl"?>
+<?xyl-overlay href="../../../View/Shared/Overlay/Code.xyl"?>
 
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
@@ -7,9 +9,9 @@
   <h1 id="Model">Manuel d'apprentissage<title_break />Modèle de données</h1>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Routerdispatcher"><previous_chapter /> Router +
+    <li><a href="@learn:chapter=Routerdispatcher"><previous_chapter /> Router +
         Dispatcher = ♥</a></li>
-    <li><a href="@ll:chapter=Xyl">XYL <next_chapter /></a></li>
+    <li><a href="@learn:chapter=Xyl">XYL <next_chapter /></a></li>
   </ul>
 
   <p>Une part importante d'une application est la <strong>manipulation des
@@ -827,9 +829,9 @@ little Gordy :-). xoxo, your Mummy.</code></pre>
   d'outils de gestion de données plus complexes de part sa conception.</p>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Routerdispatcher"><previous_chapter /> Router +
+    <li><a href="@learn:chapter=Routerdispatcher"><previous_chapter /> Router +
         Dispatcher = ♥</a></li>
-    <li><a href="@ll:chapter=Xyl">XYL <next_chapter /></a></li>
+    <li><a href="@learn:chapter=Xyl">XYL <next_chapter /></a></li>
   </ul>
 
 </yield>

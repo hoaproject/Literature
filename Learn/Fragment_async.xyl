@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xyl-use href="../Definitions.xyl"?>
+<?xyl-use href="../../../View/Shared/Definition/Code.xyl"?>
+<?xyl-overlay href="../../../View/Shared/Overlay/Code.xyl"?>
 
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
@@ -9,7 +11,7 @@
   <h1 id="Model">Manuel d'apprentissage<title_break />Fragment et asynchrone</h1>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Form"><previous_chapter /> Formulaire</a></li>
+    <li><a href="@learn:chapter=Form"><previous_chapter /> Formulaire</a></li>
     <li>??? <next_chapter/></li>
   </ul>
 
@@ -402,7 +404,7 @@ myAsync.hoa.async.addEventListener(
   <em lang="en">Gordon's blog</em></h2>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Form"><previous_chapter /> Formulaire</a></li>
+    <li><a href="@learn:chapter=Form"><previous_chapter /> Formulaire</a></li>
     <li>??? <next_chapter/></li>
   </ul>
 

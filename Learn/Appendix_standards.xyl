@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xyl-use href="../Definitions.xyl"?>
+<?xyl-use href="../../../View/Shared/Definition/Code.xyl"?>
+<?xyl-overlay href="../../../View/Shared/Overlay/Code.xyl"?>
 
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
@@ -8,7 +10,7 @@
   Conventions de codage et de nommage</h1>
 
   <ul class="prev_next">
-    <li><a href="@l"><previous_chapter /> Sommaire</a></li>
+    <li><a href="@literature"><previous_chapter /> Sommaire</a></li>
   </ul>
 
   <p>Cette annexe présente les conventions de codages et de nommages utilisées
@@ -175,7 +177,7 @@ $loongName = 53;
 $foo       = 'bar';</code></pre>
 
   <ul class="prev_next">
-    <li><a href="@l"><previous_chapter /> Sommaire</a></li>
+    <li><a href="@literature"><previous_chapter /> Sommaire</a></li>
   </ul>
 
 </yield>

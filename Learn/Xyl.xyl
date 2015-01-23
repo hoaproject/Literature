@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xyl-use href="../Definitions.xyl"?>
+<?xyl-use href="../../../View/Shared/Definition/Code.xyl"?>
+<?xyl-overlay href="../../../View/Shared/Overlay/Code.xyl"?>
 
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
@@ -7,9 +9,9 @@
   <h1 id="XYL">Manuel d'apprentissage<title_break />XYL</h1>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Model"><previous_chapter /> Modèle de
+    <li><a href="@learn:chapter=Model"><previous_chapter /> Modèle de
         données</a></li>
-    <li><a href="@ll:chapter=Form">Formulaire <next_chapter/></a></li>
+    <li><a href="@learn:chapter=Form">Formulaire <next_chapter/></a></li>
   </ul>
 
   <p>Le système d'interface graphique permet de déclarer des
@@ -1126,9 +1128,9 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
   etc. vont être détaillés dans les prochains chapitres.</p>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Model"><previous_chapter /> Modèle de
+    <li><a href="@learn:chapter=Model"><previous_chapter /> Modèle de
         données</a></li>
-    <li><a href="@ll:chapter=Form">Formulaire <next_chapter/></a></li>
+    <li><a href="@learn:chapter=Form">Formulaire <next_chapter/></a></li>
   </ul>
 
 </yield>

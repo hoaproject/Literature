@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xyl-use href="../Definitions.xyl"?>
+<?xyl-use href="../../../View/Shared/Definition/Code.xyl"?>
+<?xyl-overlay href="../../../View/Shared/Overlay/Code.xyl"?>
 
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
@@ -7,9 +9,9 @@
   <h1 id="Install">Manuel d'apprentissage<title_break />Installation</h1>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Introduction"><previous_chapter />
+    <li><a href="@learn:chapter=Introduction"><previous_chapter />
         Introduction</a></li>
-    <li><a href="@ll:chapter=Core">Exploration du noyau
+    <li><a href="@learn:chapter=Core">Exploration du noyau
         <next_chapter /></a></li>
   </ul>
 
@@ -223,9 +225,9 @@ var_dump(HOA);</code></pre>
   Configuration</em></a>. Hoa requiert PHP5.3.3 au minimum.</p>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Introduction"><previous_chapter />
+    <li><a href="@learn:chapter=Introduction"><previous_chapter />
         Introduction</a></li>
-    <li><a href="@ll:chapter=Core">Exploration du noyau <next_chapter /></a></li>
+    <li><a href="@learn:chapter=Core">Exploration du noyau <next_chapter /></a></li>
   </ul>
 
 </yield>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xyl-use href="../Definitions.xyl"?>
+<?xyl-use href="../../../View/Shared/Definition/Code.xyl"?>
+<?xyl-overlay href="../../../View/Shared/Overlay/Code.xyl"?>
 
 <definition xmlns="http://hoa-project.net/xyl/xylophone">
 <yield name="chapter">
@@ -8,9 +10,9 @@
   Dispatcher = ♥</h1>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Embryo"><previous_chapter /> Squelette
+    <li><a href="@learn:chapter=Embryo"><previous_chapter /> Squelette
         d'application</a></li>
-    <li><a href="@ll:chapter=Model">Modèle de données <next_chapter /></a></li>
+    <li><a href="@learn:chapter=Model">Modèle de données <next_chapter /></a></li>
   </ul>
 
   <p>Un aspect aussi nécessaire qu'important est l'<strong>assignation des
@@ -589,9 +591,9 @@ catch ( Hoa\Router\Exception\NotFound $e ) {
 Your page seems to be not found /o\.</code></pre>
 
   <ul class="prev_next">
-    <li><a href="@ll:chapter=Embryo"><previous_chapter /> Squelette
+    <li><a href="@learn:chapter=Embryo"><previous_chapter /> Squelette
         d'application</a></li>
-    <li><a href="@ll:chapter=Model">Modèle de données <next_chapter /></a></li>
+    <li><a href="@learn:chapter=Model">Modèle de données <next_chapter /></a></li>
   </ul>
 
 </yield>
