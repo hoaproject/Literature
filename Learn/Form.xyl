@@ -165,7 +165,7 @@ $xyl->render();</code></pre>
 …
 &amp;lt;error id="myError">
   &amp;lt;p>I am an error!&amp;lt;/p>
-&amp;lt;error></code></pre>
+&amp;lt;/error></code></pre>
   <p>L'erreur <code>myError</code> ne sera jamais affichée sauf si la donné
   contenu dans le composant <code>input</code> de type <code>email</code> est
   invalide. Pour le composant <code>form</code>, si une donnée est invalide,
