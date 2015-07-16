@@ -1,158 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xyl-use href="../Definitions.xyl"?>
 
-<definition xmlns="http://hoa-project.net/xyl/xylophone">
-<yield name="chapter">
+<overlay xmlns="http://hoa-project.net/xyl/xylophone">
+<yield id="main_content">
 
-  <h1 id="contrib-guide">Guide du contributeur</h1>
+  <h1>Contributor guide</h1>
 
-  <p>Hoa est un projet <em lang="en">open-source</em> ; aussi vous est-il
-    possible de contribuer au projet, que ce soit en <em>corrigeant des
-    bugs</em>,en <em>ajoutant de nouvelles fonctionnalités</em>, ou encore
-    en <em>corrigeant et complétant les différents manuels</em>. Ce chapitre
-    vous guidera pour que cette contribution soit la plus simple possible.</p>
+  <p>Abstract</p>
 
-  <h2 id="Table_des_matieres">Table des matières</h2>
+  <h2 id="Table_of_contents">Table of contents</h2>
 
-  <tableofcontents id="main-toc"/>
+  <tableofcontents id="main-toc" />
 
   <h2 id="Introduction" for="main-toc">Introduction</h2>
 
-  <p>Hoa utilise le système de gestion de version <a href="http://git-scm.org">
-    git</a>, et est hébergé sur <a href="http://git.hoa-project.net">
-    git.hoa-project.net</a>, avec un miroir sur <a
-    href="http://github.com/Hoaproject">Github</a>. Le projet est découpé en
-    <code>Libraries</code>, elles-même rassemblées au sein du <em>
-    meta-dépôt</em> <code><a href="http://git.hoa-project.net/Central">
-    Central</a></code> (ou sur <a href="http://github.com/Hoaproject/Central">
-    Github</a>). La cohérence entre ces nombreux dépôts est maintenue par
-    notre petit robot : <code><a href="http://git.hoa.io/?p=Bhoat.git">Bhoat
-    </a>)</code>. Aussi, pour contribuer, il vous suffira de :</p>
+  <p>Hoa is a big project. This project can not live without the help of a
+  precious community. This community is constitued of casual developers, regular
+  developers, sometimes even people that are not developers but love
+  programming, people used to use PHP, sometimes not…</p>
+  <p>Every experience, every idea, every thing that can make Hoa better for
+  thousands of users world-wide is INESTIMABLE.</p>
+
+  <h2 id="Prerequesites" for="main-toc">Prerequesites</h2>
+
+  <p>Before contributing to Hoa, we need to clarify some requirements in terms
+  of tools, knowledges etc. in order to make your journey as much pleasant as
+  possible.</p>
+
+  <h3 id="Tools" for="main-toc">Tools</h3>
+
+  <p>To contribute to Hoa, the following tools are required:</p>
   <ul>
-    <li>cloner la bibliothèque / documentation de votre choix,</li>
-    <li>écrire (du code, de la doc, les deux…) et commiter</li>
-    <li>tester</li>
-    <li>proposer vos changements</li>
-    <li>mettre à jour si nécessaire</li>
-    <li>à la fin, un <em>mainteneur</em> pourra intégrer vos changements
-      à Hoa</li>
+    <li><a href="http://php.net/install">PHP</a>,</li>
+    <li><a href="http://git-scm.com/">Git</a>,</li>
+    <li><a href="http://getcomposer.org/">Composer</a>.</li>
+  </ul>
+  <p>That's all. Every other tools are going to be automatically installed when
+  needed.</p>
+
+  <h3 id="Knowledges" for="main-toc">Knowledges</h3>
+
+  <p>This important point needs to be clarified quickly. There is absolutely
+  <strong>no</strong> minimum level of knowledges required to contribute to Hoa.
+  If you have an idea but you don't know how to develop it: Never mind, just
+  open a discussion and we will be very glad to help you understand how to do
+  it! If you have a higher knowledge than us on a specific domain (which is
+  likely to happen often), we will be very glad to learn from you! The community
+  of Hoa is rich because it is consituted of very different people. We cannot
+  wait for your first contribution!</p>
+
+  <h3 id="Getting_help" for="main-toc">Getting help</h3>
+
+  <p>At anytime, you will find at least one person to help you. Hoa, as a set of
+  libraries, is a vast project and not all “experts” are present all the time,
+  but we are pretty sure you will meet someone that can help or redirect you to
+  someone else.</p>
+  <p>Two ways to get help:</p>
+  <ul>
+    <li><a href="@community#IRC">on IRC</a>, for a realtime and synchronous
+    help,</li>
+    <li><a href="@community#Mailing-lists">on mailing-lists</a>, for an
+    asynchronous help with more people.</li>
   </ul>
 
-  <h2 id="about git" for="main-toc">À propos de git</h2>
-  <p>Le but de ce guide n'est pas de vous apprendre à utiliser git, aussi, nous vous conseillons avant sa lecture d'être un minimum familier avec les concepts de base de git, ainsi qu'avec ses différentes commandes. Si ce n'est pas le cas, nous vous conseillons vivement la lecture du site <a href="">git-book</a> ainsi que de la <a
-  href="http://git-scm.org">documentation officielle</a>.</p>
-  <p>L'ensembles des exemples donnés partent du principe que la commande <code>git</code> est disponible sur votre système.</p>
+  <h2 id="What_to_do" for="main-toc">What to do?</h2>
 
-  <h2 id="get-the-code" for="main-toc">Récupération du code</h2>
-  <p>Le code est disponible en clonant l'un des dépôts officiels. Ainsi, pour cloner la bibliothèque <code>Bench</code> :</p>
-  <pre><code class="language-shell">$ git clone http://git.hoa-project.net/Libraries/Bench.git
-Cloning into 'Bench'...
-remote: Counting objects: 19978, done.
-remote: Compressing objects: 100% (4950/4950), done.
-remote: Total 19978 (delta 14741), reused 19978 (delta 14741)
-Receiving objects: 100% (19978/19978), 2.93 MiB, done.
-Resolving deltas: 100% (14741/14741), done.</code></pre>
-  <p>Vous avez maintenant le répertoire Bench, dans lequel sont présentes
-  les sources de la librairie Bench :</p>
-  <pre><code class="language-shell">$ cd Bench
-$ git branch -a
-* master
-remotes/origin/HEAD -> origin/master
-remotes/origin/master</code></pre>
-  <p>Si vous avez déjà cloné le dépôt, vous pouvez toujours mettre à jour votre copie au moyen des commandes <code>git fetch</code>, <code>git merge</code>, <code>git pull</code>, etc.</p>
+  <p>waffle, github</p>
 
-  <h2 id="organize-code" for="main-toc">Organisation des sources</h2>
-  <p>Comme cela a déja été expliqué, Hoa est découpé en bibliothèques. Chacune de ces bibliothèques possède son propre dépôt, et elles sont toutes réunies au sein du dépôt <code>Central</code>. L'organisation que nous vous recommandons est la suivante :<!-- FIXME: décrire l'organisation des sources pour contribuer à un module, ainsi que l'organisation proposée pour la documentation -->. Nous verrons un peu plus tard que cela vous permettra de tester votre code simplement, tout en gardant Hoa pleinement fonctionnel.</p>
+  <h2 id="Set_up_the_environment" for="main-toc">Set up the environment</h2>
 
-  <h2 id="do-the-code" for="main-toc">Code</h2>
-  <!--FIXME: trouver un meilleur titre -->
-  <p>Pour contribuer à Hoa, vous pouvez travailler sur le code, ou sur la documentation (ou même, si vous avez l'âme d'un aventurier, alterner entre les 2!)</p>
+  <p>clone</p>
+  <p>new branch</p>
+  <p>composer install</p>
 
-  <h3 id="write-code" for="main-toc">Écriture de code</h3>
-  <p>Le code est écrit selon le coding style défini <a
-  href="http://hoa-project.net/Literature/Learn/Appendix_standards.html">ici</a>. Si vous lisez un peu le code source de Hoa, vous vous rendrez vite compte que c'est assez naturel, en fait, et que cela vas vous aider à structurer votre code plutôt que vous contraindre. Vous n'avez plus qu'à coder, commiter, coder, commiter, …</p>
+  <h2 id="Writing_a_patch" for="main-toc">Writing a patch</h2>
 
-  <h3 id="write-documentation" for="main-toc">Écriture de documentation</h3>
-  <p>La documentation est écrite en français. Elle utilise la syntaxe <a href="hoa-project.net/Literature/Learn/Xyl.html">Xyl</a> ; mais il suffit de connaître la syntaxe html pour s'en servir. de même que pour le coding style a été défini pour l'écriture de code, un ensemble de <a href="#">bonnes pratiques</a> a été établi afin d'harmoniser la documentation et de faciliter sa maintenance.</p>
-  <!-- FIXME: écrire les bonnes pratiques de rédaction de doc en annexe, en parallèle à Appendix_standards.
-  S'inspirer de la discussion IRC: Pour la doc', il faut toujours penser : maintenance.
-Maintenance = relecture, évolution, traduction et factorisation.
-Relecture : tu vas relire 300 fois ton chapitre. C'est chiant. Faut que ça reste clair même après 300 lectures ;-).
-Évolution : ta doc' va évoluer, il faut expliquer des concepts « atomiques », sinon tu vas faire évoluer plusieurs chapitres en même temps et tu vas très vite perdre en cohérence.
-Traduction : ça implique des versions qui évoluent en parallèle, c'est très dur, alors autant ne pas mettre de notion temporelle (en ce moment, pour l'instant, plus tard…). -->
+  <h2 id="Validating_a_patch" for="main-toc">Validating a patch</h2>
 
-  <h2 id="test-the-code" for="main-toc">Tests</h2>
-  <p>Que vous écriviez de la documentation, que vous corrigiez des bugs, ou que vous ajoutiez de nouvelles fonctionnalités, il faudra toujours prendre le temps de tester vos changements.</p>
+  <p>PR</p>
+  <p>reviewer</p>
+  <p>commiter</p>
 
-  <h3 id="preview-doc" for="main-toc">Prévisualisation de la documentation</h3>
-  <p>Afin de prévisualiser le rendu de la documentation, vous pouvez directement utiliser le mini serveur disponible dans Hoa :</p>
+  <h3 id="Testing_a_patch" for="main-toc">Testing a patch</h3>
 
-  <h2 id="submit-the-code" for="main-toc">Proposition des changements</h2>
-  <p>Une fois que vous êtes satisfait de vos changements, il est temps de les soumettre à la communauté. Vous avez plusieurs moyens de le faire, l'important étant de faciliter la relecture et de favoriser les discussions autour de vos changements ; en effet, plus il y aura de personnes relisant votre code, plus vite seront détectées les éventuelles erreurs. De plus, cela permet de faciliter un peu le travail des mainteneurs.</p>
-  <p>Vous pouvez donc :</p>
-  <ul>
-    <li>poster un diff sur le forum (commande <code>git log</code>),</li>
-    <li>poster une série de patches sur le forum (commande <code>git format-patch</code>),</li>
-    <li>envoyer une série de patches sur la mailing-list (commande <code>git send-email</code>),</li>
-    <li>poster une demande de merge sur le forum, à condition qu'il existe un accès public à votre dépôt (commande <code>git request-pull</code>),</li>
-    <li>faire une "pull-request" sur <a href="#what-about-github">github</a>,</li>
-    <li>…</li>
-  </ul>
+  <p>test:run</p>
 
-  <h3 id="organize-the-code" for="main-toc">Mise en forme des patches</h3>
-  <p>Avant de soumettre vos changements, il est important de bien les organiser. Cela fera également l'objet de la revue, car des séries de patches bien organisées permettent entre autres de faciliter <em>l'intégration</em>, faciliter <em>les corrections d'éventuelles régressions</em>, rendre l'historique du projet <em>plus compréhensible</em>.</p>
-  <p>Cette bonne organisation passe par les points suivants :</p>
-  <ul>
-    <li>chaque commit correspond à une fonctionnalité / une correction de bug unitaire,</li>
-    <li>chaque commit est correctement commenté, afin d'être facilement identifié (nous vous invitions à respecter les consignes détaillées par Tim Pope <a href="http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html">sur son blog</a>)</li>
-    <li>vos changements s'appliquent sans nécessiter de merge sur la branche cible (au besoin, utilisez la commande <code>git rebase</code> avant de soumettre vos changements)</li>
-  </ul>
+  <h3 id="Preparing_a_patch" for="main-toc">Preparing a patch</h3>
 
-  <h3 id="discuss-the-code" for="main-toc">Revue de code</h3>
-  <p>Une fois vos changements soumis, ils pourront être relus et commentés par la communauté de Hoa (bien sûr, vous n'êtes pas obligés d'attendre cet ultime moment pour en parler, nous pouvons vous aider à l'élaboration de votre code). Cela permettra de détecter les éventuelles erreurs que vous n'auriez pas détecté, de vous proposer des améliorations ou des optimisations, de vérifier le respect des règles de codage, etc. Vous serez souvent amenés à mettre à jour vos changements au fur et à mesure des discussions.</p>
+  <p>CS</p>
 
-  <h2 id="merge-the-code" for="main-toc">Intégration des patches</h2>
-  <p>Une fois votre contribution satisfaisante, elle sera mergée dans Hoa. Pour ce faire, vous n'avez plus rien à faire, ce sont les mainteneurs qui travaillent…</p>
+  <h2 id="Publishing_a_patch" for="main-toc">Publishing a patch</h2>
 
-  <h3 id="maintainer-guide" for="main-toc">Guide des mainteneurs</h3>
-  <p>pour intégrer les changements, vous devez les merger avec la branche cible, puis pusher sur <a href="git.hoa-project.net">git.hoa-project.net</a>. La synchronisation se fera alors automatiquement avec Central et github. Ce merge peut être fait de plusieurs façons :</p>
-  <ul>
-    <li>si le repository est directement accessible, vous pouvez l'ajouter en remote, et faire le merge ensuite,</li>
-    <li>si le repository est sur github, vous pouvez utiliser l'astuce décrite <a
-    href="https://gist.github.com/3342247">ici</a> pour accéder directement aux pull requests,</li>
-    <li>si le diff est disponible sous la forme de patches obtenus par <code>git format-patch</code>, vous pouvez utiliser <code>git am</code>,</li>
-  </ul>
-  <p>Dans tous les cas, le merge doit se faire en fast-forward uniquement (il est conseillé d'utiliser l'option <code>--fast-forward-only</code> lors de vos <code>git pull</code> ou <code>git merge</code></p>
-
-  <h2 id="good-practices" for="main-toc">Bonnes pratiques</h2>
-  <p>Voici plusieurs bonnes pratiques qui permettront de simplifier vos contributions et leur intégration :</p>
-  <ul>
-    <li>Travaillez toujours dans une branche, jamais sur <code>master</code>,</li>
-    <li>Nommez vos branches explicitement,</li>
-    <li>L'habitude avec git est de ne plus changer l'historique des branches <em>publiques</em> (donc plus de rebase, etc.). Lorsque vous travaillez sur une branche qui est susceptible de voir son historique modifié, montrez-le explicitement (par exemple en nommant votre branche <code>private/myBranch</code> plutôt que <code>myBranch</code>,</li>
-    <li>Pendant vos développements, et pendant les discussions autour de vos changements, n'hésitez pas à garder plusieurs commits si cela rend les échanges plus simples, même si vous les fusionnez au moment de les intégrer.</li>
-  </ul>
-
-  <h2 id="contributor-pack" for="main-toc">Pack contributeur</h2>
-  <p>Suite à votre première contribution, vous serez ajouté à <a href="http://git.hoa-project.net/?p=Central.git;a=blob;f=CONTRIBUTOR">la liste des contributeurs officiels de Hoa</a>. Cette inscription, outre la pérennité, vous donne accès au pack contributeurs, constitué de :</p>
-  <ul>
-    <li>Une adresse mail de la forme prenom.nom@hoa-project.net (avec un
-    webmail, ou une redirection vers l'adresse de votre choix), accompagnée de
-    l'alias pseudo@hoa-project.net,</li>
-    <li>Une licence <a href="http://www.jetbrains.com/phpstorm/">PhpStorm</a>,
-    gracieusement offerte par <a
-    href="http://www.jetbrains.com/">Jetbrains</a>,</li>
-    <li>un <a href="https://freenode.net/faq.shtml#cloaks">cloak</a> sur
-    freenode (pour faire simple, le <em>cloak</em> vous identifie sur irc comme
-    un contributeur officiel, et masque votre adresse ip. Par exemple,
-    <code>/whois &amp;amp;lt;pseudo></code> répondra :
-    <code>(~&amp;amp;lt;name>@hoaproject/contributor/&amp;amp;lt;pseudo>): &amp;amp;lt;prénom>
-    &amp;amp;lt;nom></code>),</li>
-    <li>Des goodies,</li>
-    <li>Des invitations et des avantages à des événements autour de php</li>
-    <li>…</li>
-  </ul>
-  <p>Bien sûr, ce sont des avantages dont vous pouvez disposer à votre convenance, vous n'avez aucune obligation à les prendre tous.</p>
+  <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
 </yield>
-</definition>
+</overlay>
