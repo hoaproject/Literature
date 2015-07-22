@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xyl-use href="../../../View/Shared/Definition/Code.xyl"?>
+<?xyl-overlay href="../../../View/Shared/Overlay/Code.xyl"?>
+<?xyl-overlay href="../../../View/Shared/Overlay/Github.xyl"?>
 
 <overlay xmlns="http://hoa-project.net/xyl/xylophone">
 <yield id="main_content">
@@ -13,34 +16,43 @@
 
   <h2 id="Introduction" for="main-toc">Introduction</h2>
 
-  <p>Hoa is a big project. This project can not live without the help of a
-  precious community. This community is constitued of casual developers, regular
-  developers, sometimes even people that are not developers but love
-  programming, people used to use PHP, sometimes not…</p>
+  <p>Hoa is a big project. This project cannot live without the help of a
+  <strong>precious</strong> community. This community is constitued of casual
+  developers, regular developers, sometimes even people that are not developers
+  but programming lovers, people used to use PHP, sometimes not…</p>
   <p>Every experience, every idea, every thing that can make Hoa better for
-  thousands of users world-wide is INESTIMABLE.</p>
+  thousands of users world-wide is <strong>inestimable</strong>. However,
+  contributing to a project is not an easy task. There is some prerequisites,
+  some useful information to be aware of, like:</p>
+  <ul>
+    <li>The organization,</li>
+    <li>Who are the people to talk to, and,</li>
+    <li>In a more simpler way, what to do exactly?</li>
+  </ul>
+  <p>We hope this contributor guide will answer to these questions.</p>
 
-  <h2 id="Prerequesites" for="main-toc">Prerequesites</h2>
+  <h2 id="Prerequisites" for="main-toc">Prerequisites</h2>
 
   <p>Before contributing to Hoa, we need to clarify some requirements in terms
-  of tools, knowledges etc. in order to make your journey as much pleasant as
+  of tools, skills etc. in order to make your journey as much pleasant as
   possible.</p>
 
   <h3 id="Tools" for="main-toc">Tools</h3>
 
   <p>To contribute to Hoa, the following tools are required:</p>
   <ul>
-    <li><a href="http://php.net/install">PHP</a>,</li>
+    <li><a href="http://php.net/">PHP</a>,</li>
     <li><a href="http://git-scm.com/">Git</a>,</li>
-    <li><a href="http://getcomposer.org/">Composer</a>.</li>
+    <li><a href="http://getcomposer.org/">Composer</a>,</li>
+    <li><a href="http://curl.haxx.se/">cURL</a>.</li>
   </ul>
   <p>That's all. Every other tools are going to be automatically installed when
   needed.</p>
 
-  <h3 id="Knowledges" for="main-toc">Knowledges</h3>
+  <h3 id="Skills" for="main-toc">Skills</h3>
 
   <p>This important point needs to be clarified quickly. There is absolutely
-  <strong>no</strong> minimum level of knowledges required to contribute to Hoa.
+  <strong>no</strong> minimum skill level required to contribute to Hoa.
   If you have an idea but you don't know how to develop it: Never mind, just
   open a discussion and we will be very glad to help you understand how to do
   it! If you have a higher knowledge than us on a specific domain (which is
@@ -50,27 +62,191 @@
 
   <h3 id="Getting_help" for="main-toc">Getting help</h3>
 
-  <p>At anytime, you will find at least one person to help you. Hoa, as a set of
-  libraries, is a vast project and not all “experts” are present all the time,
-  but we are pretty sure you will meet someone that can help or redirect you to
-  someone else.</p>
+  <p>At anytime, you will find at least one person to <strong>help</strong> you.
+  Hoa, as a set of libraries, is a vast project and not all
+  <strong>hoackers</strong> are present all the time, but we are pretty sure you
+  will meet someone that can help or redirect you to someone else. An hoacker is
+  a long-term contributor that have deep or wide knowledge of the project.</p>
   <p>Two ways to get help:</p>
   <ul>
-    <li><a href="@community#IRC">on IRC</a>, for a realtime and synchronous
+    <li><a href="@community#IRC">on IRC</a>, for a <strong>realtime</strong> and
+    <strong>synchronous</strong>
     help,</li>
     <li><a href="@community#Mailing-lists">on mailing-lists</a>, for an
-    asynchronous help with more people.</li>
+    <strong>asynchronous</strong> help with more people.</li>
   </ul>
 
   <h2 id="What_to_do" for="main-toc">What to do?</h2>
 
-  <p>waffle, github</p>
+  <p>Hoa has more than 50 libraries, in addition to other sub-projects. Each
+  library lives in a specific repository. This is hard to have an
+  <strong>overview</strong> of the current work:</p>
+  <ul>
+    <li>What should be done?</li>
+    <li>What is ready to be done?</li>
+    <li>What is in progress? or</li>
+    <li>What is under review?</li>
+  </ul>
+  <p>They are all <strong>legitimate</strong> questions when starting with a
+  project (even when you are a long-term contributor sometimes!).</p>
+
+  <h3 id="Boards_for_an_overview" for="main-toc">Boards for an overview</h3>
+
+  <p>Each library has an <a href="@literature#Hack_book">hack book chapter</a>.
+  Each chapter provides useful links to its top, such as:</p>
+  <ul>
+    <li>
+      <img src="hoa://Application/Public/Image/Icon/Waffle.svg" alt="Git" height="25px" />
+      To its <strong>board</strong>,
+    </li>
+    <li>
+      <img src="hoa://Application/Public/Image/Icon/Git.svg" alt="Git" height="25px" />
+      To its <strong>Git repository</strong>,
+    </li>
+    <li>
+      <img src="hoa://Application/Public/Image/Icon/Github.svg" alt="Github" height="25px" />
+      To its <strong>Github repository</strong>.
+    </li>
+  </ul>
+  <p>The <strong>board</strong> is the place where all the works appear in
+  columns representing the progression:</p>
+  <ol>
+    <li><strong>Backlog</strong>, things under discussion,</li>
+    <li><strong>Ready</strong>, things that are ready to be done,</li>
+    <li><strong>In progess</strong>, things that are being done by some
+    contributors,</li>
+    <li><strong>Done</strong>, things that have been recently done.</li>
+  </ol>
+  <p>Also, you may know that the <code>Central</code> is a (read-only)
+  repository that gathers all Hoa's libraries in one place. So, as expected,
+  <a href="@board:repository=Central">the board of the <code>Central</code></a>
+  provides the <strong>highest overview</strong> of all the current works of
+  all Hoa's libraries.</p>
+
+  <h3 id="What_difficulty" for="main-toc">What difficulty?</h3>
+
+  <p>In order to ease the contribution process, we are trying to attach several
+  labels to each work (like <code>bug</code> or <code>enhancement</code>). Some
+  of them provide an information about the difficulty:</p>
+  <ul>
+    <li><code>casual</code>, can be done by a new contributor or can be done
+    quickly,</li>
+    <li><code>medium</code>, requires some skills to address this work,</li>
+    <li><code>hard</code>. requires strong skills in the code and the domain it
+    addresses.</li>
+  </ul>
+  <p>Fortunately, boards provide a search engine easing to sort the works based
+  on your profile; thus:</p>
+  <ul>
+    <li><a href="https://waffle.io/hoaproject/central?search=difficulty%3A%20casual">all
+    the <code>casual</code> works</a>,</li>
+    <li><a href="https://waffle.io/hoaproject/central?search=difficulty%3A%20medium">all
+    the <code>medium</code> works</a>,</li>
+    <li><a href="https://waffle.io/hoaproject/central?search=difficulty%3A%20hard">all
+    the <code>hard</code> works</a>.</li>
+  </ul>
+  <p>Now we know what to do, let's contribute!</p>
 
   <h2 id="Set_up_the_environment" for="main-toc">Set up the environment</h2>
 
-  <p>clone</p>
-  <p>new branch</p>
-  <p>composer install</p>
+  <p>In this section we will see how to set up the repository (the code) and the
+  dependencies (mostly to run the tests).</p>
+
+  <h3 id="Repository" for="main-toc">Repository</h3>
+
+  <p>Hoa hosts its own <a href="http://git.hoa-project.net/">Git
+  repositories</a>. The rules are the following:</p>
+  <ul>
+    <li>Everyone can <strong>read</strong> through <strong>HTTP</strong>:</li>
+    <pre><code class="language-shell">$ git clone http://git.hoa-project.net/Library/Websocket.git</code></pre>
+    <li>Commiters can <strong>read and write</strong> through <strong>SSH</strong>:</li>
+    <pre><code class="language-shell">$ git clone git@git.hoa-project.net:Library/Websocket</code></pre>
+  </ul>
+  <p>As mentionned on <a href="@source">the source page</a>, most of the
+  repositories are mirrored on
+  <a href="https://github.com/hoaproject">Github</a>. We use Github as a
+  <strong>bug tracker</strong>, where all issues and contributions happen. Also,
+  several tools are linked to Github such as the boards or Composer (detailed
+  hereinafter).  Mirrors are one-way and a bot is responsible to synchronize
+  everything, no worry.</p>
+  <p>So we suggest you to start by cloning a library from Github, let's say
+  <a href="@github:repository=Websocket"><code>Hoa\Websocket</code></a>:</p>
+  <pre><code class="language-shell">$ mkdir Hoa
+$ cd Hoa
+$ git clone https://github.com/hoaproject/Websocket
+$ cd Websocket</code></pre>
+  <p>If <a href="https://help.github.com/articles/generating-ssh-keys/">Github
+  knows your public SSH key</a>, then we suggest:</p>
+  <pre><code class="language-shell">$ git clone git@github.com:hoaproject/Websocket.git</code></pre>
+  <p>Immediatly, to avoid incoming potential conflicts, we suggest to create a new branch:</p>
+  <pre><code class="language-shell">$ git checkout -b incoming</code></pre>
+  <p>Creating an <code>incoming</code> branch keeps the <code>master</code>
+  branch <strong>safe</strong>. The <code>master</code> is really important for
+  Hoa, because it uses the <a href="@source#Rush_Release">Rush Release</a> as a
+  release system.  It implies the <code>master</code> branch always contains the
+  latest patches. Thus, to update the <code>master</code> branch, you just need
+  to run:</p>
+  <pre><code class="language-shell">$ git pull origin master:master</code></pre>
+  <p>Because your branch reference is <code>incoming</code> and not
+  <code>master</code>, this is easier to maintain your repository
+  up-to-date. We will detail this shortly.</p>
+  <p>Of course you will not work directly on Hoa's repository because: First, it
+  is a mirror, second, you do not have the permissions and third, it is a bad
+  practise. You need to <a
+  href="https://help.github.com/articles/fork-a-repo/">fork the repository</a>.
+  A fork is a raw copy of the repository, allowing to do whatever you want
+  without any restrictions. To fork a repository, let's say
+  <a href="@github:repository=Websocket"><code>Hoa\Websocket</code></a>, you can
+  use the Github interface, or you can click on the following button <a
+    href="https://github.com/hoaproject/Websocket/fork"
+    class="github-button"
+    data-icon="octicon-git-branch">Fork</a>,
+  or run the following command (assuming the variable
+  <code>$me</code> represents your Github username):</p>
+  <pre><code class="language-shell">$ me=&amp;lt;your Github username>
+$ curl -X POST https://api.github.com/repos/hoaproject/Websocket/forks --user $me</code></pre>
+  <p>Now you have your own fork, we must tell the repository this is another
+  remote. A remote is another location for a repository. Thus:</p>
+  <pre><code class="language-shell">$ git remote add me git@github.com:$me/Websocket.git</code></pre>
+  <p>At this point, we should see 2 remotes, like in the following
+  example:</p>
+  <pre><code class="language-shell">$ git remote --verbose
+me  git@github.com:$me/Websocket (fetch)
+me  git@github.com:$me/Websocket (push)
+origin  https://github.com/hoaproject/Websocket (fetch)
+origin  https://github.com/hoaproject/Websocket (push)</code></pre>
+  <p>Bonus: If you would like to see all the pull requests locally, i.e. all the
+  contributions in progress (can be useful to help or test someone else's
+  contribution), we will create a new remote, called <code>github-pr</code>. It
+  will point to the same URL than <code>origin</code> in this particular case
+  but we create another remote to clarify the workflow. Thus:</p>
+  <pre><code class="language-shell">$ git remote add github-pr git@github.com:hoaproject/Websocket.git
+$ git config remote.github-pr.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*'
+$ git remote --verbose
+github-pr   git@github.com:hoaproject/Websocket (fetch)
+github-pr   git@github.com:hoaproject/Websocket (push)
+me  git@github.com:$me/Websocket (fetch)
+me  git@github.com:$me/Websocket (push)
+origin  https://github.com/hoaproject/Websocket (fetch)
+origin  https://github.com/hoaproject/Websocket (push)</code></pre>
+  <p>So to sum up, we have 3 remotes:</p>
+  <ol>
+    <li><code>origin</code>, Hoa's repository (Github mirror),</li>
+    <li><code>me</code>, your fork,</li>
+    <li><code>github-pr</code>, all pull requests on Hoa's repository.</li>
+  </ol>
+  <p>Finally, to get all the data from all the remotes:</p>
+  <pre><code class="language-shell">$ git fetch --all</code></pre>
+
+  <h3 id="Dependencies" for="main-toc">Dependencies</h3>
+
+  <p>The repository you cloned is likely to contain
+  <strong>dependencies</strong>. To manage and install them, we rely on
+  <a href="http://getcomposer.org/">Composer</a>. Thus, to install them:</p>
+  <pre><code class="language-shell">$ composer install</code></pre>
+  <p>And to update them:</p>
+  <pre><code class="language-shell">$ composer update</code></pre>
+  <p>Now you are ready to write a patch!</p>
 
   <h2 id="Writing_a_patch" for="main-toc">Writing a patch</h2>
 
@@ -89,6 +265,18 @@
   <p>CS</p>
 
   <h2 id="Publishing_a_patch" for="main-toc">Publishing a patch</h2>
+
+  <p>commit, commit, commit, rebase only at the end if needed</p>
+
+  <h2 id="Contributor_pack" for="main-toc">Contributor pack</h2>
+
+  <ul>
+    <li>mail</li>
+    <li>PHPStorm license</li>
+    <li>IRC cloak</li>
+    <li>goodies</li>
+    <li>invites and special offers to some events</li>
+  </ul>
 
   <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
