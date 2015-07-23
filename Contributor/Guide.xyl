@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xyl-use href="../../../View/Shared/Definition/Code.xyl"?>
 <?xyl-overlay href="../../../View/Shared/Overlay/Code.xyl"?>
-<?xyl-overlay href="../../../View/Shared/Overlay/Github.xyl"?>
 
 <overlay xmlns="http://hoa-project.net/xyl/xylophone">
 <yield id="main_content">
@@ -105,7 +104,7 @@
     </li>
     <li>
       <img src="hoa://Application/Public/Image/Icon/Github.svg" alt="Github" height="25px" />
-      To its <strong>Github repository</strong>.
+      To its <strong>Github mirror</strong>.
     </li>
   </ul>
   <p>The <strong>board</strong> is the place where all the works appear in
@@ -160,20 +159,21 @@
     <li>Everyone can <strong>read</strong> through <strong>HTTP</strong>:</li>
     <pre><code class="language-shell">$ git clone http://git.hoa-project.net/Library/Websocket.git</code></pre>
     <li>Commiters can <strong>read and write</strong> through <strong>SSH</strong>:</li>
-    <pre><code class="language-shell">$ git clone git@git.hoa-project.net:Library/Websocket</code></pre>
+    <pre><code class="language-shell">$ git clone git@git.hoa-project.net:Library/Websocket.git</code></pre>
   </ul>
-  <p>As mentionned on <a href="@source">the source page</a>, most of the
-  repositories are mirrored on
+  <p>As mentionned on <a href="@source#Version_manager_(Git)">the source
+  page</a>, most of the repositories are mirrored on
   <a href="https://github.com/hoaproject">Github</a>. We use Github as a
   <strong>bug tracker</strong>, where all issues and contributions happen. Also,
   several tools are linked to Github such as the boards or Composer (detailed
   hereinafter).  Mirrors are one-way and a bot is responsible to synchronize
   everything, no worry.</p>
   <p>So we suggest you to start by cloning a library from Github, let's say
-  <a href="@github:repository=Websocket"><code>Hoa\Websocket</code></a>:</p>
+  <a href="@github:repository=Websocket">the <code>Hoa\Websocket</code>
+  library</a>:</p>
   <pre><code class="language-shell">$ mkdir Hoa
 $ cd Hoa
-$ git clone https://github.com/hoaproject/Websocket
+$ git clone https://github.com/hoaproject/Websocket.git
 $ cd Websocket</code></pre>
   <p>If <a href="https://help.github.com/articles/generating-ssh-keys/">Github
   knows your public SSH key</a>, then we suggest:</p>
@@ -197,11 +197,8 @@ $ cd Websocket</code></pre>
   A fork is a raw copy of the repository, allowing to do whatever you want
   without any restrictions. To fork a repository, let's say
   <a href="@github:repository=Websocket"><code>Hoa\Websocket</code></a>, you can
-  use the Github interface, or you can click on the following button <a
-    href="https://github.com/hoaproject/Websocket/fork"
-    class="github-button"
-    data-icon="octicon-git-branch">Fork</a>,
-  or run the following command (assuming the variable
+  use <a href="https://github.com/hoaproject/Websocket/fork">the Github
+  interface</a> or run the following command (assuming the variable
   <code>$me</code> represents your Github username):</p>
   <pre><code class="language-shell">$ me=&amp;lt;your Github username>
 $ curl -X POST https://api.github.com/repos/hoaproject/Websocket/forks --user $me</code></pre>
@@ -211,10 +208,10 @@ $ curl -X POST https://api.github.com/repos/hoaproject/Websocket/forks --user $m
   <p>At this point, we should see 2 remotes, like in the following
   example:</p>
   <pre><code class="language-shell">$ git remote --verbose
-me  git@github.com:$me/Websocket (fetch)
-me  git@github.com:$me/Websocket (push)
-origin  https://github.com/hoaproject/Websocket (fetch)
-origin  https://github.com/hoaproject/Websocket (push)</code></pre>
+me  git@github.com:$me/Websocket.git (fetch)
+me  git@github.com:$me/Websocket.git (push)
+origin  git@github.com:hoaproject/Websocket.git (fetch)
+origin  git@github.com:hoaproject/Websocket.git (push)</code></pre>
   <p>Bonus: If you would like to see all the pull requests locally, i.e. all the
   contributions in progress (can be useful to help or test someone else's
   contribution), we will create a new remote, called <code>github-pr</code>. It
@@ -223,13 +220,14 @@ origin  https://github.com/hoaproject/Websocket (push)</code></pre>
   <pre><code class="language-shell">$ git remote add github-pr git@github.com:hoaproject/Websocket.git
 $ git config remote.github-pr.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*'
 $ git remote --verbose
-github-pr   git@github.com:hoaproject/Websocket (fetch)
-github-pr   git@github.com:hoaproject/Websocket (push)
-me  git@github.com:$me/Websocket (fetch)
-me  git@github.com:$me/Websocket (push)
-origin  https://github.com/hoaproject/Websocket (fetch)
-origin  https://github.com/hoaproject/Websocket (push)</code></pre>
-  <p>So to sum up, we have 3 remotes:</p>
+github-pr   git@github.com:hoaproject/Websocket.git (fetch)
+github-pr   git@github.com:hoaproject/Websocket.git (push)
+me  git@github.com:$me/Websocket.git (fetch)
+me  git@github.com:$me/Websocket.git (push)
+origin  git@github.com:hoaproject/Websocket.git (fetch)
+origin  git@github.com:hoaproject/Websocket.git (push)</code></pre>
+  <p>So to sum up, we have 3 remotes, i.e. 3 different sources for the same
+  code:</p>
   <ol>
     <li><code>origin</code>, Hoa's repository (Github mirror),</li>
     <li><code>me</code>, your fork,</li>
@@ -246,27 +244,120 @@ origin  https://github.com/hoaproject/Websocket (push)</code></pre>
   <pre><code class="language-shell">$ composer install</code></pre>
   <p>And to update them:</p>
   <pre><code class="language-shell">$ composer update</code></pre>
-  <p>Now you are ready to write a patch!</p>
+  <p>A <code>vendor/</code> directory has been created at the root of the
+  repository, along with a <code>composer.lock</code> file. Inside the
+  <code>vendor/hoa/</code> directory you will find all Hoa's dependencies. And
+  the <code>vendor/bin/hoa</code> file is a command to execute some programs
+  provided by Hoa. We will use them shortly.</p>
 
-  <h2 id="Writing_a_patch" for="main-toc">Writing a patch</h2>
+  <h3 id="New_branch" for="main-toc">New branch</h3>
+
+  <p>In addition to the <code>incoming</code> branch, it will be more
+  comfortable and less error-prone to create one branch per contribution. There
+  is no convention about the branch naming but we recommend everything in
+  lowercase and <code>-</code>, <code>_</code> or <code>/</code> instead of
+  spaces. Before creating a new branch, it is recommended to start with an
+  up-to-date <code>master</code> and <code>incoming</code> branches:</p>
+  <pre><code class="language-shell">$ git pull origin master:master
+$ git checkout incoming
+$ git merge master</code></pre>
+  <p>Now you are ready to create your new branch, let's say
+  <code>awesome-feature</code>:</p>
+  <pre><code class="language-shell">$ git checkout -b awesome-feature
+$ git branch
+* awesome-feature
+  incoming
+  master</code></pre>
+  <p>You are now ready to start writing code.</p>
+  <p>Files that are likely to be modified are at the root of the repository. Edit
+  them, save them, execute them, you are free to do whather you want. Assume
+  that all files are UTF-8 encoded. This is important. If you need softwares to
+  edit code, we can help you (see section bellow).</p>
+  <p>In <a href="@source#Structure_of_a_library">the source page</a>, we learn
+  what is the structure of a library. You must read it.</p>
 
   <h2 id="Validating_a_patch" for="main-toc">Validating a patch</h2>
 
-  <p>PR</p>
-  <p>reviewer</p>
-  <p>commiter</p>
-
-  <h3 id="Testing_a_patch" for="main-toc">Testing a patch</h3>
-
-  <p>test:run</p>
+  <p>While you are coding, before commiting your patches, you need to validate
+  them. Our advice is to repeat this operation very often. The more you validate
+  your code, the easier it will be to detect and understand errors or
+  faults.</p>
 
   <h3 id="Preparing_a_patch" for="main-toc">Preparing a patch</h3>
 
-  <p>CS</p>
+  <p>Before all: Coding styles. Hoa adopts
+  <a href="http://php-fig.org/psr/psr-1/">PSR-1</a> and
+  <a href="http://php-fig.org/psr/psr-2/">PSR-2</a> standards regarding
+  coding styles, in addition to some other internal standards. In order to
+  check and automatically fix the majority of them, you would need to run
+  the following command preferably at the root of the repository:</p>
+  <pre><code class="language-shell">$ vendor/bin/hoa devtools:cs --dry-run --diff .</code></pre>
+  <p>This command will check and print whether the majority of the coding styles
+  are respected. If you want to automatically fix them, just remove the
+  <code>--dry-run</code> option, thus:</p>
+  <pre><code class="language-shell">$ vendor/bin/hoa devtools:cs --diff .</code></pre>
+  <p>The command <code>hoa devtools:cs</code> requires the
+  <a href="https://github.com/FriendsOfPHP/PHP-CS-Fixer">PHP-CS-Fixer</a> tool
+  to be installed somewhere. Since this is a tool you are likely to use accross
+  several projects, our advice is to install it globally:</p>
+  <pre><code class="language-shell">$ composer global require fabpot/php-cs-fixer</code></pre>
+  <p>Be ensured that <code>~/.composer/vendor/bin</code> is present in your
+  <code>$PATH</code>.</p>
+
+  <h3 id="Testing_a_patch" for="main-toc">Testing a patch</h3>
+
+  <p>Once your code pretty, you can run tests to ensure there is no regression
+  first; assuming you are still at the root of the repository:</p>
+  <pre><code class="language-shell">$ vendor/bin/hoa test:run --directories Test</code></pre>
+  <p>Excellent! To write new tests, to complete existing ones or to learn more
+  about their execution, please refer to <a href="@hack:chapter=Test">the
+  documentation of the <code>Hoa\Test</code> library</a>. We do not require
+  contributors to use a specific development methodology, like test-driven
+  development for instance. You are free to do whatever you want.</p>
+
+  <h2 id="Commiting_a_patch" for="main-toc">Commiting a patch</h2>
+
+  <p>Commit as much as possible. Abuse of commits. It is not bad to have too
+  much commits but it is unfortunate to not have enough of them. One commit is
+  atomic, it includes one specific modification. At least, the code must be able
+  to run between any commits.</p>
+  <p>A commit title must be 50 characters long. The commit body must contain
+  <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> (even
+  <a href="https://help.github.com/articles/github-flavored-markdown/">Github
+  flavored Markdown</a> is accepted). A commit message tells a story. Feel free
+  to add links and other references into the commit body. It <strong>must
+  answer</strong> to the following questions:</p>
+  <ol>
+    <li><strong>What was</strong> the issue?</li>
+    <li><strong>How to address</strong> this issue?</li>
+    <li><strong>How did we address</strong> the issue?</li>
+  </ol>
+  <p>These questions reflect the way we do everything in Hoa (in particular the
+  documentation). We do not provide a <q>“cool”</q> and <q>“blazing fast
+  API”</q> just to make the <q>“buzz”</q>. We identify a problem, we think about
+  it, we think about several ways to address it, and finally we propose a way to
+  address it by scrupulously keeping the backward compatibility (BC) and
+  preventing future potential BC breaks.  Sometimes it can be a long process but
+  this is really important.</p>
+  <p>To precisely choose what is going to be included inside a commit, we
+  recommend to always use the following workflow:</p>
+  <pre><code class="language-shell">$ git add --patch &amp;lt;file>
+$ git add --patch &amp;lt;another file>
+…
+$ git commit</code></pre>
+  <p>Note that <code>git commit</code> has no argument because the patch has
+  been constructed with <code>git add</code>.</p>
+  <p>We highly recommend to use your <code>$EDITOR</code> to edit the commit
+  message: It is not possible to fulfill our recommendations in CLI.</p>
+  <p>Do not edit the <code>CHANGELOG.md</code> file. It is automatically
+  generated.</p>
 
   <h2 id="Publishing_a_patch" for="main-toc">Publishing a patch</h2>
 
   <p>commit, commit, commit, rebase only at the end if needed</p>
+  <p>PR</p>
+  <p>reviewer</p>
+  <p>commiter</p>
 
   <h2 id="Contributor_pack" for="main-toc">Contributor pack</h2>
 
