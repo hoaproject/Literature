@@ -7,7 +7,9 @@
 
   <h1>Contributor guide</h1>
 
-  <p>Abstract</p>
+  <p>Contributing to a project is awesome! However it might be difficult to know
+  exactly how to do it or what need to be done. This contributor guide will help
+  you to make great contributions!</p>
 
   <h2 id="Table_of_contents">Table of contents</h2>
 
@@ -58,6 +60,12 @@
   likely to happen often), we will be very glad to learn from you! The community
   of Hoa is rich because it is consituted of very different people. We cannot
   wait for your first contribution!</p>
+  <p>Also, it is important to note we are going to show you some Git commands
+  for instance. Our goal is not to provide a Git guide. The given commands are
+  the ones you are likely to use daily, but if you do not understand them or
+  if you do not feel comfortable with Git, you must either read
+  <a href="http://git-scm.com/book/">the Git documentation</a> or ask on IRC.
+  This introduces the next section.</p>
 
   <h3 id="Getting_help" for="main-toc">Getting help</h3>
 
@@ -298,8 +306,8 @@ $ git branch
   <pre><code class="language-shell">$ vendor/bin/hoa devtools:cs --diff .</code></pre>
   <p>The command <code>hoa devtools:cs</code> requires the
   <a href="https://github.com/FriendsOfPHP/PHP-CS-Fixer">PHP-CS-Fixer</a> tool
-  to be installed somewhere. Since this is a tool you are likely to use accross
-  several projects, our advice is to install it globally:</p>
+  to be installed somewhere. Since this is a tool you might use accross several
+  projects, our advice is to install it globally:</p>
   <pre><code class="language-shell">$ composer global require fabpot/php-cs-fixer</code></pre>
   <p>Be ensured that <code>~/.composer/vendor/bin</code> is present in your
   <code>$PATH</code>.</p>
@@ -317,11 +325,22 @@ $ git branch
 
   <h2 id="Commiting_a_patch" for="main-toc">Commiting a patch</h2>
 
-  <p>Commit as much as possible. Abuse of commits. It is not bad to have too
-  much commits but it is unfortunate to not have enough of them. One commit is
-  atomic, it includes one specific modification. At least, the code must be able
-  to run between any commits.</p>
-  <p>A commit title must be 50 characters long. The commit body must contain
+  <p>Before all, check that your name and email are provided in your Git
+  configuration file:</p>
+  <pre><code class="language-shell">$ git config --get user.name
+Gordon Freeman
+$ git config --get user.email
+gordon@freeman.hl</code></pre>
+  <p>If one of these values is empty, then you must set them (most of the time,
+  globally, i.e. for all the repositories):</p>
+  <pre><code class="language-shell">$ git config --global user.name 'Gordon Freeman'
+$ git config --global user.email 'gordon@freeman.hl'</code></pre>
+  <p>Now… commit as much as possible. Abuse of commits. It is not bad to have
+  too much commits but it is unfortunate to not have enough of them. One commit
+  is atomic, it includes one specific modification. At least, the code must be
+  able to run between any commits.</p>
+  <p>The commit language is English. Its title must be 50 characters long. Its
+  body must be formatted using
   <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> (even
   <a href="https://help.github.com/articles/github-flavored-markdown/">Github
   flavored Markdown</a> is accepted). A commit message tells a story. Feel free
@@ -337,7 +356,7 @@ $ git branch
   API”</q> just to make the <q>“buzz”</q>. We identify a problem, we think about
   it, we think about several ways to address it, and finally we propose a way to
   address it by scrupulously keeping the backward compatibility (BC) and
-  preventing future potential BC breaks.  Sometimes it can be a long process but
+  preventing future potential BC breaks. Sometimes it can be a long process but
   this is really important.</p>
   <p>To precisely choose what is going to be included inside a commit, we
   recommend to always use the following workflow:</p>
@@ -346,30 +365,130 @@ $ git add --patch &amp;lt;another file>
 …
 $ git commit</code></pre>
   <p>Note that <code>git commit</code> has no argument because the patch has
-  been constructed with <code>git add</code>.</p>
-  <p>We highly recommend to use your <code>$EDITOR</code> to edit the commit
-  message: It is not possible to fulfill our recommendations in CLI.</p>
+  been constructed with <code>git add</code>. (We highly recommend to use your
+  editor —set by the <code>$EDITOR</code> environment variable— to edit the
+  commit message: It is not possible to fulfill our recommendations in CLI).</p>
+  <p>To check what has changed, you can use the <code>git status</code>
+  command:</p>
+  <pre><code class="language-shell">$ git status --long</code></pre>
+  <p>If you made a mistake while commiting, no worry, you are still able to edit
+  your commit message by running:</p>
+  <pre><code class="language-shell">$ git commit --amend</code></pre>
   <p>Do not edit the <code>CHANGELOG.md</code> file. It is automatically
   generated.</p>
 
+  <h3 id="Review_all_your_commits" for="main-toc">Review all your commits</h3>
+
+  <p>Sometimes you will express the need to list all your commits. Either you
+  use the classical <code>git log</code> command:</p>
+  <pre><code class="language-shell">$ git log --decorate=full incoming..HEAD</code></pre>
+  <p>Or you can use an enhanced <code>git log</code> command that we are going
+  to call <code>graph</code>:</p>
+  <pre><code class="language-shell">$ git config --global alias.graph "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&amp;lt;%an>%Creset' --abbrev-commit --date=relative"</code></pre>
+  <p>Thus:</p>
+  <pre><code class="language-shell">$ git graph incoming..HEAD</code></pre>
+
   <h2 id="Publishing_a_patch" for="main-toc">Publishing a patch</h2>
 
-  <p>commit, commit, commit, rebase only at the end if needed</p>
-  <p>PR</p>
-  <p>reviewer</p>
-  <p>commiter</p>
+  <p>Even if it is not complete, publish your work! First, we are very happy to
+  see people contributing to Hoa, even if it is not complete. Second, it
+  provides an overview of what is in progress. And third, it will be easier for
+  you to get help since people could follow your work proactively. So: Publish
+  your contribution as soon as possible!</p>
+  <p>To publish your work, patches need to be pushed on your own fork. If you
+  mind correctly, the remote referring to your fork is called <code>me</code>.
+  You then need to push your <code>awesome-feature</code> branch to your
+  <code>me</code> remote:</p>
+  <pre><code class="language-shell">$ git push me awesome-feature</code></pre>
+  <p>Then, open your browser and go to your fork page on Github. A “pull
+  request” button should appear shortly. Click on it and the magic happens. Let
+  the Github interface guides you and create your pull request. A pull request
+  means: You request us to pull your work, so in other words to merge your
+  work. We often refer to pull request as PR.</p>
+
+  <h3 id="Rebase_when_asked" for="main-toc">Rebase when asked</h3>
+
+  <p>We adviced you to commit as much as possible. But sometimes, it is too much
+  and that is not a problem at all. Especially when you pushed your work, we
+  discussed about it together and some new commits have been applied and pushed,
+  the resulting history can be a little bit confusing. We like to have a clean
+  history. So we may ask you to rebase your work: It means to rewrite the
+  history. Most of the time, the operation consists to “squash” commits: You
+  have 2 commits, you squash them, you obtain 1 commit. The easiest and safest
+  way to do that is to use the interactive mode by running:</p>
+  <pre><code class="language-shell">$ git rebase --interactive incoming</code></pre>
+  <p>Be careful when doing this. This is unfortunately dangerous for your
+  commits. When everything is clean, and because this is the latest request we
+  might asked, you re-push your history. But because it differs from the remote
+  history, you need to force it by running:</p>
+  <pre><code class="language-shell">$ git push me awesome-feature --force</code></pre>
+  <p>On ourside, we are ready to merge your contribution!</p>
+  <p>Note: If you are not familiar with <code>git rebase</code>, ask help!</p>
+
+  <h3 id="Reviewers" for="main-toc">Reviewers</h3>
+
+  <p>How your contribution will be reviewed? When the pull request is created,
+  somone will be assigned to it. Most of the time, this is going to be an
+  hoacker. This person is in charge to:</p>
+  <ul>
+    <li>Guide you,</li>
+    <li>Help you,</li>
+    <li>Give you pointers and links to useful resources,</li>
+    <li>etc.</li>
+  </ul>
+  <p>If you are lost, at any moment, ping the reviewer by writing its pseudo
+  prefixed by <code>@</code>. A notification will be sent to her. Please, keep
+  in mind that everyone engaged in the Hoa project is a volunteer and share its
+  free time. If your reviewer seems to be very away from keyboard, ping
+  <a href="https://github.com/orgs/hoaproject/teams/hoackers"><code>@hoaproject/hoackers</code></a>
+  to notify all hoackers at once. If you feel abused, ping them too.</p>
+  <p>If enought people are available, we like to do a double-review:</p>
+  <ol>
+    <li>The first reviewer has local and deep knowledges. By local we mean the
+    repository (the library most of the time),</li>
+    <li>The second reviewer comes later and has wide knowledges. She has a
+    better overview of how the code need to be integrated.</li>
+  </ol>
+  <p>We hope to give you two reviewers but this is not always the case.</p>
+  <p>Note: Being a reviewer is also a kind of contribution!</p>
+
+  <h3 id="Commiters" for="main-toc">Commiters</h3>
+
+  <p>When your patches have been reviewed, it is time for the commiter to come
+  on stage! The commiter will fetch your pull request locally on its computer.
+  Then your patches will be merged and pushed to the <code>master</code> branch
+  on <a href="http://git.hoa-project.net">the <code>git.hoa-project.net</code>
+  remote</a>. Finally, mirrors will be synced, along with Github issues and pull
+  requests.</p>
+  <p>So far, there is very few commiters for security reasons.</p>
+  <p>Big news: You are a contributor!</p>
 
   <h2 id="Contributor_pack" for="main-toc">Contributor pack</h2>
 
+  <p>We love our community and we try to promote your work! Consequently, we
+  maintain an exhaustive list of all contributors on
+  <a href="@community#Contributors">the community page</a>.</p>
+  <p>In addition to this list, we offer you the following “gifts” as part of the
+  contributor pack:</p>
   <ul>
-    <li>mail</li>
-    <li>PHPStorm license</li>
-    <li>IRC cloak</li>
-    <li>goodies</li>
-    <li>invites and special offers to some events</li>
+    <li>A mail address:
+    <code><em>firstname</em>.<em>lastname</em>@hoa-project.net</code> with its
+    alias <code><em>pseudo</em>@hoa-project.net</code>,</li>
+    <li>A <a href="http://jetbrains.com/phpstorm/">PHPStorm</a> license,</li>
+    <li>An IRC cloak (allow to reserve your nickname on our channels),</li>
+    <li>Some goodies during events,</li>
+    <li>Invites and special offers to some events (if several contributors go to
+    an event, we can ask special offers).</li>
   </ul>
 
   <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
+  <p>We have seen the classical workflow of a contributor (new or not): What to
+  do, how to do it, with who etc. We explained where you can get help, the
+  people you are likely to talk to and how to contribute in the best way.
+  Some tools have been introduced to help you, such as coding styles checker
+  and fixer, testing etc. Finally, we introduced the contributor pack: A
+  reward for your contribution!</p>
+  <p>We really hope you feel confident to start your first contribution!</p>
 </yield>
 </overlay>
