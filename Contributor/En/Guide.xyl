@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xyl-use href="../../../View/Shared/Definition/Code.xyl"?>
-<?xyl-overlay href="../../../View/Shared/Overlay/Code.xyl"?>
+<?xyl-use href="hoa://Application/View/Shared/Definition/Code.xyl"?>
+<?xyl-use href="hoa://Application/View/Shared/Definition/Comment.xyl"?>
+<?xyl-overlay href="hoa://Application/View/Shared/Overlay/Code.xyl"?>
+<?xyl-overlay href="hoa://Application/View/Shared/Overlay/Comment.xyl"?>
 
 <overlay xmlns="http://hoa-project.net/xyl/xylophone">
 <yield id="main_content">
 
   <h1>Contributor guide</h1>
 
-  <p>Contributing to a project is awesome! However it might be difficult to know
-  exactly how to do it or what need to be done. This contributor guide will help
-  you to make great contributions!</p>
+  <p><strong>Contributing</strong> to a project is awesome! However it might be
+  difficult to know exactly <strong>how to do it</strong> or <strong>what need
+  to be done</strong>. This contributor guide will help you to make great
+  contributions!</p>
 
   <h2 id="Table_of_contents">Table of contents</h2>
 
@@ -34,9 +37,9 @@
 
   <h2 id="Prerequisites" for="main-toc">Prerequisites</h2>
 
-  <p>Before contributing to Hoa, we need to clarify some requirements in terms
-  of tools, skills etc. in order to make your journey as much pleasant as
-  possible.</p>
+  <p>Before contributing to Hoa, we need to clarify some
+  <strong>requirements</strong> in terms of tools, skills etc. in order to make
+  your journey as much pleasant as possible.</p>
 
   <h3 id="Tools" for="main-toc">Tools</h3>
 
@@ -53,18 +56,18 @@
   <h3 id="Skills" for="main-toc">Skills</h3>
 
   <p>This important point needs to be clarified quickly. There is absolutely
-  <strong>no</strong> minimum skill level required to contribute to Hoa.
-  If you have an idea but you don't know how to develop it: Never mind, just
-  open a discussion and we will be very glad to help you understand how to do
-  it! If you have a higher knowledge than us on a specific domain (which is
-  likely to happen often), we will be very glad to learn from you! The community
-  of Hoa is rich because it is consituted of very different people. We cannot
-  wait for your first contribution!</p>
-  <p>Also, it is important to note we are going to show you some Git commands
-  for instance. Our goal is not to provide a Git guide. The given commands are
-  the ones you are likely to use daily, but if you do not understand them or
-  if you do not feel comfortable with Git, you must either read
-  <a href="http://git-scm.com/book/">the Git documentation</a> or ask on IRC.
+  <strong>no minimum skill level required</strong> to contribute to Hoa.  If you
+  have an idea but you don't know how to develop it: Never mind, just open a
+  discussion and we will be very glad to help you understand how to do it! If
+  you have a higher knowledge than us on a specific domain (which is likely to
+  happen often), we will be very glad to learn from you! The community of Hoa is
+  rich because it is consituted of very <strong>different</strong> people. We
+  cannot wait for your first contribution!</p>
+  <p>Also, it is important to note we are going to show you some Git commands.
+  Our goal is not to provide a Git guide. The given commands are the ones you
+  are likely to use daily, but if you do not understand them or if you do not
+  feel comfortable with Git, you must either read
+  <a href="http://git-scm.com/book/">the Git documentation</a> or ask help.
   This introduces the next section.</p>
 
   <h3 id="Getting_help" for="main-toc">Getting help</h3>
@@ -73,7 +76,8 @@
   Hoa, as a set of libraries, is a vast project and not all
   <strong>hoackers</strong> are present all the time, but we are pretty sure you
   will meet someone that can help or redirect you to someone else. An hoacker is
-  a long-term contributor that have deep or wide knowledge of the project.</p>
+  a long-term contributor that have deep or wide knowledge of the project. It
+  includes reviewers and commiters.</p>
   <p>Two ways to get help:</p>
   <ul>
     <li><a href="@community#IRC">on IRC</a>, for a <strong>realtime</strong> and
@@ -86,8 +90,8 @@
   <h2 id="What_to_do" for="main-toc">What to do?</h2>
 
   <p>Hoa has more than 50 libraries, in addition to other sub-projects. Each
-  library lives in a specific repository. This is hard to have an
-  <strong>overview</strong> of the current work:</p>
+  library lives in a <strong>specific repository</strong>. This is hard to have
+  an <strong>overview</strong> of the current work:</p>
   <ul>
     <li>What should be done?</li>
     <li>What is ready to be done?</li>
@@ -99,7 +103,7 @@
 
   <h3 id="Boards_for_an_overview" for="main-toc">Boards for an overview</h3>
 
-  <p>Each library has an <a href="@literature#Hack_book">hack book chapter</a>.
+  <p>Each library has a <a href="@literature#Hack_book">hack book chapter</a>.
   Each chapter provides useful links to its top, such as:</p>
   <ul>
     <li>
@@ -120,7 +124,7 @@
   <ol>
     <li><strong>Backlog</strong>, things under discussion,</li>
     <li><strong>Ready</strong>, things that are ready to be done,</li>
-    <li><strong>In progess</strong>, things that are being done by some
+    <li><strong>In progress</strong>, things that are being done by some
     contributors,</li>
     <li><strong>Done</strong>, things that have been recently done.</li>
   </ol>
@@ -134,13 +138,14 @@
 
   <p>In order to ease the contribution process, we are trying to attach several
   labels to each work (like <code>bug</code> or <code>enhancement</code>). Some
-  of them provide an information about the difficulty:</p>
+  of them provide an information about the <strong>difficulty</strong>:</p>
   <ul>
-    <li><code>casual</code>, can be done by a new contributor or can be done
-    quickly,</li>
-    <li><code>medium</code>, requires some skills to address this work,</li>
-    <li><code>hard</code>. requires strong skills in the code and the domain it
-    addresses.</li>
+    <li><code>casual</code>, can be done by a <strong>new</strong> contributor
+    or can be done <strong>quickly</strong>,</li>
+    <li><code>medium</code>, requires <strong>some skills</strong> to address
+    this work,</li>
+    <li><code>hard</code>, requires <strong>strong skills</strong> in the code
+    and the domain it addresses.</li>
   </ul>
   <p>Fortunately, boards provide a search engine easing to sort the works based
   on your profile; thus:</p>
@@ -170,12 +175,12 @@
     <pre><code class="language-shell">$ git clone git@git.hoa-project.net:Library/Websocket.git</code></pre>
   </ul>
   <p>As mentionned on <a href="@source#Version_manager_(Git)">the source
-  page</a>, most of the repositories are mirrored on
-  <a href="https://github.com/hoaproject">Github</a>. We use Github as a
-  <strong>bug tracker</strong>, where all issues and contributions happen. Also,
-  several tools are linked to Github such as the boards or Composer (detailed
-  hereinafter).  Mirrors are one-way and a bot is responsible to synchronize
-  everything, no worry.</p>
+  page</a>, most of the repositories are
+  <a href="https://github.com/hoaproject">mirrored on Github</a>. We use Github
+  as a <strong>bug tracker</strong>, where all issues and contributions happen.
+  Also, several tools are linked to Github such as the boards or Composer
+  (detailed hereinafter). Mirrors are one-way and a bot is responsible to
+  <strong>synchronize</strong> everything, no worry.</p>
   <p>So we suggest you to start by cloning a library from Github, let's say
   <a href="@github:repository=Websocket">the <code>Hoa\Websocket</code>
   library</a>:</p>
@@ -202,8 +207,8 @@ $ cd Websocket</code></pre>
   is a mirror, second, you do not have the permissions and third, it is a bad
   practise. You need to <a
   href="https://help.github.com/articles/fork-a-repo/">fork the repository</a>.
-  A fork is a raw copy of the repository, allowing to do whatever you want
-  without any restrictions. To fork a repository, let's say
+  A fork is a <strong>raw copy</strong> of the repository, allowing to do
+  whatever you want without any restrictions. To fork a repository, let's say
   <a href="@github:repository=Websocket"><code>Hoa\Websocket</code></a>, you can
   use <a href="https://github.com/hoaproject/Websocket/fork">the Github
   interface</a> or run the following command (assuming the variable
@@ -211,7 +216,8 @@ $ cd Websocket</code></pre>
   <pre><code class="language-shell">$ me=&amp;lt;your Github username>
 $ curl -X POST https://api.github.com/repos/hoaproject/Websocket/forks --user $me</code></pre>
   <p>Now you have your own fork, we must tell the repository this is another
-  remote. A remote is another location for a repository. Thus:</p>
+  <strong>remote</strong>. A remote is another location for a repository.
+  Thus:</p>
   <pre><code class="language-shell">$ git remote add me git@github.com:$me/Websocket.git</code></pre>
   <p>At this point, we should see 2 remotes, like in the following
   example:</p>
@@ -221,10 +227,11 @@ me  git@github.com:$me/Websocket.git (push)
 origin  git@github.com:hoaproject/Websocket.git (fetch)
 origin  git@github.com:hoaproject/Websocket.git (push)</code></pre>
   <p>Bonus: If you would like to see all the pull requests locally, i.e. all the
-  contributions in progress (can be useful to help or test someone else's
-  contribution), we will create a new remote, called <code>github-pr</code>. It
-  will point to the same URL than <code>origin</code> in this particular case
-  but we create another remote to clarify the workflow. Thus:</p>
+  <strong>contributions in progress</strong> (can be useful to help or test
+  someone else's contribution), we will create a new remote, called
+  <code>github-pr</code>. It will point to the same URL than <code>origin</code>
+  in this particular case but we create another remote to clarify the workflow.
+  Thus:</p>
   <pre><code class="language-shell">$ git remote add github-pr git@github.com:hoaproject/Websocket.git
 $ git config remote.github-pr.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*'
 $ git remote --verbose
@@ -261,11 +268,12 @@ origin  git@github.com:hoaproject/Websocket.git (push)</code></pre>
   <h3 id="New_branch" for="main-toc">New branch</h3>
 
   <p>In addition to the <code>incoming</code> branch, it will be more
-  comfortable and less error-prone to create one branch per contribution. There
-  is no convention about the branch naming but we recommend everything in
-  lowercase and <code>-</code>, <code>_</code> or <code>/</code> instead of
-  spaces. Before creating a new branch, it is recommended to start with an
-  up-to-date <code>master</code> and <code>incoming</code> branches:</p>
+  comfortable and less error-prone to create <strong>one branch per
+  contribution</strong>. There is no convention about the branch naming but we
+  recommend everything in lowercase and <code>-</code>, <code>_</code> or
+  <code>/</code> instead of spaces. Before creating a new branch, it is
+  recommended to start with an up-to-date <code>master</code> and
+  <code>incoming</code> branches:</p>
   <pre><code class="language-shell">$ git pull origin master:master
 $ git checkout incoming
 $ git merge master</code></pre>
@@ -276,33 +284,34 @@ $ git branch
 * awesome-feature
   incoming
   master</code></pre>
-  <p>You are now ready to start writing code.</p>
-  <p>Files that are likely to be modified are at the root of the repository. Edit
-  them, save them, execute them, you are free to do whather you want. Assume
-  that all files are UTF-8 encoded. This is important. If you need softwares to
-  edit code, we can help you (see section bellow).</p>
+  <p>You are now <strong>ready</strong> to start writing code.</p>
+  <p>Files that are likely to be modified are at the root of the repository.
+  Edit them, save them, execute them, you are free to do whather you want.
+  Assume that all files are UTF-8 encoded. This is important. If you need
+  softwares to edit code, we can help you (see section bellow).</p>
   <p>In <a href="@source#Structure_of_a_library">the source page</a>, we learn
-  what is the structure of a library. You must read it.</p>
+  what is the <strong>structure</strong> of a library. You must read it.</p>
 
   <h2 id="Validating_a_patch" for="main-toc">Validating a patch</h2>
 
-  <p>While you are coding, before commiting your patches, you need to validate
-  them. Our advice is to repeat this operation very often. The more you validate
-  your code, the easier it will be to detect and understand errors or
-  faults.</p>
+  <p>While you are coding, before commiting your patches, you need to
+  <strong>validate</strong> them. Our advice is to repeat this operation very
+  <strong>often</strong>. The more you validate your code, the easier it will be
+  to detect and understand errors or faults.</p>
 
   <h3 id="Preparing_a_patch" for="main-toc">Preparing a patch</h3>
 
-  <p>Before all: Coding styles. Hoa adopts
+  <p>Before all: <strong>Coding styles</strong>. Hoa adopts
   <a href="http://php-fig.org/psr/psr-1/">PSR-1</a> and
   <a href="http://php-fig.org/psr/psr-2/">PSR-2</a> standards regarding
   coding styles, in addition to some other internal standards. In order to
-  check and automatically fix the majority of them, you would need to run
-  the following command preferably at the root of the repository:</p>
+  <strong>check</strong> and automatically <strong>fix</strong> the majority of
+  them, you would need to run the following command preferably at the root of
+  the repository:</p>
   <pre><code class="language-shell">$ vendor/bin/hoa devtools:cs --dry-run --diff .</code></pre>
   <p>This command will check and print whether the majority of the coding styles
-  are respected. If you want to automatically fix them, just remove the
-  <code>--dry-run</code> option, thus:</p>
+  are <strong>respected</strong>. If you want to <strong>automatically</strong>
+  fix them, just remove the <code>--dry-run</code> option; thus:</p>
   <pre><code class="language-shell">$ vendor/bin/hoa devtools:cs --diff .</code></pre>
   <p>The command <code>hoa devtools:cs</code> requires the
   <a href="https://github.com/FriendsOfPHP/PHP-CS-Fixer">PHP-CS-Fixer</a> tool
@@ -314,19 +323,21 @@ $ git branch
 
   <h3 id="Testing_a_patch" for="main-toc">Testing a patch</h3>
 
-  <p>Once your code pretty, you can run tests to ensure there is no regression
-  first; assuming you are still at the root of the repository:</p>
+  <p>Once your code pretty, you can <strong>run tests</strong> to ensure there
+  is no <strong>regression</strong> first; assuming you are still at the root of
+  the repository:</p>
   <pre><code class="language-shell">$ vendor/bin/hoa test:run --directories Test</code></pre>
-  <p>Excellent! To write new tests, to complete existing ones or to learn more
-  about their execution, please refer to <a href="@hack:chapter=Test">the
-  documentation of the <code>Hoa\Test</code> library</a>. We do not require
-  contributors to use a specific development methodology, like test-driven
-  development for instance. You are free to do whatever you want.</p>
+  <p>Excellent! To <strong>write</strong> new tests, to
+  <strong>complete</strong> existing ones or to learn more about their
+  execution, please refer to <a href="@hack:chapter=Test">the documentation of
+  the <code>Hoa\Test</code> library</a>. We do not require contributors to use a
+  specific development methodology, like test-driven development for instance.
+  You are free to do whatever you want.</p>
 
   <h2 id="Commiting_a_patch" for="main-toc">Commiting a patch</h2>
 
-  <p>Before all, check that your name and email are provided in your Git
-  configuration file:</p>
+  <p>Because credits are important, check that your name and email are provided
+  in your Git configuration file:</p>
   <pre><code class="language-shell">$ git config --get user.name
 Gordon Freeman
 $ git config --get user.email
@@ -335,10 +346,10 @@ gordon@freeman.hl</code></pre>
   globally, i.e. for all the repositories):</p>
   <pre><code class="language-shell">$ git config --global user.name 'Gordon Freeman'
 $ git config --global user.email 'gordon@freeman.hl'</code></pre>
-  <p>Now… commit as much as possible. Abuse of commits. It is not bad to have
-  too much commits but it is unfortunate to not have enough of them. One commit
-  is atomic, it includes one specific modification. At least, the code must be
-  able to run between any commits.</p>
+  <p>Now… commit as much as possible. <strong>Abuse of commits</strong>. It is
+  not bad to have too much commits but it is unfortunate to not have enough of
+  them. One commit is <strong>atomic</strong>, it includes one specific
+  modification. At least, the code must be able to run between any commits.</p>
   <p>The commit language is English. Its title must be 50 characters long. Its
   body must be formatted using
   <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> (even
@@ -358,16 +369,20 @@ $ git config --global user.email 'gordon@freeman.hl'</code></pre>
   address it by scrupulously keeping the backward compatibility (BC) and
   preventing future potential BC breaks. Sometimes it can be a long process but
   this is really important.</p>
-  <p>To precisely choose what is going to be included inside a commit, we
-  recommend to always use the following workflow:</p>
+  <p>Also, while forcing ourselves to answer these questions when writing a
+  commit can be sometimes <strong>difficult</strong> or annoying, believe us, it
+  will be really <strong>appreciated</strong> when they will be read later.</p>
+  <p>To precisely <strong>choose</strong> what is going to be included inside a
+  commit, we recommend to always use the following workflow:</p>
   <pre><code class="language-shell">$ git add --patch &amp;lt;file>
 $ git add --patch &amp;lt;another file>
 …
 $ git commit</code></pre>
   <p>Note that <code>git commit</code> has no argument because the patch has
-  been constructed with <code>git add</code>. (We highly recommend to use your
-  editor —set by the <code>$EDITOR</code> environment variable— to edit the
-  commit message: It is not possible to fulfill our recommendations in CLI).</p>
+  been <strong>constructed</strong> with <code>git add</code>. (We highly
+  recommend to use your editor —set by the <code>$EDITOR</code> environment
+  variable— to edit the commit message: It is not possible to fulfill our
+  recommendations in CLI).</p>
   <p>To check what has changed, you can use the <code>git status</code>
   command:</p>
   <pre><code class="language-shell">$ git status --long</code></pre>
@@ -379,8 +394,8 @@ $ git commit</code></pre>
 
   <h3 id="Review_all_your_commits" for="main-toc">Review all your commits</h3>
 
-  <p>Sometimes you will express the need to list all your commits. Either you
-  use the classical <code>git log</code> command:</p>
+  <p>Sometimes you will express the need to <strong>list</strong> all your
+  commits. Either you use the classical <code>git log</code> command:</p>
   <pre><code class="language-shell">$ git log --decorate=full incoming..HEAD</code></pre>
   <p>Or you can use an enhanced <code>git log</code> command that we are going
   to call <code>graph</code>:</p>
@@ -390,11 +405,12 @@ $ git commit</code></pre>
 
   <h2 id="Publishing_a_patch" for="main-toc">Publishing a patch</h2>
 
-  <p>Even if it is not complete, publish your work! First, we are very happy to
-  see people contributing to Hoa, even if it is not complete. Second, it
-  provides an overview of what is in progress. And third, it will be easier for
-  you to get help since people could follow your work proactively. So: Publish
-  your contribution as soon as possible!</p>
+  <p>Even if it is not complete, <strong>publish</strong> your work! First, we
+  are very happy to see people contributing to Hoa, even if it is not complete.
+  Second, it provides an <strong>overview</strong> of what is in progress. And
+  third, it will be easier for you to get <strong>help</strong> since people
+  could follow your work proactively.  So: Publish your contribution <strong>as
+  soon as possible</strong>!</p>
   <p>To publish your work, patches need to be pushed on your own fork. If you
   mind correctly, the remote referring to your fork is called <code>me</code>.
   You then need to push your <code>awesome-feature</code> branch to your
@@ -411,25 +427,27 @@ $ git commit</code></pre>
   <p>We adviced you to commit as much as possible. But sometimes, it is too much
   and that is not a problem at all. Especially when you pushed your work, we
   discussed about it together and some new commits have been applied and pushed,
-  the resulting history can be a little bit confusing. We like to have a clean
-  history. So we may ask you to rebase your work: It means to rewrite the
-  history. Most of the time, the operation consists to “squash” commits: You
-  have 2 commits, you squash them, you obtain 1 commit. The easiest and safest
-  way to do that is to use the interactive mode by running:</p>
+  the resulting <strong>history</strong> can be a little bit confusing. We like
+  to have a clean history. So we may ask you to rebase your work: It means to
+  rewrite the history. Most of the time, the operation consists to “squash”
+  commits: You have 2 commits, you squash them, you obtain 1 commit. The easiest
+  and safest way to do that is to use the interactive mode by running:</p>
   <pre><code class="language-shell">$ git rebase --interactive incoming</code></pre>
-  <p>Be careful when doing this. This is unfortunately dangerous for your
-  commits. When everything is clean, and because this is the latest request we
-  might asked, you re-push your history. But because it differs from the remote
-  history, you need to force it by running:</p>
+  <p>Be careful when doing this. This is unfortunately
+  <strong>dangerous</strong> for your commits. When everything is clean, and
+  because this is the latest request we might asked, you re-push your history.
+  But because it differs from the remote history, you need to force it by
+  running:</p>
   <pre><code class="language-shell">$ git push me awesome-feature --force</code></pre>
   <p>On ourside, we are ready to merge your contribution!</p>
   <p>Note: If you are not familiar with <code>git rebase</code>, ask help!</p>
 
   <h3 id="Reviewers" for="main-toc">Reviewers</h3>
 
-  <p>How your contribution will be reviewed? When the pull request is created,
-  somone will be assigned to it. Most of the time, this is going to be an
-  hoacker. This person is in charge to:</p>
+  <p>How your contributions will be <strong>reviewed</strong>? When the pull
+  request is created, someone will be <strong>assigned</strong> to it shortly.
+  Most of the time, this is going to be an hoacker. This person is in charge
+  to:</p>
   <ul>
     <li>Guide you,</li>
     <li>Help you,</li>
@@ -438,16 +456,19 @@ $ git commit</code></pre>
   </ul>
   <p>If you are lost, at any moment, ping the reviewer by writing its pseudo
   prefixed by <code>@</code>. A notification will be sent to her. Please, keep
-  in mind that everyone engaged in the Hoa project is a volunteer and share its
-  free time. If your reviewer seems to be very away from keyboard, ping
+  in mind that everyone engaged in the Hoa project is a
+  <strong>volunteer</strong> and share its free time. If your reviewer seems to
+  be far away from keyboard, ping
   <a href="https://github.com/orgs/hoaproject/teams/hoackers"><code>@hoaproject/hoackers</code></a>
   to notify all hoackers at once. If you feel abused, ping them too.</p>
-  <p>If enought people are available, we like to do a double-review:</p>
+  <p>If enought people are available, we like to do a
+  <strong>double-review</strong>:</p>
   <ol>
-    <li>The first reviewer has local and deep knowledges. By local we mean the
-    repository (the library most of the time),</li>
-    <li>The second reviewer comes later and has wide knowledges. She has a
-    better overview of how the code need to be integrated.</li>
+    <li>The first reviewer has local and <strong>deep</strong> knowledges. By
+    local we mean the repository (the library most of the time),</li>
+    <li>The second reviewer comes later and has <strong>wide</strong>
+    knowledges. She has a better overview of how the code need to be
+    integrated.</li>
   </ol>
   <p>We hope to give you two reviewers but this is not always the case.</p>
   <p>Note: Being a reviewer is also a kind of contribution!</p>
@@ -456,18 +477,19 @@ $ git commit</code></pre>
 
   <p>When your patches have been reviewed, it is time for the commiter to come
   on stage! The commiter will fetch your pull request locally on its computer.
-  Then your patches will be merged and pushed to the <code>master</code> branch
-  on <a href="http://git.hoa-project.net">the <code>git.hoa-project.net</code>
-  remote</a>. Finally, mirrors will be synced, along with Github issues and pull
-  requests.</p>
-  <p>So far, there is very few commiters for security reasons.</p>
-  <p>Big news: You are a contributor!</p>
+  Then your patches will be <strong>merged</strong> and <strong>pushed</strong>
+  to the <code>master</code> branch on <a href="http://git.hoa-project.net">the
+  <code>git.hoa-project.net</code> remote</a>. Finally, mirrors will be synced,
+  along with Github issues and pull requests. So far, there is very few
+  commiters for security reasons.</p>
+  <p>Big news: <strong>You are a contributor</strong>!</p>
 
   <h2 id="Contributor_pack" for="main-toc">Contributor pack</h2>
 
-  <p>We love our community and we try to promote your work! Consequently, we
-  maintain an exhaustive list of all contributors on
-  <a href="@community#Contributors">the community page</a>.</p>
+  <p>We <strong>love</strong> our community and we try to
+  <strong>promote your work</strong>! Consequently, we maintain an exhaustive
+  list of all contributors on <a href="@community#Contributors">the community
+  page</a>.</p>
   <p>In addition to this list, we offer you the following “gifts” as part of the
   contributor pack:</p>
   <ul>
@@ -483,12 +505,15 @@ $ git commit</code></pre>
 
   <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
-  <p>We have seen the classical workflow of a contributor (new or not): What to
-  do, how to do it, with who etc. We explained where you can get help, the
+  <p>We have seen the classical <strong>workflow</strong> you might adopt as a
+  contributor (new or not): <strong>What</strong> to do, <strong>how</strong> to
+  do it, with <strong>who</strong> etc. We explained where you can get help, the
   people you are likely to talk to and how to contribute in the best way.
   Some tools have been introduced to help you, such as coding styles checker
   and fixer, testing etc. Finally, we introduced the contributor pack: A
-  reward for your contribution!</p>
+  reward for your contributions!</p>
   <p>We really hope you feel confident to start your first contribution!</p>
+
+  <comments />
 </yield>
 </overlay>
