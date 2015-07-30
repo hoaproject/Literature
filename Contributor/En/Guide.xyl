@@ -150,11 +150,11 @@
   <p>Fortunately, boards provide a search engine easing to sort the works based
   on your profile; thus:</p>
   <ul>
-    <li><a href="https://waffle.io/hoaproject/central?search=difficulty%3A%20casual">all
+    <li><a href="@board:repository=Central&amp;search=difficulty: casual">all
     the <code>casual</code> works</a>,</li>
-    <li><a href="https://waffle.io/hoaproject/central?search=difficulty%3A%20medium">all
+    <li><a href="@board:repository=Central&amp;search=difficulty: medium">all
     the <code>medium</code> works</a>,</li>
-    <li><a href="https://waffle.io/hoaproject/central?search=difficulty%3A%20hard">all
+    <li><a href="@board:repository=Central&amp;search=difficulty: hard">all
     the <code>hard</code> works</a>.</li>
   </ul>
   <p>Now we know what to do, let's contribute!</p>
