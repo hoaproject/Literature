@@ -113,6 +113,163 @@
   <p>Chaque bibliothèque à un <a href="@literature#Hack_book">chapitre dans le
   <em lang="en">hack book</em></a>. Chaque chapitre fournit dans son en-tête des
   liens utiles, tels que :</p>
+  <ul>
+    <li>
+      <img src="hoa://Application/Public/Image/Icon/Waffle.svg" alt="Git" height="25px" />
+      son <strong>tableaux</strong> ;
+    </li>
+    <li>
+      <img src="hoa://Application/Public/Image/Icon/Git.svg" alt="Git" height="25px" />
+      son <strong>dépôt Git</strong> ;
+    </li>
+    <li>
+      <img src="hoa://Application/Public/Image/Icon/Github.svg" alt="Github" height="25px" />
+      son <strong>miroir Github</strong>.
+    </li>
+  </ul>
+  <p>Le <strong>tableau</strong> est la place où tous les travaux apparaissent
+  sous forme de colonnes qui représentent la progression :</p>
+  <ol>
+    <li><strong><em lang="en">backlog</em></strong>, les travaux en
+    discussion ;</li>
+    <li><strong><em lang="en">ready</em></strong>, les travaux qui sont prêts
+    à être fait ;</li>
+    <li><strong><em lang="en">in progress</em></strong>, les travaux qui sont en
+    train d'être fait par certains contributeurs ;</li>
+    <li><strong><em lang="en">done</em></strong>, les travaux qui ont été
+    récemment fait.</li>
+  </ol>
+  <p>Il est probable que vous sachiez que le <code>Central</code> est un dépôt
+  (en lecture seule) rassemblant toutes les bibliothèques de Hoa en un seul
+  endroit. Ainsi, comme attendu, <a href="@board:repository=Central">le tableau
+  de <code>Central</code></a> offre le <strong>plus haut aperçu</strong> de tous
+  les travaux courants de toutes les bibliothèques de Hoa.</p>
+
+  <h3 id="What_difficulty" for="main-toc">Quelle difficulté ?</h3>
+
+  <p>Afin de faciliter le processus de contribution, nous essayons d'attacher
+  certaines étiquettes (<em lang="en">labels</em>) à chaque travail (comme
+  <code>bug</code> ou <code>enhancement</code>). Certains d'entre eux offrent
+  une indication sur la <strong>difficulté</strong> :</p>
+  <ul>
+    <li><code>casual</code>, qui peut être fait par un <strong>nouveau</strong>
+    contributeur ou qui peut être fait <strong>rapidement</strong> ;</li>
+    <li><code>medium</code>, requière <strong>certaines compétences</strong>
+    pour effectuer ce travail ;</li>
+    <li><code>hard</code>, requière <strong>des connaissances fortes</strong>
+    dans le code ou le domaine concerné.</li>
+  </ul>
+  <p>Heureusement, les tableaux offrent un moteur de recherche facilitant le tri
+  des travaux à partir de votre profil ; ainsi :</p>
+  <ul>
+    <li><a href="@board:repository=Central&amp;search=difficulty: casual">les
+    travaux <code>casual</code></a> ;</li>
+    <li><a href="@board:repository=Central&amp;search=difficulty: medium">les
+    travaux <code>medium</code></a> ;</li>
+    <li><a href="@board:repository=Central&amp;search=difficulty: hard">les
+    travaux <code>hard</code></a>.</li>
+  </ul>
+  <p>Maintenant que nous savons quoi faire, contribuons !</p>
+
+  <h2 id="Set_up_the_environment" for="main-toc">Monter son environnement</h2>
+
+  <p>Dans cette section nous allons voir comment mettre en place le dépôt (le
+  code) et les dépendances (principalement pour exécuter les tests).</p>
+
+  <h3 id="Repository" for="main-toc">Dépôt</h3>
+
+  <p>Hoa héberge ses propres <a href="http://git.hoa-project.net/">dépôts
+  Git</a>. Les règles sont les suivantes :</p>
+  <ul>
+    <li>tout le monde peut <strong>lire</strong> à travers <strong>HTTP</strong> :</li>
+    <pre><code class="language-shell">$ git clone http://git.hoa-project.net/Library/Websocket.git</code></pre>
+    <li>les <em lang="en">commiters</em> peuvent <strong>lire et écrire</strong>
+    à travers <strong>SSH</strong> :</li>
+    <pre><code class="language-shell">$ git clone git@git.hoa-project.net:Library/Websocket.git</code></pre>
+  </ul>
+  <p>Comme mentionné sur <a href="@source#Version_manager_(Git)">la page des
+  sources</a>, la plupart des dépôts ont des
+  <a href="https://github.com/hoaproject">miroirs sur Github</a>. Nous utilisons
+  Github comme <strong><em lang="en">bug tracker</em></strong>, où toutes les
+  <em lang="en">issues</em> (travail) et les contributions se déroulent. Aussi,
+  plusieurs outils sont liés à Github comme les tableaux ou Composer (détaillé
+  ci-après). Les miroirs sont uni-directionnels et un robot est responsable de
+  tout <strong>synchroniser</strong>, pas d'inquiétude.</p>
+  <p>C'est pourquoi nous vous suggérons de démarrer en clonant une bibliothèque
+  depuis Github, par exemple <a href="@github:repository=Websocket">la
+  bibliothèque <code>Hoa\Websocket</code></a> :</p>
+  <pre><code class="language-shell">$ mkdir Hoa
+$ cd Hoa
+$ git clone https://github.com/hoaproject/Websocket.git
+$ cd Websocket</code></pre>
+  <p>Si <a href="https://help.github.com/articles/generating-ssh-keys/">Github
+  connaît votre clé SSH</a>, nous suggérons alors :</p>
+  <pre><code class="language-shell">$ git clone git@github.com:hoaproject/Websocket.git</code></pre>
+  <p>Immédiatement après, pour éviter tout conflit potentiel, nous suggérons de
+  créer une nouvelle branche :</p>
+  <pre><code class="language-shell">$ git checkout -b incoming</code></pre>
+  <p>Créer une branche <code>incoming</code> <strong>protège</strong> la branche
+  <code>master</code>. Le <code>master</code> est très important pour Hoa, parce
+  qu'il utilise <a href="@source#Rush_Release"><em lang="en">Rush
+  Release</em></a> comme système de <em lang="en">release</em>. Cela implique
+  que la branche <code>master</code> contient toujours les derniers patches.
+  Ainsi, pour mettre à jour la branche <code>master</code>, vous avez seulement
+  à exécuter :</p>
+  <pre><code class="language-shell">$ git pull origin master:master</code></pre>
+  <p>Parce que votre branche référente est <code>incoming</code> et pas
+  <code>master</code>, il est plus facile de maintenir votre dépôt à jour. Nous
+  détaillerons tout ça rapidement.</p>
+  <p>Bien sûr, vous n'allez pas travailler directement sur le dépôt de Hoa parce
+  que : premièrement c'est un miroir, deuxièmement vous n'avez pas les
+  permissions et troisièmement c'est une mauvaise pratique. Vous devez
+  <a href="https://help.github.com/articles/fork-a-repo/"><em>forker</em> le
+  dépôt</a>. Un fork est <strong>copie</strong> du dépôt, permettant de faire ce
+  que bon vous semble sans aucun restriction. Pour forker un dépôt, par exemple
+  <a href="@github:repository=Websocket"><code>Hoa\Websocket</code></a>, vous
+  pouvez utiliser
+  <a href="https://github.com/hoaproject/Websocket/fork">l'interface de
+  Github</a> ou exécuter la commande suivante (en considérant que la variable
+  <code>$me</code> représente votre nom d'utilisateur Github) :</p>
+  <pre><code class="language-shell">$ me=&amp;lt;your Github username>
+$ curl -X POST https://api.github.com/repos/hoaproject/Websocket/forks --user $me</code></pre>
+  <p>Maintenant que vous avez votre propre fork, nous pouvons dire à votre dépôt
+  qu'il y a un autre <strong><em lang="en">remote</em></strong>. Un
+  <em lang="en">remote</em> est une autre source pour votre dépôt. Ainsi :</p>
+  <pre><code class="language-shell">$ git remote add me git@github.com:$me/Websocket.git</code></pre>
+  <p>À ce stade, nous devrions voir 2 <em lang="en">remotes</em>, comme dans
+  l'exemple suivant :</p>
+  <pre><code class="language-shell">$ git remote --verbose
+me  git@github.com:$me/Websocket.git (fetch)
+me  git@github.com:$me/Websocket.git (push)
+origin  git@github.com:hoaproject/Websocket.git (fetch)
+origin  git@github.com:hoaproject/Websocket.git (push)</code></pre>
+  <p>Bonus : si vous voulez voir toutes les <em lang="en">pull requests</em>
+  localement, c'est à dire toutes les <strong>contributions en cours</strong>
+  (peut être utile pour aider ou tester la contribution de quelqu'un d'autre),
+  nous allons créer un nouveau <em lang="en">remote</em> appelé
+  <code>github-pr</code>. Il pointera vers la même URL qu'<code>origin</code>
+  dans ce cas particulier mais nous créons un autre <em lang="en">remote</em>
+  pour clarifier le processus. Ainsi :</p>
+  <pre><code class="language-shell">$ git remote add github-pr git@github.com:hoaproject/Websocket.git
+$ git config remote.github-pr.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*'
+$ git remote --verbose
+github-pr   git@github.com:hoaproject/Websocket.git (fetch)
+github-pr   git@github.com:hoaproject/Websocket.git (push)
+me  git@github.com:$me/Websocket.git (fetch)
+me  git@github.com:$me/Websocket.git (push)
+origin  git@github.com:hoaproject/Websocket.git (fetch)
+origin  git@github.com:hoaproject/Websocket.git (push)</code></pre>
+  <p>Donc pour résumer, nous avons 3 <em lang="en">remotes</em>, c'est à dire
+  3 sources différentes pour le même code :</p>
+  <ol>
+    <li><code>origin</code>, le dépôt de Hoa (le miroir Github) ;</li>
+    <li><code>me</code>, votre fork ;</li>
+    <li><code>github-pr</code>, toutes les <em lang="en">pull requests</em> du
+    dépôt de Hoa.</li>
+  </ol>
+  <p>Finallement, pour obtenir toutes les données de tous les
+  <em lang="en">remotes</em> :</p>
+  <pre><code class="language-shell">$ git fetch --all</code></pre>
 
   <comments />
 </yield>
