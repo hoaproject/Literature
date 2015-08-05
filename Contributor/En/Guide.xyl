@@ -76,7 +76,7 @@
   Hoa, as a set of libraries, is a vast project and not all
   <strong>hoackers</strong> are present all the time, but we are pretty sure you
   will meet someone that can help or redirect you to someone else. An hoacker is
-  a long-term contributor that have deep or wide knowledge of the project. It
+  a long-term contributor that has deep or wide knowledge of the project. It
   includes reviewers and commiters.</p>
   <p>Two ways to get help:</p>
   <ul>
@@ -200,13 +200,13 @@ $ cd Websocket</code></pre>
   latest patches. Thus, to update the <code>master</code> branch, you just need
   to run:</p>
   <pre><code class="language-shell">$ git pull origin master:master</code></pre>
-  <p>Because your branch reference is <code>incoming</code> and not
+  <p>Because your reference branch is <code>incoming</code> and not
   <code>master</code>, this is easier to maintain your repository
   up-to-date. We will detail this shortly.</p>
   <p>Of course you will not work directly on Hoa's repository because: First, it
   is a mirror, second, you do not have the permissions and third, it is a bad
-  practise. You need to <a
-  href="https://help.github.com/articles/fork-a-repo/">fork the repository</a>.
+  practise. You need to
+  <a href="https://help.github.com/articles/fork-a-repo/">fork the repository</a>.
   A fork is a <strong>raw copy</strong> of the repository, allowing to do
   whatever you want without any restrictions. To fork a repository, let's say
   <a href="@github:repository=Websocket"><code>Hoa\Websocket</code></a>, you can
