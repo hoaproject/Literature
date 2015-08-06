@@ -349,7 +349,7 @@ $ git config --global user.email 'gordon@freeman.hl'</code></pre>
   <p>Now… commit as much as possible. <strong>Abuse of commits</strong>. It is
   not bad to have too much commits but it is unfortunate to not have enough of
   them. One commit is <strong>atomic</strong>, it includes one specific
-  modification. At least, the code must be able to run between any commits.</p>
+  modification. At least, the code must be able to run between any commit.</p>
   <p>The commit language is English. Its title must be 50 characters long. Its
   body must be formatted using
   <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> (even
