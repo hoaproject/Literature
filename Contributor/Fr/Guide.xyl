@@ -271,6 +271,113 @@ origin  git@github.com:hoaproject/Websocket.git (push)</code></pre>
   <em lang="en">remotes</em> :</p>
   <pre><code class="language-shell">$ git fetch --all</code></pre>
 
+  <h3 id="Dependencies" for="main-toc">Dépendances</h3>
+
+  <p>Le dépôt que vous avez cloné est susceptible de contenir des
+  <strong>dépendances</strong>. Pour les gérer et les installer, nous nous
+  reposons sur <a href="http://getcomposer.org/">Composer</a>. Ainsi, pour les
+  installer :</p>
+  <pre><code class="language-shell">$ composer install</code></pre>
+  <p>Et pour les mettre à jour :</p>
+  <pre><code class="language-shell">$ composer update</code></pre>
+  <p>Un dossier <code>vendor/</code> a été créé à la racine du dépôt avec un
+  fichier <code>composer.lock</code>. À l'intérieur du dossier
+  <code>vendor/hoa/</code> vous trouverez toutes les dépendances de Hoa. Et le
+  fichier <code>vendor/bin/hoa</code> est une commande pour exécuter d'autres
+  programmes fournis par Hoa. Nous allons les utiliser rapidement.</p>
+
+  <h3 id="New_branch" for="main-toc">Nouvelle branche</h3>
+
+  <p>En plus de la branche <code>incoming</code>, il sera plus confortable et
+  moins sujet à erreurs de créer <strong>une branche par contribution</strong>.
+  Il n'y a aucune convention sur le nommage des branches mais nous recommendons
+  tout en minuscule et <code>-</code>, <code>_</code> ou <code>/</code> à la
+  place des espaces. Avant de créer une nouvelle branche, il est recommandé de
+  démarrer avec des branches <code>master</code> et <code>incoming</code> à
+  jour :</p>
+  <pre><code class="language-shell">$ git pull origin master:master
+$ git checkout incoming
+$ git merge master</code></pre>
+  <p>Maintenant vous êtes prêts à créer une nouvelle branche, disons
+  <code>awesome-feature</code>:</p>
+  <pre><code class="language-shell">$ git checkout -b awesome-feature
+$ git branch
+* awesome-feature
+  incoming
+  master</code></pre>
+  <p>Vous êtes désormais <strong>prêts</strong> à écrire du code.</p>
+  <p>Les fichiers que vous allez modifié seront probablement à la racine.
+  Modifiez les, sauvegardez les, exécutez les, vous êtes libres de faire ce que
+  vous voulez. Supposez que tous les fichiers sont encodés en UTF-8. C'est
+  important. Si vous avez besoin de programmes pour éditer votre code, nous
+  pouvons vous aider (voir en-dessous).</p>
+  <p>Dans <a href="@source#Structure_of_a_library">la page des sources</a>, nous
+  apprenons quelle est la <strong>structure</strong> d'une bibliothèque. Vous
+  devez la lire.</p>
+
+  <h2 id="Validating_a_patch" for="main-toc">Validation d'un patch</h2>
+
+  <p>Pendant que vous développez, avant de commiter vos patches, vous avez
+  besoin de les <strong>valider</strong>. Notre conseil est de répéter cette
+  opération très <strong>souvent</strong>. Plus vous validez votre code, plus ce
+  sera facile de détecter et de comprendre les erreurs ou les fautes.</p>
+
+  <h3 id="Preparing_a_patch" for="main-toc">Préparation d'un patch</h3>
+
+  <p>Avant tout : <strong><em lang="en">coding style</em></strong>. Hoa adopte
+  les standards <a href="http://php-fig.org/psr/psr-1/">PSR-1</a> et
+  <a href="http://php-fig.org/psr/psr-2/">PSR-2</a> pour les styles de codage,
+  en plus d'autres standards internes. Afin de <strong>vérifier</strong> et
+  automatiquement <strong>corriger</strong> la majorité d'entre eux, vous aurez
+  besoin d'exécuter la commande suivante, de préférence à la racine du
+  dépôt :</p>
+  <pre><code class="language-shell">$ vendor/bin/hoa devtools:cs --dry-run --diff .</code></pre>
+  <p>Cette commande va vérifier et afficher si la majorité des styles de codage
+  sont <strong>respectés</strong>. Si vous voulez
+  <strong>automatiquement</strong> les corriger, enlever l'option
+  <code>--dry-run</code> ; ainsi :</p>
+  <pre><code class="language-shell">$ vendor/bin/hoa devtools:cs --diff .</code></pre>
+  <p>La commande <code>hoa devtools:cs</code> requiert l'outil
+  <a href="https://github.com/FriendsOfPHP/PHP-CS-Fixer">PHP-CS-Fixer</a> d'être
+  installé quelque part. Puisque c'est un outil que vous pourriez utiliser dans
+  plusieurs projets, notre conseil est de l'installer globalement :</p>
+  <pre><code class="language-shell">$ composer global require fabpot/php-cs-fixer</code></pre>
+  <p>Assurez-vous que <code>~/.composer/vendor/bin</code> est présent dans votre
+  <code>$PATH</code>.</p>
+
+  <h3 id="Testing_a_patch" for="main-toc">Test d'un patch</h3>
+
+  <p>Une fois votre code tout beau, vous pouvez en premier lieu <strong>exécuter
+  les tests</strong> afin de vous assurez qu'il n'y a pas de
+  <strong>régressions</strong> ; en considérant que vous êtes toujours à la
+  racine du dépôt :</p>
+  <pre><code class="language-shell">$ vendor/bin/hoa test:run --directories Test</code></pre>
+  <p>Excellent ! Pour <strong>écrire</strong> des nouveaux tests, pour
+  <strong>compléter</strong> des test existants ou pour en apprendre plus sur
+  leur exécution, merci de vous référer à <a href="@hack:chapter=Test">la
+  documentation de la bibliothèque <code>Hoa\Test</code></a>. Nous ne demandons
+  aux contributeurs aucune méthodologie de développement spécifique, comme le
+  développement dirigé par les tests par exemple. Vous êtes libres de faire ce
+  que vous voulez.</p>
+
+  <h2 id="Commiting_a_patch" for="main-toc">Commiter un patch</h2>
+
+  <p>Parce que les crédits sont importants, vérifier que votre nom et votre
+  email sont correctement renseignés dans votre configuration Git :</p>
+  <pre><code class="language-shell">$ git config --get user.name
+Gordon Freeman
+$ git config --get user.email
+gordon@freeman.hl</code></pre>
+  <p>Si une de ces valeurs est vide, alors vous devez les définir (la plupart du
+  temps globalement, c'est à dire pour tous les dépôts) :</p>
+  <pre><code class="language-shell">$ git config --global user.name 'Gordon Freeman'
+$ git config --global user.email 'gordon@freeman.hl'</code></pre>
+  <p>Maintenant… commiter autant que possible. <strong>Abusez des
+  commits</strong>. Ce n'est pas mauvais d'avoir trop de commits mais c'est très
+  gênant de ne pas en avoir assez. Un commit est <strong>atomique</strong>, il
+  inclut une modification spécifique. Au minimum, le code doit être exécutable
+  entre chaque commit.</p>
+
   <comments />
 </yield>
 </overlay>
