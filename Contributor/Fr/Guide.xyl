@@ -20,7 +20,7 @@
 
   <h2 id="Introduction" for="main-toc">Introduction</h2>
 
-  <p>Hoa est un gros project. Ce projet ne peut pas vivre sans l'aide d'une
+  <p>Hoa est un gros projet. Ce projet ne peut pas vivre sans l'aide d'une
   précieuse communauté. Cette communauté est constituée de développeurs,
   réguliers ou non, parfois même de personnes qui ne sont pas des développeurs
   mais des amoureux de la programmation, des personnes qui utilisent PHP,
@@ -42,7 +42,7 @@
 
   <p>Avant de contribuer à Hoa, nous devons clarifier quelques
   <strong>pré-requis</strong> en terme d'outils, de compétences etc. afin de
-  rendre votre voyage aussi plaisant que possible.</p>
+  rendre votre participation aussi plaisante que possible.</p>
 
   <h3 id="Tools" for="main-toc">Outils</h3>
 
@@ -71,7 +71,7 @@
   <p>Il est également important de noter que nous allons vous montrer quelques
   commandes Git. Notre objectif n'est pas de fournir un guide Git. Les commandes
   données sont celles que vous utiliserez probablement quotidiennement, mais si
-  vous ne les comprenez pas ou si vous ne vous sentez pas confortables avec Git,
+  vous ne les comprenez pas ou si vous ne vous sentez pas confortable avec Git,
   vous devez soit lire <a href="http://git-scm.com/book/">la documentation de
   Git</a>, soit demander de l'aide. Ce qui introduit la prochaine section.</p>
 
@@ -83,7 +83,7 @@
   permanence, mais nous sommes quasiment certain que vous rencontrerez quelqu'un
   qui pourra vous aider ou vous rediriger vers quelqu'un d'autre. Un hoacker est
   un contributeur de longue date qui a une connaissance approfondie ou large du
-  projet. Cela inclu les relecteurs ou les <em lang="en">commiters</em>.</p>
+  projet. Cela inclut les relecteurs ou les <em lang="en">commiters</em>.</p>
   <p>Deux façons d'obtenir de l'aide :</p>
   <ul>
     <li><a href="@community#IRC">sur IRC</a>, pour une aide en
@@ -96,7 +96,7 @@
   <h2 id="What_to_do" for="main-toc">Quoi faire ?</h2>
 
   <p>Hoa a plus de 50 bibliothèques, en plus d'autres sous-projets. Chaque
-  bibliothèque vit dans un <strong>dépôt spécifique</strong>. C'est difficile
+  bibliothèque vit dans un <strong>dépôt spécifique</strong>. Il est difficile
   d'avoir un <strong>aperçu</strong> du travail courant :</p>
   <ul>
     <li>qu'est-ce qui doit être fait ?</li>
@@ -108,7 +108,8 @@
   avec un projet (parfois même si nous sommes contributeurs depuis
   longtemps !).</p>
 
-  <h3 id="Boards_for_an_overview" for="main-toc">Des tableaux comme aperçus</h3>
+  <h3 id="Boards_for_an_overview" for="main-toc">Des tableaux de bord comme
+  aperçus</h3>
 
   <p>Chaque bibliothèque à un <a href="@literature#Hack_book">chapitre dans le
   <em lang="en">hack book</em></a>. Chaque chapitre fournit dans son en-tête des
@@ -116,7 +117,7 @@
   <ul>
     <li>
       <img src="hoa://Application/Public/Image/Icon/Waffle.svg" alt="Git" height="25px" />
-      son <strong>tableau</strong> ;
+      son <strong>tableau de bord</strong> ;
     </li>
     <li>
       <img src="hoa://Application/Public/Image/Icon/Git.svg" alt="Git" height="25px" />
@@ -127,8 +128,8 @@
       son <strong>miroir Github</strong>.
     </li>
   </ul>
-  <p>Le <strong>tableau</strong> est la place où tous les travaux apparaissent
-  sous forme de colonnes qui représentent la progression :</p>
+  <p>Le <strong>tableau de bord</strong> est la place où tous les travaux
+  apparaissent sous forme de colonnes qui représentent la progression :</p>
   <ol>
     <li><strong><em lang="en">backlog</em></strong>, les travaux en
     discussion ;</li>
@@ -142,14 +143,15 @@
   <p>Il est probable que vous sachiez que le <code>Central</code> est un dépôt
   (en lecture seule) rassemblant toutes les bibliothèques de Hoa en un seul
   endroit. Ainsi, comme attendu, <a href="@board:repository=Central">le tableau
-  de <code>Central</code></a> offre le <strong>plus haut aperçu</strong> de tous
-  les travaux courants de toutes les bibliothèques de Hoa.</p>
+  de bord de <code>Central</code></a> offre le <strong>plus haut
+  aperçu</strong> de tous les travaux courants de toutes les bibliothèques de
+  Hoa.</p>
 
   <h3 id="What_difficulty" for="main-toc">Quelle difficulté ?</h3>
 
   <p>Afin de faciliter le processus de contribution, nous essayons d'attacher
   certaines étiquettes (<em lang="en">labels</em>) à chaque travail (comme
-  <code>bug</code> ou <code>enhancement</code>). Certains d'entre eux offrent
+  <code>bug</code> ou <code>enhancement</code>). Certaines d'entre elles offrent
   une indication sur la <strong>difficulté</strong> :</p>
   <ul>
     <li><code>casual</code>, qui peut être fait par un <strong>nouveau</strong>
@@ -159,8 +161,8 @@
     <li><code>hard</code>, requière <strong>des connaissances fortes</strong>
     dans le code ou le domaine concerné.</li>
   </ul>
-  <p>Heureusement, les tableaux offrent un moteur de recherche facilitant le tri
-  des travaux à partir de votre profil ; ainsi :</p>
+  <p>Heureusement, les tableaux de bord offrent un moteur de recherche
+  facilitant le tri des travaux à partir de votre profil ; ainsi :</p>
   <ul>
     <li><a href="@board:repository=Central&amp;search=difficulty: casual">les
     travaux <code>casual</code></a> ;</li>
@@ -192,9 +194,9 @@
   <a href="https://github.com/hoaproject">miroirs sur Github</a>. Nous utilisons
   Github comme <strong><em lang="en">bug tracker</em></strong>, où toutes les
   <em lang="en">issues</em> (travail) et les contributions s'y déroulent. Aussi,
-  plusieurs outils sont liés à Github comme les tableaux ou Composer (détaillé
-  ci-après). Les miroirs sont uni-directionnels et un robot est responsable de
-  tout <strong>synchroniser</strong>, pas d'inquiétude.</p>
+  plusieurs outils sont liés à Github comme les tableaux de bord ou Composer
+  (détaillé ci-après). Les miroirs sont uni-directionnels et un robot est
+  responsable de tout <strong>synchroniser</strong>, pas d'inquiétude.</p>
   <p>C'est pourquoi nous vous suggérons de démarrer en clonant une bibliothèque
   depuis Github, par exemple <a href="@github:repository=Websocket">la
   bibliothèque <code>Hoa\Websocket</code></a> :</p>
@@ -267,7 +269,7 @@ origin  git@github.com:hoaproject/Websocket.git (push)</code></pre>
     <li><code>github-pr</code>, toutes les <em lang="en">pull requests</em> du
     dépôt de Hoa.</li>
   </ol>
-  <p>Finallement, pour obtenir toutes les données de tous les
+  <p>Finalement, pour obtenir toutes les données de tous les
   <em lang="en">remotes</em> :</p>
   <pre><code class="language-shell">$ git fetch --all</code></pre>
 
@@ -282,15 +284,15 @@ origin  git@github.com:hoaproject/Websocket.git (push)</code></pre>
   <pre><code class="language-shell">$ composer update</code></pre>
   <p>Un dossier <code>vendor/</code> a été créé à la racine du dépôt avec un
   fichier <code>composer.lock</code>. À l'intérieur du dossier
-  <code>vendor/hoa/</code> vous trouverez toutes les dépendances de Hoa. Et le
+  <code>vendor/hoa/</code> vous trouverez toutes les dépendances de Hoa. Le
   fichier <code>vendor/bin/hoa</code> est une commande pour exécuter d'autres
   programmes fournis par Hoa. Nous allons les utiliser rapidement.</p>
 
   <h3 id="New_branch" for="main-toc">Nouvelle branche</h3>
 
   <p>En plus de la branche <code>incoming</code>, il sera plus confortable et
-  moins sujet à erreurs de créer <strong>une branche par contribution</strong>.
-  Il n'y a aucune convention sur le nommage des branches mais nous recommendons
+  moins sujet à erreur de créer <strong>une branche par contribution</strong>.
+  Il n'y a aucune convention sur le nommage des branches mais nous recommandons
   tout en minuscule et <code>-</code>, <code>_</code> ou <code>/</code> à la
   place des espaces. Avant de créer une nouvelle branche, il est recommandé de
   démarrer avec des branches <code>master</code> et <code>incoming</code> à
@@ -306,7 +308,7 @@ $ git branch
   incoming
   master</code></pre>
   <p>Vous êtes désormais <strong>prêts</strong> à écrire du code.</p>
-  <p>Les fichiers que vous allez modifié seront probablement à la racine.
+  <p>Les fichiers que vous allez modifier seront probablement à la racine.
   Modifiez les, sauvegardez les, exécutez les, vous êtes libres de faire ce que
   vous voulez. Supposez que tous les fichiers sont encodés en UTF-8. C'est
   important. Si vous avez besoin de programmes pour éditer votre code, nous
