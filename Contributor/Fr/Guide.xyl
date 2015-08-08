@@ -63,12 +63,12 @@
   Hoa. Si vous avez une idée mais que vous ne savez pas comment la développer :
   aucun problème, ouvrez simplement une discussion et nous serons ravis de vous
   aider à comprendre comment la réaliser ! Si vous avez des connaissances plus
-  approfondies que nous dans un domaine spécifique (ce qui risque fort d'être le
-  cas souvent), nous serons très content d'apprendre de vous ! La communauté de
-  Hoa est riche parce qu'elle est constituée de personnes très
+  approfondies que nous dans un domaine spécifique (ce qui risque fort d'être
+  souvent le cas), nous serons très content d'apprendre de vous ! La
+  communauté de Hoa est riche parce qu'elle est constituée de personnes très
   <strong>différentes</strong>. Nous sommes très impatients de voir votre
   première contribution !</p>
-  <p>Également, il est important de noter que nous allons vous montrer quelques
+  <p>Il est également important de noter que nous allons vous montrer quelques
   commandes Git. Notre objectif n'est pas de fournir un guide Git. Les commandes
   données sont celles que vous utiliserez probablement quotidiennement, mais si
   vous ne les comprenez pas ou si vous ne vous sentez pas confortables avec Git,
@@ -78,11 +78,11 @@
   <h3 id="Getting_help" for="main-toc">Obtenir de l'aide</h3>
 
   <p>À n'importe quel moment, vous trouverez au moins une personne pour vous
-  <strong>aider</strong>. Hoa, en tant qu'ensemble de bibliothèques, est projet
-  vaste et tous les <strong>hoackers</strong> ne sont pas présents en
+  <strong>aider</strong>. Hoa, en tant qu'ensemble de bibliothèques, est un
+  projet vaste et tous les <strong>hoackers</strong> ne sont pas présents en
   permanence, mais nous sommes quasiment certain que vous rencontrerez quelqu'un
   qui pourra vous aider ou vous rediriger vers quelqu'un d'autre. Un hoacker est
-  contributeur de longue date qui a une connaissance approfondie ou large du
+  un contributeur de longue date qui a une connaissance approfondie ou large du
   projet. Cela inclu les relecteurs ou les <em lang="en">commiters</em>.</p>
   <p>Deux façons d'obtenir de l'aide :</p>
   <ul>
@@ -105,7 +105,7 @@
     <li>qu'est-ce qui est en relecture ?</li>
   </ul>
   <p>Toutes ces questions sont <strong>légitimes</strong> quand nous démarrons
-  avec un projet (parfois même si nous sommes contributeurs depluis
+  avec un projet (parfois même si nous sommes contributeurs depuis
   longtemps !).</p>
 
   <h3 id="Boards_for_an_overview" for="main-toc">Des tableaux comme aperçus</h3>
@@ -116,7 +116,7 @@
   <ul>
     <li>
       <img src="hoa://Application/Public/Image/Icon/Waffle.svg" alt="Git" height="25px" />
-      son <strong>tableaux</strong> ;
+      son <strong>tableau</strong> ;
     </li>
     <li>
       <img src="hoa://Application/Public/Image/Icon/Git.svg" alt="Git" height="25px" />
@@ -191,7 +191,7 @@
   sources</a>, la plupart des dépôts ont des
   <a href="https://github.com/hoaproject">miroirs sur Github</a>. Nous utilisons
   Github comme <strong><em lang="en">bug tracker</em></strong>, où toutes les
-  <em lang="en">issues</em> (travail) et les contributions se déroulent. Aussi,
+  <em lang="en">issues</em> (travail) et les contributions s'y déroulent. Aussi,
   plusieurs outils sont liés à Github comme les tableaux ou Composer (détaillé
   ci-après). Les miroirs sont uni-directionnels et un robot est responsable de
   tout <strong>synchroniser</strong>, pas d'inquiétude.</p>
@@ -351,7 +351,7 @@ $ git branch
   les tests</strong> afin de vous assurez qu'il n'y a pas de
   <strong>régressions</strong> ; en considérant que vous êtes toujours à la
   racine du dépôt :</p>
-  <pre><code class="language-shell">$ vendor/bin/hoa test:run --directories Test</code></pre>
+  <pre><code class="language-shell">$ vendor/bin/hoa test:run --directories Test/</code></pre>
   <p>Excellent ! Pour <strong>écrire</strong> des nouveaux tests, pour
   <strong>compléter</strong> des test existants ou pour en apprendre plus sur
   leur exécution, merci de vous référer à <a href="@hack:chapter=Test">la
@@ -377,9 +377,9 @@ $ git config --global user.email 'gordon@freeman.hl'</code></pre>
   gênant de ne pas en avoir assez. Un commit est <strong>atomique</strong>, il
   inclut une modification spécifique. Au minimum, le code doit être exécutable
   entre chaque commit.</p>
-  <p>La langue d'un commit est l'anglais. Son titre doit fait 50 charactères
+  <p>La langue d'un commit est l'anglais. Son titre doit fait 50 caractères
   maximum. Son corps doit être formatté en
-  <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> (même le
+  <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> (même
   <a href="https://help.github.com/articles/github-flavored-markdown/">la
   version Github de Markdown</a> est accepté). Un message de commit raconte une
   histoire. Sentez-vous libre d'ajouter des liens et d'autres références dans
@@ -395,14 +395,14 @@ $ git config --global user.email 'gordon@freeman.hl'</code></pre>
   « <em lang="en">blazing fast</em> » juste pour faire le
   « <em lang="en">buzz</em> ».  Nous identifions un problème, nous y
   réfléchissons, nous réfléchissons à plusieurs solutions et finalement,
-  nous proposons une façon d'y répondre en conversant scripuleusement la
+  nous proposons une façon d'y répondre en conservant scrupuleusement la
   compatibilité. Parfois, cela peut être un long processus mais c'est très
   important.</p>
   <p>Aussi, même si se forcer à répondre à ces questions quand nous écrivons un
   commit peut parfois s'avérer <strong>difficile</strong> ou ennuyant,
   croyez-nous, ce sera très <strong>apprécié</strong> quand elles seront lues
   plus tard.</p>
-  <p>Pour <strong>choisir</strong> précisément ce qui sera ajouter à l'intérieur
+  <p>Pour <strong>choisir</strong> précisément ce qui sera ajouté à l'intérieur
   du commit, nous recommandons de toujours utiliser le processus suivant :</p>
   <pre><code class="language-shell">$ git add --patch &amp;lt;file>
 $ git add --patch &amp;lt;another file>
@@ -418,7 +418,7 @@ $ git commit</code></pre>
   status</code> :</p>
   <pre><code class="language-shell">$ git status --long</code></pre>
   <p>Si vous avez fait une erreur pendant le commit, pas de soucis, vous êtes
-  toujours capables d'éditer votre message commit en exécutant :</p>
+  toujours capables d'éditer votre message de commit en exécutant :</p>
   <pre><code class="language-shell">$ git commit --amend</code></pre>
   <p>Ne modifiez pas le fichier <code>CHANGELOG.md</code>. Il est
   automatiquement généré.</p>
@@ -429,7 +429,7 @@ $ git commit</code></pre>
   commits. Soit vous utilisez la commande <code>git log</code> classique :</p>
   <pre><code class="language-shell">$ git log --decorate=full incoming..HEAD</code></pre>
   <p>Ou vous pouvez utiliser une commande <code>git log</code> améliorée que
-  nous allons appelé <code>graph</code> :</p>
+  nous allons appeler <code>graph</code> :</p>
   <pre><code class="language-shell">$ git config --global alias.graph "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&amp;lt;%an>%Creset' --abbrev-commit --date=relative"</code></pre>
   <p>Ainsi :</p>
   <pre><code class="language-shell">$ git graph incoming..HEAD</code></pre>
@@ -450,9 +450,9 @@ $ git commit</code></pre>
   <code>me</code> :</p>
   <pre><code class="language-shell">$ git push me awesome-feature</code></pre>
   <p>Ensuite, ouvrez votre navigateur et allez sur la page de votre
-  <em lang="en">fork</em> sur Github. Un boutton « <em lang="en">pull
+  <em lang="en">fork</em> sur Github. Un bouton « <em lang="en">pull
   request</em> » devrait apparaître rapidement. Cliquez dessus et la magie
-  commence.  Laissez-vous guider par l'interface de Github et créez votre
+  opère. Laissez-vous guider par l'interface de Github et créez votre
   <em lang="en">pull request</em>. Une <em lang="en">pull request</em> signifie :
   vous nous demandez de « tirer » (<em lang="en">pull</em>) votre travail, dans
   d'autres termes d'inclure votre travail. Nous utilions souvent PR pour
@@ -508,8 +508,8 @@ $ git commit</code></pre>
     <strong>profondes</strong>. Par local, nous entendons du dépôt (la
     bibliothèque la plupart du temps) ;</li>
     <li>le second relecteur vient plus tard et a des connaissances plus
-    <strong>larges</strong>. Il a une meilleur vue de comment le code doit être
-    intégré.</li>
+    <strong>larges</strong>. Il a une meilleure vue de comment le code doit
+    être intégré.</li>
   </ol>
   <p>Nous espérons pouvoir vous fournir deux relecteurs mais ce n'est pas
   toujours le cas.</p>
@@ -552,15 +552,14 @@ $ git commit</code></pre>
 
   <h2 id="Conclusion" for="main-toc">Conclusion</h2>
 
-  <p>Nous avons vu le <strong><em lang="en">workflow</em></strong> classique que
-  vous pouvez adopter en tant que contributeur (nouveau ou pas) :
-  <strong>quoi</strong> faire, <strong>comment</strong> le faire, avec
-  <strong>qui</strong> etc. Nous avons expliqué où obtenir de l'aide, les
-  personnes avec qui vous serez susceptible de parler et comment contribuer de
-  la meilleure façon. Certains outils ont été introduits pour vous aider, comme
-  vérifier et corriger les <em lang="en">coding styles</em>, tester etc. Enfin,
-  nous avons introduit le pack du contributeur : une récompense pour vos
-  contributions !</p>
+  <p>Nous avons vu le <strong>processus</strong> classique que vous pouvez
+  adopter en tant que contributeur (nouveau ou pas) : <strong>quoi</strong>
+  faire, <strong>comment</strong> le faire, avec <strong>qui</strong> etc. Nous
+  avons expliqué où obtenir de l'aide, les personnes avec qui vous serez
+  susceptible de parler et comment contribuer de la meilleure façon. Certains
+  outils ont été introduits pour vous aider, comme vérifier et corriger les
+  <em lang="en">coding styles</em>, tester etc. Enfin, nous avons introduit
+  le pack du contributeur : une récompense pour vos contributions !</p>
   <p>Nous espérons vraiment que vous vous sentez en confiance pour démarrer
   votre première contribution !</p>
 
