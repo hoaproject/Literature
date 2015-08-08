@@ -377,6 +377,192 @@ $ git config --global user.email 'gordon@freeman.hl'</code></pre>
   gênant de ne pas en avoir assez. Un commit est <strong>atomique</strong>, il
   inclut une modification spécifique. Au minimum, le code doit être exécutable
   entre chaque commit.</p>
+  <p>La langue d'un commit est l'anglais. Son titre doit fait 50 charactères
+  maximum. Son corps doit être formatté en
+  <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> (même le
+  <a href="https://help.github.com/articles/github-flavored-markdown/">la
+  version Github de Markdown</a> est accepté). Un message de commit raconte une
+  histoire. Sentez-vous libre d'ajouter des liens et d'autres références dans
+  le corps du commit. Il <strong>doit répondre</strong> aux questions
+  suivantes :</p>
+  <ol>
+    <li><strong>Quel était</strong> le problème ?</li>
+    <li><strong>Comment résoudre</strong> ce problème ?</li>
+    <li><strong>Comment nous avons résolu</strong> ce problème ?</li>
+  </ol>
+  <p>Ces questions reflètent la façon dont nous faisons tout dans Hoa (en
+  particulier la documentation). Nous ne proposons pas d'API « cool » ou
+  « <em lang="en">blazing fast</em> » juste pour faire le
+  « <em lang="en">buzz</em> ».  Nous identifions un problème, nous y
+  réfléchissons, nous réfléchissons à plusieurs solutions et finalement,
+  nous proposons une façon d'y répondre en conversant scripuleusement la
+  compatibilité. Parfois, cela peut être un long processus mais c'est très
+  important.</p>
+  <p>Aussi, même si se forcer à répondre à ces questions quand nous écrivons un
+  commit peut parfois s'avérer <strong>difficile</strong> ou ennuyant,
+  croyez-nous, ce sera très <strong>apprécié</strong> quand elles seront lues
+  plus tard.</p>
+  <p>Pour <strong>choisir</strong> précisément ce qui sera ajouter à l'intérieur
+  du commit, nous recommandons de toujours utiliser le processus suivant :</p>
+  <pre><code class="language-shell">$ git add --patch &amp;lt;file>
+$ git add --patch &amp;lt;another file>
+…
+$ git commit</code></pre>
+  <p>Remarquez que <code>git commit</code> n'a aucun argument parce que le patch
+  a été <strong>construit</strong> précédemment avec <code>git add</code>. (Nous
+  recommandons chaudement d'utiliser votre éditeur —défini à l'aide de la
+  variable d'environnement <code>$EDITOR</code>— pour éditer votre message de
+  commit : il n'est pas possible de remplir nos recommendations en ligne de
+  commande).</p>
+  <p>Pour vérifier ce qui a changé, vous pouvez utiliser la commande <code>git
+  status</code> :</p>
+  <pre><code class="language-shell">$ git status --long</code></pre>
+  <p>Si vous avez fait une erreur pendant le commit, pas de soucis, vous êtes
+  toujours capables d'éditer votre message commit en exécutant :</p>
+  <pre><code class="language-shell">$ git commit --amend</code></pre>
+  <p>Ne modifiez pas le fichier <code>CHANGELOG.md</code>. Il est
+  automatiquement généré.</p>
+
+  <h3 id="Review_all_your_commits" for="main-toc">Relire tous vos commits</h3>
+
+  <p>Parfois vous pourrez exprimer le besoin de <strong>lister</strong> tous vos
+  commits. Soit vous utilisez la commande <code>git log</code> classique :</p>
+  <pre><code class="language-shell">$ git log --decorate=full incoming..HEAD</code></pre>
+  <p>Ou vous pouvez utiliser une commande <code>git log</code> améliorée que
+  nous allons appelé <code>graph</code> :</p>
+  <pre><code class="language-shell">$ git config --global alias.graph "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&amp;lt;%an>%Creset' --abbrev-commit --date=relative"</code></pre>
+  <p>Ainsi :</p>
+  <pre><code class="language-shell">$ git graph incoming..HEAD</code></pre>
+
+  <h2 id="Publishing_a_patch" for="main-toc">Publication d'un patch</h2>
+
+  <p>Même si ce n'est pas complet, <strong>publier</strong> votre travail ! Tout
+  d'abord, nous serons très content de voir des personnes contribuer à Hoa, même
+  si ce n'est pas complet. Ensuite, cela offre un <strong>aperçu</strong> de ce
+  qui est en cours. Et enfin, ce sera plus facile pour vous d'obtenir de
+  l'<strong>aide</strong> puisque des personnes pourront suivre votre travail
+  pro-activement. Donc : publier votre contribution <strong>le plus tôt
+  possible</strong> !</p>
+  <p>Pour publier votre travail, les patches doivent être poussés sur votre
+  propre  fork. Si vous vous en rappelez, le <em lang="en">remote</em> faisant
+  référence à votre fork est appelé <code>me</code>. Vous devez alors pousser
+  votre branche <code>awesome-feature</code> sur votre <em lang="en">remote</em>
+  <code>me</code> :</p>
+  <pre><code class="language-shell">$ git push me awesome-feature</code></pre>
+  <p>Ensuite, ouvrez votre navigateur et allez sur la page de votre
+  <em lang="en">fork</em> sur Github. Un boutton « <em lang="en">pull
+  request</em> » devrait apparaître rapidement. Cliquez dessus et la magie
+  commence.  Laissez-vous guider par l'interface de Github et créez votre
+  <em lang="en">pull request</em>. Une <em lang="en">pull request</em> signifie :
+  vous nous demandez de « tirer » (<em lang="en">pull</em>) votre travail, dans
+  d'autres termes d'inclure votre travail. Nous utilions souvent PR pour
+  <em lang="en">pull request</em>.</p>
+
+  <h3 id="Rebase_when_asked" for="main-toc">Rebaser si nécessaire</h3>
+
+  <p>Nous vous conseillions de commiter autant que possible. Mais parfois, c'est
+  trop et ce n'est pas un problème du tout. En particulier quand vous avez
+  publié votre travail, nous en avons discuté ensemble et des nouveaux commits
+  ont été appliqués et publiés, l'<strong>historique</strong> résultant peut
+  être un petit confu. Nous aimons avoir un historique propre. C'est pourquoi
+  nous pouvons vous demander de rebaser votre travail : cela signifie réécrire
+  votre historique. La plupart du temps, l'opération consiste à « squasher » des
+  commits : vous avez 2 commits, vous squashez, vous obtenez 1 commit. La façon
+  la plus simple et la plus sûre de le faire est d'utiliser le mode interactif
+  en exécutant :</p>
+  <pre><code class="language-shell">$ git rebase --interactive incoming</code></pre>
+  <p>Faites attention en le faisant. C'est malheureusement
+  <strong>dangereux</strong> pour vos commits. Quand tout est propre, et parce
+  que c'est la dernière requête que nous pouvons vous demander, vous re-publiez
+  votre historique. Mais parce qu'il diffère de l'historique du
+  <em lang="en">remote</em>, vous avez besoin de le forcer en exécutant :</p>
+  <pre><code class="language-shell">$ git push me awesome-feature --force</code></pre>
+  <p>De notre côté, nous sommes prêts à intégrer votre contribution !</p>
+  <p>Note : si vous n'êtes pas familier avec <code>git rebase</code>, demandez
+  de l'aide !</p>
+
+  <h3 id="Reviewers" for="main-toc">Relecteurs</h3>
+
+  <p>Comment vos contributions vont être <strong>relues</strong> ? Quand la <em
+  lang="en">pull request</em> est créée, quelqu'un y sera
+  <strong>assigné</strong> rapidement. La plupart du temps, ce sera un hoacker.
+  Cette personne est en charge de :</p>
+  <ul>
+    <li>vous guider ;</li>
+    <li>vous aider ;</li>
+    <li>vous fournir des pointeurs et des liens vers des ressources utiles ;</li>
+    <li>etc.</li>
+  </ul>
+  <p>À n'importe quel moment, si vous êtes perdus, pingez le relecteur en
+  écrivant son pseudo préfixé de <code>@</code>. Une notification lui sera
+  envoyée. Merci de garder à l'esprit que toute personne engagée dans Hoa est un
+  <strong>volontaire</strong> et partage son temps libre. Si un relecteur semble
+  être loin de son clavier, pingez
+  <a href="https://github.com/orgs/hoaproject/teams/hoackers"><code>@hoaproject/hoackers</code></a>
+  pour notifier tous les hoackers d'un coup. Si vous vous sentez abusé,
+  pingez-les aussi.</p>
+  <p>Si suffisamment de personnes sont disponible, nous aimons faire une
+  <strong>double relecture</strong> :</p>
+  <ol>
+    <li>le premier relecteur a des connaissances locales et
+    <strong>profondes</strong>. Par local, nous entendons du dépôt (la
+    bibliothèque la plupart du temps) ;</li>
+    <li>le second relecteur vient plus tard et a des connaissances plus
+    <strong>larges</strong>. Il a une meilleur vue de comment le code doit être
+    intégré.</li>
+  </ol>
+  <p>Nous espérons pouvoir vous fournir deux relecteurs mais ce n'est pas
+  toujours le cas.</p>
+  <p>Note : être un relecteur est aussi une forme de contribution !</p>
+
+  <h3 id="Commiters" for="main-toc"><em lang="en">Commiters</em></h3>
+
+  <p>Quand vos patches ont été relus, c'est le moment pour le
+  <em lang="en">commiter</em> d'entrer en scène ! Le
+  <em lang="en">commiter</em> va charger votre <em lang="en">pull request</em>
+  localement sur sa machine. Ensuite, vos patches seront
+  <strong>appliqués</strong> et <strong>poussés</strong> sur la branche
+  <code>master</code> du <em lang="en">remote</em>
+  <a href="http://git.hoa-project.net"><code>git.hoa-project.net</code></a>.
+  Finalement, les miroirs seront synchronisés, accompagnés des
+  <em lang="en">issues</em> et <em lang="en">pull requests</em> de Github.
+  Jusqu'à maintenant, nous comptons peu de <em lang="en">commiters</em> pour
+  des raisons de sécurité.</p>
+  <p>Grosse nouvelle : <strong>vous êtes un contributeur</strong> !</p>
+
+  <h2 id="Contributor_pack" for="main-toc">Le pack du contributeur</h2>
+
+  <p>Nous <strong>aimons</strong> notre communauté et nous essayons de faire la
+  <strong>promotion de votre travail</strong> ! Par conséquent, nous maintenons
+  une liste exhaustive de tous les contributeurs sur
+  <a href="@community#Contributors">la page de la communauté</a>.</p>
+  <p>En plus de cette liste, nous vous offrons les « cadeaux » suivants :</p>
+  <ul>
+    <li>une adresse email :
+    <code><em>firstname</em>.<em>lastname</em>@hoa-project.net</code> avec son
+    alias <code><em>pseudo</em>@hoa-project.net</code> ;</li>
+    <li>une licence <a href="http://jetbrains.com/phpstorm/">PHPStorm</a> ;</li>
+    <li>un <em lang="en">cloak</em> IRC (permet de réserver son identifiant sur
+    nos salons) ;</li>
+    <li>quelques <em lang="en">goodies</em> durant les événements ;</li>
+    <li>des invitations et des offres spéciales à certains événements (si
+    plusieurs contributeurs vont à un événement, nous pouvons demander des
+    offres spéciales).</li>
+  </ul>
+
+  <h2 id="Conclusion" for="main-toc">Conclusion</h2>
+
+  <p>Nous avons vu le <strong><em lang="en">workflow</em></strong> classique que
+  vous pouvez adopter en tant que contributeur (nouveau ou pas) :
+  <strong>quoi</strong> faire, <strong>comment</strong> le faire, avec
+  <strong>qui</strong> etc. Nous avons expliqué où obtenir de l'aide, les
+  personnes avec qui vous serez susceptible de parler et comment contribuer de
+  la meilleure façon. Certains outils ont été introduits pour vous aider, comme
+  vérifier et corriger les <em lang="en">coding styles</em>, tester etc. Enfin,
+  nous avons introduit le pack du contributeur : une récompense pour vos
+  contributions !</p>
+  <p>Nous espérons vraiment que vous vous sentez en confiance pour démarrer
+  votre première contribution !</p>
 
   <comments />
 </yield>
