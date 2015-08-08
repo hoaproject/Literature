@@ -326,7 +326,7 @@ $ git branch
   <p>Once your code pretty, you can <strong>run tests</strong> to ensure there
   is no <strong>regression</strong> first; assuming you are still at the root of
   the repository:</p>
-  <pre><code class="language-shell">$ vendor/bin/hoa test:run --directories Test</code></pre>
+  <pre><code class="language-shell">$ vendor/bin/hoa test:run --directories Test/</code></pre>
   <p>Excellent! To <strong>write</strong> new tests, to
   <strong>complete</strong> existing ones or to learn more about their
   execution, please refer to <a href="@hack:chapter=Test">the documentation of
