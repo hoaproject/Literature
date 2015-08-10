@@ -309,11 +309,11 @@ $ git branch
   master</code></pre>
   <p>Vous êtes désormais <strong>prêts</strong> à écrire du code.</p>
   <p>Les fichiers que vous allez modifier seront probablement à la racine.
-  Modifiez les, sauvegardez les, exécutez les, vous êtes libres de faire ce que
+  Modifiez-les, sauvegardez-les, exécutez-les, vous êtes libres de faire ce que
   vous voulez. Supposez que tous les fichiers sont encodés en UTF-8. C'est
   important. Si vous avez besoin de programmes pour éditer votre code, nous
   pouvons vous aider (voir en-dessous).</p>
-  <p>Dans <a href="@source#Structure_of_a_library">la page des sources</a>, nous
+  <p>Sur <a href="@source#Structure_of_a_library">la page des sources</a>, nous
   apprenons quelle est la <strong>structure</strong> d'une bibliothèque. Vous
   devez la lire.</p>
 
@@ -419,11 +419,11 @@ $ git commit</code></pre>
   <p>Pour vérifier ce qui a changé, vous pouvez utiliser la commande <code>git
   status</code> :</p>
   <pre><code class="language-shell">$ git status --long</code></pre>
-  <p>Si vous avez fait une erreur pendant le commit, pas de soucis, vous êtes
-  toujours capables d'éditer votre message de commit en exécutant :</p>
+  <p>Si vous avez fait une erreur pendant le commit, pas de souci, vous êtes
+  toujours capable d'éditer votre message de commit en exécutant :</p>
   <pre><code class="language-shell">$ git commit --amend</code></pre>
   <p>Ne modifiez pas le fichier <code>CHANGELOG.md</code>. Il est
-  automatiquement généré.</p>
+  généré automatiquement.</p>
 
   <h3 id="Review_all_your_commits" for="main-toc">Relire tous vos commits</h3>
 
@@ -456,9 +456,9 @@ $ git commit</code></pre>
   request</em> » devrait apparaître rapidement. Cliquez dessus et la magie
   opère. Laissez-vous guider par l'interface de Github et créez votre
   <em lang="en">pull request</em>. Une <em lang="en">pull request</em> signifie :
-  vous nous demandez de « tirer » (<em lang="en">pull</em>) votre travail, dans
-  d'autres termes d'inclure votre travail. Nous utilions souvent PR pour
-  <em lang="en">pull request</em>.</p>
+  vous nous demandez de « tirer » (<em lang="en">pull</em>) votre travail, en
+  d'autres termes d'inclure votre travail. Nous utilions souvent l'abréviation
+  PR pour <em lang="en">pull request</em>.</p>
 
   <h3 id="Rebase_when_asked" for="main-toc">Rebaser si nécessaire</h3>
 
@@ -466,12 +466,12 @@ $ git commit</code></pre>
   trop et ce n'est pas un problème du tout. En particulier quand vous avez
   publié votre travail, nous en avons discuté ensemble et des nouveaux commits
   ont été appliqués et publiés, l'<strong>historique</strong> résultant peut
-  être un petit confu. Nous aimons avoir un historique propre. C'est pourquoi
-  nous pouvons vous demander de rebaser votre travail : cela signifie réécrire
-  votre historique. La plupart du temps, l'opération consiste à « squasher » des
-  commits : vous avez 2 commits, vous squashez, vous obtenez 1 commit. La façon
-  la plus simple et la plus sûre de le faire est d'utiliser le mode interactif
-  en exécutant :</p>
+  être un petit peu confus. Nous aimons avoir un historique propre. C'est
+  pourquoi nous pouvons vous demander de rebaser votre travail : cela signifie
+  réécrire votre historique. La plupart du temps, l'opération consiste à
+  « squasher » des commits : vous avez 2 commits, vous squashez, vous obtenez
+  1 commit. La façon la plus simple et la plus sûre de le faire est d'utiliser
+  le mode interactif en exécutant :</p>
   <pre><code class="language-shell">$ git rebase --interactive incoming</code></pre>
   <p>Faites attention en le faisant. C'est malheureusement
   <strong>dangereux</strong> pour vos commits. Quand tout est propre, et parce
@@ -495,7 +495,7 @@ $ git commit</code></pre>
     <li>vous fournir des pointeurs et des liens vers des ressources utiles ;</li>
     <li>etc.</li>
   </ul>
-  <p>À n'importe quel moment, si vous êtes perdus, pingez le relecteur en
+  <p>À n'importe quel moment, si vous êtes perdu, pingez le relecteur en
   écrivant son pseudo préfixé de <code>@</code>. Une notification lui sera
   envoyée. Merci de garder à l'esprit que toute personne engagée dans Hoa est un
   <strong>volontaire</strong> et partage son temps libre. Si un relecteur semble
@@ -503,7 +503,7 @@ $ git commit</code></pre>
   <a href="https://github.com/orgs/hoaproject/teams/hoackers"><code>@hoaproject/hoackers</code></a>
   pour notifier tous les hoackers d'un coup. Si vous vous sentez abusé,
   pingez-les aussi.</p>
-  <p>Si suffisamment de personnes sont disponible, nous aimons faire une
+  <p>Si suffisamment de personnes sont disponibles, nous aimons faire une
   <strong>double relecture</strong> :</p>
   <ol>
     <li>le premier relecteur a des connaissances locales et
