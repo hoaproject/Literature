@@ -457,7 +457,7 @@ $ git commit</code></pre>
   opère. Laissez-vous guider par l'interface de Github et créez votre
   <em lang="en">pull request</em>. Une <em lang="en">pull request</em> signifie :
   vous nous demandez de « tirer » (<em lang="en">pull</em>) votre travail, en
-  d'autres termes d'inclure votre travail. Nous utilions souvent l'abréviation
+  d'autres termes d'inclure votre travail. Nous utilisons souvent l'abréviation
   PR pour <em lang="en">pull request</em>.</p>
 
   <h3 id="Rebase_when_asked" for="main-toc">Rebaser si nécessaire</h3>
