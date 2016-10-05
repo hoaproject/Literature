@@ -166,11 +166,11 @@
 
   <h3 id="Repository" for="main-toc">Repository</h3>
 
-  <p>Hoa hosts its own <a href="http://git.hoa-project.net/">Git
+  <p>Hoa hosts its own <a href="https://git.hoa-project.net/">Git
   repositories</a>. The rules are the following:</p>
   <ul>
     <li>Everyone can <strong>read</strong> through <strong>HTTP</strong>:</li>
-    <pre><code class="language-shell">$ git clone http://git.hoa-project.net/Library/Websocket.git</code></pre>
+    <pre><code class="language-shell">$ git clone https://git.hoa-project.net/Library/Websocket.git</code></pre>
     <li>Commiters can <strong>read and write</strong> through <strong>SSH</strong>:</li>
     <pre><code class="language-shell">$ git clone git@git.hoa-project.net:Library/Websocket.git</code></pre>
   </ul>
@@ -478,7 +478,7 @@ $ git commit</code></pre>
   <p>When your patches have been reviewed, it is time for the commiter to come
   on stage! The commiter will fetch your pull request locally on its computer.
   Then your patches will be <strong>merged</strong> and <strong>pushed</strong>
-  to the <code>master</code> branch on <a href="http://git.hoa-project.net">the
+  to the <code>master</code> branch on <a href="https://git.hoa-project.net">the
   <code>git.hoa-project.net</code> remote</a>. Finally, mirrors will be synced,
   along with Github issues and pull requests. So far, there is very few
   commiters for security reasons.</p>

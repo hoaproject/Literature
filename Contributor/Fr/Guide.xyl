@@ -180,11 +180,11 @@
 
   <h3 id="Repository" for="main-toc">Dépôt</h3>
 
-  <p>Hoa héberge ses propres <a href="http://git.hoa-project.net/">dépôts
+  <p>Hoa héberge ses propres <a href="https://git.hoa-project.net/">dépôts
   Git</a>. Les règles sont les suivantes :</p>
   <ul>
     <li>tout le monde peut <strong>lire</strong> à travers <strong>HTTP</strong> :</li>
-    <pre><code class="language-shell">$ git clone http://git.hoa-project.net/Library/Websocket.git</code></pre>
+    <pre><code class="language-shell">$ git clone https://git.hoa-project.net/Library/Websocket.git</code></pre>
     <li>les <em lang="en">commiters</em> peuvent <strong>lire et écrire</strong>
     à travers <strong>SSH</strong> :</li>
     <pre><code class="language-shell">$ git clone git@git.hoa-project.net:Library/Websocket.git</code></pre>
@@ -525,7 +525,7 @@ $ git commit</code></pre>
   localement sur sa machine. Ensuite, vos patches seront
   <strong>appliqués</strong> et <strong>poussés</strong> sur la branche
   <code>master</code> du <em lang="en">remote</em>
-  <a href="http://git.hoa-project.net"><code>git.hoa-project.net</code></a>.
+  <a href="https://git.hoa-project.net"><code>git.hoa-project.net</code></a>.
   Finalement, les miroirs seront synchronisés, accompagnés des
   <em lang="en">issues</em> et <em lang="en">pull requests</em> de Github.
   Jusqu'à maintenant, nous comptons peu de <em lang="en">commiters</em> pour
