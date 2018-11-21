@@ -425,6 +425,43 @@ $ git commit</code></pre>
   <p>Ne modifiez pas le fichier <code>CHANGELOG.md</code>. Il est
   généré automatiquement.</p>
 
+  <h3 id="Commit_message_structure" for="main-toc">Structure d'un message de commit</h3>
+
+  <p>Comme nous l'avons vu précédemment, le titre d'un commit fait 50 caractères
+  au maximum. Ce titre se doit d'être précis et sa lecture
+  doit permettre d'identifier la modification apportée.</p>
+
+  <p>Pour faciliter l'écriture de ce titre, nous avons défini une structure
+  type&nbsp;: <code>type(scope) title</code>.<p>
+
+  <p>Cette structure permet de décrire quel est le type de commit et sur quoi il
+  porte. Nous avons en effet isolé plusieurs types récurrents dans un
+  projet&nbsp;:</p>
+
+  <ul>
+    <li><code>chore</code> pour tout ce qui concerne la « qualité »&nbsp;;</li>
+    <li><code>fix</code> pour un correctif&nbsp;;</li>
+    <li><code>feat</code> pour une nouvelle fonctionnalité&nbsp;;</li>
+    <li><code>depr</code> pour une fonctionnalité dépréciée&nbsp;;</li>
+    <li><code>sec</code> pour une modification liée à la sécurité&nbsp;;</li>
+    <li><code>doc</code> pour tout ce qui se rapporte à la documentation&nbsp;;</li>
+    <li><code>test</code> pour une modification liée aux tests&nbsp;;</li>
+    <li><code>undef</code> pour tout le reste.</li>
+  </ul>
+
+  <p>Nous obtenons par exemple&nbsp;:</p>
+
+  <ul>
+    <li><code>feat(permission) Search backward bla bla.,</code></li>
+    <li><code>fix(user) `getName` is incorrectly computing its value.,</code></li>
+  </ul>
+
+  <p>L'objectif de la normalisation des messages de commit est de permettre la
+  génération d'un fichier <code>CHANGELOG</code> tel que suggéré par
+  <a href="http://keepachangelog.com/fr/1.0.0/">Keep a changelog</a>,
+  avec des sections « Ajouts », « Correctifs », « Suppressions » ainsi que la date
+  de la sortie des versions.</p>
+
   <h3 id="Review_all_your_commits" for="main-toc">Relire tous vos commits</h3>
 
   <p>Parfois vous pourrez exprimer le besoin de <strong>lister</strong> tous vos

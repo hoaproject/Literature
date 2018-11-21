@@ -389,8 +389,43 @@ $ git commit</code></pre>
   <p>If you made a mistake while commiting, no worry, you are still able to edit
   your commit message by running:</p>
   <pre><code class="language-shell">$ git commit --amend</code></pre>
-  <p>Do not edit the <code>CHANGELOG.md</code> file. It is automatically
-  generated.</p>
+  <p>Do not edit this <code>CHANGELOG.md</code> file. It is automatically
+ generated.</p>
+
+  <h3 id="Commit_message_structure" for="main-toc">Commit message structure</h3>
+
+  <p>As seen in the previous section, a commit title must be less than 50
+  characters long. This title must be precise and straightforward and describe
+  the corresponding modifications.</p>
+
+  <p>Use the following structure to write the title
+  <code>type(scope) title</code>.<p>
+
+  <p>This structure allows you to easily describe the type of the commit in
+  question and what parts of the code are affected. We have identified several
+  categories of commits in a project:</p>
+
+  <ul>
+    <li><code>chore</code> for addressing quality issues,</li>
+    <li><code>fix</code> for fixing a bug,</li>
+    <li><code>feat</code> for creating a new feature,</li>
+    <li><code>depr</code> for a deprecation notice,</li>
+    <li><code>sec</code> for addressing security issues,</li>
+    <li><code>doc</code> for modifying documentation,</li>
+    <li><code>test</code> for testing a modification,</li>
+    <li><code>undef</code> for anything else.</li>
+  </ul>
+
+  <p>For example, </p>
+
+  <ul>
+    <li><code>feat(permission) Search backward bla bla.</code>,</li>
+    <li><code>fix(user) `getName` is incorrectly computing its value.</code></li>
+  </ul>
+
+  <p>The goal is to generate a <code>CHANGELOG</code> file as suggested by
+  <a href="http://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
+  with “Added”, “Bug fixes”, “Removed“ Sections, and the date of releases.</p>
 
   <h3 id="Review_all_your_commits" for="main-toc">Review all your commits</h3>
 
